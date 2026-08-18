@@ -1,0 +1,17 @@
+.theme-controls {
+  display: grid;
+  grid-template-columns: min-content max-content;
+  align-items: center;
+  row-gap: var(--md-user-spacing-md);
+  column-gap: var(--md-user-spacing-lg);
+}
+
+.color-roles {
+  border-radius: var(--md-sys-shape-corner-large);
+  contain: paint;
+  margin: var(--md-user-spacing-lg);
+
+  @media (width < 600px) {
+    margin: var(--md-user-spacing-md);
+  }
+}

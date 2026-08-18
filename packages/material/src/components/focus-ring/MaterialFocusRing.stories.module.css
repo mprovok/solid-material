@@ -1,0 +1,18 @@
+@layer material.components {
+  .container {
+    position: relative;
+    width: fit-content;
+
+    --md-focus-ring-shape: var(--md-sys-shape-corner-medium);
+  }
+
+  .element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--md-sys-shape-corner-medium);
+    outline: 1px solid var(--md-sys-color-outline);
+  }
+}

@@ -1,0 +1,37 @@
+@layer material.components {
+  :root {
+    /* Variant text */
+
+    /* Enabled */
+    --md-comp-icon-button-text-icon-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-icon-button-text-icon-color-selected: var(--md-sys-color-primary);
+
+    /* Hovered */
+    --md-comp-icon-button-text-hovered-container-state-layer-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-icon-button-text-hovered-container-state-layer-color-selected: var(--md-sys-color-on-surface-variant);
+
+    /* Focused */
+    /* --md-comp-icon-button-text-focused-container-state-layer-color-unselected: var(--md-sys-color-on-surface-variant); */
+    /* --md-comp-icon-button-text-focused-container-state-layer-color-selected: var(--md-sys-color-primary); */
+
+    /* Pressed */
+    --md-comp-icon-button-text-pressed-container-state-layer-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-icon-button-text-pressed-container-state-layer-color-selected: var(--md-sys-color-primary);
+  }
+
+  .button > sm-button[data-variant='text'][data-toggle]:not(:has(> :is(a, button):disabled)) {
+    &[data-toggle='false'] {
+      --md-comp-button-icon-color: var(--md-comp-icon-button-text-icon-color-unselected);
+
+      --md-ripple-hover-color: var(--md-comp-icon-button-text-hovered-container-state-layer-color-unselected);
+      --md-ripple-pressed-color: var(--md-comp-icon-button-text-pressed-container-state-layer-color-unselected);
+    }
+
+    &[data-toggle='true'] {
+      --md-comp-button-icon-color: var(--md-comp-icon-button-text-icon-color-selected);
+
+      --md-ripple-hover-color: var(--md-comp-icon-button-text-hovered-container-state-layer-color-selected);
+      --md-ripple-pressed-color: var(--md-comp-icon-button-text-pressed-container-state-layer-color-selected);
+    }
+  }
+}

@@ -1,0 +1,368 @@
+.container {
+  container-type: inline-size;
+}
+
+.color-roles {
+  display: grid;
+  gap: var(--md-user-spacing-md);
+  min-height: 550px;
+
+  @container (width < 500px) {
+    grid-template-areas:
+      'accent-colors accent-colors accent-colors'
+      'accent-colors accent-colors accent-colors'
+      'accent-fixed accent-fixed accent-fixed'
+      'accent-colors-error accent-colors-error inverses-scrim'
+      'surfaces surfaces surfaces';
+    column-gap: var(--md-user-spacing-xs);
+  }
+
+  @container (width >= 500px) {
+    grid-template-areas:
+      'accent-colors accent-colors accent-colors accent-colors-error'
+      'accent-colors accent-colors accent-colors accent-colors-error'
+      'accent-fixed accent-fixed accent-fixed none'
+      'surfaces surfaces surfaces inverses-scrim';
+  }
+}
+
+[data-role] div {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    padding: var(--md-user-spacing-sm);
+    flex-grow: 1;
+    font-size: small;
+    overflow-wrap: anywhere;
+  }
+}
+
+[data-role='accent-colors'] {
+  grid-area: accent-colors;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  gap: var(--md-user-spacing-xs);
+}
+
+[data-role='accent-fixed'] {
+  grid-area: accent-fixed;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  gap: var(--md-user-spacing-xs);
+
+  [data-role='fixed'] {
+    display: flex;
+    flex-direction: row;
+
+    @container (width < 500px) {
+      flex-direction: column;
+    }
+  }
+}
+
+[data-role='accent-colors-error'] {
+  grid-area: accent-colors-error;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  gap: var(--md-user-spacing-xs);
+}
+
+[data-role='surfaces'] {
+  grid-area: surfaces;
+  display: grid;
+  gap: var(--md-user-spacing-xs);
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+[data-role='inverses-scrim'] {
+  grid-area: inverses-scrim;
+  display: grid;
+
+  & > [data-role='inverses'] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  > [data-role='scrim'] {
+    display: flex;
+    flex-direction: row;
+
+    @container (width < 500px) {
+      flex-direction: column;
+    }
+  }
+}
+
+[data-role='accent-color-primary'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-primary, red);
+    color: var(--md-sys-color-on-primary, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-primary, red);
+    color: var(--md-sys-color-primary, red);
+  }
+}
+
+[data-role='accent-color-secondary'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-secondary, red);
+    color: var(--md-sys-color-on-secondary, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-secondary, red);
+    color: var(--md-sys-color-secondary, red);
+  }
+}
+
+[data-role='accent-color-tertiary'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-tertiary, red);
+    color: var(--md-sys-color-on-tertiary, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-tertiary, red);
+    color: var(--md-sys-color-tertiary, red);
+  }
+}
+
+[data-role='accent-color-primary-container'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-primary-container, red);
+    color: var(--md-sys-color-on-primary-container, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-primary-container, red);
+    color: var(--md-sys-color-primary-container, red);
+  }
+}
+
+[data-role='accent-color-secondary-container'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-secondary-container, red);
+    color: var(--md-sys-color-on-secondary-container, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-secondary-container, red);
+    color: var(--md-sys-color-secondary-container, red);
+  }
+}
+
+[data-role='accent-color-tertiary-container'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-tertiary-container, red);
+    color: var(--md-sys-color-on-tertiary-container, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-tertiary-container, red);
+    color: var(--md-sys-color-tertiary-container, red);
+  }
+}
+
+[data-role='accent-color-primary-fixed'] {
+  :nth-child(1) {
+    :nth-child(1) {
+      background-color: var(--md-sys-color-primary-fixed, red);
+      color: var(--md-sys-color-on-primary-fixed, red);
+    }
+    :nth-child(2) {
+      background-color: var(--md-sys-color-primary-fixed-dim, red);
+      color: var(--md-sys-color-on-primary-fixed, red);
+    }
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-primary-fixed, red);
+    color: var(--md-sys-color-primary-fixed, red);
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-on-primary-fixed-variant, red);
+    color: var(--md-sys-color-primary-fixed-dim, red);
+  }
+}
+
+[data-role='accent-color-secondary-fixed'] {
+  :nth-child(1) {
+    :nth-child(1) {
+      background-color: var(--md-sys-color-secondary-fixed, red);
+      color: var(--md-sys-color-on-secondary-fixed, red);
+    }
+    :nth-child(2) {
+      background-color: var(--md-sys-color-secondary-fixed-dim, red);
+      color: var(--md-sys-color-on-secondary-fixed, red);
+    }
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-secondary-fixed, red);
+    color: var(--md-sys-color-secondary-fixed, red);
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-on-secondary-fixed-variant, red);
+    color: var(--md-sys-color-secondary-fixed-dim, red);
+  }
+}
+
+[data-role='accent-color-tertiary-fixed'] {
+  :nth-child(1) {
+    :nth-child(1) {
+      background-color: var(--md-sys-color-tertiary-fixed, red);
+      color: var(--md-sys-color-on-tertiary-fixed, red);
+    }
+    :nth-child(2) {
+      background-color: var(--md-sys-color-tertiary-fixed-dim, red);
+      color: var(--md-sys-color-on-tertiary-fixed, red);
+    }
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-tertiary-fixed, red);
+    color: var(--md-sys-color-tertiary-fixed, red);
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-on-tertiary-fixed-variant, red);
+    color: var(--md-sys-color-tertiary-fixed-dim, red);
+  }
+}
+
+[data-role='accent-color-error'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-error, red);
+    color: var(--md-sys-color-on-error, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-error, red);
+    color: var(--md-sys-color-error, red);
+  }
+}
+
+[data-role='accent-color-error-container'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-error-container, red);
+    color: var(--md-sys-color-on-error-container, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-on-error-container, red);
+    color: var(--md-sys-color-error-container, red);
+  }
+}
+
+[data-role='surface'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-surface-dim, red);
+    color: var(--md-sys-color-inverse-surface, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-surface, red);
+    color: var(--md-sys-color-on-surface, red);
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-surface-bright, red);
+    color: var(--md-sys-color-inverse-surface, red);
+  }
+}
+
+[data-role='surface-container'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-surface-container-lowest, red);
+    color: var(--md-sys-color-on-surface, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-surface-container-low, red);
+    color: var(--md-sys-color-on-surface, red);
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-surface-container, red);
+    color: var(--md-sys-color-on-surface, red);
+  }
+
+  :nth-child(4) {
+    background-color: var(--md-sys-color-surface-container-high, red);
+    color: var(--md-sys-color-on-surface, red);
+  }
+
+  :nth-child(5) {
+    background-color: var(--md-sys-color-surface-container-highest, red);
+    color: var(--md-sys-color-on-surface, red);
+  }
+}
+
+[data-role='surface-variant'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-on-surface, red);
+    color: var(--md-sys-color-surface, red);
+  }
+
+  :nth-child(2) {
+    :nth-child(1) {
+      background-color: var(--md-sys-color-surface-variant, red);
+      color: var(--md-sys-color-on-surface-variant, red);
+    }
+
+    :nth-child(2) {
+      background-color: var(--md-sys-color-on-surface-variant, red);
+      color: var(--md-sys-color-surface-variant, red);
+    }
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-outline, red);
+    color: var(--md-sys-color-surface, red);
+  }
+
+  :nth-child(4) {
+    background-color: var(--md-sys-color-outline-variant, red);
+    color: var(--md-sys-color-surface, red);
+  }
+}
+
+[data-role='inverses'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-inverse-surface, red);
+    color: var(--md-sys-color-inverse-on-surface, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-inverse-on-surface, red);
+    color: var(--md-sys-color-inverse-surface, red);
+  }
+
+  :nth-child(3) {
+    background-color: var(--md-sys-color-inverse-primary, red);
+  }
+}
+
+[data-role='scrim'] {
+  :nth-child(1) {
+    background-color: var(--md-sys-color-scrim, red);
+    color: var(--md-sys-color-inverse-on-surface, red);
+  }
+
+  :nth-child(2) {
+    background-color: var(--md-sys-color-shadow, red);
+    color: var(--md-sys-color-inverse-on-surface, red);
+  }
+}

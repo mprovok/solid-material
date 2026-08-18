@@ -1,0 +1,272 @@
+@layer material.components {
+  :root {
+    --md-comp-nav-rail-container-width: 96px;
+    --md-comp-nav-rail-container-min-width: 80px;
+
+    --md-comp-nav-rail-container-collapsed-item-gap: 20px;
+
+    --md-comp-nav-rail-container-expanded-min-width: 220px;
+    --md-comp-nav-rail-container-expanded-max-width: 360px;
+
+    --md-comp-nav-rail-container-shape: var(--md-sys-shape-corner-none);
+    --md-comp-nav-rail-container-color: var(--md-sys-color-surface-container);
+    --md-comp-nav-rail-container-elevation: var(--md-sys-elevation-level0);
+
+    --md-comp-nav-rail-container-expanded-modal-elevation: var(--md-sys-elevation-level2);
+    --md-comp-nav-rail-container-expanded-modal-color: var(--md-sys-color-surface-container);
+    --md-comp-nav-rail-container-expanded-modal-shape: var(--md-sys-shape-corner-large);
+
+    --md-comp-nav-rail-secondary-text-color: var(--md-sys-color-on-surface-variant);
+
+    --md-comp-nav-rail-text-size: 0.875rem;
+    --md-comp-nav-rail-text-line-height: 1.25rem;
+  }
+
+  .container {
+    position: relative;
+
+    &[data-modal] {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9999;
+
+      &:dir(rtl) {
+        right: 0;
+        left: unset;
+      }
+
+      &[data-always-expanded] {
+        &[data-show] {
+          .fixed-menu-button {
+            visibility: hidden;
+          }
+
+          /**
+           * If modal and always expanded, keep width fixed and instead
+           * animate translate from -100% to 0%
+           */
+          .rail-container {
+            translate: 0%;
+          }
+        }
+
+        &:not([data-show]) {
+          /**
+           * Because the container itself is not moved to avoid layout shift
+           * and instead 'moved' out of view by translating it using `translate`,
+           * make sure the user can click on elements that are behind the container
+           */
+          pointer-events: none;
+
+          .rail sm-icon-button {
+            visibility: hidden;
+          }
+
+          .rail-container {
+            translate: -100%;
+          }
+        }
+
+        .rail-container {
+          transition: translate var(--md-sys-motion-duration-emphasized) var(--md-sys-motion-easing-emphasized);
+        }
+      }
+    }
+
+    sm-icon-button {
+      margin: 12px 8px;
+    }
+
+    .fixed-menu-button {
+      position: absolute;
+      top: 0;
+      left: 20px;
+
+      /**
+       * When the navigation rail is hidden on small screens, its pointer events
+       * are disabled above so that the user can click on elements which are found
+       * on the left side of the screen (and 'behind' the expanded rail).
+       *
+       * Except for the absolutely-positioned menu button, which remains visible.
+       */
+      pointer-events: all;
+    }
+  }
+
+  /* Rail containing FAB and items */
+  .rail {
+    background-color: var(--md-comp-nav-rail-container-color);
+    border-top-right-radius: var(--md-comp-nav-rail-container-shape);
+    border-bottom-right-radius: var(--md-comp-nav-rail-container-shape);
+    --md-elevation-level: var(--md-comp-nav-rail-container-elevation);
+
+    display: block;
+    padding-inline: 20px;
+
+    height: 100vh;
+    overflow-x: hidden;
+
+    transition:
+      background-color var(--md-sys-motion-duration-effects-default) var(--md-sys-motion-spring-effects-default),
+      width var(--md-sys-motion-duration-spatial-default) var(--md-sys-motion-spring-spatial-default),
+      min-width var(--md-sys-motion-duration-spatial-default) var(--md-sys-motion-spring-spatial-default),
+      max-width var(--md-sys-motion-duration-spatial-default) var(--md-sys-motion-spring-spatial-default),
+      border-top-right-radius var(--md-sys-motion-duration-spatial-default) var(--md-sys-motion-spring-spatial-default),
+      border-bottom-right-radius var(--md-sys-motion-duration-spatial-default)
+        var(--md-sys-motion-spring-spatial-default);
+
+    &[data-expanded] {
+      min-width: var(--md-comp-nav-rail-container-expanded-min-width);
+      max-width: var(--md-comp-nav-rail-container-expanded-max-width);
+    }
+
+    &:not([data-expanded]) {
+      width: var(--md-comp-nav-rail-container-width);
+      min-width: var(--md-comp-nav-rail-container-min-width);
+      max-width: var(--md-comp-nav-rail-container-width);
+    }
+
+    sm-fab {
+      margin-bottom: 44px;
+    }
+
+    .menu-fab {
+      display: flex;
+      flex-direction: column;
+
+      /* Prevent expressive motion of collapsing rail from compressing FAB a bit */
+      min-width: fit-content;
+
+      /* Prevent the FAB or buttons from touching the top edge of the viewport */
+      &:not(:has(sm-icon-button)) {
+        padding-top: 20px;
+      }
+    }
+
+    .items {
+      width: 100%;
+    }
+
+    .center-items {
+      /* Subtract 20px because of the padding-top of .menu-fab */
+      min-height: calc(100vh - 20px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .secondary-header {
+      white-space: nowrap;
+      color: var(--md-comp-nav-rail-secondary-text-color);
+      padding-block: 12px 8px;
+      padding-inline: var(--md-comp-nav-item-active-indicator-padding);
+    }
+
+    /**
+     * Subtract the height of the menu button, FAB, and some margins two times
+     * from the screen height to compute the minimum height of the wrapper around
+     * the items so that the items are vertically centered on the screen when they
+     * need to be and if there is enough space.
+     *
+     * On screens with a compact height the items will not overlap with the menu button
+     * or FAB.
+     */
+
+    .menu-fab:has(sm-icon-button) + .center-items {
+      min-height: calc(100vh - 2 * 64px); /* 64px (menu button) */
+    }
+
+    .menu-fab:has(> sm-fab) + .center-items {
+      min-height: calc(100vh - 2 * 120px); /* 20px (margin) + 56px (FAB) + 44px (margin-bottom of FAB) */
+    }
+
+    .menu-fab:has(sm-icon-button):has(> sm-fab) + .center-items {
+      min-height: calc(100vh - 2 * 164px); /* 64px (menu button) + 56px (FAB) + 44px (margin-bottom of FAB) */
+    }
+  }
+
+  .container[data-modal] .rail[data-expanded] {
+    background-color: var(--md-comp-nav-rail-container-expanded-modal-color);
+    border-top-right-radius: var(--md-comp-nav-rail-container-expanded-modal-shape);
+    border-bottom-right-radius: var(--md-comp-nav-rail-container-expanded-modal-shape);
+  }
+
+  .container[data-modal]:is(:not([data-always-expanded]), [data-show]) .rail[data-expanded] {
+    --md-elevation-level: var(--md-comp-nav-rail-container-expanded-modal-elevation);
+  }
+
+  .container[data-center] .center-items {
+    justify-content: center;
+  }
+
+  /* Floating action button */
+  .rail sm-fab {
+    --md-comp-fab-elevation: var(--md-sys-elevation-level0);
+    --md-comp-fab-hovered-elevation: var(--md-sys-elevation-level1);
+    --md-comp-fab-focused-elevation: var(--md-sys-elevation-level0);
+    --md-comp-fab-pressed-elevation: var(--md-sys-elevation-level0);
+  }
+
+  /* Items */
+  .items {
+    display: grid;
+    row-gap: 0;
+
+    /* WebKit does not animate margin-block */
+    transition-property: row-gap, margin-top, margin-bottom;
+    transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+    transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+
+    .secondary-header,
+    .secondary-header ~ [role='menuitem'] {
+      transition:
+        margin-top var(--md-sys-motion-duration-standard-spatial-fast) var(--md-sys-motion-spring-standard-spatial-fast),
+        opacity var(--md-sys-motion-duration-effects-default) var(--md-sys-motion-spring-effects-default),
+        visibility var(--md-sys-motion-duration-effects-default) var(--md-sys-motion-spring-effects-default)
+          allow-discrete;
+    }
+  }
+
+  .rail {
+    --md-comp-nav-item-indicator-text-size: var(--md-comp-nav-rail-text-size);
+    --md-comp-nav-item-indicator-text-line-height: var(--md-comp-nav-rail-text-line-height);
+
+    &[data-expanded] {
+      .items {
+        /* Fade in secondary items when rail expands */
+        .secondary-header,
+        .secondary-header ~ [role='menuitem'] {
+          margin-top: 0;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    &:not([data-expanded]) {
+      .items {
+        row-gap: var(--md-comp-nav-rail-container-collapsed-item-gap);
+
+        /**
+         * Prevent the icons from moving on the Y-axis while the rail expands or collapse.
+         * The (active) indicator has a height of 32px while collapsed and 56px when expanded.
+         * With an icon size of 24px the padding between the icon and the edge of the indicator
+         * changes from (32px - 24px) / 2 = 4px when collapsed, to (56px - 24px) / 2 = 16px when expanded.
+         */
+        margin-top: 12px;
+        margin-bottom: 12px;
+
+        /* Fade out secondary items when rail collapses */
+        .secondary-header,
+        .secondary-header ~ [role='menuitem'] {
+          margin-top: calc(-1 * var(--md-comp-nav-item-active-indicator-expanded-height-rail));
+          opacity: 0;
+          visibility: hidden;
+        }
+        .secondary-header {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

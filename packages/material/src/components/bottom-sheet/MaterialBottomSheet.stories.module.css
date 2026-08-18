@@ -1,0 +1,18 @@
+.bottom-sheet {
+  sm-bottom-sheet section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  sm-card {
+    height: 150px;
+
+    scroll-snap-align: end;
+  }
+
+  .close {
+    display: flex;
+    justify-content: center;
+  }
+}

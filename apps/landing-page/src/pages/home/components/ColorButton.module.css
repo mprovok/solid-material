@@ -1,0 +1,15 @@
+@layer material.components {
+  .container {
+    position: relative;
+
+    input {
+      position: absolute;
+      opacity: 0;
+
+      width: 40px;
+      height: 40px;
+      border: unset;
+      padding: unset;
+    }
+  }
+}

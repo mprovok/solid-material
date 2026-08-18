@@ -1,0 +1,120 @@
+@layer material.transitions {
+  @keyframes slide-out-to-left {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-5%);
+    }
+  }
+
+  @keyframes slide-out-to-right {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(5%);
+    }
+  }
+
+  @keyframes slide-in-from-left {
+    from {
+      transform: translateX(-5%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes slide-in-from-right {
+    from {
+      transform: translateX(5%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes mix-blend-mode-plus-lighter {
+    from,
+    to {
+      mix-blend-mode: plus-lighter;
+    }
+  }
+
+  :root {
+    view-transition-name: none;
+
+    &:active-view-transition {
+      &::view-transition-group(root),
+      &::view-transition-old(root),
+      &::view-transition-new(root) {
+        animation: none;
+        display: none;
+      }
+    }
+  }
+
+  :root:active-view-transition-type(top-level) {
+    &::view-transition-old(sm-body-layout) {
+      animation-name: fade-out;
+      animation-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+      animation-duration: var(--md-sys-motion-duration-short1);
+    }
+
+    &::view-transition-new(sm-body-layout) {
+      animation-name: fade-in;
+      animation-timing-function: var(--md-sys-motion-easing-emphasized);
+      animation-duration: var(--md-sys-motion-duration-short3);
+      animation-delay: var(--md-sys-motion-duration-short1);
+    }
+  }
+
+  :root:active-view-transition-type(forward) {
+    &::view-transition-old(sm-body-layout) {
+      animation-name: slide-out-to-left, fade-out, mix-blend-mode-plus-lighter;
+      animation-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+      animation-duration: var(--md-sys-motion-duration-short3);
+    }
+
+    &::view-transition-new(sm-body-layout) {
+      animation-name: slide-in-from-right, fade-in, mix-blend-mode-plus-lighter;
+      animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+      animation-duration: var(--md-sys-motion-duration-medium3);
+      animation-delay: var(--md-sys-motion-duration-short3);
+    }
+  }
+
+  :root:active-view-transition-type(backward) {
+    &::view-transition-old(sm-body-layout) {
+      animation-name: slide-out-to-right, fade-out, mix-blend-mode-plus-lighter;
+      animation-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+      animation-duration: var(--md-sys-motion-duration-short3);
+    }
+
+    &::view-transition-new(sm-body-layout) {
+      animation-name: slide-in-from-left, fade-in, mix-blend-mode-plus-lighter;
+      animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+      animation-duration: var(--md-sys-motion-duration-medium3);
+      animation-delay: var(--md-sys-motion-duration-short3);
+    }
+  }
+}

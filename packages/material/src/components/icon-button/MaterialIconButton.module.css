@@ -1,0 +1,70 @@
+@import './styling/variants/MaterialIconButtonVariantText.module.css';
+
+@import './styling/toggle/MaterialIconButtonToggleText.module.css';
+
+@layer material.components {
+  :root {
+    /* Icon size */
+    --md-comp-icon-button-extra-small-icon-size: 20px;
+    --md-comp-icon-button-small-icon-size: 24px;
+    --md-comp-icon-button-medium-icon-size: 24px;
+    --md-comp-icon-button-large-icon-size: 32px;
+    --md-comp-icon-button-extra-large-icon-size: 40px;
+
+    /* Padding */
+
+    --md-comp-icon-button-extra-small-narrow-padding: 4px;
+    --md-comp-icon-button-extra-small-default-padding: 6px;
+    --md-comp-icon-button-extra-small-wide-padding: 10px;
+
+    --md-comp-icon-button-small-narrow-padding: 4px;
+    --md-comp-icon-button-small-default-padding: 8px;
+    --md-comp-icon-button-small-wide-padding: 14px;
+
+    --md-comp-icon-button-medium-narrow-padding: 12px;
+    --md-comp-icon-button-medium-default-padding: 16px;
+    --md-comp-icon-button-medium-wide-padding: 24px;
+
+    --md-comp-icon-button-large-narrow-padding: 16px;
+    --md-comp-icon-button-large-default-padding: 32px;
+    --md-comp-icon-button-large-wide-padding: 48px;
+
+    --md-comp-icon-button-extra-large-narrow-padding: 32px;
+    --md-comp-icon-button-extra-large-default-padding: 48px;
+    --md-comp-icon-button-extra-large-wide-padding: 72px;
+  }
+
+  .button[data-width='narrow'] {
+    --md-comp-button-extra-small-padding: var(--md-comp-icon-button-extra-small-narrow-padding);
+    --md-comp-button-small-padding: var(--md-comp-icon-button-small-narrow-padding);
+    --md-comp-button-medium-padding: var(--md-comp-icon-button-medium-narrow-padding);
+    --md-comp-button-large-padding: var(--md-comp-icon-button-large-narrow-padding);
+    --md-comp-button-extra-large-padding: var(--md-comp-icon-button-extra-large-narrow-padding);
+  }
+
+  .button[data-width='default'] {
+    --md-comp-button-extra-small-padding: var(--md-comp-icon-button-extra-small-default-padding);
+    --md-comp-button-small-padding: var(--md-comp-icon-button-small-default-padding);
+    --md-comp-button-medium-padding: var(--md-comp-icon-button-medium-default-padding);
+    --md-comp-button-large-padding: var(--md-comp-icon-button-large-default-padding);
+    --md-comp-button-extra-large-padding: var(--md-comp-icon-button-extra-large-default-padding);
+  }
+
+  .button[data-width='wide'] {
+    --md-comp-button-extra-small-padding: var(--md-comp-icon-button-extra-small-wide-padding);
+    --md-comp-button-small-padding: var(--md-comp-icon-button-small-wide-padding);
+    --md-comp-button-medium-padding: var(--md-comp-icon-button-medium-wide-padding);
+    --md-comp-button-large-padding: var(--md-comp-icon-button-large-wide-padding);
+    --md-comp-button-extra-large-padding: var(--md-comp-icon-button-extra-large-wide-padding);
+  }
+
+  .button {
+    display: inline-block;
+
+    --md-comp-button-extra-small-icon-size: var(--md-comp-icon-button-extra-small-icon-size);
+    --md-comp-button-small-icon-size: var(--md-comp-icon-button-small-icon-size);
+    --md-comp-button-medium-icon-size: var(--md-comp-icon-button-medium-icon-size);
+    --md-comp-button-large-icon-size: var(--md-comp-icon-button-large-icon-size);
+    --md-comp-button-extra-large-icon-size: var(--md-comp-icon-button-extra-large-icon-size);
+  }
+}

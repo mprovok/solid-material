@@ -1,0 +1,181 @@
+@import './styling/color/MaterialToolbarColorStandard.module.css';
+@import './styling/color/MaterialToolbarColorVibrant.module.css';
+
+@layer material.components {
+  :root {
+    /* Toolbar - Docked */
+
+    /* Size */
+    --md-comp-toolbar-docked-container-height: 64px;
+    --md-comp-toolbar-docked-container-leading-space: var(--md-user-spacing-md);
+    --md-comp-toolbar-docked-container-trailing-space: var(--md-user-spacing-md);
+    --md-comp-toolbar-docked-container-max-spacing: var(--md-user-spacing-xl);
+    /* --md-comp-toolbar-docked-container-min-spacing: var(--md-user-spacing-xs); */
+
+    --md-comp-toolbar-docked-container-shape: var(--md-sys-shape-corner-none);
+
+    /* Toolbar - Floating */
+
+    /* Size */
+    --md-comp-toolbar-floating-horizontal-container-height: 64px;
+    --md-comp-toolbar-floating-vertical-container-width: 64px;
+    --md-comp-toolbar-floating-container-leading-space: var(--md-user-spacing-sm);
+    --md-comp-toolbar-floating-container-trailing-space: var(--md-user-spacing-sm);
+    --md-comp-toolbar-floating-horizontal-container-external-space: var(--md-user-spacing-md);
+    --md-comp-toolbar-floating-vertical-container-external-space: var(--md-user-spacing-lg);
+    --md-comp-toolbar-floating-container-between-space: var(--md-user-spacing-xs);
+
+    /* Shape */
+    --md-comp-toolbar-floating-container-shape: var(--md-sys-shape-corner-full);
+
+    /* Elevation */
+    --md-comp-toolbar-floating-container-elevation: var(--md-sys-elevation-level3);
+
+    /* Toolbar - Floating - FAB */
+    --md-comp-toolbar-floating-fab-between-space: var(--md-user-spacing-sm);
+    /* --md-comp-toolbar-floating-fab-standard-container-color: var(--md-sys-color-secondary-container); */
+    /* --md-comp-toolbar-floating-fab-standard-icon-color: var(--md-sys-color-on-secondary-container); */
+    /* --md-comp-toolbar-floating-fab-vibrant-container-color: var(--md-sys-color-tertiary-container); */
+    /* --md-comp-toolbar-floating-fab-vibrant-icon-color: var(--md-sys-color-on-tertiary-container); */
+
+    /* Expanded */
+    /* --md-comp-toolbar-floating-fab-container-height: 56px; */
+    /* --md-comp-toolbar-floating-fab-container-width: 56px; */
+    /* --md-comp-toolbar-floating-fab-icon-size: 24px; */
+    /* --md-comp-toolbar-floating-fab-container-shape: var(--md-sys-shape-corner-large); */
+    /* --md-comp-toolbar-floating-fab-container-elevation: var(--md-sys-elevation-level1); */
+
+    /* Collapsed */
+    /* --md-comp-toolbar-floating-fab-medium-container-height: 80px; */
+    /* --md-comp-toolbar-floating-fab-medium-container-width: 80px; */
+    /* --md-comp-toolbar-floating-fab-medium-icon-size: 28px; */
+    /* --md-comp-toolbar-floating-fab-medium-container-shape: var(--md-sys-shape-corner-large-increased); */
+    /* --md-comp-toolbar-floating-fab-medium-container-elevation: var(--md-sys-elevation-level2); */
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: var(--md-comp-toolbar-floating-fab-between-space);
+
+    /* Above any content and app bar */
+    z-index: 2;
+
+    &:has(.toolbar[data-direction='horizontal']) {
+      flex-direction: row;
+      justify-self: center;
+      position: fixed;
+      inset: auto 0 0;
+      margin-inline: auto;
+
+      transition:
+        bottom,
+        visibility allow-discrete;
+
+      &:not([data-show]) {
+        bottom: -100%;
+        visibility: hidden;
+      }
+    }
+
+    &:has(.toolbar[data-direction='vertical']) {
+      flex-direction: column;
+      position: fixed;
+      right: 0;
+      top: 50vh;
+      transform: translateY(-50%);
+
+      transition:
+        right,
+        visibility allow-discrete;
+
+      &:not([data-show]) {
+        right: -100%;
+        visibility: hidden;
+      }
+    }
+
+    &:has(.toolbar[data-direction='horizontal'][data-mode='floating']) {
+      padding: var(--md-comp-toolbar-floating-horizontal-container-external-space);
+      padding-bottom: 40px;
+    }
+
+    &:has(.toolbar[data-direction='vertical'][data-mode='floating']) {
+      padding: var(--md-comp-toolbar-floating-vertical-container-external-space);
+    }
+
+    &:has(.toolbar[data-mode='docked']) {
+      width: 100%;
+    }
+
+    &:has(.toolbar[data-direction]) {
+      &[data-show] {
+        /* Transition when entering the screen */
+        transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+        transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+      }
+
+      &:not([data-show]) {
+        /* Transition when exiting the screen */
+        transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+        transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+      }
+    }
+  }
+
+  .toolbar {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    place-items: center;
+
+    &[data-direction='horizontal'] {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(48px, auto);
+    }
+
+    &[data-direction='vertical'] {
+      grid-auto-flow: row;
+      grid-auto-rows: minmax(48px, auto);
+    }
+
+    &[data-direction='horizontal'][data-mode='floating'] {
+      height: var(--md-comp-toolbar-floating-horizontal-container-height);
+      width: fit-content;
+    }
+
+    &[data-direction='vertical'][data-mode='floating'] {
+      width: var(--md-comp-toolbar-floating-vertical-container-width);
+    }
+
+    &[data-mode='floating'] {
+      gap: var(--md-comp-toolbar-floating-container-between-space);
+      border-radius: var(--md-comp-toolbar-floating-container-shape);
+      --md-elevation-level: var(--md-comp-toolbar-floating-container-elevation);
+
+      padding-inline-start: var(--md-comp-toolbar-floating-container-leading-space);
+      padding-inline-end: var(--md-comp-toolbar-floating-container-trailing-space);
+      padding-block: var(--md-user-spacing-sm);
+    }
+
+    &[data-mode='docked'] {
+      width: -webkit-fill-available;
+      width: stretch;
+      height: var(--md-comp-toolbar-docked-container-height);
+      border-radius: var(--md-comp-toolbar-docked-container-shape);
+
+      padding-inline-start: var(--md-comp-toolbar-docked-container-leading-space);
+      padding-inline-end: var(--md-comp-toolbar-docked-container-trailing-space);
+
+      &[data-center] {
+        gap: var(--md-comp-toolbar-docked-container-max-spacing);
+        justify-content: center;
+      }
+
+      &:not([data-center]) {
+        justify-content: space-between;
+      }
+    }
+  }
+}

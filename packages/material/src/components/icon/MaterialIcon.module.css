@@ -1,0 +1,19 @@
+@layer material.components {
+  /* See https://developers.google.com/fonts/docs/material_symbols when using web fonts instead of SVG */
+
+  .size-small {
+    --md-icon-size: 20px;
+  }
+
+  .size-medium {
+    --md-icon-size: 24px;
+  }
+
+  .size-large {
+    --md-icon-size: 40px;
+  }
+
+  .size-extra-large {
+    --md-icon-size: 48px;
+  }
+}

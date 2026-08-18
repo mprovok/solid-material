@@ -1,0 +1,80 @@
+@layer material.components {
+  :root {
+    /* Variant tonal */
+
+    /* Enabled */
+    --md-comp-button-tonal-container-color: var(--md-sys-color-secondary-container);
+    --md-comp-button-tonal-shadow-color: var(--md-sys-color-shadow);
+    --md-comp-button-tonal-elevation: var(--md-sys-elevation-level0);
+
+    --md-comp-button-tonal-label-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-icon-color: var(--md-sys-color-on-secondary-container);
+
+    /* Disabled */
+    --md-comp-button-tonal-disabled-container-color: var(--md-sys-color-on-surface);
+    --md-comp-button-tonal-disabled-container-opacity: 0.1;
+    --md-comp-button-tonal-disabled-elevation: var(--md-sys-elevation-level0);
+
+    --md-comp-button-tonal-disabled-label-color: var(--md-sys-color-on-surface);
+    --md-comp-button-tonal-disabled-label-opacity: 0.38;
+
+    --md-comp-button-tonal-disabled-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-button-tonal-disabled-icon-opacity: 0.38;
+
+    /* Hovered */
+    --md-comp-button-tonal-hovered-container-state-layer-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-hovered-container-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* This token is defined for use by the FAB */
+    --md-comp-button-tonal-hovered-elevation: unset;
+
+    /* Focused */
+    /* --md-comp-button-tonal-focused-container-state-layer-color: var(--md-sys-color-on-secondary-container); */
+    /* --md-comp-button-tonal-focused-container-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+    --md-comp-button-tonal-focused-elevation: var(--md-sys-elevation-level0);
+
+    /* Pressed */
+    --md-comp-button-tonal-pressed-container-state-layer-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-pressed-container-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+    --md-comp-button-tonal-pressed-elevation: var(--md-sys-elevation-level0);
+  }
+
+  .button[data-variant='tonal'] {
+    --md-comp-button-container-color: var(--md-comp-button-tonal-container-color);
+    --md-comp-button-label-color: var(--md-comp-button-tonal-label-color);
+    --md-comp-button-icon-color: var(--md-comp-button-tonal-icon-color);
+
+    --md-elevation-level: var(--md-comp-button-tonal-elevation);
+    --md-elevation-shadow-color: var(--md-comp-button-tonal-shadow-color);
+
+    --md-ripple-hover-color: var(--md-comp-button-tonal-hovered-container-state-layer-color);
+    --md-ripple-hover-opacity: var(--md-comp-button-tonal-hovered-container-state-layer-opacity);
+
+    --md-ripple-pressed-color: var(--md-comp-button-tonal-pressed-container-state-layer-color);
+    --md-ripple-pressed-opacity: var(--md-comp-button-tonal-pressed-container-state-layer-opacity);
+
+    &:hover {
+      --md-elevation-level: var(--md-comp-button-tonal-hovered-elevation);
+    }
+
+    &:has(md-focus-ring[visible]) {
+      --md-elevation-level: var(--md-comp-button-tonal-focused-elevation);
+    }
+
+    &:active {
+      --md-elevation-level: var(--md-comp-button-tonal-pressed-elevation);
+    }
+
+    &:has(> :is(a, button):disabled) {
+      --md-comp-button-container-color: var(--md-comp-button-tonal-disabled-container-color);
+      --md-comp-button-container-opacity: var(--md-comp-button-tonal-disabled-container-opacity);
+      --md-elevation-level: var(--md-comp-button-tonal-disabled-elevation);
+
+      --md-comp-button-label-color: var(--md-comp-button-tonal-disabled-label-color);
+      --md-comp-button-label-opacity: var(--md-comp-button-tonal-disabled-label-opacity);
+
+      --md-comp-button-icon-color: var(--md-comp-button-tonal-disabled-icon-color);
+      --md-comp-button-icon-opacity: var(--md-comp-button-tonal-disabled-icon-opacity);
+    }
+  }
+}

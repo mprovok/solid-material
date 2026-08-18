@@ -1,0 +1,12 @@
+{
+  "exports": {
+    "customExports": {
+      "./types": "./types.d.ts"
+    },
+    "devExports": true
+  },
+  "dts": {
+    "sourcemap": false
+  },
+  "platform": "node"
+}

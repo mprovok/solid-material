@@ -1,0 +1,25 @@
+@layer material.components {
+  .story {
+    border: 1px solid var(--md-sys-color-outline-variant);
+    height: 150px;
+    position: relative;
+
+    [popover] {
+      left: anchor(left);
+    }
+  }
+
+  .container {
+    anchor-name: --md-navigation-layout-anchor, --md-navigation-layout-snackbar;
+    anchor-scope: --md-navigation-layout-anchor, --md-navigation-layout-snackbar;
+
+    position: absolute;
+    bottom: var(--md-user-spacing-md);
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: var(--md-user-spacing-md);
+  }
+}

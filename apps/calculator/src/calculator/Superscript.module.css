@@ -1,0 +1,6 @@
+.math {
+  mi,
+  mn {
+    font-family: var(--md-ref-typeface-brand, Roboto);
+  }
+}

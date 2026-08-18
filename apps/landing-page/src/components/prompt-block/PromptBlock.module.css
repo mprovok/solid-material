@@ -1,0 +1,24 @@
+.block {
+  --md-secondary-tab-container-color: transparent;
+  --md-comp-card-filled-container-color: var(--md-sys-color-surface-container);
+
+  sm-card {
+    contain: layout style paint;
+  }
+}
+
+.panel {
+  position: relative;
+}
+
+.prompt {
+  color: var(--md-sys-color-primary);
+  padding: var(--md-user-spacing-md);
+  display: inline-block;
+  font-family: monospace;
+
+  &::before {
+    content: '$ ';
+    color: var(--md-sys-color-tertiary);
+  }
+}

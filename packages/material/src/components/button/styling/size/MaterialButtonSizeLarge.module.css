@@ -1,0 +1,51 @@
+@layer material.components {
+  :root {
+    /* Size - Large */
+    --md-comp-button-large-container-height: 96px;
+    --md-comp-button-large-outline-width: 2px;
+    --md-comp-button-large-icon-size: 32px;
+    --md-comp-button-large-padding: 48px;
+    --md-comp-button-large-gap: 12px;
+
+    --md-comp-button-large-shape-round: var(--md-sys-shape-corner-full);
+    --md-comp-button-large-shape-round-selected: var(--md-sys-shape-corner-extra-large);
+    --md-comp-button-large-shape-square: var(--md-sys-shape-corner-extra-large);
+    --md-comp-button-large-shape-square-selected: var(--md-sys-shape-corner-full);
+    --md-comp-button-large-shape-pressed-morph: var(--md-sys-shape-corner-large);
+  }
+
+  .button[data-size='large'] {
+    --md-comp-button-container-height: var(--md-comp-button-large-container-height);
+    --md-comp-button-outline-width: var(--md-comp-button-large-outline-width);
+    --md-comp-button-icon-size: var(--md-comp-button-large-icon-size);
+    --md-comp-button-padding: var(--md-comp-button-large-padding);
+    --md-comp-button-gap: var(--md-comp-button-large-gap);
+
+    &:not(:active),
+    &:has(> :is(a, button):disabled) {
+      --md-comp-button-shape: min(
+        calc(var(--md-comp-button-large-container-height) * 0.5),
+        var(--md-comp-button-large-shape-round)
+      );
+
+      &[data-toggle='true'] {
+        --md-comp-button-shape: var(--md-comp-button-large-shape-round-selected);
+      }
+
+      &[data-shape='square'] {
+        --md-comp-button-shape: var(--md-comp-button-large-shape-square);
+
+        &[data-toggle='true'] {
+          --md-comp-button-shape: min(
+            calc(var(--md-comp-button-large-container-height) * 0.5),
+            var(--md-comp-button-large-shape-square-selected)
+          );
+        }
+      }
+    }
+
+    &:active:not(:has(> :is(a, button):disabled)) {
+      --md-comp-button-shape: var(--md-comp-button-large-shape-pressed-morph);
+    }
+  }
+}

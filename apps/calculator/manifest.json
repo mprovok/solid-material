@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Calculator",
+  "short_name": "Calculator",
+  "description": "A calculator using Solid Material",
+  "display": "standalone",
+  "theme_color": "#6750a4",
+  "background_color": "#fdf7fe",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}

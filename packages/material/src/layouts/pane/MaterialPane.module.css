@@ -1,0 +1,32 @@
+@layer material.components {
+  :root {
+    --md-comp-pane-container-color: var(--md-sys-color-surface);
+    --md-comp-pane-container-shape: var(--md-sys-shape-corner-extra-large);
+
+    --md-comp-pane-container-padding-inline: var(--md-user-spacing-md);
+    --md-comp-pane-container-margin-block: var(--md-user-spacing-md);
+  }
+
+  .pane {
+    display: block;
+    height: inherit;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background-color: var(--md-comp-pane-container-color);
+
+    main,
+    aside {
+      padding: var(--md-comp-pane-container-padding-inline);
+    }
+  }
+
+  :has(sm-spacer) *:has(> .pane) {
+    padding-block: var(--md-comp-pane-container-margin-block);
+
+    .pane {
+      border-radius: var(--md-comp-pane-container-shape);
+    }
+  }
+}

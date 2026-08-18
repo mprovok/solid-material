@@ -1,0 +1,174 @@
+@import './styling/color/MaterialFabMenuColorPrimary.module.css';
+@import './styling/color/MaterialFabMenuColorSecondary.module.css';
+@import './styling/color/MaterialFabMenuColorTertiary.module.css';
+
+@layer material.components {
+  :root {
+    /* Close button */
+    --md-comp-fab-menu-close-container-size: 56px;
+    --md-comp-fab-menu-close-icon-size: 20px;
+    --md-comp-fab-menu-close-between-space: 8px;
+
+    /* Close button */
+    --md-comp-fab-menu-primary-close-container-color: var(--md-sys-color-primary);
+    --md-comp-fab-menu-secondary-close-container-color: var(--md-sys-color-secondary);
+    --md-comp-fab-menu-tertiary-close-container-color: var(--md-sys-color-tertiary);
+
+    --md-comp-fab-menu-close-icon-color: var(--md-sys-color-on-primary);
+
+    /* List item */
+    --md-comp-fab-menu-item-between-space: 4px;
+    /* --md-comp-fab-menu-item-hovered-elevation: var(--md-sys-elevation-level4); */
+    /* --md-comp-fab-menu-item-focused-elevation: var(--md-sys-elevation-level3); */
+    /* --md-comp-fab-menu-item-pressed-elevation: var(--md-sys-elevation-level3); */
+  }
+
+  .fab-menu {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: end;
+    gap: var(--md-comp-fab-menu-close-between-space);
+
+    .fab {
+      transition-property: height;
+      transition-duration: var(--md-sys-motion-duration-spatial-fast);
+      transition-timing-function: var(--md-sys-motion-spring-spatial-fast);
+
+      &:has(sm-fab[data-size='small']) {
+        height: var(--md-comp-fab-size-small-container-size);
+      }
+
+      &:has(sm-fab[data-size='medium']) {
+        height: var(--md-comp-fab-size-medium-container-size);
+      }
+
+      &:has(sm-fab[data-size='large']) {
+        height: var(--md-comp-fab-size-large-container-size);
+      }
+    }
+
+    .fab[data-open] sm-fab {
+      --md-comp-fab-size-small-container-size: var(--md-comp-fab-menu-close-container-size);
+      --md-comp-fab-size-small-icon-size: var(--md-comp-fab-menu-close-icon-size);
+
+      --md-comp-fab-size-medium-container-size: var(--md-comp-fab-menu-close-container-size);
+      --md-comp-fab-size-medium-icon-size: var(--md-comp-fab-menu-close-icon-size);
+
+      --md-comp-fab-size-large-container-size: var(--md-comp-fab-menu-close-container-size);
+      --md-comp-fab-size-large-icon-size: var(--md-comp-fab-menu-close-icon-size);
+
+      &:is([data-color='primary'], [data-color='primary-container']) {
+        --md-comp-fab-container-color: var(--md-comp-fab-menu-primary-close-container-color);
+        --md-comp-fab-color: var(--md-comp-fab-menu-close-icon-color);
+      }
+
+      &:is([data-color='secondary'], [data-color='secondary-container']) {
+        --md-comp-fab-container-color: var(--md-comp-fab-menu-secondary-close-container-color);
+        --md-comp-fab-color: var(--md-comp-fab-menu-close-icon-color);
+      }
+
+      &:is([data-color='tertiary'], [data-color='tertiary-container']) {
+        --md-comp-fab-container-color: var(--md-comp-fab-menu-tertiary-close-container-color);
+        --md-comp-fab-color: var(--md-comp-fab-menu-close-icon-color);
+      }
+    }
+
+    sm-fab {
+      z-index: 1;
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: var(--md-comp-fab-menu-item-between-space);
+
+    /* Make sure focus ring is not partially occluded by next button */
+    sm-button:focus-within {
+      z-index: 1;
+    }
+
+    --transition-step-duration: 33.3333ms;
+
+    .item:nth-child(1) {
+      --fade-in-delay: calc(var(--transition-step-duration) * 5);
+    }
+
+    .item:nth-child(2) {
+      --fade-in-delay: calc(var(--transition-step-duration) * 4);
+    }
+
+    .item:nth-child(3) {
+      --fade-in-delay: calc(var(--transition-step-duration) * 3);
+    }
+
+    .item:nth-child(4) {
+      --fade-in-delay: calc(var(--transition-step-duration) * 2);
+    }
+
+    .item:nth-child(5) {
+      --fade-in-delay: calc(var(--transition-step-duration) * 1);
+    }
+
+    .item:nth-child(6) {
+      --fade-in-delay: calc(var(--transition-step-duration) * 0);
+    }
+
+    .item {
+      transition-property: opacity, display;
+      transition-behavior: allow-discrete;
+      transition-duration: var(--md-sys-motion-duration-effects-fast);
+      transition-timing-function: var(--md-sys-motion-spring-effects-fast);
+
+      button {
+        inline-size: fit-content;
+        interpolate-size: allow-keywords;
+
+        /**
+         * Don't hide overflow in MaterialButton itself because its width
+         * may get reduced by, for example, a standard button group
+         */
+        & > div {
+          overflow: hidden;
+        }
+      }
+    }
+
+    &[data-show] .item {
+      transition-delay: var(--fade-in-delay);
+
+      button {
+        transition-delay: var(--fade-in-delay);
+      }
+    }
+
+    &:not([data-show]) .item {
+      display: none;
+      opacity: 0;
+
+      button {
+        inline-size: 0;
+      }
+    }
+
+    @starting-style {
+      &[data-show] .item {
+        opacity: 0;
+
+        button {
+          inline-size: 0;
+        }
+      }
+
+      &:not([data-show]) .item {
+        opacity: 1;
+      }
+    }
+
+    /* Items have no elevation in screenshots in specs */
+    /* --md-comp-button-tonal-hovered-elevation: var(--md-comp-fab-menu-item-hovered-elevation); */
+    /* --md-comp-button-tonal-focused-elevation: var(--md-comp-fab-menu-item-focused-elevation); */
+    /* --md-comp-button-tonal-pressed-elevation: var(--md-comp-fab-menu-item-pressed-elevation); */
+  }
+}

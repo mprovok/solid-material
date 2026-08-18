@@ -1,0 +1,28 @@
+@layer material.components {
+  :root {
+    /* Layout and text - Contained */
+    --md-comp-search-view-contained-docked-results-shape: var(--md-sys-shape-corner-medium);
+  }
+
+  .results {
+    display: block;
+    overflow-y: auto;
+  }
+
+  search:not([data-open]) .results {
+    display: none;
+  }
+
+  search[data-layout='fullscreen'] > .results {
+    width: 100%;
+    height: 100%;
+  }
+
+  search[data-layout='docked'] > .results {
+    width: 100%;
+    min-height: 240px;
+    max-height: calc(2 / 3 * 100vh);
+
+    border-radius: var(--md-comp-search-view-contained-docked-results-shape);
+  }
+}

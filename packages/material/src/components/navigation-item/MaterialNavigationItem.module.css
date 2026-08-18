@@ -1,0 +1,332 @@
+@layer material.components {
+  :root {
+    --md-comp-nav-item-icon-size: 24px;
+
+    --md-comp-nav-item-text-font: var(--md-sys-typescale-label-medium-font, var(--md-ref-typeface-plain, 'Roboto'));
+    --md-comp-nav-item-text-weight: var(--md-ref-typeface-weight-medium, 500);
+    --md-comp-nav-item-text-height: 20px;
+    --md-comp-nav-item-text-size: 0.75rem;
+    --md-comp-nav-item-text-line-height: 1rem;
+
+    --md-comp-nav-item-indicator-text-size: 0.75rem;
+    --md-comp-nav-item-indicator-text-line-height: 1rem;
+
+    /* Active indicator */
+    --md-comp-nav-item-active-indicator-collapsed-height: 32px;
+    --md-comp-nav-item-active-indicator-collapsed-width: 56px;
+
+    --md-comp-nav-item-active-indicator-expanded-height-rail: 56px;
+    --md-comp-nav-item-active-indicator-expanded-height-bar: 40px;
+    --md-comp-nav-item-active-indicator-expanded-width: 100%;
+
+    --md-comp-nav-item-active-indicator-height: var(--md-comp-nav-item-active-indicator-collapsed-height);
+    --md-comp-nav-item-active-indicator-width: var(--md-comp-nav-item-active-indicator-collapsed-width);
+    --md-comp-nav-item-active-indicator-color: var(--md-sys-color-secondary-container);
+    --md-comp-nav-item-active-indicator-padding: 16px;
+
+    /* Icon and label */
+    --md-comp-nav-item-active-icon-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-nav-item-active-indicator-label-text-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-nav-item-active-label-text-color: var(--md-sys-color-secondary);
+    --md-comp-nav-item-inactive-icon-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-nav-item-inactive-label-text-color: var(--md-sys-color-on-surface-variant);
+
+    /* Ripple (hover) */
+    --md-comp-nav-item-active-hover-state-layer-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-nav-item-active-hover-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity, 0.08);
+    --md-comp-nav-item-inactive-hover-state-layer-color: var(--md-sys-color-on-secondary-container);
+
+    /* Ripple (pressed) */
+    --md-comp-nav-item-active-pressed-state-layer-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-nav-item-active-pressed-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity, 0.1);
+    --md-comp-nav-item-inactive-pressed-state-layer-color: var(--md-sys-color-on-secondary-container);
+
+    /* --md-comp-nav-item-active-focus-state-layer-color: var(--md-sys-color-on-secondary-container); */
+    /* --md-comp-nav-item-active-focus-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity, 0.1); */
+    /* --md-comp-nav-item-inactive-focus-state-layer-color: var(--md-sys-color-on-secondary-container); */
+  }
+
+  /* Navigation bar */
+  [aria-orientation='horizontal'] {
+    &[data-expanded] {
+      --md-comp-nav-item-active-indicator-height: var(--md-comp-nav-item-active-indicator-expanded-height-bar);
+    }
+
+    .button {
+      justify-items: center;
+
+      &[data-expanded] {
+        --md-comp-nav-item-active-indicator-padding: 20px;
+      }
+    }
+  }
+
+  /* Navigation rail */
+  [aria-orientation='vertical'] .button {
+    justify-items: flex-start;
+
+    &[data-expanded] {
+      --md-comp-nav-item-active-indicator-height: var(--md-comp-nav-item-active-indicator-expanded-height-rail);
+    }
+  }
+
+  @property --active-indicator-factor {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+  }
+
+  .button {
+    position: relative;
+    grid-row: span 1;
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: none;
+      z-index: 1;
+    }
+
+    --md-focus-ring-outward-offset: 2px;
+
+    display: grid;
+    grid-template-columns: min-content;
+
+    width: var(--md-comp-nav-item-active-indicator-width);
+
+    transition:
+      height var(--md-sys-motion-duration-standard-spatial-fast) var(--md-sys-motion-spring-standard-spatial-fast),
+      width var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast);
+
+    .indicator {
+      width: inherit;
+      height: var(--md-comp-nav-item-active-indicator-height);
+
+      border-radius: var(--md-sys-shape-corner-full);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      padding-inline: var(--md-comp-nav-item-active-indicator-padding);
+
+      transition: height var(--md-sys-motion-duration-standard-spatial-fast)
+        var(--md-sys-motion-spring-standard-spatial-fast);
+
+      .icon {
+        width: var(--md-comp-nav-item-icon-size);
+        height: var(--md-comp-nav-item-icon-size);
+        position: relative;
+      }
+
+      .indicator-label {
+        font-size: var(--md-comp-nav-item-indicator-text-size);
+        line-height: var(--md-comp-nav-item-indicator-text-line-height);
+
+        overflow-x: hidden;
+        white-space: nowrap;
+        width: 0;
+
+        transition:
+          width var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast),
+          opacity var(--md-sys-motion-duration-effects-fast) var(--md-sys-motion-spring-effects-fast),
+          display var(--md-sys-motion-duration-spatial-fast) allow-discrete;
+      }
+    }
+
+    .label,
+    .indicator-label {
+      font-family: var(--md-comp-nav-item-text-font);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .label-wrapper {
+      display: flex;
+      justify-content: center;
+
+      width: var(--md-comp-nav-item-active-indicator-collapsed-width);
+
+      /* Height is animated further down below in the file */
+      transition:
+        height var(--md-sys-motion-duration-standard-spatial-fast) var(--md-sys-motion-spring-standard-spatial-fast),
+        visibility var(--md-sys-motion-duration-spatial-fast) allow-discrete;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: var(--md-comp-nav-item-text-size);
+      line-height: var(--md-comp-nav-item-text-line-height);
+      white-space: nowrap;
+      padding-top: 4px;
+
+      transition: opacity var(--md-sys-motion-duration-effects-fast) var(--md-sys-motion-spring-effects-fast);
+    }
+  }
+
+  /**********************************************************************/
+  /*                              Disabled                              */
+  /**********************************************************************/
+
+  .button[data-disabled] {
+    pointer-events: none;
+  }
+
+  /**********************************************************************/
+  /*                              Enabled                               */
+  /**********************************************************************/
+
+  .button:not([data-disabled]) {
+    --md-focus-ring-shape: var(--md-sys-shape-corner-full);
+
+    &:not([data-expanded]) {
+      --md-focus-ring-shape: var(--md-sys-shape-corner-large);
+    }
+
+    cursor: pointer;
+  }
+
+  /**********************************************************************/
+  /*                          Expanding ripple                          */
+  /**********************************************************************/
+
+  .indicator md-ripple {
+    width: 0%;
+    --active-indicator-factor: 0;
+
+    transition-property: width, --active-indicator-factor;
+    transition-duration: var(--md-sys-motion-duration-spatial-fast);
+    transition-timing-function: var(--md-sys-motion-spring-spatial-fast);
+
+    /* Center the md-ripple element because of the overshoot by the expressive spring motion */
+    translate: calc(
+      -0.5 * calc(var(--md-comp-nav-item-active-indicator-width) * max(0, var(--active-indicator-factor) - 1))
+    );
+
+    &:dir(rtl) {
+      translate: calc(
+        0.5 * calc(var(--md-comp-nav-item-active-indicator-width) * max(0, var(--active-indicator-factor) - 1))
+      );
+    }
+  }
+
+  /* Animate expanding indicator when hovering */
+  .button .indicator:hover md-ripple {
+    width: 100%;
+    --active-indicator-factor: 1;
+  }
+
+  /* Make sure indicator is expanded and has different background color when item is active (represents current page) */
+  .button.active .indicator md-ripple {
+    width: 100%;
+    --active-indicator-factor: 1;
+
+    background-color: var(--md-comp-nav-item-active-indicator-color);
+  }
+
+  /**********************************************************************/
+  /*                               Active                               */
+  /**********************************************************************/
+
+  .button.active {
+    --md-ripple-hover-color: var(--md-comp-nav-item-active-hover-state-layer-color);
+    --md-ripple-hover-opacity: var(--md-comp-nav-item-active-hover-state-layer-opacity);
+    --md-ripple-pressed-color: var(--md-comp-nav-item-active-pressed-state-layer-color);
+    --md-ripple-pressed-opacity: var(--md-comp-nav-item-active-pressed-state-layer-opacity);
+
+    .icon {
+      color: var(--md-comp-nav-item-active-icon-color);
+
+      /* Hide the other icon (for the inactive state) */
+      svg.inactive {
+        display: none;
+      }
+    }
+
+    .label {
+      font-weight: var(--md-comp-nav-item-text-weight);
+      color: var(--md-comp-nav-item-active-label-text-color);
+    }
+
+    .indicator-label {
+      font-weight: var(--md-comp-nav-item-text-weight);
+      color: var(--md-comp-nav-item-active-indicator-label-text-color);
+    }
+  }
+
+  /**********************************************************************/
+  /*                              Inactive                              */
+  /**********************************************************************/
+
+  .button.inactive {
+    --md-ripple-hover-color: var(--md-comp-nav-item-inactive-hover-state-layer-color);
+    --md-ripple-pressed-color: var(--md-comp-nav-item-inactive-pressed-state-layer-color);
+
+    .icon {
+      color: var(--md-comp-nav-item-inactive-icon-color);
+
+      /* Hide the other icon (for the active state) */
+      svg.active {
+        display: none;
+      }
+    }
+
+    .label,
+    .indicator-label {
+      color: var(--md-comp-nav-item-inactive-label-text-color);
+    }
+  }
+
+  /**********************************************************************/
+  /*                              Expanded                              */
+  /**********************************************************************/
+
+  .button[data-expanded] {
+    --md-comp-nav-item-active-indicator-width: var(--md-comp-nav-item-active-indicator-expanded-width);
+
+    height: var(--md-comp-nav-item-active-indicator-height);
+
+    .icon {
+      z-index: 1;
+    }
+
+    .indicator-label {
+      z-index: 0;
+      width: 100%;
+      opacity: 1;
+    }
+
+    /* Hide the label below the indicator */
+    .label-wrapper {
+      height: 0;
+      visibility: hidden;
+
+      .label {
+        opacity: 0;
+      }
+    }
+  }
+
+  /**********************************************************************/
+  /*                             Collapsed                              */
+  /**********************************************************************/
+
+  .button:not([data-expanded]) {
+    --md-comp-nav-item-active-indicator-width: var(--md-comp-nav-item-active-indicator-collapsed-width);
+    height: calc(var(--md-comp-nav-item-active-indicator-height) + var(--md-comp-nav-item-text-height));
+
+    /* Hide the extra label placed inside the indicator */
+    .indicator-label {
+      opacity: 0;
+      display: none;
+    }
+
+    /* Show the label below the indicator */
+    .label-wrapper {
+      height: var(--md-comp-nav-item-text-height);
+      visibility: visible;
+
+      .label {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@layer material.components {
+  .button[data-variant='outlined'] {
+    /* Variant outlined */
+
+    & > :last-child {
+      --md-comp-button-outlined-container-color-unselected: var(--md-comp-button-outlined-container-color);
+      --md-comp-button-outlined-container-color-selected: var(--md-comp-button-outlined-container-color);
+
+      --md-comp-button-outlined-label-color-unselected: var(--md-comp-button-outlined-label-color);
+      --md-comp-button-outlined-label-color-selected: var(--md-comp-button-outlined-label-color);
+
+      --md-comp-button-outlined-icon-color-unselected: var(--md-comp-button-outlined-icon-color);
+      --md-comp-button-outlined-icon-color-selected: var(--md-comp-button-outlined-icon-color);
+
+      /* State layer (ripple) */
+      --md-comp-button-outlined-hovered-container-state-layer-color-unselected: var(
+        --md-comp-button-outlined-hovered-container-state-layer-color
+      );
+      --md-comp-button-outlined-hovered-container-state-layer-color-selected: var(
+        --md-comp-button-outlined-hovered-container-state-layer-color
+      );
+      --md-comp-button-outlined-pressed-container-state-layer-color-unselected: var(
+        --md-comp-button-outlined-pressed-container-state-layer-color
+      );
+      --md-comp-button-outlined-pressed-container-state-layer-color-selected: var(
+        --md-comp-button-outlined-pressed-container-state-layer-color
+      );
+    }
+  }
+}

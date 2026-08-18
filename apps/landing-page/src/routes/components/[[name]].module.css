@@ -1,0 +1,11 @@
+.list-pane {
+  --md-comp-pane-container-color: var(--md-sys-color-surface-container-low);
+
+  h1 {
+    margin-block-end: var(--md-user-spacing-md);
+  }
+
+  sm-list + h1 {
+    margin-block-start: var(--md-user-spacing-xl);
+  }
+}

@@ -1,0 +1,162 @@
+@import './styling/variants/MaterialButtonVariantElevated.module.css';
+@import './styling/variants/MaterialButtonVariantFilled.module.css';
+@import './styling/variants/MaterialButtonVariantTonal.module.css';
+@import './styling/variants/MaterialButtonVariantOutlined.module.css';
+@import './styling/variants/MaterialButtonVariantText.module.css';
+
+@import './styling/toggle/MaterialButtonToggleElevated.module.css';
+@import './styling/toggle/MaterialButtonToggleFilled.module.css';
+@import './styling/toggle/MaterialButtonToggleTonal.module.css';
+@import './styling/toggle/MaterialButtonToggleOutlined.module.css';
+
+@import './styling/size/MaterialButtonSizeExtraSmall.module.css';
+@import './styling/size/MaterialButtonSizeSmall.module.css';
+@import './styling/size/MaterialButtonSizeMedium.module.css';
+@import './styling/size/MaterialButtonSizeLarge.module.css';
+@import './styling/size/MaterialButtonSizeExtraLarge.module.css';
+
+@layer material.components {
+  @property --md-comp-button-shape {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @property --md-icon-size {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 24px;
+  }
+
+  .button {
+    --md-elevation-level: var(--md-sys-elevation-level0);
+    --md-focus-ring-shape: var(--md-comp-button-shape);
+    --md-icon-size: var(--md-comp-button-icon-size);
+
+    border-radius: var(--md-comp-button-shape);
+
+    /* Spec says shape should use damping 0.9 and stiffness 1400 (standard spatial fast) */
+    transition-property: --md-comp-button-shape, --md-icon-size;
+    transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+    transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+
+    position: relative;
+    display: inline-block;
+    height: fit-content;
+    contain: style;
+
+    /* Touch target for extra small and small buttons */
+    &:is([data-size='extra-small'], [data-size='small'])::before {
+      content: '';
+      position: absolute;
+
+      /* Center the touch target around the middle (needed for icon buttons) */
+      inset: 0;
+      inset-inline-start: 50%;
+      translate: -50%;
+
+      width: 100%;
+      min-width: 48px;
+      min-height: 48px;
+      max-height: 48px;
+      margin: auto;
+
+      /* Interaction */
+      cursor: pointer;
+      user-select: none;
+    }
+
+    &:dir(rtl) {
+      /* Touch target for extra small and small buttons */
+      &:is([data-size='extra-small'], [data-size='small'])::before {
+        /* Center the touch target around the middle (needed for icon buttons) */
+        translate: 50%;
+      }
+    }
+
+    &[data-position='end'] > :is(a, button) {
+      flex-direction: row-reverse;
+    }
+
+    /* Actual button or anchor element */
+    > :is(a, button) {
+      /* Background */
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background-color: var(--md-comp-button-container-color);
+        opacity: var(--md-comp-button-container-opacity);
+
+        transition-property: background-color, opacity;
+        transition-duration: var(--md-sys-motion-duration-effects-fast);
+        transition-timing-function: var(--md-sys-motion-spring-effects-fast);
+      }
+
+      background-color: transparent;
+      isolation: isolate;
+
+      margin: unset;
+      padding: unset;
+      border: inherit;
+      font: inherit;
+
+      /* Size and shape */
+      position: relative;
+      inline-size: 100%;
+      block-size: var(--md-comp-button-container-height);
+      padding-inline: var(--md-comp-button-padding);
+      border-radius: inherit;
+
+      /* Interaction */
+      cursor: pointer;
+      user-select: none;
+
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+      text-decoration: none;
+
+      /* Flex */
+      display: inline-flex;
+      flex-direction: row;
+      place-items: center;
+      justify-content: center;
+      gap: var(--md-comp-button-gap);
+
+      transition-property: margin-inline, inline-size, block-size, padding-inline, gap;
+      transition-duration: var(--md-sys-motion-duration-spatial-fast);
+      transition-timing-function: var(--md-sys-motion-spring-spatial-fast);
+
+      .label {
+        display: flex;
+        color: var(--md-comp-button-label-color);
+        opacity: var(--md-comp-button-label-opacity);
+      }
+
+      & > md-icon {
+        color: var(--md-comp-button-icon-color);
+        opacity: var(--md-comp-button-icon-opacity);
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    &[data-variant='outlined'] {
+      .outline {
+        border-radius: inherit;
+        pointer-events: none;
+
+        position: absolute;
+        inset: 0;
+
+        border-style: solid;
+        border-width: var(--md-comp-button-outline-width);
+        border-color: var(--md-comp-button-outline-color);
+      }
+    }
+  }
+}

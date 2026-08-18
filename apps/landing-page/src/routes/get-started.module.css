@@ -1,0 +1,9 @@
+.main {
+  :is(h2, h3) {
+    margin-bottom: var(--md-user-spacing-md);
+  }
+
+  * + :is(h2, h3) {
+    margin-top: var(--md-user-spacing-xl);
+  }
+}

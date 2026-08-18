@@ -1,0 +1,80 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "jsx-a11y", "promise"],
+  "categories": {
+    "correctness": "error",
+    "restriction": "error",
+    "perf": "warn",
+    "suspicious": "warn",
+    "pedantic": "warn",
+    "style": "warn"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "ignorePatterns": ["*.test.tsx"],
+  "rules": {
+    "import/no-relative-parent-imports": "off",
+    "jsx-a11y/aria-role": "off",
+    "no-undefined": "off",
+    "no-void": "off",
+    "oxc/no-async-await": "off",
+    "oxc/no-optional-chaining": "off",
+    "oxc/no-rest-spread-properties": "off",
+    "typescript/explicit-function-return-type": "off",
+    "typescript/no-non-null-assertion": "off",
+    "import/no-unassigned-import": "off",
+    "import/unambiguous": "off",
+
+    // Restriction
+    "complexity": ["warn", { "variant": "modified" }],
+    "jsx-a11y/anchor-ambiguous-text": "warn",
+    "no-console": ["warn", { "allow": ["info", "warn", "error"] }],
+
+    // Pedantic
+    "max-dependencies": "off",
+    "max-lines": ["warn", { "max": 1000 }],
+    "max-lines-per-function": "off",
+    "no-confusing-void-expression": ["warn", { "ignoreArrowShorthand": true }],
+    "no-negated-condition": "off",
+    "require-await": "off",
+    "typescript/prefer-readonly-parameter-types": "off",
+    "typescript/strict-void-return": "off",
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/no-negated-condition": "off",
+
+    // Style
+    "arrow-body-style": "off",
+    "capitalized-comments": "off",
+    "exports-last": "off",
+    "group-exports": "off",
+    "id-length": "off",
+    "import/no-named-export": "off",
+    "init-declarations": "off",
+    "max-params": ["warn", { "max": 4 }],
+    "max-statements": "off",
+    "no-duplicate-imports": ["error", { "allowSeparateTypeImports": true }],
+    "no-magic-numbers": "off",
+    "no-ternary": "off",
+    "prefer-default-export": "off",
+    "sort-imports": ["warn", { "ignoreDeclarationSort": true }],
+    "sort-keys": "off",
+    "typescript/no-inferrable-types": "off",
+    "typescript/consistent-type-definitions": "off",
+    "unicorn/filename-case": ["error", { "cases": { "kebabCase": true, "pascalCase": true } }],
+    "unicorn/numeric-separators-style": ["warn", { "onlyIfContainsSeparator": true, "number": { "minimumDigits": 4 } }],
+
+    // Suspicious
+    "unicorn/consistent-function-scoping": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.tsx"],
+      "rules": {
+        "import/no-default-export": "off",
+        "typescript/no-unsafe-member-access": "off"
+      }
+    }
+  ]
+}

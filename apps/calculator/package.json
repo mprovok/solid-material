@@ -1,0 +1,45 @@
+{
+  "name": "@solid-material/calculator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A calculator web app using Solid Material",
+  "bugs": {
+    "url": "https://github.com/mprovok/solid-material/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Mark Provo Kluit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mprovok/solid-material",
+    "directory": "apps/calculator"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host --port 4000",
+    "test": "vitest run --coverage",
+    "lint": "oxlint --report-unused-disable-directives",
+    "lint:fix": "oxlint --fix --report-unused-disable-directives"
+  },
+  "dependencies": {
+    "@fontsource/google-sans-flex": "5.2.3",
+    "@solid-material/icons": "workspace:*",
+    "@solid-material/material": "workspace:*",
+    "@solid-primitives/storage": "4.4.0",
+    "@solidjs/meta": "catalog:solid",
+    "@solidjs/router": "catalog:solid",
+    "decimal.js": "10.6.0",
+    "solid-js": "catalog:solid"
+  },
+  "devDependencies": {
+    "@solid-material/vite-plugin-solid-svg": "workspace:*",
+    "@solidjs/testing-library": "0.8.10",
+    "@vitest/browser-playwright": "catalog:vitest",
+    "@vitest/coverage-v8": "catalog:vitest",
+    "playwright": "1.59.1",
+    "vite": "catalog:vite",
+    "vite-plugin-solid": "catalog:vite",
+    "vitest": "catalog:vitest"
+  }
+}

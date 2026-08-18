@@ -1,0 +1,21 @@
+@layer material.components {
+  @keyframes scrollbar-fade-in {
+    from {
+      scrollbar-color: transparent transparent;
+    }
+
+    to {
+      scrollbar-color: unset transparent;
+    }
+  }
+
+  .dialog {
+    &[open] {
+      animation: 250ms ease-in scrollbar-fade-in;
+    }
+
+    [slot='headline'] span:first-child {
+      flex-grow: 1;
+    }
+  }
+}

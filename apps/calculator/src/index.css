@@ -1,0 +1,24 @@
+:root {
+  --md-ref-typeface-brand: Google Sans Flex, system-ui;
+
+  &[data-theme='dark'][data-black] {
+    --md-sys-color-surface: var(--md-ref-palette-black);
+  }
+
+  @media (width >= 600px) and (height >= 480px) {
+    --md-comp-pane-container-padding-inline: var(--md-user-spacing-lg);
+  }
+}
+
+#root {
+  height: 100vh;
+
+  sm-body-layout {
+    height: 100vh;
+  }
+
+  main {
+    height: calc(100% - 64px);
+    padding-top: 0;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "trailingComma": "none",
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "printWidth": 120,
+  "sortImports": {
+    "customGroups": [
+      {
+        "groupName": "icons",
+        "elementNamePattern": ["@solid-material/icons/**"]
+      },
+      {
+        "groupName": "style",
+        "selector": "style"
+      }
+    ],
+    "groups": [
+      "type-import",
+      ["value-builtin", "value-external"],
+      "type-internal",
+      "value-internal",
+      ["type-parent", "type-index"],
+      ["value-parent", "value-index"],
+      "type-sibling",
+      "value-sibling",
+      "style",
+      "icons",
+      "unknown"
+    ]
+  }
+}

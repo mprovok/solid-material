@@ -1,0 +1,35 @@
+@layer material.components {
+  :root {
+    /* List item - Secondary */
+    --md-comp-fab-menu-item-secondary-container-color: var(--md-sys-color-secondary-container);
+    --md-comp-fab-menu-item-secondary-label-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-fab-menu-item-secondary-icon-color: var(--md-sys-color-on-secondary-container);
+
+    /* Hovered */
+    --md-comp-fab-menu-item-secondary-hovered-state-layer-color: var(--md-sys-color-on-secondary-container);
+
+    /* Focused */
+    --md-comp-fab-menu-item-secondary-focused-state-layer-color: var(--md-sys-color-on-secondary-container);
+
+    /* Pressed */
+    --md-comp-fab-menu-item-secondary-pressed-state-layer-color: var(--md-sys-color-on-secondary-container);
+  }
+
+  .fab-menu .fab:has(sm-fab:is([data-color='secondary'], [data-color='secondary-container'])) + .menu {
+    --md-comp-button-tonal-container-color: var(--md-comp-fab-menu-item-secondary-container-color);
+    --md-comp-button-tonal-label-color: var(--md-comp-fab-menu-item-secondary-label-color);
+    --md-comp-button-tonal-icon-color: var(--md-comp-fab-menu-item-secondary-icon-color);
+
+    --md-comp-button-tonal-hovered-container-state-layer-color: var(
+      --md-comp-fab-menu-item-secondary-hovered-state-layer-color
+    );
+
+    --md-comp-button-tonal-focused-container-state-layer-color: var(
+      --md-comp-fab-menu-item-secondary-focused-state-layer-color
+    );
+
+    --md-comp-button-tonal-pressed-container-state-layer-color: var(
+      --md-comp-fab-menu-item-secondary-pressed-state-layer-color
+    );
+  }
+}

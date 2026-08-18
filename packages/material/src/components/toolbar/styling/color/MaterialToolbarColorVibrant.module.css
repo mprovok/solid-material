@@ -1,0 +1,83 @@
+@layer material.components {
+  :root {
+    /* Toolbar - Color - Vibrant */
+
+    /* Enabled */
+    --md-comp-toolbar-vibrant-container-color: var(--md-sys-color-primary-container);
+    --md-comp-toolbar-vibrant-button-container-color: var(--md-sys-color-primary-container);
+    --md-comp-toolbar-vibrant-selected-button-container-color: var(--md-sys-color-surface-container);
+
+    --md-comp-toolbar-vibrant-icon-color: var(--md-sys-color-on-primary-container);
+    --md-comp-toolbar-vibrant-selected-icon-color: var(--md-sys-color-on-surface);
+
+    --md-comp-toolbar-vibrant-label-text-color: var(--md-sys-color-on-primary-container);
+    --md-comp-toolbar-vibrant-selected-label-text-color: var(--md-sys-color-on-surface);
+
+    /* Disabled */
+    --md-comp-toolbar-vibrant-disabled-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-toolbar-vibrant-disabled-icon-opacity: 0.38;
+
+    --md-comp-toolbar-vibrant-disabled-label-text-color: var(--md-sys-color-on-surface);
+    --md-comp-toolbar-vibrant-disabled-label-text-opacity: 0.38;
+
+    /* Hovered */
+    --md-comp-toolbar-vibrant-hovered-state-layer-color: var(--md-sys-color-on-primary-container);
+    --md-comp-toolbar-vibrant-selected-hovered-state-layer-color: var(--md-sys-color-on-surface);
+    --md-comp-toolbar-vibrant-hovered-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* Focused */
+    --md-comp-toolbar-vibrant-focused-state-layer-color: var(--md-sys-color-on-primary-container);
+    --md-comp-toolbar-vibrant-selected-focused-state-layer-color: var(--md-sys-color-on-surface);
+    /* --md-comp-toolbar-vibrant-focused-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+
+    /* Pressed */
+    --md-comp-toolbar-vibrant-pressed-state-layer-color: var(--md-sys-color-on-primary-container);
+    --md-comp-toolbar-vibrant-selected-pressed-state-layer-color: var(--md-sys-color-on-surface);
+    --md-comp-toolbar-vibrant-pressed-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+  }
+
+  .toolbar[data-color='vibrant'] {
+    background-color: var(--md-comp-toolbar-vibrant-container-color);
+  }
+
+  /* prettier-ignore */
+  .toolbar[data-color='vibrant'] sm-icon-button:has(sm-button[data-variant='tonal']) {
+    /* Enabled */
+    --md-comp-button-tonal-container-color: var(--md-comp-toolbar-vibrant-button-container-color);
+    --md-comp-button-tonal-container-color-unselected: var(--md-comp-toolbar-vibrant-button-container-color);
+    --md-comp-button-tonal-container-color-selected: var(--md-comp-toolbar-vibrant-selected-button-container-color);
+    
+    --md-comp-button-tonal-icon-color: var(--md-comp-toolbar-vibrant-icon-color);
+    --md-comp-button-tonal-icon-color-unselected: var(--md-comp-toolbar-vibrant-icon-color);
+    --md-comp-button-tonal-icon-color-selected: var(--md-comp-toolbar-vibrant-selected-icon-color);
+
+    --md-comp-button-tonal-label-color: var(--md-comp-toolbar-vibrant-label-text-color);
+    --md-comp-button-tonal-label-color-unselected: var(--md-comp-toolbar-vibrant-label-text-color);
+    --md-comp-button-tonal-label-color-selected: var(--md-comp-toolbar-vibrant-selected-label-text-color);
+
+    /* Disabled */
+    --md-comp-button-tonal-disabled-icon-color: var(--md-comp-toolbar-vibrant-disabled-icon-color);
+    --md-comp-button-tonal-disabled-icon-opacity: var(--md-comp-toolbar-vibrant-disabled-icon-opacity);
+    
+    --md-comp-button-tonal-disabled-label-color: var(--md-comp-toolbar-vibrant-disabled-label-text-color);
+    --md-comp-button-tonal-disabled-label-opacity: var(--md-comp-toolbar-vibrant-disabled-label-text-opacity);
+
+    /* Hovered */
+    --md-comp-button-tonal-hovered-container-state-layer-color: var(--md-comp-toolbar-vibrant-hovered-state-layer-color);
+    --md-comp-button-tonal-hovered-container-state-layer-color-unselected: var(--md-comp-toolbar-vibrant-hovered-state-layer-color);
+    --md-comp-button-tonal-hovered-container-state-layer-color-selected: var(--md-comp-toolbar-vibrant-selected-hovered-state-layer-color);
+    --md-comp-button-tonal-hovered-container-state-layer-opacity: var(--md-comp-toolbar-vibrant-hovered-state-layer-opacity);
+
+    /* Focused */
+    --md-comp-button-tonal-focused-container-state-layer-color: var(--md-comp-toolbar-vibrant-focused-state-layer-color);
+    --md-comp-button-tonal-focused-container-state-layer-color-unselected: var(--md-comp-toolbar-vibrant-focused-state-layer-color);
+    --md-comp-button-tonal-focused-container-state-layer-color-selected: var(--md-comp-toolbar-vibrant-selected-focused-state-layer-color);
+    /* --md-comp-toolbar-vibrant-focused-container-state-layer-opacity: var(--md-comp-toolbar-vibrant-focused-state-layer-opacity); */
+
+    /* Pressed */
+    --md-comp-button-tonal-pressed-container-state-layer-color: var(--md-comp-toolbar-vibrant-pressed-state-layer-color);
+    --md-comp-button-tonal-pressed-container-state-layer-color-unselected: var(--md-comp-toolbar-vibrant-pressed-state-layer-color);
+    --md-comp-button-tonal-pressed-container-state-layer-color-selected: var(--md-comp-toolbar-vibrant-selected-pressed-state-layer-color);
+    --md-comp-button-tonal-pressed-container-state-layer-opacity: var(--md-comp-toolbar-vibrant-pressed-state-layer-opacity);
+  }
+}

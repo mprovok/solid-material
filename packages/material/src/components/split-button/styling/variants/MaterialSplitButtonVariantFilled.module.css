@@ -1,0 +1,30 @@
+@layer material.components {
+  .button[data-variant='filled'] {
+    /* Variant filled */
+
+    & > :last-child {
+      --md-comp-button-filled-container-color-unselected: var(--md-comp-button-filled-container-color);
+      --md-comp-button-filled-container-color-selected: var(--md-comp-button-filled-container-color);
+
+      --md-comp-button-filled-label-color-unselected: var(--md-comp-button-filled-label-color);
+      --md-comp-button-filled-label-color-selected: var(--md-comp-button-filled-label-color);
+
+      --md-comp-button-filled-icon-color-unselected: var(--md-comp-button-filled-icon-color);
+      --md-comp-button-filled-icon-color-selected: var(--md-comp-button-filled-icon-color);
+
+      /* State layer (ripple) */
+      --md-comp-button-filled-hovered-container-state-layer-color-unselected: var(
+        --md-comp-button-filled-hovered-container-state-layer-color
+      );
+      --md-comp-button-filled-hovered-container-state-layer-color-selected: var(
+        --md-comp-button-filled-hovered-container-state-layer-color
+      );
+      --md-comp-button-filled-pressed-container-state-layer-color-unselected: var(
+        --md-comp-button-filled-pressed-container-state-layer-color
+      );
+      --md-comp-button-filled-pressed-container-state-layer-color-selected: var(
+        --md-comp-button-filled-pressed-container-state-layer-color
+      );
+    }
+  }
+}

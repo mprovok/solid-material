@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["@solid-material/vite-plugin-solid-svg/types", "vite/client"],
+    "rootDir": ".",
+    "outDir": "dist"
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.stories.tsx"]
+}

@@ -1,0 +1,66 @@
+@layer material.components {
+  :root {
+    /* Standard */
+    --md-comp-button-group-standard-size-extra-small-gap: 18px;
+    --md-comp-button-group-standard-size-small-gap: 12px;
+    --md-comp-button-group-standard-size-medium-gap: 8px;
+    --md-comp-button-group-standard-size-large-gap: 8px;
+    --md-comp-button-group-standard-size-extra-large-gap: 8px;
+
+    --md-comp-button-group-standard-width-multiplier: 0.15;
+  }
+
+  .group[data-variant='standard'] {
+    &:has(sm-button[data-size='extra-small']) {
+      gap: var(--md-comp-button-group-standard-size-extra-small-gap);
+    }
+
+    &:has(sm-button[data-size='small']) {
+      gap: var(--md-comp-button-group-standard-size-small-gap);
+    }
+
+    &:has(sm-button[data-size='medium']) {
+      gap: var(--md-comp-button-group-standard-size-medium-gap);
+    }
+
+    &:has(sm-button[data-size='large']) {
+      gap: var(--md-comp-button-group-standard-size-large-gap);
+    }
+
+    &:has(sm-button[data-size='extra-large']) {
+      gap: var(--md-comp-button-group-standard-size-extra-large-gap);
+    }
+
+    --md-comp-button-group-standard-extra-padding: min(
+      32px,
+      calc(0.5 * var(--md-comp-button-group-standard-width-multiplier) * var(--width, 4px))
+    );
+    --md-comp-button-group-standard-half-extra-padding: calc(0.5 * var(--md-comp-button-group-standard-extra-padding));
+
+    sm-button {
+      transition-property: --md-comp-button-group-extra-padding, --md-comp-button-shape, --md-icon-size;
+
+      /* Override inline padding of button/link to add or subtract some extra padding */
+      & > :is(a, button) {
+        padding-inline: calc(var(--md-comp-button-padding) + var(--md-comp-button-group-extra-padding));
+      }
+    }
+
+    /* Active button other than the first or last */
+    sm-button:active {
+      --md-comp-button-group-extra-padding: var(--md-comp-button-group-standard-extra-padding);
+    }
+
+    /* First or last active button (which has only one neighbor) */
+    & > div:first-child sm-button:active,
+    & > div:last-child sm-button:active {
+      --md-comp-button-group-extra-padding: var(--md-comp-button-group-standard-half-extra-padding);
+    }
+
+    /* Button before or after active button */
+    & > div:has(+ div sm-button:active),
+    & > div:has(sm-button:active) + div sm-button {
+      --md-comp-button-group-extra-padding: calc(-1 * var(--md-comp-button-group-standard-half-extra-padding));
+    }
+  }
+}

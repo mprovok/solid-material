@@ -1,0 +1,83 @@
+@layer material.components {
+  :root {
+    /* Toolbar - Color - Standard */
+
+    /* Enabled */
+    --md-comp-toolbar-standard-container-color: var(--md-sys-color-surface-container);
+    --md-comp-toolbar-standard-button-container-color: var(--md-sys-color-surface-container);
+    --md-comp-toolbar-standard-selected-button-container-color: var(--md-sys-color-secondary-container);
+
+    --md-comp-toolbar-standard-icon-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-toolbar-standard-selected-icon-color: var(--md-sys-color-on-secondary-container);
+
+    --md-comp-toolbar-standard-label-text-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-toolbar-standard-selected-label-text-color: var(--md-sys-color-on-secondary-container);
+
+    /* Disabled */
+    --md-comp-toolbar-standard-disabled-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-toolbar-standard-disabled-icon-opacity: 0.38;
+
+    --md-comp-toolbar-standard-disabled-label-text-color: var(--md-sys-color-on-surface);
+    --md-comp-toolbar-standard-disabled-label-text-opacity: 0.38;
+
+    /* Hovered */
+    --md-comp-toolbar-standard-hovered-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-toolbar-standard-selected-hovered-state-layer-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-toolbar-standard-hovered-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* Focused */
+    --md-comp-toolbar-standard-focused-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-toolbar-standard-selected-focused-state-layer-color: var(--md-sys-color-on-secondary-container);
+    /* --md-comp-toolbar-standard-focused-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+
+    /* Pressed */
+    --md-comp-toolbar-standard-pressed-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-toolbar-standard-selected-pressed-state-layer-color: var(--md-sys-color-on-secondary-container);
+    --md-comp-toolbar-standard-pressed-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+  }
+
+  .toolbar[data-color='standard'] {
+    background-color: var(--md-comp-toolbar-standard-container-color);
+  }
+
+  /* prettier-ignore */
+  .toolbar[data-color='standard'] sm-icon-button:has(sm-button[data-variant='tonal']) {
+    /* Enabled */
+    --md-comp-button-tonal-container-color: var(--md-comp-toolbar-standard-button-container-color);
+    --md-comp-button-tonal-container-color-unselected: var(--md-comp-toolbar-standard-button-container-color);
+    --md-comp-button-tonal-container-color-selected: var(--md-comp-toolbar-standard-selected-button-container-color);
+    
+    --md-comp-button-tonal-icon-color: var(--md-comp-toolbar-standard-icon-color);
+    --md-comp-button-tonal-icon-color-unselected: var(--md-comp-toolbar-standard-icon-color);
+    --md-comp-button-tonal-icon-color-selected: var(--md-comp-toolbar-standard-selected-icon-color);
+
+    --md-comp-button-tonal-label-color: var(--md-comp-toolbar-standard-label-text-color);
+    --md-comp-button-tonal-label-color-unselected: var(--md-comp-toolbar-standard-label-text-color);
+    --md-comp-button-tonal-label-color-selected: var(--md-comp-toolbar-standard-selected-label-text-color);
+
+    /* Disabled */
+    --md-comp-button-tonal-disabled-icon-color: var(--md-comp-toolbar-standard-disabled-icon-color);
+    --md-comp-button-tonal-disabled-icon-opacity: var(--md-comp-toolbar-standard-disabled-icon-opacity);
+    
+    --md-comp-button-tonal-disabled-label-color: var(--md-comp-toolbar-standard-disabled-label-text-color);
+    --md-comp-button-tonal-disabled-label-opacity: var(--md-comp-toolbar-standard-disabled-label-text-opacity);
+
+    /* Hovered */
+    --md-comp-button-tonal-hovered-container-state-layer-color: var(--md-comp-toolbar-standard-hovered-state-layer-color);
+    --md-comp-button-tonal-hovered-container-state-layer-color-unselected: var(--md-comp-toolbar-standard-hovered-state-layer-color);
+    --md-comp-button-tonal-hovered-container-state-layer-color-selected: var(--md-comp-toolbar-standard-selected-hovered-state-layer-color);
+    --md-comp-button-tonal-hovered-container-state-layer-opacity: var(--md-comp-toolbar-standard-hovered-state-layer-opacity);
+
+    /* Focused */
+    --md-comp-button-tonal-focused-container-state-layer-color: var(--md-comp-toolbar-standard-focused-state-layer-color);
+    --md-comp-button-tonal-focused-container-state-layer-color-unselected: var(--md-comp-toolbar-standard-focused-state-layer-color);
+    --md-comp-button-tonal-focused-container-state-layer-color-selected: var(--md-comp-toolbar-standard-selected-focused-state-layer-color);
+    /* --md-comp-toolbar-standard-focused-container-state-layer-opacity: var(--md-comp-toolbar-standard-focused-state-layer-opacity); */
+
+    /* Pressed */
+    --md-comp-button-tonal-pressed-container-state-layer-color: var(--md-comp-toolbar-standard-pressed-state-layer-color);
+    --md-comp-button-tonal-pressed-container-state-layer-color-unselected: var(--md-comp-toolbar-standard-pressed-state-layer-color);
+    --md-comp-button-tonal-pressed-container-state-layer-color-selected: var(--md-comp-toolbar-standard-selected-pressed-state-layer-color);
+    --md-comp-button-tonal-pressed-container-state-layer-opacity: var(--md-comp-toolbar-standard-pressed-state-layer-opacity);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "compilerOptions": {
+    "types": ["@solid-material/vite-plugin-solid-svg/types", "vite/client"],
+  },
+}

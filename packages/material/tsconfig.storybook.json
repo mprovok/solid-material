@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["@solid-material/vite-plugin-solid-svg/types", "vite/client"],
+    "isolatedDeclarations": false
+  },
+  "include": ["src/**/*.stories.tsx", ".storybook"],
+  "files": [".storybook/preview.tsx"],
+  "references": [{ "path": "./tsconfig.build.json" }]
+}

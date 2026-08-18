@@ -1,0 +1,69 @@
+@layer material.components {
+  :root {
+    /* Tooltip - Rich */
+
+    /* Enabled */
+    --md-comp-rich-tooltip-container-color: var(--md-sys-color-surface-container);
+    --md-comp-rich-tooltip-container-elevation: var(--md-sys-elevation-level2);
+    --md-comp-rich-tooltip-container-shadow-color: var(--md-sys-color-shadow);
+    --md-comp-rich-tooltip-container-shape: var(--md-sys-shape-corner-medium);
+
+    /* Enabled - Action label */
+    --md-comp-rich-tooltip-action-label-text-color: var(--md-sys-color-primary);
+
+    /* Enabled - Subhead */
+    --md-comp-rich-tooltip-subhead-color: var(--md-sys-color-on-surface-variant);
+
+    /* Enabled - Supporting text */
+    --md-comp-rich-tooltip-supporting-text-color: var(--md-sys-color-on-surface-variant);
+
+    /* Hovered */
+    /* --md-comp-rich-tooltip-action-hover-label-text-color: var(--md-sys-color-primary); */
+    /* --md-comp-rich-tooltip-action-hover-state-layer-color: var(--md-sys-color-primary); */
+    /* --md-comp-rich-tooltip-action-hover-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity); */
+
+    /* Focused */
+    /* --md-comp-rich-tooltip-action-focus-label-text-color: var(--md-sys-color-primary); */
+    /* --md-comp-rich-tooltip-action-focus-state-layer-color: var(--md-sys-color-primary); */
+    /* --md-comp-rich-tooltip-action-focus-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+
+    /* Pressed */
+    /* --md-comp-rich-tooltip-action-pressed-label-text-color: var(--md-sys-color-primary); */
+    /* --md-comp-rich-tooltip-action-pressed-state-layer-color: var(--md-sys-color-primary); */
+    /* --md-comp-rich-tooltip-action-pressed-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity); */
+  }
+
+  .tooltip {
+    background-color: var(--md-comp-rich-tooltip-container-color);
+    border-radius: var(--md-comp-rich-tooltip-container-shape);
+    color: var(--md-comp-rich-tooltip-supporting-text-color);
+    --md-elevation-level: var(--md-comp-rich-tooltip-container-elevation);
+
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+
+    h4 {
+      color: var(--md-comp-rich-tooltip-subhead-color);
+      margin-bottom: var(--md-user-spacing-xs);
+    }
+
+    max-width: 300px;
+    padding-inline: var(--md-user-spacing-md);
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+
+      padding-block: 12px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: var(--md-user-spacing-md);
+      padding-block-end: var(--md-user-spacing-sm);
+      margin-inline: calc(-1 * var(--md-user-spacing-sm));
+    }
+  }
+}

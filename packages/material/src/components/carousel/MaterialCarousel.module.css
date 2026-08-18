@@ -1,0 +1,137 @@
+@layer material.components {
+  :root {
+    --md-comp-carousel-container-gap: var(--md-user-spacing-sm);
+    --md-comp-carousel-container-height: 128px;
+
+    --md-comp-carousel-container-color: var(--md-sys-color-surface);
+    --md-comp-carousel-container-padding-inline: var(--md-user-spacing-md);
+
+    --md-comp-carousel-active-item-extra-width: 4px;
+  }
+
+  .carousel {
+    display: flex;
+    flex-direction: row;
+    gap: var(--md-comp-carousel-container-gap);
+
+    max-width: stretch;
+    width: stretch;
+    height: calc(2 * var(--md-user-spacing-sm) + var(--md-comp-carousel-container-height));
+
+    padding-block: var(--md-user-spacing-sm);
+    padding-inline: var(--md-comp-carousel-container-padding-inline);
+
+    container-type: inline-size;
+    overflow-inline: scroll;
+    overscroll-behavior-inline: contain;
+
+    scrollbar-width: none;
+    scroll-padding-inline: var(--md-comp-carousel-container-padding-inline);
+
+    &:not([data-variant='uncontained'], [data-dragging]) {
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+
+    cursor: grab;
+
+    &[data-dragging] {
+      cursor: grabbing;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /**
+       * Only clip the leading and trailing edge (which is outside) of the
+       * scroll container when no item has focus, otherwise the focus ring will
+       * be clipped
+       */
+      &:not([data-variant='full-screen'], :has(:focus-visible)) {
+        transition: clip-path var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast);
+
+        clip-path: inset(0 var(--md-comp-carousel-container-padding-inline));
+
+        /**
+         * Reduce the clip-path outside the scroll port a bit so that
+         * the extra width of the active item does not get clipped
+         */
+        &:not([data-variant='uncontained'], [data-dragging]):has(sm-carousel-item:active) {
+          clip-path: inset(
+            0 calc(var(--md-comp-carousel-container-padding-inline) - var(--md-comp-carousel-active-item-extra-width))
+          );
+        }
+      }
+
+      &:not([data-variant='full-screen']) {
+        sm-carousel-item {
+          /**
+           * Animate --active-item-extra-width instead of max-width to
+           * avoid weird behavior when scrolling horizontally
+           */
+          transition-property:
+            --active-item-extra-width, padding-inline-start, padding-inline-end, grid-template-columns;
+          transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+          transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+        }
+
+        /* Increase width of clicked item */
+        sm-carousel-item:active {
+          --active-item-extra-width: var(--md-comp-carousel-active-item-extra-width);
+        }
+
+        /* Decrease width of previous item */
+        & > div:has(+ div > sm-carousel-item:active) > sm-carousel-item {
+          padding-inline-end: var(--md-comp-carousel-active-item-extra-width);
+        }
+
+        /* Decrease width of next item */
+        & > div:has(> sm-carousel-item:active) + div > sm-carousel-item {
+          padding-inline-start: var(--md-comp-carousel-active-item-extra-width);
+        }
+      }
+    }
+
+    position: relative;
+
+    &[data-variant='uncontained'] {
+      clip-path: inset(0);
+    }
+
+    &[data-variant='full-screen'] {
+      height: 100vh;
+      flex-direction: column;
+      gap: var(--md-user-spacing-md);
+
+      padding-block: 0;
+      padding-inline: 0;
+      background-color: var(--md-comp-carousel-container-color);
+
+      scroll-snap-type: y mandatory;
+      scroll-padding-inline: 0;
+    }
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--md-user-spacing-sm);
+    padding-inline-start: var(--md-user-spacing-md);
+
+    .arrow-icon:dir(rtl) {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .show-all-button {
+    display: flex;
+    justify-content: end;
+    margin-block-start: calc(-1 * var(--md-user-spacing-xs));
+    padding-inline-end: var(--md-user-spacing-xs);
+  }
+
+  .carousel:not([data-variant='full-screen']),
+  .header,
+  .show-all-button {
+    margin-inline: calc(-1 * var(--md-comp-carousel-container-padding-inline));
+  }
+}

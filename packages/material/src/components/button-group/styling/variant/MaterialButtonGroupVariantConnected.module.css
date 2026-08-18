@@ -1,0 +1,86 @@
+@layer material.components {
+  :root {
+    /* Connected */
+    --md-comp-button-group-connected-gap: 2px;
+
+    /* Inner corner shape */
+    --md-comp-button-group-connected-extra-small-inner-shape: 4px;
+    --md-comp-button-group-connected-small-inner-shape: 8px;
+    --md-comp-button-group-connected-medium-inner-shape: 8px;
+    --md-comp-button-group-connected-large-inner-shape: 16px;
+    --md-comp-button-group-connected-extra-large-inner-shape: 20px;
+
+    /* Pressed inner corner shape */
+    --md-comp-button-group-connected-extra-small-shape-pressed-morph: 2px;
+    --md-comp-button-group-connected-small-shape-pressed-morph: 4px;
+    --md-comp-button-group-connected-medium-shape-pressed-morph: 4px;
+    --md-comp-button-group-connected-large-shape-pressed-morph: 12px;
+    --md-comp-button-group-connected-extra-large-shape-pressed-morph: 16px;
+  }
+
+  @property --md-comp-button-group-extra-padding {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  .group[data-variant='connected'] {
+    gap: var(--md-comp-button-group-connected-gap);
+
+    sm-button:focus-within {
+      z-index: 1;
+    }
+
+    /* Inner corner shape (round) */
+    --md-comp-button-extra-small-shape-round: var(--md-comp-button-group-connected-extra-small-inner-shape);
+    --md-comp-button-small-shape-round: var(--md-comp-button-group-connected-small-inner-shape);
+    --md-comp-button-medium-shape-round: var(--md-comp-button-group-connected-medium-inner-shape);
+    --md-comp-button-large-shape-round: var(--md-comp-button-group-connected-large-inner-shape);
+    --md-comp-button-extra-large-shape-round: var(--md-comp-button-group-connected-extra-large-inner-shape);
+
+    /* Fully round corner shape when toggled (round) */
+    --md-comp-button-extra-small-shape-round-selected: calc(var(--md-comp-button-extra-small-container-height) * 0.5);
+    --md-comp-button-small-shape-round-selected: calc(var(--md-comp-button-small-container-height) * 0.5);
+    --md-comp-button-medium-shape-round-selected: calc(var(--md-comp-button-medium-container-height) * 0.5);
+    --md-comp-button-large-shape-round-selected: calc(var(--md-comp-button-large-container-height) * 0.5);
+    --md-comp-button-extra-large-shape-round-selected: calc(var(--md-comp-button-extra-large-container-height) * 0.5);
+
+    /* Inner corner shape (square) */
+    --md-comp-button-extra-small-shape-square: var(--md-comp-button-group-connected-extra-small-inner-shape);
+    --md-comp-button-small-shape-square: var(--md-comp-button-group-connected-small-inner-shape);
+    --md-comp-button-medium-shape-square: var(--md-comp-button-group-connected-medium-inner-shape);
+    --md-comp-button-large-shape-square: var(--md-comp-button-group-connected-large-inner-shape);
+    --md-comp-button-extra-large-shape-square: var(--md-comp-button-group-connected-extra-large-inner-shape);
+
+    /* Pressed inner corner shape */
+    --md-comp-button-extra-small-shape-pressed-morph: var(
+      --md-comp-button-group-connected-extra-small-shape-pressed-morph
+    );
+    --md-comp-button-small-shape-pressed-morph: var(--md-comp-button-group-connected-small-shape-pressed-morph);
+    --md-comp-button-medium-shape-pressed-morph: var(--md-comp-button-group-connected-medium-shape-pressed-morph);
+    --md-comp-button-large-shape-pressed-morph: var(--md-comp-button-group-connected-large-shape-pressed-morph);
+    --md-comp-button-extra-large-shape-pressed-morph: var(
+      --md-comp-button-group-connected-extra-large-shape-pressed-morph
+    );
+
+    /* Outer corners (for round buttons) */
+    & > :first-child [data-shape='round'] {
+      button {
+        border-start-start-radius: calc(var(--md-comp-button-container-height) * 0.5);
+        border-end-start-radius: calc(var(--md-comp-button-container-height) * 0.5);
+      }
+
+      --md-focus-ring-shape-start-start: calc(var(--md-comp-button-container-height) * 0.5);
+      --md-focus-ring-shape-end-start: calc(var(--md-comp-button-container-height) * 0.5);
+    }
+    & > :last-child [data-shape='round'] {
+      button {
+        border-start-end-radius: calc(var(--md-comp-button-container-height) * 0.5);
+        border-end-end-radius: calc(var(--md-comp-button-container-height) * 0.5);
+      }
+
+      --md-focus-ring-shape-start-end: calc(var(--md-comp-button-container-height) * 0.5);
+      --md-focus-ring-shape-end-end: calc(var(--md-comp-button-container-height) * 0.5);
+    }
+  }
+}

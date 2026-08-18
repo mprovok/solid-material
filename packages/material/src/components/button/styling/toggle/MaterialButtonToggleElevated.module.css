@@ -1,0 +1,47 @@
+@layer material.components {
+  :root {
+    /* Toggle elevated */
+
+    /* Enabled */
+    --md-comp-button-elevated-container-color-unselected: var(--md-sys-color-surface-container-low);
+    --md-comp-button-elevated-container-color-selected: var(--md-sys-color-primary);
+
+    --md-comp-button-elevated-label-color-unselected: var(--md-sys-color-primary);
+    --md-comp-button-elevated-label-color-selected: var(--md-sys-color-on-primary);
+
+    --md-comp-button-elevated-icon-color-unselected: var(--md-sys-color-primary);
+    --md-comp-button-elevated-icon-color-selected: var(--md-sys-color-on-primary);
+
+    /* Hovered */
+    --md-comp-button-elevated-hovered-container-state-layer-color-unselected: var(--md-sys-color-primary);
+    --md-comp-button-elevated-hovered-container-state-layer-color-selected: var(--md-sys-color-on-primary);
+
+    /* Focused */
+    /* --md-comp-button-elevated-focused-container-state-layer-color-unselected: var(--md-sys-color-primary); */
+    /* --md-comp-button-elevated-focused-container-state-layer-color-selected: var(--md-sys-color-on-primary); */
+
+    /* Pressed */
+    --md-comp-button-elevated-pressed-container-state-layer-color-unselected: var(--md-sys-color-primary);
+    --md-comp-button-elevated-pressed-container-state-layer-color-selected: var(--md-sys-color-on-primary);
+  }
+
+  .button[data-variant='elevated'][data-toggle]:not(:has(> :is(a, button):disabled)) {
+    &[data-toggle='false'] {
+      --md-comp-button-container-color: var(--md-comp-button-elevated-container-color-unselected);
+      --md-comp-button-label-color: var(--md-comp-button-elevated-label-color-unselected);
+      --md-comp-button-icon-color: var(--md-comp-button-elevated-icon-color-unselected);
+
+      --md-ripple-hover-color: var(--md-comp-button-elevated-hovered-container-state-layer-color-unselected);
+      --md-ripple-pressed-color: var(--md-comp-button-elevated-pressed-container-state-layer-color-unselected);
+    }
+
+    &[data-toggle='true'] {
+      --md-comp-button-container-color: var(--md-comp-button-elevated-container-color-selected);
+      --md-comp-button-label-color: var(--md-comp-button-elevated-label-color-selected);
+      --md-comp-button-icon-color: var(--md-comp-button-elevated-icon-color-selected);
+
+      --md-ripple-hover-color: var(--md-comp-button-elevated-hovered-container-state-layer-color-selected);
+      --md-ripple-pressed-color: var(--md-comp-button-elevated-pressed-container-state-layer-color-selected);
+    }
+  }
+}

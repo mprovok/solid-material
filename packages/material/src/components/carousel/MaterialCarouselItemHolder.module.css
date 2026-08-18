@@ -1,0 +1,363 @@
+@layer material.components {
+  :root {
+    --md-comp-carousel-item-small-min-width: 40px;
+    --md-comp-carousel-item-small-max-width: 56px;
+
+    --md-comp-carousel-item-large-max-width: 200px;
+  }
+
+  @property --md-comp-carousel-count-large {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 2;
+  }
+
+  @property --md-comp-carousel-size-large {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @property --md-comp-carousel-size-medium {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @property --max-width {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @property --active-item-extra-width {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @keyframes multi-browse-expand-medium-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-small);
+      margin-inline-end: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small)));
+    }
+    to {
+      --max-width: var(--md-comp-carousel-size-medium);
+      margin-inline-end: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-medium)));
+    }
+  }
+
+  @keyframes multi-browse-expand-large-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-medium);
+      margin-inline-end: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-medium)));
+    }
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+      margin-inline-end: 0;
+    }
+  }
+
+  @keyframes multi-browse-expand-last-item {
+    from {
+      --max-width: 0;
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  @keyframes collapse-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-large);
+      margin-inline-end: 0;
+      justify-content: end;
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-small);
+      margin-inline-end: 0;
+      justify-content: end;
+    }
+  }
+
+  @keyframes uncontained-expand-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-medium);
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  @keyframes hero-expand-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-small);
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  @keyframes hero-expand-last-item {
+    from {
+      --max-width: 0;
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  @keyframes centered-hero-collapse-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+
+    to {
+      --max-width: calc(var(--md-comp-carousel-size-small));
+    }
+  }
+
+  .container {
+    --md-comp-carousel-size-small: var(--md-comp-carousel-item-small-max-width);
+
+    /* Make small items thin in compact windows */
+    @container (width < 600px) {
+      --md-comp-carousel-size-small: var(--md-comp-carousel-item-small-min-width);
+    }
+
+    /* Round up to use width as a maximum (and down when used as a minimum) */
+    /* The CSS variable --container-width is defined per variant */
+    --md-comp-carousel-count-large: max(
+      2,
+      round(
+        up,
+        (var(--container-width) + var(--md-comp-carousel-container-gap)) /
+          (var(--md-comp-carousel-item-large-max-width) + var(--md-comp-carousel-container-gap))
+      )
+    );
+    --md-comp-carousel-size-large: calc(
+      (var(--container-width) + var(--md-comp-carousel-container-gap)) / var(--md-comp-carousel-count-large) -
+        var(--md-comp-carousel-container-gap)
+    );
+
+    --md-comp-carousel-size-medium: calc(
+      var(--md-comp-carousel-size-large) - var(--md-comp-carousel-container-gap) - var(--md-comp-carousel-size-small)
+    );
+
+    --min-width: var(--md-comp-carousel-size-large);
+    --max-width: var(--min-width);
+
+    display: flex;
+    contain: layout size;
+    contain-intrinsic-width: var(--min-width);
+    min-width: var(--min-width);
+
+    /* Needed for WebKit to avoid buggy behavior when clicking on items */
+    height: 100%;
+
+    /* Enable snap-scrolling for all variants except uncontained layouts */
+    &:not([data-variant='uncontained']) {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    & > sm-carousel-item {
+      max-width: calc(var(--max-width) + 2 * var(--active-item-extra-width));
+      margin-inline: calc(-1 * var(--active-item-extra-width));
+    }
+  }
+
+  sm-carousel[data-dragging] .container {
+    pointer-events: none;
+  }
+
+  /**********************************************************************/
+  /*                        Multi-browse variant                        */
+  /**********************************************************************/
+
+  sm-carousel[data-variant='multi-browse'] .container {
+    --container-width: 100cqi;
+
+    /* Animated by @keyframes needed for WebKit */
+    /* margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-small), var(--max-width)))); */
+
+    @supports (animation-timeline: view()) {
+      animation:
+        multi-browse-expand-medium-item linear both,
+        multi-browse-expand-large-item linear forwards,
+        collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        var(--md-comp-carousel-size-small),
+        var(--md-comp-carousel-size-large),
+        exit 0%;
+      animation-range-end:
+        var(--md-comp-carousel-size-large),
+        calc(2 * var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap)),
+        exit 100%;
+
+      &:last-child {
+        animation: multi-browse-expand-last-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: normal;
+        animation-range-end: calc(1 * var(--md-comp-carousel-size-large));
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  /**********************************************************************/
+  /*                        Uncontained variant                         */
+  /**********************************************************************/
+
+  sm-carousel[data-variant='uncontained'] .container {
+    --container-width: calc(100cqi - var(--md-comp-carousel-size-small));
+
+    margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-medium), var(--max-width))));
+
+    @supports (animation-timeline: view()) {
+      animation:
+        uncontained-expand-item linear both,
+        collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        entry 0%,
+        exit 0%;
+      animation-range-end:
+        var(--md-comp-carousel-size-large),
+        exit 100%;
+
+      &:last-child {
+        animation: uncontained-expand-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: entry 0%;
+        animation-range-end: var(--md-comp-carousel-size-large);
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  /**********************************************************************/
+  /*                            Hero variant                            */
+  /**********************************************************************/
+
+  sm-carousel[data-variant='hero'] .container {
+    --container-width: calc(100cqi - var(--md-comp-carousel-size-small) - var(--md-comp-carousel-container-gap));
+
+    @container (width < 600px) {
+      --md-comp-carousel-count-large: 1;
+    }
+
+    margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-small), var(--max-width))));
+
+    @supports (animation-timeline: view()) {
+      animation:
+        hero-expand-item linear both,
+        collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        var(--md-comp-carousel-size-small),
+        exit 0%;
+      animation-range-end:
+        calc(
+          var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+            var(--md-comp-carousel-size-small)
+        ),
+        exit 100%;
+
+      /* Make sure the second last item ends at the leading edge of the scroll container
+    so that it doesn't continue outside the container. This causes the last two items
+    to have shapes that are the reverse (small + large) of the first two (large + small) */
+      &:nth-last-child(2) {
+        animation-range-end:
+          calc(
+            var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+              var(--md-comp-carousel-size-small)
+          ),
+          exit calc(100% - var(--md-comp-carousel-size-small));
+      }
+
+      &:last-child {
+        animation: hero-expand-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: var(--md-comp-carousel-size-small);
+        animation-range-end: var(--md-comp-carousel-size-large);
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  /**********************************************************************/
+  /*                    Centered-aligned hero variant                   */
+  /**********************************************************************/
+
+  sm-carousel[data-variant='centered-hero'] .container {
+    --container-width: calc(
+      100cqi - 2 * var(--md-comp-carousel-size-small) - 2 * var(--md-comp-carousel-container-gap)
+    );
+
+    @container (width < 600px) {
+      --md-comp-carousel-count-large: 1;
+    }
+
+    margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-small), var(--max-width))));
+
+    @supports (animation-timeline: view()) {
+      animation:
+        hero-expand-item linear both,
+        centered-hero-collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        var(--md-comp-carousel-size-small),
+        exit calc(-1 * (var(--md-comp-carousel-size-small) + var(--md-comp-carousel-container-gap)));
+      animation-range-end:
+        calc(
+          var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+            var(--md-comp-carousel-size-small)
+        ),
+        exit 0%;
+
+      &:last-child {
+        --container-width: calc(100cqi - var(--md-comp-carousel-size-small) - var(--md-comp-carousel-container-gap));
+
+        animation: hero-expand-last-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: normal;
+        animation-range-end: var(--md-comp-carousel-size-large);
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  /**********************************************************************/
+  /*                        Full-screen variant                         */
+  /**********************************************************************/
+
+  sm-carousel[data-variant='full-screen'] .container {
+    --md-comp-carousel-count-large: 1;
+    --container-width: 100cqi;
+
+    min-height: 100vh;
+  }
+
+  /**********************************************************************/
+  /*                           Reduced motion                           */
+  /**********************************************************************/
+
+  @media (prefers-reduced-motion: reduce) {
+    .container {
+      /* Disable animation so that items do not expand and collapse when
+    they enter the scroll port */
+      animation: none !important;
+    }
+
+    sm-carousel[data-variant='hero'] .container {
+      --container-width: 100cqi;
+    }
+  }
+}

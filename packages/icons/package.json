@@ -1,0 +1,22 @@
+{
+  "name": "@solid-material/icons",
+  "version": "1.0.0",
+  "private": false,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mprovok/solid-material",
+    "directory": "packages/icons"
+  },
+  "files": [
+    "icons/400/"
+  ],
+  "type": "module",
+  "exports": {
+    "./400/": "./icons/400/"
+  },
+  "scripts": {
+    "clean:svg": "set -eu; for w in 100 200 300 400 500 600 700; do pnpm dlx @material-design-icons/scripts delete svg --symbols --in icons/$w; done",
+    "download:svg": "set -eu; for w in 400; do for s in outlined rounded sharp; do mkdir -p icons/$w/$s && pnpm dlx @material-design-icons/scripts download svg --symbols --weight $w --size 24 --to icons/$w; done; done"
+  }
+}

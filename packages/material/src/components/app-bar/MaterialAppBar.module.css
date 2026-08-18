@@ -1,0 +1,215 @@
+@layer material.components {
+  :root {
+    /* Color */
+    --md-comp-app-bar-container-color: var(--md-sys-color-surface);
+    --md-comp-app-bar-on-scroll-container-color: var(--md-sys-color-surface-container);
+
+    --md-comp-app-bar-container-elevation: var(--md-sys-elevation-level0);
+    --md-comp-app-bar-on-scroll-container-elevation: var(--md-sys-elevation-level2);
+
+    --md-comp-app-bar-title-color: var(--md-sys-color-on-surface);
+    --md-comp-app-bar-subtitle-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-app-bar-leading-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-app-bar-trailing-icon-color: var(--md-sys-color-on-surface-variant);
+
+    /* Spacing */
+    --md-comp-app-bar-leading-space: var(--md-user-spacing-xs);
+    --md-comp-app-bar-trailing-space: var(--md-user-spacing-xs);
+    --md-comp-app-bar-icon-button-space: 0;
+
+    /* Shape */
+    /* --md-comp-app-bar-container-shape: var(--md-sys-shape-corner-none); */
+
+    /* Size */
+    /* --md-comp-app-bar-avatar-size: var(--md-user-spacing-xl); */
+    /* --md-comp-app-bar-icon-size: var(--md-user-spacing-lg); */
+
+    --md-comp-app-bar-small-container-height: 64px;
+    --md-comp-app-bar-medium-flexible-with-subtitle-container-height: 136px;
+    --md-comp-app-bar-large-flexible-with-subtitle-container-height: 152px;
+  }
+
+  @property --app-bar-color {
+    syntax: '<color>';
+    initial-value: white;
+    inherits: true;
+  }
+
+  @property --app-bar-opacity {
+    syntax: '<percentage>';
+    initial-value: 100%;
+    inherits: true;
+  }
+
+  .app-bar,
+  .appendix {
+    h1 {
+      color: var(--md-comp-app-bar-title-color);
+    }
+
+    h2 {
+      color: var(--md-comp-app-bar-subtitle-color);
+    }
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .app-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: var(--md-comp-app-bar-small-container-height);
+
+    --md-elevation-level: var(--md-comp-app-bar-container-elevation);
+
+    --app-bar-color: var(--md-comp-app-bar-container-color);
+    --app-bar-opacity: 100%;
+
+    transition: --app-bar-color var(--md-sys-motion-duration-effects-default)
+      var(--md-sys-motion-spring-effects-default);
+
+    &[data-scrolling] {
+      --app-bar-color: var(--md-comp-app-bar-on-scroll-container-color);
+
+      /**
+       * While the medium/large text of the appendix is fading out, it will
+       * overlap with the small app bar, which therefore needs to be transparent
+       */
+      --app-bar-opacity: 0%;
+    }
+
+    &[data-elevated] {
+      --app-bar-color: var(--md-comp-app-bar-on-scroll-container-color);
+      --app-bar-opacity: 100%;
+
+      --md-elevation-level: var(--md-comp-app-bar-on-scroll-container-elevation);
+    }
+
+    background-color: color-mix(in srgb, var(--app-bar-color) var(--app-bar-opacity), transparent);
+
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    align-items: center;
+    gap: 4px;
+
+    padding-block: calc((var(--md-comp-app-bar-small-container-height) - 48px) / 2);
+    padding-inline: var(--md-comp-app-bar-leading-space) var(--md-comp-app-bar-trailing-space);
+
+    /* Align small text with text in appendix if there is no leading icon button */
+    &:not(:has(.back-button)) {
+      grid-template-columns: auto min-content;
+      padding-inline-start: var(--md-user-spacing-md);
+    }
+
+    .back-button {
+      --sm-icon-button-icon-color: var(--md-comp-app-bar-leading-icon-color);
+
+      &:dir(rtl) {
+        transform: rotateY(180deg);
+      }
+    }
+
+    .text {
+      overflow-inline: hidden;
+      text-wrap: nowrap;
+
+      transition: opacity var(--md-sys-motion-duration-effects-default) var(--md-sys-motion-spring-effects-default);
+
+      &.center {
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+      }
+
+      h1 {
+        text-wrap-mode: nowrap;
+        text-overflow: ellipsis;
+        overflow-inline: clip;
+      }
+    }
+
+    .trailing-buttons {
+      --sm-icon-button-icon-color: var(--md-comp-app-bar-trailing-icon-color);
+      justify-self: flex-end;
+      gap: var(--md-comp-app-bar-icon-button-space);
+    }
+
+    .back-button,
+    .trailing-buttons {
+      display: grid;
+      place-items: center;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(48px, auto);
+      height: 48px;
+    }
+  }
+
+  .app-bar-background {
+    /* Zero so that it has no effect on the intersection ratio of the appendix */
+    height: 0;
+
+    /**
+     * This element is rendered below the small app bar and exists so that
+     * when the user is scrolling the opacity of the small app bar can be 0%
+     * (needed to show the medium/large title of the appendix) without showing
+     * any content that is moving under the app bar.
+     */
+    .app-bar-background-inner {
+      height: var(--md-comp-app-bar-small-container-height);
+      transform: translateY(calc(-1 * var(--md-comp-app-bar-small-container-height)));
+
+      background-color: var(--md-comp-app-bar-container-color);
+
+      transition: background-color var(--md-sys-motion-duration-effects-default)
+        var(--md-sys-motion-spring-effects-default);
+    }
+  }
+
+  .app-bar-background,
+  .appendix {
+    /* Prevent the appendix (and the background helper element) from moving when the user scrolls horizontally */
+    position: sticky;
+    left: 0;
+  }
+
+  .appendix-inner {
+    padding-inline: var(--md-user-spacing-md);
+    padding-bottom: 12px;
+    text-wrap-style: balance;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    background-color: var(--md-comp-app-bar-container-color);
+
+    transition: background-color var(--md-sys-motion-duration-effects-default)
+      var(--md-sys-motion-spring-effects-default);
+
+    &[data-variant='medium']:has(h2) {
+      height: calc(
+        var(--md-comp-app-bar-medium-flexible-with-subtitle-container-height) -
+          var(--md-comp-app-bar-small-container-height)
+      );
+    }
+
+    &[data-variant='large']:has(h2) {
+      height: calc(
+        var(--md-comp-app-bar-large-flexible-with-subtitle-container-height) -
+          var(--md-comp-app-bar-small-container-height)
+      );
+    }
+  }
+
+  .app-bar[data-scrolling] ~ .appendix .appendix-inner {
+    background-color: var(--md-comp-app-bar-on-scroll-container-color);
+  }
+
+  .app-bar[data-scrolling] ~ .app-bar-background .app-bar-background-inner {
+    background-color: var(--md-comp-app-bar-on-scroll-container-color);
+  }
+}

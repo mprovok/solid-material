@@ -1,0 +1,185 @@
+@layer material.components {
+  :root {
+    /* Enabled - Container */
+    --md-comp-snackbar-container-color: var(--md-sys-color-inverse-surface);
+    --md-comp-snackbar-container-shadow-color: var(--md-sys-color-shadow);
+    --md-comp-snackbar-container-elevation: var(--md-sys-elevation-level3);
+    --md-comp-snackbar-container-shape: var(--md-sys-shape-corner-extra-small);
+    --md-comp-snackbar-with-single-line-container-height: 48px;
+    --md-comp-snackbar-with-two-lines-container-height: 64px;
+
+    /* Enabled - Action and icon */
+    --md-comp-snackbar-action-label-text-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-icon-color: var(--md-sys-color-inverse-on-surface);
+    /* --md-comp-snackbar-icon-size: 24px; */
+
+    /* Enabled - Supporting text */
+    --md-comp-snackbar-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+
+    /* Hovered - Action and icon */
+    --md-comp-snackbar-action-hover-label-text-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-icon-hover-icon-color: var(--md-sys-color-inverse-on-surface);
+
+    /* Hovered - State layer */
+    --md-comp-snackbar-action-hover-state-layer-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-action-hover-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+    --md-comp-snackbar-icon-hover-state-layer-color: var(--md-sys-color-inverse-on-surface);
+    --md-comp-snackbar-icon-hover-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* Focused - Action and icon */
+    --md-comp-snackbar-action-focus-label-text-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-icon-focus-icon-color: var(--md-sys-color-inverse-on-surface);
+
+    /* Focused - State layer */
+    --md-comp-snackbar-action-focus-state-layer-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-action-focus-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity);
+    --md-comp-snackbar-icon-focus-state-layer-color: var(--md-sys-color-inverse-on-surface);
+    --md-comp-snackbar-icon-focus-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity);
+
+    /* Pressed - Action and icon */
+    --md-comp-snackbar-action-pressed-label-text-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-icon-pressed-icon-color: var(--md-sys-color-inverse-on-surface);
+
+    /* Pressed - State layer */
+    --md-comp-snackbar-action-pressed-state-layer-color: var(--md-sys-color-inverse-primary);
+    --md-comp-snackbar-action-pressed-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+    --md-comp-snackbar-icon-pressed-state-layer-color: var(--md-sys-color-inverse-on-surface);
+    --md-comp-snackbar-icon-pressed-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+  }
+
+  /* FIXME Support longer action button on 3rd row with 2 lines of supporting text */
+
+  .body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: stretch;
+    opacity: 1;
+
+    /**
+     * Hidden overflow clips the focus ring a bit, but is needed to animate
+     * the height if interpolate-size is not supported
+     */
+    overflow: hidden;
+
+    transition-property: opacity;
+    transition-duration: inherit;
+    transition-timing-function: inherit;
+  }
+
+  .snackbar {
+    position: relative;
+    border-radius: var(--md-comp-snackbar-container-shape);
+    background-color: var(--md-comp-snackbar-container-color);
+
+    display: grid;
+    grid-template-rows: 1fr;
+
+    /**
+     * Animating the height looks slightly better because they slide in
+     * from below a bit instead of being revealed
+     */
+    @supports (interpolate-size: allow-keywords) {
+      display: flex;
+      interpolate-size: allow-keywords;
+
+      .body {
+        /* Avoid clipping the focus ring */
+        overflow: visible;
+      }
+    }
+
+    max-height: var(--md-comp-snackbar-with-two-lines-container-height);
+
+    width: stretch;
+    height: fit-content;
+    opacity: 1;
+
+    transition-property: opacity, height, grid-template-rows, overlay, display;
+    transition-behavior: allow-discrete;
+
+    &[data-show] {
+      /* Transition when entering the screen */
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+      transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+    }
+
+    &:not([data-show]) {
+      /* Transition when exiting the screen */
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+      transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+    }
+
+    padding-inline: var(--md-user-spacing-md);
+
+    &:has(.action) {
+      padding-inline-end: var(--md-user-spacing-sm);
+    }
+
+    &:has(.icon) {
+      padding-inline-end: 0;
+    }
+
+    --md-elevation-shadow-color: var(--md-comp-snackbar-container-shadow-color);
+    --md-elevation-level: var(--md-comp-snackbar-container-elevation);
+
+    .supporting-text {
+      flex-grow: 1;
+      padding-block: calc(var(--md-user-spacing-sm) + var(--md-user-spacing-xs));
+      color: var(--md-comp-snackbar-supporting-text-color);
+    }
+
+    /* prettier-ignore */
+    .action {
+      --md-comp-button-text-label-color: var(--md-comp-snackbar-action-label-text-color);
+      --md-comp-button-text-hovered-label-color: var(--md-comp-snackbar-action-hover-label-text-color);
+      --md-comp-button-text-focused-label-color: var(--md-comp-snackbar-action-focus-label-text-color);
+      --md-comp-button-text-pressed-label-color: var(--md-comp-snackbar-action-pressed-label-text-color);
+
+      --md-comp-button-text-hovered-container-state-layer-color: var(--md-comp-snackbar-action-hover-state-layer-color);
+      --md-comp-button-text-hovered-container-state-layer-opacity: var(--md-comp-snackbar-action-hover-state-layer-opacity);
+
+      --md-comp-button-text-focused-container-state-layer-color: var(--md-comp-snackbar-action-focus-state-layer-color);
+      --md-comp-button-text-focused-container-state-layer-opacity: var(--md-comp-snackbar-action-focus-state-layer-opacity);
+
+      --md-comp-button-text-pressed-container-state-layer-color: var(--md-comp-snackbar-action-pressed-state-layer-color);
+      --md-comp-button-text-pressed-container-state-layer-opacity: var(--md-comp-snackbar-action-pressed-state-layer-opacity);
+    }
+
+    /* prettier-ignore */
+    .icon {
+      padding-inline: var(--md-user-spacing-xs);
+
+      --md-comp-icon-button-text-icon-color: var(--md-comp-snackbar-icon-color);
+      --md-comp-icon-button-text-hovered-icon-color: var(--md-comp-snackbar-icon-hover-icon-color);
+      --md-comp-icon-button-text-focused-icon-color: var(--md-comp-snackbar-icon-focus-icon-color);
+      --md-comp-icon-button-text-pressed-icon-color: var(--md-comp-snackbar-icon-pressed-icon-color);
+
+      --md-comp-icon-button-text-hovered-container-state-layer-color: var(--md-comp-snackbar-icon-hover-state-layer-color);
+      --md-comp-icon-button-text-hovered-container-state-layer-opacity: var(--md-comp-snackbar-icon-hover-state-layer-opacity);
+
+      --md-comp-icon-button-text-focused-container-state-layer-color: var(--md-comp-snackbar-icon-focus-state-layer-color);
+      --md-comp-icon-button-text-focused-container-state-layer-opacity: var(--md-comp-snackbar-icon-focus-state-layer-opacity);
+
+      --md-comp-icon-button-text-pressed-container-state-layer-color: var(--md-comp-snackbar-icon-pressed-state-layer-color);
+      --md-comp-icon-button-text-pressed-container-state-layer-opacity: var(--md-comp-snackbar-icon-pressed-state-layer-opacity);
+    }
+  }
+
+  .snackbar:not([data-show]) {
+    display: none;
+    opacity: 0;
+  }
+
+  @starting-style {
+    .snackbar[data-show] {
+      height: 0;
+      grid-template-rows: 0fr;
+
+      .body {
+        opacity: 0;
+      }
+    }
+  }
+}

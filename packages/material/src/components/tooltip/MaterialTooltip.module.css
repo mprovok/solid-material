@@ -1,0 +1,54 @@
+@layer material.components {
+  .anchor {
+    width: fit-content;
+    anchor-name: --md-comp-tooltip-anchor;
+    anchor-scope: --md-comp-tooltip-anchor;
+  }
+
+  .tooltip:popover-open {
+    opacity: 1;
+  }
+
+  /* Reset default UA styling for popover element */
+  .tooltip[popover] {
+    color: unset;
+    background-color: unset;
+    inset: unset;
+    margin: unset;
+    padding: unset;
+    border: unset;
+    overflow: unset;
+  }
+
+  .tooltip {
+    width: max-content;
+    position-anchor: --md-comp-tooltip-anchor;
+
+    &[data-variant='plain'] {
+      position-area: top;
+      position-try-fallbacks: top, bottom, right, left;
+      margin: var(--md-user-spacing-xs);
+    }
+
+    &[data-variant='rich'] {
+      position-area: bottom x-end;
+      position-try-fallbacks:
+        bottom x-end,
+        top x-end,
+        bottom x-start,
+        top x-start;
+    }
+
+    opacity: 0;
+    transition:
+      opacity var(--md-sys-motion-duration-effects-fast) var(--md-sys-motion-spring-effects-fast),
+      display var(--md-sys-motion-duration-effects-fast) allow-discrete,
+      overlay var(--md-sys-motion-duration-effects-fast) allow-discrete;
+  }
+
+  @starting-style {
+    .tooltip:popover-open {
+      opacity: 0;
+    }
+  }
+}

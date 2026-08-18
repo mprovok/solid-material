@@ -1,0 +1,30 @@
+@layer material.components {
+  :root {
+    /* Variant text */
+
+    /* Enabled */
+    --md-comp-icon-button-text-icon-color: var(--md-sys-color-on-surface-variant);
+
+    /* Hovered */
+    --md-comp-icon-button-text-hovered-container-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-icon-button-text-hovered-container-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* Focused */
+    /* --md-comp-icon-button-text-focused-container-state-layer-color: var(--md-sys-color-on-surface-variant); */
+    /* --md-comp-icon-button-text-focused-container-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+
+    /* Pressed */
+    --md-comp-icon-button-text-pressed-container-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-icon-button-text-pressed-container-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+  }
+
+  .button > sm-button[data-variant='text'] {
+    --md-comp-button-icon-color: var(--md-comp-icon-button-text-icon-color);
+
+    --md-ripple-hover-color: var(--md-comp-icon-button-text-hovered-container-state-layer-color);
+    --md-ripple-hover-opacity: var(--md-comp-icon-button-text-hovered-container-state-layer-opacity);
+
+    --md-ripple-pressed-color: var(--md-comp-icon-button-text-pressed-container-state-layer-color);
+    --md-ripple-pressed-opacity: var(--md-comp-icon-button-text-pressed-container-state-layer-opacity);
+  }
+}

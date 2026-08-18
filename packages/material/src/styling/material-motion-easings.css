@@ -1,0 +1,76 @@
+@layer material.theme {
+  :root {
+    /* Emphasized easings */
+
+    /**
+     * Emphasized's SVG path: (converted with https://linear-easing-generator.netlify.app)
+     *
+     * M 0,0
+     * C 0.05, 0, 0.133333, 0.06, 0.166666, 0.4
+     * C 0.05, 0, 0.133333, 0.06, 0.166666, 0.4
+     * C 0.208333, 0.82, 0.25, 1, 1, 1
+     */
+    --md-sys-motion-easing-emphasized: linear(
+      0,
+      0.002,
+      0.01 3.6%,
+      0.034,
+      0.074 9.1%,
+      0.128 11.4%,
+      0.194 13.4%,
+      0.271 15%,
+      0.344 16.1%,
+      0.544,
+      0.66 20.6%,
+      0.717 22.4%,
+      0.765 24.6%,
+      0.808 27.3%,
+      0.845 30.4%,
+      0.883 35.1%,
+      0.916 40.6%,
+      0.942 47.2%,
+      0.963 55%,
+      0.979 64%,
+      0.991 74.4%,
+      0.998 86.4%,
+      1
+    );
+    --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+    /* Standard easings */
+    --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+    --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+    /* Durations */
+    --md-sys-motion-duration-short1: 50ms;
+    --md-sys-motion-duration-short2: 100ms;
+    --md-sys-motion-duration-short3: 150ms;
+    --md-sys-motion-duration-short4: 200ms;
+
+    --md-sys-motion-duration-medium1: 250ms;
+    --md-sys-motion-duration-medium2: 300ms;
+    --md-sys-motion-duration-medium3: 350ms;
+    --md-sys-motion-duration-medium4: 400ms;
+
+    --md-sys-motion-duration-long1: 450ms;
+    --md-sys-motion-duration-long2: 500ms;
+    --md-sys-motion-duration-long3: 550ms;
+    --md-sys-motion-duration-long4: 600ms;
+
+    --md-sys-motion-duration-extra-long1: 700ms;
+    --md-sys-motion-duration-extra-long2: 800ms;
+    --md-sys-motion-duration-extra-long3: 900ms;
+    --md-sys-motion-duration-extra-long4: 1000ms;
+
+    /* Suggested easing/duration pairs */
+    --md-sys-motion-duration-emphasized: var(--md-sys-motion-duration-long2);
+    --md-sys-motion-duration-emphasized-decelerate: var(--md-sys-motion-duration-medium4);
+    --md-sys-motion-duration-emphasized-accelerate: var(--md-sys-motion-duration-short4);
+
+    --md-sys-motion-duration-standard: var(--md-sys-motion-duration-medium2);
+    --md-sys-motion-duration-standard-decelerate: var(--md-sys-motion-duration-medium1);
+    --md-sys-motion-duration-standard-accelerate: var(--md-sys-motion-duration-short4);
+  }
+}

@@ -1,0 +1,16 @@
+.main {
+  --md-comp-list-list-item-segmented-container-color: var(--md-sys-color-surface-container-high);
+
+  :is(h2, h3) {
+    margin-bottom: var(--md-user-spacing-md);
+  }
+
+  * + :is(h2, h3) {
+    margin-top: var(--md-user-spacing-xl);
+  }
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+}

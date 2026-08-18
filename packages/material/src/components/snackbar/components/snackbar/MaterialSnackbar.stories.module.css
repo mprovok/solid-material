@@ -1,0 +1,14 @@
+@layer material.components {
+  /* Reset default UA styling for popover element */
+  .wrapper[popover] {
+    color: unset;
+    background-color: unset;
+    padding: unset;
+    border: unset;
+    overflow: unset;
+  }
+
+  .wrapper {
+    min-width: 40ch;
+  }
+}

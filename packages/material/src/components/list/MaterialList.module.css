@@ -1,0 +1,35 @@
+@layer material.components {
+  :root {
+    /* Spacing */
+    --md-comp-list-divider-leading-space: var(--md-user-spacing-md);
+    --md-comp-list-divider-trailing-space: var(--md-user-spacing-md);
+    --md-comp-list-divider-top-space: 0;
+    --md-comp-list-divider-bottom-space: 0;
+
+    /* Shape */
+    --md-comp-list-container-shape: var(--md-sys-shape-corner-large);
+
+    --md-comp-list-container-color: transparent;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-comp-list-container-color);
+    border-radius: var(--md-comp-list-container-shape);
+
+    &[data-segmented] {
+      gap: var(--md-comp-list-segmented-gap);
+    }
+
+    md-divider {
+      padding-inline: var(--md-comp-list-divider-leading-space) var(--md-comp-list-divider-trailing-space);
+      padding-block: var(--md-comp-list-divider-top-space) var(--md-comp-list-divider-bottom-space);
+    }
+
+    /* Support multiple non-segmented lists in a segmented list (can be used as a child of MaterialSearchResults) */
+    & > .list:not([data-segmented]) {
+      --md-comp-list-container-color: var(--md-comp-list-list-item-container-color);
+    }
+  }
+}

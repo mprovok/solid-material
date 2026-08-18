@@ -1,0 +1,51 @@
+@layer material.components {
+  :root {
+    /* Size - Small */
+    --md-comp-button-small-container-height: 40px;
+    --md-comp-button-small-outline-width: 1px;
+    --md-comp-button-small-icon-size: 20px;
+    --md-comp-button-small-padding: 16px;
+    --md-comp-button-small-gap: 8px;
+
+    --md-comp-button-small-shape-round: var(--md-sys-shape-corner-full);
+    --md-comp-button-small-shape-round-selected: var(--md-sys-shape-corner-medium);
+    --md-comp-button-small-shape-square: var(--md-sys-shape-corner-medium);
+    --md-comp-button-small-shape-square-selected: var(--md-sys-shape-corner-full);
+    --md-comp-button-small-shape-pressed-morph: var(--md-sys-shape-corner-small);
+  }
+
+  .button[data-size='small'] {
+    --md-comp-button-container-height: var(--md-comp-button-small-container-height);
+    --md-comp-button-outline-width: var(--md-comp-button-small-outline-width);
+    --md-comp-button-icon-size: var(--md-comp-button-small-icon-size);
+    --md-comp-button-padding: var(--md-comp-button-small-padding);
+    --md-comp-button-gap: var(--md-comp-button-small-gap);
+
+    &:not(:active),
+    &:has(> :is(a, button):disabled) {
+      --md-comp-button-shape: min(
+        calc(var(--md-comp-button-small-container-height) * 0.5),
+        var(--md-comp-button-small-shape-round)
+      );
+
+      &[data-toggle='true'] {
+        --md-comp-button-shape: var(--md-comp-button-small-shape-round-selected);
+      }
+
+      &[data-shape='square'] {
+        --md-comp-button-shape: var(--md-comp-button-small-shape-square);
+
+        &[data-toggle='true'] {
+          --md-comp-button-shape: min(
+            calc(var(--md-comp-button-small-container-height) * 0.5),
+            var(--md-comp-button-small-shape-square-selected)
+          );
+        }
+      }
+    }
+
+    &:active:not(:has(> :is(a, button):disabled)) {
+      --md-comp-button-shape: var(--md-comp-button-small-shape-pressed-morph);
+    }
+  }
+}

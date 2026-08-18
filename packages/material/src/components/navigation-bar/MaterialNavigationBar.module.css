@@ -1,0 +1,45 @@
+@layer material.components {
+  :root {
+    --md-comp-nav-bar-container-height: 64px;
+    --md-comp-nav-bar-container-shape: var(--md-sys-shape-corner-none);
+    --md-comp-nav-bar-container-color: var(--md-sys-color-surface-container);
+    --md-comp-nav-bar-container-elevation: var(--md-sys-elevation-level0);
+  }
+
+  .container {
+    background-color: var(--md-comp-nav-bar-container-color);
+    border-radius: var(--md-comp-nav-bar-container-shape);
+
+    position: relative;
+    --md-elevation-level: var(--md-comp-nav-bar-container-elevation);
+  }
+
+  .bar {
+    height: var(--md-comp-nav-bar-container-height);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+    justify-items: center;
+
+    &:not([data-expanded]) {
+      grid-template-rows: 1fr 1fr;
+      width: 100%;
+
+      /* Wrapper around each tab */
+      & > div {
+        margin: 6px;
+      }
+    }
+
+    &[data-expanded] {
+      grid-template-rows: 1fr;
+      grid-auto-flow: column;
+      width: fit-content;
+      margin: 0 auto;
+
+      /* Wrapper around each tab */
+      & > div {
+        margin: 12px 16px;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.components-grid {
+  --md-comp-search-view-min-width: 100%;
+
+  width: fit-content;
+  height: min-content;
+
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--md-user-spacing-sm);
+  grid-template-columns: auto min-content auto;
+  grid-template-rows: repeat(5, min-content);
+
+  .tooltip {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    align-self: end;
+  }
+
+  .snackbar {
+    grid-column: 1 / span 2;
+    grid-row: 4;
+    min-width: 25ch;
+  }
+
+  .search-bar {
+    grid-column: 1 / span 3;
+    grid-row: 5;
+  }
+
+  .split-button {
+    grid-column: 2 / span 2;
+    grid-row: 1;
+  }
+
+  .button-group {
+    grid-column: 2 / span 2;
+    grid-row: 2;
+  }
+
+  .fab {
+    grid-column: 2;
+    grid-row: 3;
+    width: min-content;
+  }
+
+  .button {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  .list {
+    grid-column: 3;
+    grid-row: 3 / span 2;
+  }
+}

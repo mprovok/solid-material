@@ -1,0 +1,159 @@
+@layer material.components {
+  :root {
+    --md-comp-fab-size-small-container-size: 56px;
+    --md-comp-fab-size-small-icon-size: 24px;
+    --md-comp-fab-size-small-gap: 8px;
+    --md-comp-fab-size-small-shape: var(--md-sys-shape-corner-large);
+
+    --md-comp-fab-size-medium-container-size: 80px;
+    --md-comp-fab-size-medium-icon-size: 28px;
+    --md-comp-fab-size-medium-gap: 12px;
+    --md-comp-fab-size-medium-shape: var(--md-sys-shape-corner-large-increased);
+
+    --md-comp-fab-size-large-container-size: 96px;
+    --md-comp-fab-size-large-icon-size: 36px;
+    --md-comp-fab-size-large-gap: 16px;
+    --md-comp-fab-size-large-shape: var(--md-sys-shape-corner-extra-large);
+
+    /* Elevation levels for all colors */
+    --md-comp-fab-elevation: var(--md-sys-elevation-level3);
+    --md-comp-fab-hovered-elevation: var(--md-sys-elevation-level4);
+    --md-comp-fab-focused-elevation: var(--md-sys-elevation-level3);
+    --md-comp-fab-pressed-elevation: var(--md-sys-elevation-level3);
+  }
+
+  .fab[data-color='primary-container'] {
+    --md-comp-fab-container-color: var(--md-sys-color-primary-container);
+    --md-comp-fab-color: var(--md-sys-color-on-primary-container);
+  }
+
+  .fab[data-color='secondary-container'] {
+    --md-comp-fab-container-color: var(--md-sys-color-secondary-container);
+    --md-comp-fab-color: var(--md-sys-color-on-secondary-container);
+  }
+
+  .fab[data-color='tertiary-container'] {
+    --md-comp-fab-container-color: var(--md-sys-color-tertiary-container);
+    --md-comp-fab-color: var(--md-sys-color-on-tertiary-container);
+  }
+
+  .fab[data-color='primary'] {
+    --md-comp-fab-container-color: var(--md-sys-color-primary);
+    --md-comp-fab-color: var(--md-sys-color-on-primary);
+  }
+
+  .fab[data-color='secondary'] {
+    --md-comp-fab-container-color: var(--md-sys-color-secondary);
+    --md-comp-fab-color: var(--md-sys-color-on-secondary);
+  }
+
+  .fab[data-color='tertiary'] {
+    --md-comp-fab-container-color: var(--md-sys-color-tertiary);
+    --md-comp-fab-color: var(--md-sys-color-on-tertiary);
+  }
+
+  .fab[data-size='small'] {
+    --md-comp-button-medium-container-height: var(--md-comp-fab-size-small-container-size);
+    --md-comp-button-medium-icon-size: var(--md-comp-fab-size-small-icon-size);
+    --md-comp-button-medium-shape-square: var(--md-comp-fab-size-small-shape);
+    --md-comp-fab-gap: var(--md-comp-fab-size-small-gap);
+  }
+
+  .fab[data-size='medium'] {
+    --md-comp-button-medium-container-height: var(--md-comp-fab-size-medium-container-size);
+    --md-comp-button-medium-icon-size: var(--md-comp-fab-size-medium-icon-size);
+    --md-comp-button-medium-shape-square: var(--md-comp-fab-size-medium-shape);
+    --md-comp-fab-gap: var(--md-comp-fab-size-medium-gap);
+  }
+
+  .fab[data-size='large'] {
+    --md-comp-button-medium-container-height: var(--md-comp-fab-size-large-container-size);
+    --md-comp-button-medium-icon-size: var(--md-comp-fab-size-large-icon-size);
+    --md-comp-button-medium-shape-square: var(--md-comp-fab-size-large-shape);
+    --md-comp-fab-gap: var(--md-comp-fab-size-large-gap);
+  }
+
+  .fab {
+    display: inline-block;
+    width: fit-content;
+
+    --md-comp-fab-padding: calc(
+      0.5 * (var(--md-comp-button-medium-container-height) - var(--md-comp-button-medium-icon-size))
+    );
+
+    --md-comp-button-tonal-container-color: var(--md-comp-fab-container-color);
+    --md-comp-button-tonal-label-color: var(--md-comp-fab-color);
+    --md-comp-button-tonal-icon-color: var(--md-comp-fab-color);
+
+    --md-comp-button-tonal-elevation: var(--md-comp-fab-elevation);
+    --md-comp-button-tonal-hovered-elevation: var(--md-comp-fab-hovered-elevation);
+    --md-comp-button-tonal-focused-elevation: var(--md-comp-fab-focused-elevation);
+    --md-comp-button-tonal-pressed-elevation: var(--md-comp-fab-pressed-elevation);
+
+    --md-comp-button-tonal-hovered-container-state-layer-color: var(--md-comp-fab-color);
+    --md-comp-button-tonal-focused-container-state-layer-color: var(--md-comp-fab-color);
+    --md-comp-button-tonal-pressed-container-state-layer-color: var(--md-comp-fab-color);
+
+    --md-comp-button-medium-gap: 0;
+    --md-comp-button-medium-padding: var(--md-comp-fab-padding) 0;
+
+    .trailing {
+      display: grid;
+      grid-template-columns: 1fr;
+      overflow: hidden;
+      min-width: var(--md-comp-fab-padding);
+
+      transition-property: grid-template-columns;
+      transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+      transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+
+      &:not(:has(.label[data-show])) {
+        grid-template-columns: 0fr;
+      }
+    }
+
+    .label {
+      min-width: 0;
+      grid-column: 1;
+      grid-row: 1;
+
+      transition-property: opacity, display;
+      transition-behavior: allow-discrete;
+      transition-duration: var(--md-sys-motion-duration-effects-fast);
+      transition-timing-function: var(--md-sys-motion-spring-effects-fast);
+
+      & > span {
+        padding-inline-start: var(--md-comp-fab-gap);
+        padding-inline-end: var(--md-comp-fab-padding);
+      }
+
+      &:not([data-show]) {
+        display: none;
+        opacity: 0;
+      }
+
+      @starting-style {
+        &[data-show] {
+          opacity: 0;
+        }
+
+        &:not([data-show]) {
+          opacity: 1;
+        }
+      }
+    }
+
+    /**
+     * Make sure the icon of an icon-only FAB stays centered while the
+     * size of FAB changes during an animation. This is needed when
+     * clicking on a medium or large FAB of a FAB menu
+     */
+    &[data-icon-only] {
+      --md-comp-button-medium-padding: var(--md-comp-fab-padding);
+
+      .trailing {
+        min-width: 0;
+      }
+    }
+  }
+}

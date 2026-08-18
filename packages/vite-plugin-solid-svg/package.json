@@ -1,0 +1,53 @@
+{
+  "name": "@solid-material/vite-plugin-solid-svg",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Import SVG files as Solid.js Components",
+  "keywords": [
+    "solid",
+    "solidjs",
+    "svg",
+    "vite",
+    "vite-plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/mprovok/solid-material/issues"
+  },
+  "license": "MIT",
+  "author": "Jorge Godoy <godoy.jf@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mprovok/solid-material",
+    "directory": "packages/vite-plugin-solid-svg"
+  },
+  "files": [
+    "dist",
+    "types.d.ts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json",
+    "./types": "./types.d.ts"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./package.json": "./package.json",
+      "./types": "./types.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.2",
+    "solid-js": "catalog:solid",
+    "tsdown": "catalog:tsdown",
+    "vite": "catalog:vite"
+  },
+  "peerDependencies": {
+    "solid-js": "^1",
+    "vite": "^5"
+  }
+}

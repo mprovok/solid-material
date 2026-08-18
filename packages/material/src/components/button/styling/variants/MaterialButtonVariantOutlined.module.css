@@ -1,0 +1,73 @@
+@layer material.components {
+  :root {
+    /* Variant outlined */
+
+    /* Enabled */
+    --md-comp-button-outlined-outline-color: var(--md-sys-color-outline-variant);
+
+    --md-comp-button-outlined-label-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-icon-color: var(--md-sys-color-on-surface-variant);
+
+    /* Disabled */
+    --md-comp-button-outlined-disabled-outline-color: var(--md-sys-color-outline-variant);
+
+    --md-comp-button-outlined-disabled-label-color: var(--md-sys-color-on-surface);
+    --md-comp-button-outlined-disabled-label-opacity: 0.38;
+
+    --md-comp-button-outlined-disabled-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-button-outlined-disabled-icon-opacity: 0.38;
+
+    /* Hovered */
+    --md-comp-button-outlined-hovered-container-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-hovered-container-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    --md-comp-button-outlined-hovered-outline-color: var(--md-sys-color-outline-variant);
+
+    /* Focused */
+    /* --md-comp-button-outlined-focused-container-state-layer-color: var(--md-sys-color-on-surface-variant); */
+    /* --md-comp-button-outlined-focused-container-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+
+    --md-comp-button-outlined-focused-outline-color: var(--md-sys-color-outline-variant);
+
+    /* Pressed */
+    --md-comp-button-outlined-pressed-container-state-layer-color: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-pressed-container-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+
+    --md-comp-button-outlined-pressed-outline-color: var(--md-sys-color-outline-variant);
+  }
+
+  .button[data-variant='outlined'] {
+    --md-comp-button-outline-color: var(--md-comp-button-outlined-outline-color);
+
+    --md-comp-button-label-color: var(--md-comp-button-outlined-label-color);
+    --md-comp-button-icon-color: var(--md-comp-button-outlined-icon-color);
+
+    --md-ripple-hover-color: var(--md-comp-button-outlined-hovered-container-state-layer-color);
+    --md-ripple-hover-opacity: var(--md-comp-button-outlined-hovered-container-state-layer-opacity);
+
+    --md-ripple-pressed-color: var(--md-comp-button-outlined-pressed-container-state-layer-color);
+    --md-ripple-pressed-opacity: var(--md-comp-button-outlined-pressed-container-state-layer-opacity);
+
+    &:hover {
+      --md-comp-button-outline-color: var(--md-comp-button-outlined-hovered-outline-color);
+    }
+
+    &:has(md-focus-ring[visible]) {
+      --md-comp-button-outline-color: var(--md-comp-button-outlined-focused-outline-color);
+    }
+
+    &:active {
+      --md-comp-button-outline-color: var(--md-comp-button-outlined-pressed-outline-color);
+    }
+
+    &:has(> :is(a, button):disabled) {
+      --md-comp-button-outline-color: var(--md-comp-button-outlined-disabled-outline-color);
+
+      --md-comp-button-label-color: var(--md-comp-button-outlined-disabled-label-color);
+      --md-comp-button-label-opacity: var(--md-comp-button-outlined-disabled-label-opacity);
+
+      --md-comp-button-icon-color: var(--md-comp-button-outlined-disabled-icon-color);
+      --md-comp-button-icon-opacity: var(--md-comp-button-outlined-disabled-icon-opacity);
+    }
+  }
+}

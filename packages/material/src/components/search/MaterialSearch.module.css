@@ -1,0 +1,149 @@
+@layer material.components {
+  :root {
+    /* Color */
+    /* --md-comp-search-view-container-color: var(--md-sys-color-surface-container-high); */
+    /* --md-comp-search-view-contained-background-color: var(--md-sys-color-inverse-on-surface); */
+    /* --md-comp-search-view-container-elevation: var(--md-sys-elevation-level3); */
+    /* --md-comp-search-view-header-supporting-text-color: var(--md-sys-color-on-surface-variant); */
+    /* --md-comp-search-view-header-input-text-color: var(--md-sys-color-on-surface); */
+    /* --md-comp-search-view-header-leading-icon-color: var(--md-sys-color-on-surface); */
+    /* --md-comp-search-view-header-trailing-icon-color: var(--md-sys-color-on-surface-variant); */
+    /* --md-comp-search-view-divider-color: var(--md-sys-color-outline); */
+
+    --md-comp-search-view-min-width: 720px;
+
+    /* Layout and text - Contained */
+    --md-comp-search-view-contained-leading-margin: 12px;
+    --md-comp-search-view-contained-trailing-margin: 12px;
+    --md-comp-search-view-contained-docked-bar-results-gap: 2px;
+    /* --md-comp-search-view-contained-docked-bar-shape: var(--md-sys-shape-corner-full); */
+    /* --md-comp-search-view-contained-full-screen-bar-container-height: 56px; */
+    /* --md-comp-search-view-contained-icon-label-gap: 4px; */
+
+    /* Layout and text - Common tokens */
+    /* --md-comp-search-view-full-screen-container-shape: var(--md-sys-shape-corner-none); */
+    /* --md-comp-search-view-header-supporting-text-font: var(--md-sys-typescale-body-large-font); */
+    /* --md-comp-search-view-header-input-text-font: var(--md-sys-typescale-body-large-font); */
+  }
+
+  @property --md-comp-search-bar-margin-leading {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @property --md-comp-search-bar-margin-trailing {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  .container {
+    transition-property: --md-comp-search-bar-margin-leading, --md-comp-search-bar-margin-trailing;
+    transition-duration: var(--md-sys-motion-duration-spatial-default);
+    transition-timing-function: var(--md-sys-motion-spring-spatial-default);
+
+    --md-comp-search-bar-margin-leading: var(--md-comp-search-bar-contained-leading-margin);
+    --md-comp-search-bar-margin-trailing: var(--md-comp-search-bar-contained-trailing-margin);
+
+    &:has(sm-search-bar[data-expanded]) {
+      --md-comp-search-bar-margin-leading: var(--md-comp-search-view-contained-leading-margin);
+      --md-comp-search-bar-margin-trailing: var(--md-comp-search-view-contained-trailing-margin);
+    }
+
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+
+    /* Place the bar in the middle surrounded by two empty cells used as margins */
+    grid-template-columns: minmax(auto, var(--md-comp-search-bar-margin-leading)) 1fr minmax(
+        auto,
+        var(--md-comp-search-bar-margin-trailing)
+      );
+    grid-template-rows: auto 1fr;
+
+    &[data-layout='docked'] {
+      row-gap: var(--md-comp-search-view-contained-docked-bar-results-gap);
+    }
+
+    sm-search-bar {
+      min-width: 327px;
+    }
+
+    sm-search-bar,
+    sm-search-results {
+      grid-column: 2 / span 1;
+
+      /* Subtract margins from max width so that even in large windows, the bar expands when focused */
+      max-width: calc(
+        min(var(--md-comp-search-view-min-width), 100vw) -
+          (var(--md-comp-search-bar-margin-leading) - var(--md-comp-search-view-contained-leading-margin)) -
+          (var(--md-comp-search-bar-margin-trailing) - var(--md-comp-search-view-contained-trailing-margin))
+      );
+    }
+  }
+
+  .wrapper {
+    position: relative;
+    anchor-name: --md-search-container;
+    anchor-scope: --md-search-container;
+
+    width: 100%;
+    min-height: var(--md-comp-search-bar-container-height);
+
+    .dialog {
+      min-width: anchor-size(width);
+
+      transition-property: overlay, display;
+      transition-behavior: allow-discrete;
+      transition-duration: var(--md-sys-motion-duration-effects-slow);
+
+      /* Needed for focus ring around leading/trailing buttons in search bar */
+      padding-block: 1rem;
+      margin-block: -1rem;
+
+      display: flex;
+      flex-direction: row;
+
+      position-anchor: --md-search-container;
+      top: anchor(top);
+      left: anchor(left);
+      right: anchor(right);
+
+      &:has(.container[data-layout='fullscreen']) {
+        position: relative;
+        min-width: 100%;
+      }
+    }
+  }
+
+  /* Reset default UA styling for dialog element */
+  .dialog {
+    padding: unset;
+    margin: unset;
+    border: unset;
+    outline: unset;
+    inset-inline-start: unset;
+    inset-inline-end: unset;
+    background-color: unset;
+    color: unset;
+  }
+
+  .dialog::backdrop {
+    background-color: var(--md-sys-color-scrim);
+    opacity: 0%;
+
+    transition: opacity var(--md-sys-motion-duration-effects-slow) var(--md-sys-motion-spring-effects-slow);
+  }
+
+  .dialog[data-modal][data-scrim]::backdrop {
+    opacity: 32%;
+  }
+
+  @starting-style {
+    .dialog[data-modal][data-scrim]::backdrop {
+      opacity: 0%;
+    }
+  }
+}

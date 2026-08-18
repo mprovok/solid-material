@@ -1,0 +1,13 @@
+import solidSvg from '@solid-material/vite-plugin-solid-svg';
+import { defineConfig } from 'vite';
+import solidPlugin from 'vite-plugin-solid';
+
+export default defineConfig({
+  plugins: [solidPlugin(), solidSvg()],
+  build: {
+    target: 'es2025',
+
+    // Minification using Lightning CSS breaks animations in carousel
+    cssMinify: 'esbuild'
+  },
+});

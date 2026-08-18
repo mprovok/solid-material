@@ -1,0 +1,48 @@
+import type { MaterialNavigationItemType } from '@solid-material/material/components/navigation-item';
+import type { FlowComponent } from 'solid-js';
+
+import { MaterialNavigationLayout } from '@solid-material/material/layouts';
+
+import AppsFillIcon from '@solid-material/icons/400/outlined/apps-fill.svg';
+import AppsIcon from '@solid-material/icons/400/outlined/apps.svg';
+import CodeBlocksFillIcon from '@solid-material/icons/400/outlined/code_blocks-fill.svg';
+import CodeBlocksIcon from '@solid-material/icons/400/outlined/code_blocks.svg';
+import HomeFillIcon from '@solid-material/icons/400/outlined/home-fill.svg';
+import HomeIcon from '@solid-material/icons/400/outlined/home.svg';
+
+export const NavigationLayout: FlowComponent = props => {
+  const items: MaterialNavigationItemType[] = [
+    {
+      label: 'Home',
+      icon: HomeIcon,
+      activeIcon: HomeFillIcon,
+      href: '/',
+      end: true
+    },
+    {
+      label: 'Components',
+      icon: CodeBlocksIcon,
+      activeIcon: CodeBlocksFillIcon,
+      href: '/components'
+    },
+    {
+      label: 'Examples',
+      icon: AppsIcon,
+      activeIcon: AppsFillIcon,
+      href: '/examples'
+    }
+  ];
+
+  return (
+    <MaterialNavigationLayout
+      items={items}
+      menuButton={{
+        title: 'Open menu',
+        titleSelected: 'Close menu'
+      }}
+      snackbarAlignment="start"
+    >
+      {props.children}
+    </MaterialNavigationLayout>
+  );
+};

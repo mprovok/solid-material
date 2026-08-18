@@ -1,0 +1,79 @@
+@layer material.components {
+  :root {
+    /* Toggle outlined */
+
+    /* Enabled */
+    --md-comp-button-outlined-container-color-selected: var(--md-sys-color-inverse-surface);
+
+    --md-comp-button-outlined-label-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-label-color-selected: var(--md-sys-color-inverse-on-surface);
+
+    --md-comp-button-outlined-icon-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-icon-color-selected: var(--md-sys-color-inverse-on-surface);
+
+    /* Disabled */
+    --md-comp-button-outlined-disabled-outline-color-unselected: var(--md-sys-color-outline-variant);
+
+    --md-comp-button-outlined-disabled-container-color-selected: var(--md-sys-color-on-surface);
+    --md-comp-button-outlined-disabled-container-opacity: 0.1;
+
+    /* Hovered */
+    --md-comp-button-outlined-hovered-container-state-layer-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-hovered-container-state-layer-color-selected: var(--md-sys-color-inverse-on-surface);
+
+    --md-comp-button-outlined-hovered-outline-color-unselected: var(--md-sys-color-outline-variant);
+
+    /* Focused */
+    /* --md-comp-button-outlined-focused-container-state-layer-color-unselected: var(--md-sys-color-on-surface-variant); */
+    /* --md-comp-button-outlined-focused-container-state-layer-color-selected: var(--md-sys-color-inverse-on-surface); */
+
+    --md-comp-button-outlined-focused-outline-color-unselected: var(--md-sys-color-outline-variant);
+
+    /* Pressed */
+    --md-comp-button-outlined-pressed-container-state-layer-color-unselected: var(--md-sys-color-on-surface-variant);
+    --md-comp-button-outlined-pressed-container-state-layer-color-selected: var(--md-sys-color-inverse-on-surface);
+
+    --md-comp-button-outlined-pressed-outline-color-unselected: var(--md-sys-color-outline-variant);
+  }
+
+  .button[data-variant='outlined'][data-toggle]:not(:has(> :is(a, button):disabled)) {
+    &[data-toggle='false'] {
+      --md-comp-button-label-color: var(--md-comp-button-outlined-label-color-unselected);
+      --md-comp-button-icon-color: var(--md-comp-button-outlined-icon-color-unselected);
+
+      --md-ripple-hover-color: var(--md-comp-button-outlined-hovered-container-state-layer-color-unselected);
+      --md-ripple-pressed-color: var(--md-comp-button-outlined-pressed-container-state-layer-color-unselected);
+
+      &:hover {
+        --md-comp-button-outline-color: var(--md-comp-button-outlined-hovered-outline-color-unselected);
+      }
+
+      &:has(md-focus-ring[visible]) {
+        --md-comp-button-outline-color: var(--md-comp-button-outlined-focused-outline-color-unselected);
+      }
+
+      &:active {
+        --md-comp-button-outline-color: var(--md-comp-button-outlined-pressed-outline-color-unselected);
+      }
+
+      &:has(> :is(a, button):disabled) {
+        --md-comp-button-outline-color: var(--md-comp-button-outlined-disabled-outline-color-unselected);
+      }
+    }
+
+    &[data-toggle='true'] {
+      --md-comp-button-container-color: var(--md-comp-button-outlined-container-color-selected);
+
+      --md-comp-button-label-color: var(--md-comp-button-outlined-label-color-selected);
+      --md-comp-button-icon-color: var(--md-comp-button-outlined-icon-color-selected);
+
+      --md-ripple-hover-color: var(--md-comp-button-outlined-hovered-container-state-layer-color-selected);
+      --md-ripple-pressed-color: var(--md-comp-button-outlined-pressed-container-state-layer-color-selected);
+
+      &:has(> :is(a, button):disabled) {
+        --md-comp-button-container-color: var(--md-comp-button-outlined-disabled-container-color-selected);
+        --md-comp-button-container-opacity: var(--md-comp-button-outlined-disabled-container-opacity);
+      }
+    }
+  }
+}

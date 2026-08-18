@@ -1,0 +1,15 @@
+@layer material.components {
+  .dialog {
+    /* Reset default UA styling for popover element */
+    color: unset;
+    background-color: unset;
+    padding: unset;
+    border: unset;
+    overflow: unset;
+    margin: unset;
+    inset-inline: unset;
+
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+}

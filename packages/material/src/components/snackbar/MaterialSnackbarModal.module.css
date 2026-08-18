@@ -1,0 +1,42 @@
+@layer material.components {
+  /* Reset default UA styling for popover element */
+  .modal[popover] {
+    color: unset;
+    background-color: unset;
+    padding: unset;
+    border: unset;
+    overflow: unset;
+  }
+
+  .modal {
+    position: fixed;
+    position-anchor: --md-navigation-layout-snackbar;
+    bottom: anchor(top);
+
+    margin-inline: var(--md-user-spacing-md);
+    margin-bottom: 0;
+    width: -webkit-fill-available;
+    width: stretch;
+
+    @media (width >= 600px) {
+      /**
+       * Position the snackbar above the viewport's edge or navigation
+       * bar instead of above the FAB
+       */
+      position-anchor: --md-navigation-layout-anchor;
+      margin-bottom: var(--md-user-spacing-md);
+
+      &[data-alignment='start'] {
+        justify-self: start;
+        min-width: 40ch;
+        width: unset;
+      }
+
+      &[data-alignment='center'] {
+        justify-self: center;
+        min-width: 40ch;
+        width: unset;
+      }
+    }
+  }
+}

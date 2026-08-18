@@ -1,0 +1,7 @@
+.decorative-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--md-user-spacing-md);
+
+  --md-comp-card-filled-container-color: color-mix(var(--md-sys-color-primary-container) 40%, transparent);
+}

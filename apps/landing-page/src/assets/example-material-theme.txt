@@ -1,0 +1,32 @@
+import type { ParentComponent } from 'solid-js';
+
+import { MaterialSkeletonManager } from '@solid-material/material/components/skeleton';
+import { MaterialTheme, ThemeColorMode } from '@solid-material/material/styling';
+import { enableViewTransitions } from '@solid-material/material/utils';
+
+import RouteRoot from './src/routes';
+
+const RootLayout: ParentComponent = props => {
+  // (Optional) Enable animated transitions between pages using the View Transitions API
+  enableViewTransitions();
+
+  // Set up a theme using the default color and light/dark mode
+  return (
+    <MaterialTheme color="#6750a4" mode={ThemeColorMode.SYSTEM}>
+      <MaterialSkeletonManager>
+        {props.children}
+      </MaterialSkeletonManager>
+    </MaterialTheme>
+  );
+};
+
+const root = document.querySelector('#root');
+
+render(
+  () => (
+    <Router root={RootLayout}>
+      <Route path="/" component={RouteRoot} />
+    </Router>
+  ),
+  root!
+);

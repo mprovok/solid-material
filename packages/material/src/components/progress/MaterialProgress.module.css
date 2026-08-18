@@ -1,0 +1,69 @@
+@layer material.components {
+  .size-small {
+    md-circular-progress {
+      --md-circular-progress-active-indicator-width: 18;
+      --md-circular-progress-size: 24px;
+    }
+
+    md-linear-progress {
+      --md-linear-progress-track-height: 4px;
+      --md-linear-progress-active-indicator-height: 4px;
+    }
+  }
+
+  .size-medium {
+    md-circular-progress {
+      --md-circular-progress-size: 48px;
+    }
+
+    md-linear-progress {
+      --md-linear-progress-track-height: 8px;
+      --md-linear-progress-active-indicator-height: 8px;
+      --md-linear-progress-track-shape: var(--md-sys-shape-corner-extra-small);
+    }
+  }
+
+  .size-large {
+    md-circular-progress {
+      --md-circular-progress-size: 64px;
+    }
+
+    md-linear-progress {
+      --md-linear-progress-track-height: 16px;
+      --md-linear-progress-active-indicator-height: 16px;
+      --md-linear-progress-track-shape: var(--md-sys-shape-corner-large);
+    }
+  }
+
+  .size-extra-large {
+    md-circular-progress {
+      --md-circular-progress-size: 96px;
+    }
+
+    md-linear-progress {
+      --md-linear-progress-track-height: 32px;
+      --md-linear-progress-active-indicator-height: 32px;
+      --md-linear-progress-track-shape: var(--md-sys-shape-corner-extra-large);
+    }
+  }
+
+  .circular-button {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+
+    md-circular-progress {
+      z-index: 1;
+      pointer-events: none;
+
+      & + * {
+        position: absolute;
+        margin: auto;
+        inset: 0;
+
+        width: fit-content;
+        height: fit-content;
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.block {
+  --md-secondary-tab-container-color: transparent;
+  --md-comp-card-filled-container-color: var(--md-sys-color-surface-container);
+
+  sm-card {
+    contain: layout style paint;
+  }
+}
+
+.panel {
+  position: relative;
+}
+
+.code {
+  color: var(--md-sys-color-primary);
+  padding: var(--md-user-spacing-md);
+  display: inline-block;
+  font-family: monospace;
+
+  overflow-x: auto;
+  max-width: 100%;
+
+  & > pre {
+    width: fit-content;
+  }
+}

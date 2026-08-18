@@ -1,0 +1,53 @@
+@layer material.components {
+  :root {
+    /* Variant text */
+
+    /* Enabled */
+    --md-comp-button-text-label-color: var(--md-sys-color-primary);
+    --md-comp-button-text-icon-color: var(--md-sys-color-primary);
+
+    /* Disabled */
+    --md-comp-button-text-disabled-container-color: var(--md-sys-color-on-surface);
+    --md-comp-button-text-disabled-container-opacity: 0.1;
+
+    --md-comp-button-text-disabled-label-color: var(--md-sys-color-on-surface);
+    --md-comp-button-text-disabled-label-opacity: 0.38;
+
+    --md-comp-button-text-disabled-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-button-text-disabled-icon-opacity: 0.38;
+
+    /* Hovered */
+    --md-comp-button-text-hovered-container-state-layer-color: var(--md-sys-color-primary);
+    --md-comp-button-text-hovered-container-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* Focused */
+    /* --md-comp-button-text-focused-container-state-layer-color: var(--md-sys-color-primary); */
+    /* --md-comp-button-text-focused-container-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+
+    /* Pressed */
+    --md-comp-button-text-pressed-container-state-layer-color: var(--md-sys-color-primary);
+    --md-comp-button-text-pressed-container-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+  }
+
+  .button[data-variant='text'] {
+    --md-comp-button-label-color: var(--md-comp-button-text-label-color);
+    --md-comp-button-icon-color: var(--md-comp-button-text-icon-color);
+
+    --md-ripple-hover-color: var(--md-comp-button-text-hovered-container-state-layer-color);
+    --md-ripple-hover-opacity: var(--md-comp-button-text-hovered-container-state-layer-opacity);
+
+    --md-ripple-pressed-color: var(--md-comp-button-text-pressed-container-state-layer-color);
+    --md-ripple-pressed-opacity: var(--md-comp-button-text-pressed-container-state-layer-opacity);
+
+    &:has(> :is(a, button):disabled) {
+      --md-comp-button-container-color: var(--md-comp-button-text-disabled-container-color);
+      --md-comp-button-container-opacity: var(--md-comp-button-text-disabled-container-opacity);
+
+      --md-comp-button-label-color: var(--md-comp-button-text-disabled-label-color);
+      --md-comp-button-label-opacity: var(--md-comp-button-text-disabled-label-opacity);
+
+      --md-comp-button-icon-color: var(--md-comp-button-text-disabled-icon-color);
+      --md-comp-button-icon-opacity: var(--md-comp-button-text-disabled-icon-opacity);
+    }
+  }
+}

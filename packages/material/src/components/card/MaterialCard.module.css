@@ -1,0 +1,152 @@
+@layer material.components {
+  :root {
+    --md-comp-card-elevated-container-color: var(--md-sys-color-surface-container-low);
+    --md-comp-card-elevated-container-shape: var(--md-sys-shape-corner-medium);
+    --md-comp-card-elevated-elevation-level: var(--md-sys-elevation-level1);
+    --md-comp-card-elevated-shadow-color: var(--md-sys-color-shadow);
+
+    --md-comp-card-filled-container-color: var(--md-sys-color-surface-container-highest);
+    --md-comp-card-filled-container-shape: var(--md-sys-shape-corner-medium);
+    --md-comp-card-filled-elevation-level: var(--md-sys-elevation-level0);
+    --md-comp-card-filled-shadow-color: var(--md-sys-color-shadow);
+
+    --md-comp-card-outlined-container-color: var(--md-sys-color-surface);
+    --md-comp-card-outlined-container-shape: var(--md-sys-shape-corner-medium);
+    --md-comp-card-outlined-elevation-level: var(--md-sys-elevation-level0);
+    --md-comp-card-outlined-shadow-color: var(--md-sys-color-shadow);
+
+    --md-comp-card-outlined-outline-color: var(--md-sys-color-outline-variant);
+    --md-comp-card-outlined-outline-width: 1px;
+  }
+
+  .card {
+    display: block;
+    position: relative;
+    contain: layout style;
+    container-type: inline-size;
+    background-color: var(--md-comp-card-container-color);
+    border-radius: var(--md-comp-card-container-shape);
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    --md-focus-ring-shape: var(--md-comp-card-container-shape);
+
+    &[data-variant='elevated'] {
+      --md-comp-card-container-color: var(--md-comp-card-elevated-container-color);
+      --md-comp-card-container-shape: var(--md-comp-card-elevated-container-shape);
+      --md-elevation-level: var(--md-comp-card-elevated-elevation-level);
+      --md-elevation-shadow-color: var(--md-comp-card-elevated-shadow-color);
+    }
+
+    &[data-variant='filled'] {
+      --md-comp-card-container-color: var(--md-comp-card-filled-container-color);
+      --md-comp-card-container-shape: var(--md-comp-card-filled-container-shape);
+      --md-elevation-level: var(--md-comp-card-filled-elevation-level);
+      --md-elevation-shadow-color: var(--md-comp-card-filled-shadow-color);
+    }
+
+    &[data-variant='outlined'] {
+      --md-comp-card-container-color: var(--md-comp-card-outlined-container-color);
+      --md-comp-card-container-shape: var(--md-comp-card-outlined-container-shape);
+      --md-elevation-level: var(--md-comp-card-outlined-elevation-level);
+      --md-elevation-shadow-color: var(--md-comp-card-outlined-shadow-color);
+
+      .outline {
+        border-radius: inherit;
+        pointer-events: none;
+
+        position: absolute;
+        inset: 0;
+
+        border-style: solid;
+        border-width: var(--md-comp-card-outlined-outline-width);
+        border-color: var(--md-comp-card-outlined-outline-color);
+      }
+    }
+
+    &[data-disabled] {
+      opacity: 0.38;
+
+      &[data-variant='elevated'] {
+        --md-comp-card-container-color: var(--md-sys-color-surface);
+      }
+
+      &[data-variant='filled'] {
+        --md-comp-card-container-color: var(--md-sys-color-surface-variant);
+      }
+
+      &[data-variant='outlined'] {
+        --md-comp-card-outlined-outline-color: var(--md-sys-color-outline);
+      }
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      &[data-variant='elevated'] {
+        --md-elevation-level: var(--md-sys-elevation-level2);
+
+        &:active {
+          --md-elevation-level: var(--md-sys-elevation-level1);
+        }
+      }
+
+      &[data-variant='filled'] {
+        --md-elevation-level: var(--md-sys-elevation-level1);
+
+        &:active {
+          --md-elevation-level: var(--md-sys-elevation-level0);
+        }
+      }
+
+      &[data-variant='outlined'] {
+        --md-elevation-level: var(--md-sys-elevation-level1);
+
+        &:active {
+          --md-elevation-level: var(--md-sys-elevation-level0);
+        }
+      }
+    }
+  }
+
+  .card-body {
+    padding: var(--md-user-spacing-md);
+  }
+
+  .card[data-size='small'] {
+    --md-comp-card-container-shape: var(--md-sys-shape-corner-small);
+
+    .card-body {
+      padding: var(--md-user-spacing-sm);
+    }
+  }
+
+  .card[data-size='medium'] {
+    --md-comp-card-container-shape: var(--md-sys-shape-corner-medium);
+
+    .card-body {
+      padding: var(--md-user-spacing-md);
+    }
+  }
+
+  .card[data-size='large'] {
+    --md-comp-card-container-shape: var(--md-sys-shape-corner-large-increased);
+
+    .card-body {
+      padding: var(--md-user-spacing-lg);
+    }
+  }
+
+  .card[data-size='extra-large'] {
+    --md-comp-card-container-shape: var(--md-sys-shape-corner-extra-large-increased);
+
+    .card-body {
+      padding: var(--md-user-spacing-xl);
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "compilerOptions": {
+    "target": "es2025",
+    "lib": ["ESNext", "DOM"],
+    "types": ["vite/client"],
+
+    "module": "esnext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+
+    "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
+    "exactOptionalPropertyTypes": false,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "verbatimModuleSyntax": true,
+    "isolatedDeclarations": true
+  }
+}

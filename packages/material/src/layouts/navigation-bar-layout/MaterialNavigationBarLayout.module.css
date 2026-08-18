@@ -1,0 +1,102 @@
+@layer material.components {
+  .container {
+    display: grid;
+    grid-template-rows: auto min-content;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .bar {
+    width: 100%;
+    position: relative;
+
+    height: var(--md-comp-nav-bar-container-height);
+
+    anchor-scope: --md-navigation-layout-anchor, --md-navigation-layout-snackbar;
+
+    .snackbar {
+      anchor-name: --md-navigation-layout-snackbar;
+    }
+
+    .snackbar-fab {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: end;
+      margin-top: var(--md-user-spacing-md);
+      padding-inline: var(--md-user-spacing-md);
+      padding-bottom: var(--md-user-spacing-md);
+      gap: var(--md-user-spacing-md);
+
+      /**
+       * Although the spec mentions a larger distance from the viewport's
+       * edge only for the FAB menu, let's apply it to the regular FAB as well
+       */
+      @media (width >= 1200px) {
+        padding-inline: var(--md-user-spacing-lg);
+        padding-bottom: var(--md-user-spacing-lg);
+      }
+
+      position: fixed;
+      position-anchor: --md-navigation-layout-anchor;
+      bottom: anchor(top);
+      right: 0;
+      z-index: 1;
+
+      /* Allow clicking on targets just above navigation bar */
+      pointer-events: none;
+
+      & > * {
+        pointer-events: all;
+      }
+    }
+
+    .fab {
+      opacity: 1;
+
+      transition:
+        scale var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast),
+        opacity var(--md-sys-motion-duration-effects-default) var(--md-sys-motion-spring-effects-default),
+        visibility var(--md-sys-motion-duration-effects-default) allow-discrete;
+      transform-origin: bottom right;
+
+      &:not([data-show]) {
+        visibility: hidden;
+        opacity: 0;
+        scale: 0.5;
+      }
+
+      /* FIXME Support reappearing when transitioning to another page */
+
+      /**
+       * Make the FAB part of the view transition (although it has no actual
+       * view transition) so that it does not get temporily painted below the
+       * panes (which do have an actual view transition)
+       */
+      view-transition-name: md-nav-bar-fab;
+    }
+
+    sm-navigation-bar {
+      anchor-name: --md-navigation-layout-anchor;
+      content-visibility: auto;
+    }
+
+    transition-property: height;
+
+    &[data-show] {
+      /* Transition when entering the screen */
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+      transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+    }
+
+    /* Fade out FAB and slide the navigation bar to the bottom */
+    &:not([data-show]) {
+      /* Transition when exiting the screen */
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+      transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+
+      height: 0;
+      --md-comp-nav-bar-container-elevation: var(--md-sys-elevation-level0);
+    }
+  }
+}

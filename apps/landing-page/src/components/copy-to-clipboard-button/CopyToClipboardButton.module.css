@@ -1,0 +1,6 @@
+.button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: var(--md-user-spacing-sm);
+}

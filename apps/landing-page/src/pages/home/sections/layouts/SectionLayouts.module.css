@@ -1,0 +1,7 @@
+.decorative-panes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--md-user-spacing-lg);
+
+  --md-comp-card-filled-container-color: color-mix(var(--md-sys-color-primary-container) 40%, transparent);
+}

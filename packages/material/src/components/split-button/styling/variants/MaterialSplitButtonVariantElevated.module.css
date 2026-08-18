@@ -1,0 +1,36 @@
+@layer material.components {
+  .button[data-variant='elevated'] {
+    /* Variant elevated */
+
+    /**
+     * Slightly increase gap for elevated buttons because optically it
+     * appears to be less due to its shadows
+     */
+    gap: calc(var(--md-comp-split-button-gap) + 1px);
+
+    & > :last-child {
+      --md-comp-button-elevated-container-color-unselected: var(--md-comp-button-elevated-container-color);
+      --md-comp-button-elevated-container-color-selected: var(--md-comp-button-elevated-container-color);
+
+      --md-comp-button-elevated-label-color-unselected: var(--md-comp-button-elevated-label-color);
+      --md-comp-button-elevated-label-color-selected: var(--md-comp-button-elevated-label-color);
+
+      --md-comp-button-elevated-icon-color-unselected: var(--md-comp-button-elevated-icon-color);
+      --md-comp-button-elevated-icon-color-selected: var(--md-comp-button-elevated-icon-color);
+
+      /* State layer (ripple) */
+      --md-comp-button-elevated-hovered-container-state-layer-color-unselected: var(
+        --md-comp-button-elevated-hovered-container-state-layer-color
+      );
+      --md-comp-button-elevated-hovered-container-state-layer-color-selected: var(
+        --md-comp-button-elevated-hovered-container-state-layer-color
+      );
+      --md-comp-button-elevated-pressed-container-state-layer-color-unselected: var(
+        --md-comp-button-elevated-pressed-container-state-layer-color
+      );
+      --md-comp-button-elevated-pressed-container-state-layer-color-selected: var(
+        --md-comp-button-elevated-pressed-container-state-layer-color
+      );
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@layer material.components {
+  :root {
+    --sm-spacer-container-inline-size: 24px;
+  }
+
+  .spacer {
+    inline-size: var(--sm-spacer-container-inline-size);
+    block-size: 100%;
+    display: grid;
+    place-content: center;
+
+    &:not(:empty) {
+      cursor: ew-resize;
+    }
+
+    &[data-orientation='horizontal'] {
+      writing-mode: horizontal-tb;
+    }
+
+    &[data-orientation='vertical'] {
+      writing-mode: vertical-lr;
+    }
+  }
+}

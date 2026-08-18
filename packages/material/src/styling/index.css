@@ -1,0 +1,24 @@
+@layer material.reset {
+  :root {
+    --md-ref-typeface-brand: Roboto Flex Variable, system-ui;
+    --md-ref-typeface-plain: Roboto Flex Variable, system-ui;
+
+    font-family: var(--md-ref-typeface-plain);
+    scrollbar-color: var(--md-sys-color-primary) transparent;
+  }
+
+  @media (pointer: fine) {
+    * {
+      scrollbar-width: thin;
+    }
+  }
+
+  body {
+    background-color: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  a {
+    color: var(--sm-sys-color-link);
+  }
+}

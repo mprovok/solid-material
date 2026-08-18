@@ -1,0 +1,218 @@
+@layer material.components {
+  :root {
+    --md-comp-sheet-bottom-max-width: 640px;
+
+    --md-comp-sheet-bottom-padding: var(--md-user-spacing-md);
+
+    /* Enabled - Container */
+    --md-comp-sheet-bottom-docked-container-color: var(--md-sys-color-surface-container-low);
+    --md-comp-sheet-bottom-docked-modal-container-elevation: var(--md-sys-elevation-level1);
+    --md-comp-sheet-bottom-docked-standard-container-elevation: var(--md-sys-elevation-level1);
+    --md-comp-sheet-bottom-docked-container-shape: var(--md-sys-shape-corner-extra-large);
+    --md-comp-sheet-bottom-docked-minimized-container-shape: var(--md-sys-shape-corner-none);
+
+    /* Enabled - Drag handle */
+    /* --md-comp-sheet-bottom-docked-drag-handle-color: var(--md-sys-color-on-surface-variant); */
+    --md-comp-sheet-bottom-docked-drag-handle-color: var(--md-sys-color-outline);
+    --md-comp-sheet-bottom-docked-drag-handle-width: 32px;
+    --md-comp-sheet-bottom-docked-drag-handle-height: 4px;
+    --md-comp-sheet-bottom-docked-drag-handle-padding-top-bottom: 22px;
+
+    /* Enabled - Focus indicator */
+    /* --md-comp-sheet-bottom-focus-indicator-color: var(--md-sys-color-secondary); */
+    /* --md-comp-sheet-bottom-focus-indicator-thickness: var(--md-sys-state-focus-indicator-thickness); */
+    /* --md-comp-sheet-bottom-focus-indicator-outline-offset: var(--md-sys-state-focus-indicator-outer-offset); */
+  }
+
+  @property --border-radius {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  @keyframes minimize-borders {
+    from {
+      --border-radius: var(--default-border-radius);
+    }
+
+    to {
+      --border-radius: var(--md-comp-sheet-bottom-docked-minimized-container-shape);
+    }
+  }
+
+  .dialog {
+    /* Reset default UA styling for dialog / popover element */
+    padding: unset;
+    margin: unset;
+    border: unset;
+    inset: 0;
+    background-color: unset;
+    color: unset;
+    overflow: unset;
+
+    position: fixed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+    scroll-behavior: smooth;
+    overscroll-behavior-inline: contain;
+
+    /* Make sure user can click on targets just above a standard (non-modal) bottom sheet */
+    &:not([open]) {
+      pointer-events: none;
+    }
+
+    transition-property: overlay, display;
+    transition-behavior: allow-discrete;
+  }
+
+  .dialog:not(:popover-open, [open]) {
+    display: none;
+  }
+
+  .dialog::backdrop {
+    background-color: var(--md-sys-color-scrim);
+    opacity: 0%;
+
+    transition-property: opacity;
+  }
+
+  .dialog[open] {
+    &,
+    &::backdrop {
+      /* Transition when entering the screen */
+      transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+    }
+
+    &::backdrop {
+      opacity: 32%;
+    }
+  }
+
+  .dialog:not([open]) {
+    &,
+    &::backdrop {
+      /* Transition when exiting the screen */
+      transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+    }
+  }
+
+  @starting-style {
+    .dialog[open]::backdrop {
+      opacity: 0%;
+    }
+  }
+
+  .space {
+    width: 100vw;
+    min-height: 100vh;
+    pointer-events: none;
+
+    /* Needed to snap top of bottom sheet to bottom of screen */
+    scroll-snap-align: end;
+  }
+
+  .sheet {
+    position: relative;
+    display: block;
+    box-sizing: content-box;
+    height: 100%;
+    width: 100vw;
+    max-width: var(--md-comp-sheet-bottom-max-width);
+    max-height: 100vh;
+    container-type: inline-size;
+
+    /* Needed to snap top of bottom sheet to top of screen */
+    scroll-snap-align: start;
+
+    /* Enable pointer events again after disabling it above */
+    pointer-events: all;
+
+    --default-border-radius: var(--md-comp-sheet-bottom-docked-container-shape);
+
+    &[data-flat] {
+      --default-border-radius: var(--md-comp-sheet-bottom-docked-minimized-container-shape);
+    }
+
+    --border-radius: var(--default-border-radius);
+
+    &[data-full-height] {
+      min-height: 100vh;
+
+      @media (width > 640px) {
+        min-height: calc(100vh - 56px);
+      }
+    }
+
+    background-color: var(--md-comp-sheet-bottom-docked-container-color);
+    border-start-start-radius: var(--border-radius);
+    border-start-end-radius: var(--border-radius);
+
+    margin-block-start: 72px;
+
+    @media (width > 640px) {
+      margin-inline: 56px;
+      margin-block-start: 56px;
+
+      max-height: calc(100vh - 56px);
+    }
+
+    &[data-variant='standard'] {
+      --md-elevation-level: var(--md-comp-sheet-bottom-docked-standard-container-elevation);
+    }
+
+    &[data-variant='modal'] {
+      --md-elevation-level: var(--md-comp-sheet-bottom-docked-modal-container-elevation);
+    }
+
+    @supports (animation-timeline: view()) {
+      animation: minimize-borders linear both;
+      animation-timeline: view(y);
+      animation-range: exit-crossing -1rem exit-crossing 0%;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+
+    /* Needed to snap bottom of bottom sheet to bottom of screen */
+    scroll-snap-align: end;
+
+    --sm-spacer-container-inline-size: calc(
+      2 * var(--md-comp-sheet-bottom-docked-drag-handle-padding-top-bottom) +
+        var(--md-comp-sheet-bottom-docked-drag-handle-height)
+    );
+
+    --sm-drag-handle-container-block-size: var(--md-comp-sheet-bottom-docked-drag-handle-width);
+    --sm-drag-handle-container-inline-size: var(--md-comp-sheet-bottom-docked-drag-handle-height);
+    --sm-drag-handle-container-color: var(--md-comp-sheet-bottom-docked-drag-handle-color);
+
+    .drag-handle {
+      display: flex;
+      place-content: center;
+      height: var(--sm-spacer-container-inline-size);
+    }
+
+    & > section {
+      padding: var(--md-comp-sheet-bottom-padding);
+    }
+
+    .drag-handle + section {
+      padding-top: 0;
+    }
+  }
+}

@@ -1,0 +1,180 @@
+@layer material.theme {
+  :root {
+    /* Baseline static palette color tokens from https://m3.material.io/styles/color/static/baseline */
+
+    /**
+     * Similarities have been computed using the mean absolute error error (distance)
+     * between pairs of CAM16 colors using the tones from the reference palette and a
+     * palette from a hue in [0, 360) and chroma in [0, 100).
+     */
+
+    /* Black and white */
+    --md-ref-palette-white: #ffffff;
+    --md-ref-palette-black: #000000;
+
+    /* Blue (similar to hue 269 and chroma 65) */
+    --md-ref-palette-blue-100: #ffffff;
+    --md-ref-palette-blue-98: #f5faff;
+    --md-ref-palette-blue-95: #e7f2ff;
+    --md-ref-palette-blue-90: #d0e4ff;
+    --md-ref-palette-blue-80: #a1c9ff;
+    --md-ref-palette-blue-70: #76acff;
+    --md-ref-palette-blue-60: #4e8ff8;
+    --md-ref-palette-blue-50: #3271ea;
+    --md-ref-palette-blue-40: #1157ce;
+    --md-ref-palette-blue-30: #04409f;
+    --md-ref-palette-blue-20: #012c6f;
+    --md-ref-palette-blue-10: #001944;
+    --md-ref-palette-blue-0: #000000;
+
+    /* Yellow (similar to hue 60 and chroma 56) */
+    --md-ref-palette-yellow-100: #ffffff;
+    --md-ref-palette-yellow-98: #fffade;
+    --md-ref-palette-yellow-95: #fff2b4;
+    --md-ref-palette-yellow-90: #ffe07c;
+    --md-ref-palette-yellow-80: #fcbd00;
+    --md-ref-palette-yellow-70: #ef9800;
+    --md-ref-palette-yellow-60: #d37b00;
+    --md-ref-palette-yellow-50: #b16300;
+    --md-ref-palette-yellow-40: #8f4e06;
+    --md-ref-palette-yellow-30: #6d3a01;
+    --md-ref-palette-yellow-20: #4d2600;
+    --md-ref-palette-yellow-10: #2f1400;
+    --md-ref-palette-yellow-0: #000000;
+
+    /* Red (similar to hue 22 and chroma 71) */
+    --md-ref-palette-red-100: #ffffff;
+    --md-ref-palette-red-98: #fff8f8;
+    --md-ref-palette-red-95: #ffecee;
+    --md-ref-palette-red-90: #ffdadc;
+    --md-ref-palette-red-80: #ffb3ae;
+    --md-ref-palette-red-70: #ff8983;
+    --md-ref-palette-red-60: #f55e57;
+    --md-ref-palette-red-50: #db372d;
+    --md-ref-palette-red-40: #b3251e;
+    --md-ref-palette-red-30: #8a1a16;
+    --md-ref-palette-red-20: #60150f;
+    --md-ref-palette-red-10: #3a0907;
+    --md-ref-palette-red-0: #000000;
+
+    /* Purple (similar to hue 306 and chroma 72) */
+    --md-ref-palette-purple-100: #ffffff;
+    --md-ref-palette-purple-98: #fdf8ff;
+    --md-ref-palette-purple-95: #f7ecfe;
+    --md-ref-palette-purple-90: #eedcfe;
+    --md-ref-palette-purple-80: #d9bafd;
+    --md-ref-palette-purple-70: #c597ff;
+    --md-ref-palette-purple-60: #ad72ff;
+    --md-ref-palette-purple-50: #9254ea;
+    --md-ref-palette-purple-40: #7438d2;
+    --md-ref-palette-purple-30: #5629a4;
+    --md-ref-palette-purple-20: #400b84;
+    --md-ref-palette-purple-10: #280255;
+    --md-ref-palette-purple-0: #000000;
+
+    /* Blue variant (similar to hue 228 and chroma 53) */
+    --md-ref-palette-blue-variant-100: #ffffff;
+    --md-ref-palette-blue-variant-98: #f4faff;
+    --md-ref-palette-blue-variant-95: #e0f4ff;
+    --md-ref-palette-blue-variant-90: #bde9ff;
+    --md-ref-palette-blue-variant-80: #67d4ff;
+    --md-ref-palette-blue-variant-70: #00bbea;
+    --md-ref-palette-blue-variant-60: #009dc9;
+    --md-ref-palette-blue-variant-50: #0081a8;
+    --md-ref-palette-blue-variant-40: #006788;
+    --md-ref-palette-blue-variant-30: #004d68;
+    --md-ref-palette-blue-variant-20: #003549;
+    --md-ref-palette-blue-variant-10: #001f2d;
+    --md-ref-palette-blue-variant-0: #000000;
+
+    /* Cyan (similar to hue 218 and chroma 46) */
+    --md-ref-palette-cyan-100: #ffffff;
+    --md-ref-palette-cyan-98: #f0fbff;
+    --md-ref-palette-cyan-95: #d8f6ff;
+    --md-ref-palette-cyan-90: #acedff;
+    --md-ref-palette-cyan-80: #60d5f3;
+    --md-ref-palette-cyan-70: #00bbdf;
+    --md-ref-palette-cyan-60: #009ebb;
+    --md-ref-palette-cyan-50: #00839b;
+    --md-ref-palette-cyan-40: #00687c;
+    --md-ref-palette-cyan-30: #004e5d;
+    --md-ref-palette-cyan-20: #003641;
+    --md-ref-palette-cyan-10: #001f26;
+    --md-ref-palette-cyan-0: #000000;
+
+    /* Grey (similar to hue 0 and chroma 0) */
+    --md-ref-palette-grey-100: #ffffff;
+    --md-ref-palette-grey-98: #f9f9f9;
+    --md-ref-palette-grey-95: #f2f2f2;
+    --md-ref-palette-grey-90: #e3e3e3;
+    --md-ref-palette-grey-80: #c7c7c7;
+    --md-ref-palette-grey-70: #ababab;
+    --md-ref-palette-grey-60: #919191;
+    --md-ref-palette-grey-50: #777777;
+    --md-ref-palette-grey-40: #5e5e5e;
+    --md-ref-palette-grey-30: #474747;
+    --md-ref-palette-grey-20: #303030;
+    --md-ref-palette-grey-10: #1b1b1c;
+    --md-ref-palette-grey-0: #000000;
+
+    /* Green (similar to hue 154 and chroma 61) */
+    --md-ref-palette-green-100: #ffffff;
+    --md-ref-palette-green-98: #f2fcef;
+    --md-ref-palette-green-95: #ddf8d8;
+    --md-ref-palette-green-90: #beefbb;
+    --md-ref-palette-green-80: #80da88;
+    --md-ref-palette-green-70: #44c265;
+    --md-ref-palette-green-60: #1aa64a;
+    --md-ref-palette-green-50: #128937;
+    --md-ref-palette-green-40: #006c35;
+    --md-ref-palette-green-30: #00522c;
+    --md-ref-palette-green-20: #00381f;
+    --md-ref-palette-green-10: #002110;
+    --md-ref-palette-green-0: #000000;
+
+    /* Grey variant (similar to hue 181 and chroma 4) */
+    --md-ref-palette-grey-variant-100: #ffffff;
+    --md-ref-palette-grey-variant-98: #f7faf7;
+    --md-ref-palette-grey-variant-95: #eff2ef;
+    --md-ref-palette-grey-variant-90: #e1e3e1;
+    --md-ref-palette-grey-variant-80: #c4c7c5;
+    --md-ref-palette-grey-variant-70: #a9acaa;
+    --md-ref-palette-grey-variant-60: #8e918f;
+    --md-ref-palette-grey-variant-50: #747775;
+    --md-ref-palette-grey-variant-40: #5c5f5e;
+    --md-ref-palette-grey-variant-30: #444746;
+    --md-ref-palette-grey-variant-20: #2d312f;
+    --md-ref-palette-grey-variant-10: #191d1c;
+    --md-ref-palette-grey-variant-0: #000000;
+
+    /* Orange (similar to hue 49 and chroma 68) */
+    --md-ref-palette-orange-100: #ffffff;
+    --md-ref-palette-orange-98: #fff8f4;
+    --md-ref-palette-orange-95: #ffede1;
+    --md-ref-palette-orange-90: #ffdcc3;
+    --md-ref-palette-orange-80: #ffb683;
+    --md-ref-palette-orange-70: #ff8d41;
+    --md-ref-palette-orange-60: #e86e00;
+    --md-ref-palette-orange-50: #c05a01;
+    --md-ref-palette-orange-40: #9a4600;
+    --md-ref-palette-orange-30: #753403;
+    --md-ref-palette-orange-20: #522302;
+    --md-ref-palette-orange-10: #321200;
+    --md-ref-palette-orange-0: #000000;
+
+    /* Pink (similar to hue 355 and chroma 87) */
+    --md-ref-palette-pink-100: #ffffff;
+    --md-ref-palette-pink-98: #fff7fc;
+    --md-ref-palette-pink-95: #ffecf6;
+    --md-ref-palette-pink-90: #ffd8ef;
+    --md-ref-palette-pink-80: #ffaee4;
+    --md-ref-palette-pink-70: #ff7dd2;
+    --md-ref-palette-pink-60: #f94aab;
+    --md-ref-palette-pink-50: #dc258d;
+    --md-ref-palette-pink-40: #b60d6e;
+    --md-ref-palette-pink-30: #8d0053;
+    --md-ref-palette-pink-20: #620438;
+    --md-ref-palette-pink-10: #3d0023;
+    --md-ref-palette-pink-0: #000000;
+  }
+}

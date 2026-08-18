@@ -1,0 +1,47 @@
+@layer material.components {
+  :root {
+    /* Toggle tonal */
+
+    /* Enabled */
+    --md-comp-button-tonal-container-color-unselected: var(--md-sys-color-secondary-container);
+    --md-comp-button-tonal-container-color-selected: var(--md-sys-color-secondary);
+
+    --md-comp-button-tonal-label-color-unselected: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-label-color-selected: var(--md-sys-color-on-secondary);
+
+    --md-comp-button-tonal-icon-color-unselected: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-icon-color-selected: var(--md-sys-color-on-secondary);
+
+    /* Hovered */
+    --md-comp-button-tonal-hovered-container-state-layer-color-unselected: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-hovered-container-state-layer-color-selected: var(--md-sys-color-on-secondary);
+
+    /* Focused */
+    /* --md-comp-button-tonal-focused-container-state-layer-color-unselected: var(--md-sys-color-on-secondary-container); */
+    /* --md-comp-button-tonal-focused-container-state-layer-color-selected: var(--md-sys-color-on-secondary); */
+
+    /* Pressed */
+    --md-comp-button-tonal-pressed-container-state-layer-color-unselected: var(--md-sys-color-on-secondary-container);
+    --md-comp-button-tonal-pressed-container-state-layer-color-selected: var(--md-sys-color-on-secondary);
+  }
+
+  .button[data-variant='tonal'][data-toggle]:not(:has(> :is(a, button):disabled)) {
+    &[data-toggle='false'] {
+      --md-comp-button-container-color: var(--md-comp-button-tonal-container-color-unselected);
+      --md-comp-button-label-color: var(--md-comp-button-tonal-label-color-unselected);
+      --md-comp-button-icon-color: var(--md-comp-button-tonal-icon-color-unselected);
+
+      --md-ripple-hover-color: var(--md-comp-button-tonal-hovered-container-state-layer-color-unselected);
+      --md-ripple-pressed-color: var(--md-comp-button-tonal-pressed-container-state-layer-color-unselected);
+    }
+
+    &[data-toggle='true'] {
+      --md-comp-button-container-color: var(--md-comp-button-tonal-container-color-selected);
+      --md-comp-button-label-color: var(--md-comp-button-tonal-label-color-selected);
+      --md-comp-button-icon-color: var(--md-comp-button-tonal-icon-color-selected);
+
+      --md-ripple-hover-color: var(--md-comp-button-tonal-hovered-container-state-layer-color-selected);
+      --md-ripple-pressed-color: var(--md-comp-button-tonal-pressed-container-state-layer-color-selected);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+@layer material.components {
+  .anchor {
+    width: fit-content;
+    height: fit-content;
+  }
+}

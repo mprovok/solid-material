@@ -1,0 +1,73 @@
+@layer material.components {
+  :root {
+    /* Variant filled */
+
+    /* Enabled */
+    --md-comp-button-filled-container-color: var(--md-sys-color-primary);
+    --md-comp-button-filled-shadow-color: var(--md-sys-color-shadow);
+    --md-comp-button-filled-elevation: var(--md-sys-elevation-level0);
+
+    --md-comp-button-filled-label-color: var(--md-sys-color-on-primary);
+    --md-comp-button-filled-icon-color: var(--md-sys-color-on-primary);
+
+    /* Disabled */
+    --md-comp-button-filled-disabled-container-color: var(--md-sys-color-on-surface);
+    --md-comp-button-filled-disabled-container-opacity: 0.1;
+    --md-comp-button-filled-disabled-elevation: var(--md-sys-elevation-level0);
+
+    --md-comp-button-filled-disabled-label-color: var(--md-sys-color-on-surface);
+    --md-comp-button-filled-disabled-label-opacity: 0.38;
+
+    --md-comp-button-filled-disabled-icon-color: var(--md-sys-color-on-surface);
+    --md-comp-button-filled-disabled-icon-opacity: 0.38;
+
+    /* Hovered */
+    --md-comp-button-filled-hovered-container-state-layer-color: var(--md-sys-color-on-primary);
+    --md-comp-button-filled-hovered-container-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+
+    /* Focused */
+    /* --md-comp-button-filled-focused-container-state-layer-color: var(--md-sys-color-on-primary); */
+    /* --md-comp-button-filled-focused-container-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity); */
+    --md-comp-button-filled-focused-elevation: var(--md-sys-elevation-level0);
+
+    /* Pressed */
+    --md-comp-button-filled-pressed-container-state-layer-color: var(--md-sys-color-on-primary);
+    --md-comp-button-filled-pressed-container-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+    --md-comp-button-filled-pressed-elevation: var(--md-sys-elevation-level0);
+  }
+
+  .button[data-variant='filled'] {
+    --md-comp-button-container-color: var(--md-comp-button-filled-container-color);
+    --md-comp-button-label-color: var(--md-comp-button-filled-label-color);
+    --md-comp-button-icon-color: var(--md-comp-button-filled-icon-color);
+
+    --md-elevation-level: var(--md-comp-button-filled-elevation);
+    --md-elevation-shadow-color: var(--md-comp-button-filled-shadow-color);
+
+    --md-ripple-hover-color: var(--md-comp-button-filled-hovered-container-state-layer-color);
+    --md-ripple-hover-opacity: var(--md-comp-button-filled-hovered-container-state-layer-opacity);
+
+    --md-ripple-pressed-color: var(--md-comp-button-filled-pressed-container-state-layer-color);
+    --md-ripple-pressed-opacity: var(--md-comp-button-filled-pressed-container-state-layer-opacity);
+
+    &:has(md-focus-ring[visible]) {
+      --md-elevation-level: var(--md-comp-button-filled-focused-elevation);
+    }
+
+    &:active {
+      --md-elevation-level: var(--md-comp-button-filled-pressed-elevation);
+    }
+
+    &:has(> :is(a, button):disabled) {
+      --md-comp-button-container-color: var(--md-comp-button-filled-disabled-container-color);
+      --md-comp-button-container-opacity: var(--md-comp-button-filled-disabled-container-opacity);
+      --md-elevation-level: var(--md-comp-button-filled-disabled-elevation);
+
+      --md-comp-button-label-color: var(--md-comp-button-filled-disabled-label-color);
+      --md-comp-button-label-opacity: var(--md-comp-button-filled-disabled-label-opacity);
+
+      --md-comp-button-icon-color: var(--md-comp-button-filled-disabled-icon-color);
+      --md-comp-button-icon-opacity: var(--md-comp-button-filled-disabled-icon-opacity);
+    }
+  }
+}

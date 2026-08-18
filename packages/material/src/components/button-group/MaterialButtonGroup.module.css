@@ -1,0 +1,10 @@
+@import './styling/variant/MaterialButtonGroupVariantStandard.module.css';
+@import './styling/variant/MaterialButtonGroupVariantConnected.module.css';
+
+@layer material.components {
+  .group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

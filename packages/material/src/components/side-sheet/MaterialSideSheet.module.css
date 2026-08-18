@@ -1,0 +1,230 @@
+@layer material.components {
+  :root {
+    --md-comp-side-sheet-width: 256px;
+    --md-comp-side-sheet-max-width: 400px;
+
+    --md-comp-side-sheet-standard-elevation: var(--md-sys-elevation-level0);
+    --md-comp-side-sheet-modal-elevation: var(--md-sys-elevation-level1);
+
+    --md-comp-side-sheet-standard-container-shape: var(--md-sys-shape-corner-none);
+    --md-comp-side-sheet-modal-container-shape: var(--md-sys-shape-corner-large);
+
+    /* --md-comp-side-sheet-detached-elevation: var(--md-sys-elevation-level1); */
+    --md-comp-side-sheet-detached-container-shape: var(--md-sys-shape-corner-large);
+  }
+
+  .dialog {
+    /* Reset default UA styling for dialog element */
+    padding: unset;
+    margin: unset;
+    border: unset;
+    inset: 0;
+    background-color: unset;
+    color: unset;
+
+    transition-property: overlay, display;
+    transition-behavior: allow-discrete;
+
+    position: static;
+
+    &:modal {
+      position: fixed;
+      min-width: 100vw;
+      min-height: 100vh;
+    }
+
+    /* Without higher specificity it Chrome does not display the side sheet */
+    &[open][open] {
+      display: flex;
+    }
+  }
+
+  .dialog:not([open]) {
+    display: none;
+  }
+
+  .dialog::backdrop {
+    background-color: var(--md-sys-color-scrim);
+    opacity: 0%;
+
+    transition-property: opacity;
+  }
+
+  .dialog {
+    &[data-open]::backdrop {
+      /* Transition when entering the screen */
+      transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+
+      opacity: 32%;
+    }
+
+    &:not([data-open])::backdrop {
+      /* Transition when exiting the screen */
+      transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+    }
+  }
+
+  @starting-style {
+    .dialog[data-open] {
+      display: none;
+    }
+
+    .dialog:not([data-open]) {
+      display: flex;
+    }
+
+    .dialog[data-open]::backdrop {
+      opacity: 0%;
+    }
+  }
+
+  .sheet {
+    height: 100%;
+    width: fit-content;
+    max-width: var(--md-comp-side-sheet-max-width);
+    contain: layout style paint;
+
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 1fr;
+
+    &[data-variant='standard'] {
+      background-color: var(--md-sys-color-surface);
+      border-radius: var(--md-comp-side-sheet-standard-container-shape);
+      --md-elevation-level: var(--md-comp-side-sheet-standard-elevation);
+
+      transition-property: grid-template-columns, width;
+    }
+
+    &[data-variant='modal'] {
+      background-color: var(--md-sys-color-surface-container-low);
+      border-start-start-radius: var(--md-comp-side-sheet-modal-container-shape);
+      border-end-start-radius: var(--md-comp-side-sheet-modal-container-shape);
+      --md-elevation-level: var(--md-comp-side-sheet-modal-elevation);
+
+      position: fixed;
+      top: 0;
+      transition-property: translate;
+
+      &:dir(ltr) {
+        right: 0;
+        translate: 100%;
+      }
+
+      &:dir(rtl) {
+        left: 0;
+        translate: -100%;
+      }
+    }
+
+    &[data-detached] {
+      border-radius: var(--md-comp-side-sheet-detached-container-shape);
+    }
+
+    &[data-divider] {
+      border-left: 1px solid var(--md-sys-color-outline-variant);
+    }
+  }
+
+  .dialog[data-open] .sheet {
+    /* Transition when entering the screen */
+    transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+    transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+
+    &[data-variant='modal'] {
+      translate: 0%;
+    }
+  }
+
+  .dialog:not([data-open]) .sheet {
+    /* Transition when exiting the screen */
+    transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+    transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+
+    &[data-variant='standard'] {
+      grid-template-columns: 0fr;
+    }
+  }
+
+  @starting-style {
+    .dialog[data-open] .sheet {
+      &[data-variant='standard'] {
+        grid-template-columns: 0fr;
+      }
+
+      &[data-variant='modal'] {
+        &:dir(ltr) {
+          translate: 100%;
+        }
+
+        &:dir(rtl) {
+          translate: -100%;
+        }
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* Needed to animate the width for variant standard */
+    overflow: hidden;
+  }
+
+  .body {
+    padding: var(--md-user-spacing-lg);
+    min-width: var(--md-comp-side-sheet-width);
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding-bottom: var(--md-user-spacing-md);
+
+    & > h1 {
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    & sm-icon-button {
+      margin-inline: calc(-1 * var(--md-user-spacing-sm));
+      margin-top: calc(-1 * (40px - var(--md-sys-typescale-title-large-line-height, 1.75rem)) / 2);
+    }
+
+    .back-button {
+      margin-inline-start: calc(-1 * var(--md-user-spacing-sm));
+      --sm-icon-button-icon-color: var(--md-sys-color-outline);
+
+      &:dir(rtl) {
+        transform: rotateY(180deg);
+      }
+    }
+
+    .close-button {
+      flex-grow: 1;
+      text-align: end;
+      --sm-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
+    }
+  }
+
+  .content {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .footer {
+    .actions {
+      display: flex;
+      margin: var(--md-user-spacing-lg);
+      margin-top: var(--md-user-spacing-md);
+    }
+  }
+}

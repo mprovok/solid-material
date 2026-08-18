@@ -1,0 +1,20 @@
+@layer material.components {
+  .container {
+    position: relative;
+    width: fit-content;
+    border-radius: var(--md-sys-shape-corner-medium);
+
+    --md-ripple-hover-color: var(--md-sys-color-primary);
+    --md-ripple-pressed-color: var(--md-sys-color-primary);
+  }
+
+  .element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--md-sys-shape-corner-medium);
+    outline: 1px solid var(--md-sys-color-outline);
+  }
+}

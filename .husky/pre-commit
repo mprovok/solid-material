@@ -1,0 +1,8 @@
+#/usr/bin/env sh
+
+set -e
+
+files=$(git diff --cached --name-only --diff-filter=ACMR -z -- "*.tsx" "*.ts" "*.js" "*.css" "*.json" "*.yaml" | xargs -0 git rev-parse)
+if [ -n "$files" ]; then
+    pnpm format:check $files
+fi

@@ -1,0 +1,6 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--md-user-spacing-xs);
+  margin-inline-start: var(--md-user-spacing-sm);
+}

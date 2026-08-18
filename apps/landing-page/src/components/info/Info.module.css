@@ -1,0 +1,10 @@
+.info {
+  --md-comp-card-filled-container-color: var(--md-ref-palette-blue-90);
+  color: var(--md-ref-palette-blue-20);
+
+  .body {
+    display: flex;
+    gap: var(--md-user-spacing-xs);
+    padding: 12px;
+  }
+}

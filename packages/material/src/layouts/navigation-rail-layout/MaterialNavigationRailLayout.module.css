@@ -1,0 +1,57 @@
+@layer material.components {
+  html {
+    overflow: hidden;
+  }
+
+  .container {
+    display: inline-grid;
+    grid-template-columns: min-content auto;
+    height: 100%;
+    width: 100%;
+  }
+
+  .rail {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    content-visibility: visible;
+
+    /**
+     * Make the rail part of the view transition (although it has no actual
+     * view transition) so that the rail, when it is modal, does not get
+     * temporily painted below the panes (which do have an actual view transition)
+     */
+    view-transition-name: md-nav-rail;
+
+    /* Prevents collapsed navigation rail to be modal */
+    &[data-show]:has(sm-navigation-rail[data-modal]:not([data-always-expanded])) {
+      min-width: var(--md-comp-nav-rail-container-width);
+    }
+
+    transition:
+      min-width,
+      transform,
+      content-visibility allow-discrete;
+
+    &[data-show] {
+      /* Transition when entering the screen */
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+      transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+    }
+
+    &:not([data-show]) {
+      /* Transition when exiting the screen */
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+      transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+
+      min-width: 0;
+      content-visibility: hidden;
+
+      /* Slide the navigation rail to/from the leading edge */
+      transform: translateX(calc(-1 * var(--md-comp-nav-rail-container-width)));
+      &:has(sm-navigation-rail [data-expanded]) {
+        transform: translateX(calc(-1 * var(--md-comp-nav-rail-container-expanded-min-width)));
+      }
+    }
+  }
+}

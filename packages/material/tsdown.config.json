@@ -1,0 +1,15 @@
+{
+  "entry": ["src/components/*/index.ts", "src/layouts/index.ts", "src/utils/index.ts", "src/styling/index.ts"],
+  "css": {
+    "inject": true,
+    "splitting": true,
+    "target": ["chrome131", "safari26.2"]
+  },
+  "dts": {
+    "sourcemap": true,
+    "tsconfig": "tsconfig.build.json"
+  },
+  "platform": "browser",
+  "sourcemap": true,
+  "unbundle": true
+}

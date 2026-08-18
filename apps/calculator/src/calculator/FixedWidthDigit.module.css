@@ -1,0 +1,5 @@
+.digit {
+  display: inline-flex;
+  justify-content: center;
+  width: 24px;
+}

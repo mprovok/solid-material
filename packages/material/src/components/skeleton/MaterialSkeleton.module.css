@@ -1,0 +1,72 @@
+@layer material.components {
+  :root {
+    --md-comp-skeleton-color-start: var(--md-sys-color-surface-container);
+    --md-comp-skeleton-color-end: var(--md-sys-color-surface-container-lowest);
+    --md-comp-skeleton-shape: var(--md-sys-shape-corner-medium);
+
+    --md-comp-skeleton-pulse-speed: 1.5s;
+    --md-comp-skeleton-pulse-delay: 150ms;
+  }
+
+  @keyframes move-skeleton {
+    0%,
+    20% {
+      background-color: var(--md-comp-skeleton-color-start);
+    }
+    80%,
+    100% {
+      background-color: var(--md-comp-skeleton-color-end);
+    }
+  }
+
+  .container {
+    position: relative;
+
+    /**
+     * Hide children while skeleton is visible to avoid graphical
+     * artifacts around the edges
+     */
+    & > *:has(~ .skeleton[data-show]) {
+      visibility: hidden;
+    }
+
+    &:not(:has(.skeleton)) {
+      display: contents;
+    }
+  }
+
+  .skeleton {
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: var(--md-comp-skeleton-shape);
+
+    /* Pulsing animation */
+    animation: move-skeleton var(--md-comp-skeleton-pulse-speed) linear alternate infinite;
+    animation-fill-mode: both;
+    animation-delay: calc(var(--index, 0) * var(--md-comp-skeleton-pulse-delay));
+
+    /* Fade out after content has loaded */
+    opacity: 1;
+
+    transition-property: opacity, display;
+    transition-behavior: allow-discrete;
+    transition-duration: var(--md-sys-motion-duration-effects-slow);
+    transition-timing-function: var(--md-sys-motion-spring-effects-slow);
+  }
+
+  .skeleton:not([data-show]) {
+    display: none;
+    opacity: 0;
+  }
+
+  @starting-style {
+    .skeleton[data-show] {
+      opacity: 1;
+    }
+
+    .skeleton:not([data-show]) {
+      opacity: 1;
+    }
+  }
+}

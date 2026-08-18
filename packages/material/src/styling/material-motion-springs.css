@@ -1,0 +1,66 @@
+@layer material.theme {
+  :root {
+    /**
+     * Spring damping/stiffness converted to cubic bezier using numbers
+     * from https://m3.material.io/styles/motion/overview/specs
+     *
+     * Expressive (damping/stiffness for fast, default, slow):
+     *   - Spatial: 0.6/800, 0.8/380, 0.8/200
+     *   - Effects: 1/3800, 1/1600, 1/800
+     * Standard:
+     *   - Spatial: 0.9/1400, 0.9/700, 0.9/300
+     *   - Effects: (same as expressive)
+     */
+
+    /* Expressive scheme */
+    --md-sys-motion-spring-expressive-spatial-fast: cubic-bezier(0.42, 1.67, 0.21, 0.9);
+    --md-sys-motion-spring-expressive-spatial-default: cubic-bezier(0.38, 1.21, 0.22, 1);
+    --md-sys-motion-spring-expressive-spatial-slow: cubic-bezier(0.39, 1.29, 0.35, 0.98);
+
+    --md-sys-motion-spring-expressive-effects-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
+    --md-sys-motion-spring-expressive-effects-default: cubic-bezier(0.34, 0.8, 0.34, 1);
+    --md-sys-motion-spring-expressive-effects-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
+
+    --md-sys-motion-duration-expressive-spatial-fast: 350ms;
+    --md-sys-motion-duration-expressive-spatial-default: 500ms;
+    --md-sys-motion-duration-expressive-spatial-slow: 650ms;
+
+    --md-sys-motion-duration-expressive-effects-fast: 150ms;
+    --md-sys-motion-duration-expressive-effects-default: 200ms;
+    --md-sys-motion-duration-expressive-effects-slow: 300ms;
+
+    /* Standard scheme */
+    --md-sys-motion-spring-standard-spatial-fast: cubic-bezier(0.27, 1.06, 0.18, 1);
+    --md-sys-motion-spring-standard-spatial-default: cubic-bezier(0.27, 1.06, 0.18, 1);
+    --md-sys-motion-spring-standard-spatial-slow: cubic-bezier(0.27, 1.06, 0.18, 1);
+
+    --md-sys-motion-spring-standard-effects-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
+    --md-sys-motion-spring-standard-effects-default: cubic-bezier(0.34, 0.8, 0.34, 1);
+    --md-sys-motion-spring-standard-effects-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
+
+    --md-sys-motion-duration-standard-spatial-fast: 350ms;
+    --md-sys-motion-duration-standard-spatial-default: 500ms;
+    --md-sys-motion-duration-standard-spatial-slow: 750ms;
+
+    --md-sys-motion-duration-standard-effects-fast: 150ms;
+    --md-sys-motion-duration-standard-effects-default: 200ms;
+    --md-sys-motion-duration-standard-effects-slow: 300ms;
+
+    /* Motion scheme used by components */
+    --md-sys-motion-spring-spatial-fast: var(--md-sys-motion-spring-expressive-spatial-fast);
+    --md-sys-motion-spring-spatial-default: var(--md-sys-motion-spring-expressive-spatial-default);
+    --md-sys-motion-spring-spatial-slow: var(--md-sys-motion-spring-expressive-spatial-slow);
+
+    --md-sys-motion-spring-effects-fast: var(--md-sys-motion-spring-expressive-effects-fast);
+    --md-sys-motion-spring-effects-default: var(--md-sys-motion-spring-expressive-effects-default);
+    --md-sys-motion-spring-effects-slow: var(--md-sys-motion-spring-expressive-effects-slow);
+
+    --md-sys-motion-duration-spatial-fast: var(--md-sys-motion-duration-expressive-spatial-fast);
+    --md-sys-motion-duration-spatial-default: var(--md-sys-motion-duration-expressive-spatial-default);
+    --md-sys-motion-duration-spatial-slow: var(--md-sys-motion-duration-expressive-spatial-slow);
+
+    --md-sys-motion-duration-effects-fast: var(--md-sys-motion-duration-expressive-effects-fast);
+    --md-sys-motion-duration-effects-default: var(--md-sys-motion-duration-expressive-effects-default);
+    --md-sys-motion-duration-effects-slow: var(--md-sys-motion-duration-expressive-effects-slow);
+  }
+}

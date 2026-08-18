@@ -1,0 +1,73 @@
+@layer material.components {
+  :root {
+    --sm-drag-handle-container-color: var(--md-sys-color-outline);
+    --sm-drag-handle-active-container-color: var(--md-sys-color-on-surface);
+
+    --sm-drag-handle-container-block-size: 48px;
+    --sm-drag-handle-container-inline-size: 4px;
+
+    /* Ripple (hover) */
+    --sm-drag-handle-active-hover-state-layer-color: var(--md-sys-color-inverse-on-surface);
+    --sm-drag-handle-active-hover-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity, 0.08);
+
+    /* Ripple (pressed) */
+    --sm-drag-handle-active-pressed-state-layer-color: var(--md-sys-color-inverse-on-surface);
+    --sm-drag-handle-active-pressed-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity, 0.1);
+  }
+
+  .button {
+    display: block;
+    position: relative;
+    box-sizing: content-box;
+    block-size: var(--sm-drag-handle-container-block-size);
+    inline-size: var(--sm-drag-handle-container-inline-size);
+
+    background-color: var(--sm-drag-handle-container-color);
+    border-radius: var(--md-sys-shape-corner-full);
+
+    --md-ripple-hover-color: var(--sm-drag-handle-active-hover-state-layer-color);
+    --md-ripple-hover-opacity: var(--sm-drag-handle-active-hover-state-layer-opacity);
+    --md-ripple-pressed-color: var(--sm-drag-handle-active-pressed-state-layer-color);
+    --md-ripple-pressed-opacity: var(--sm-drag-handle-active-pressed-state-layer-opacity);
+
+    transition:
+      background-color var(--md-sys-motion-duration-effects-fast) var(--md-sys-motion-spring-effects-fast),
+      border-radius var(--md-sys-motion-duration-standard-spatial-fast)
+        var(--md-sys-motion-spring-standard-spatial-fast),
+      padding-block var(--md-sys-motion-duration-spatial-fast) linear,
+      padding-inline var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast);
+
+    &[data-active] {
+      padding: 2px 4px;
+      background-color: var(--sm-drag-handle-active-container-color);
+      border-radius: var(--md-sys-shape-corner-medium);
+    }
+
+    &[data-direction='horizontal'] {
+      writing-mode: horizontal-tb;
+    }
+
+    &[data-direction='vertical'] {
+      writing-mode: vertical-lr;
+    }
+  }
+
+  .drag-handle {
+    position: relative;
+    padding: 20px;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    cursor: grab;
+
+    &:has(.button[data-clickable]) {
+      cursor: pointer;
+    }
+
+    &:has(.button[data-active]) {
+      cursor: grabbing;
+    }
+  }
+}

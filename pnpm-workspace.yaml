@@ -1,0 +1,47 @@
+minimumReleaseAge: 4320
+savePrefix: ''
+strictDepBuilds: true
+blockExoticSubDeps: true
+trustPolicy: no-downgrade
+
+trustPolicyExclude:
+  - 'semver@6.3.1'
+  - 'tinyexec@1.2.2'
+
+engineStrict: true
+resolutionMode: time-based
+strictPeerDeps: true
+verifyDepsBeforeRun: error
+
+packages:
+  - packages/*
+  - apps/*
+
+allowBuilds:
+  esbuild: false
+
+catalogs:
+  storybook:
+    storybook: 10.4.6
+    '@storybook/addon-a11y': 10.4.6
+    '@storybook/addon-docs': 10.4.6
+    '@storybook/addon-vitest': 10.4.6
+    storybook-solidjs-vite: 10.6.0
+  tsdown:
+    '@tsdown/css': 0.22.5
+    tsdown: 0.22.5
+  vitest:
+    vitest: 4.1.10
+    '@vitest/browser-playwright': 4.1.10
+    '@vitest/coverage-istanbul': 4.1.10
+    '@vitest/coverage-v8': 4.1.10
+  vite:
+    vite: 8.1.5
+    'vite-plugin-solid': 2.11.12
+  solid:
+    solid-js: 1.9.14
+    '@solidjs/router': 0.16.1
+    '@solidjs/meta': 0.29.4
+
+minimumReleaseAgeExclude:
+  - fast-uri@3.1.4

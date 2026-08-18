@@ -1,0 +1,21 @@
+@layer material.components {
+  :root {
+    /* Tooltip - Plain */
+    --md-comp-plain-tooltip-container-color: var(--md-sys-color-inverse-surface);
+    --md-comp-plain-tooltip-container-shape: var(--md-sys-shape-corner-extra-small);
+    --md-comp-plain-tooltip-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+  }
+
+  .tooltip {
+    background-color: var(--md-comp-plain-tooltip-container-color);
+    border-radius: var(--md-comp-plain-tooltip-container-shape);
+    color: var(--md-comp-plain-tooltip-supporting-text-color);
+
+    display: inline-flex;
+    align-items: center;
+
+    max-width: 300px;
+    min-height: var(--md-user-spacing-lg);
+    padding-inline: var(--md-user-spacing-sm);
+  }
+}

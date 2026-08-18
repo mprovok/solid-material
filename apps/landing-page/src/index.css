@@ -1,0 +1,13 @@
+:root {
+  --md-ref-typeface-brand: Google Sans Flex, system-ui;
+}
+
+code {
+  background-color: var(--md-sys-color-secondary-container);
+  border-radius: var(--md-sys-shape-corner-small);
+  padding-inline: var(--md-user-spacing-xs);
+}
+
+pre {
+  margin: 0;
+}

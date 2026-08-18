@@ -1,0 +1,16 @@
+# Logs
+*.log
+
+dist/
+node_modules/
+coverage/
+
+.vitest-attachments/
+__screenshots__/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+.DS_Store

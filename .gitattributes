@@ -1,0 +1,3 @@
+* text eol=lf
+packages/**/*.d.ts -linguist-vendored
+packages/icons/icons/** linguist-generated

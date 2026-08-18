@@ -1,0 +1,44 @@
+@import './material-motion-easings.css';
+@import './material-motion-springs.css';
+@import './material-colors-static-palette.css';
+@import './material-transitions.css';
+
+@layer material.theme {
+  :root {
+    /* Shapes */
+    --md-sys-shape-corner-none: 0px;
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    --md-sys-shape-corner-large-increased: 20px;
+    --md-sys-shape-corner-extra-large: 28px;
+    --md-sys-shape-corner-extra-large-increased: 32px;
+    --md-sys-shape-corner-extra-extra-large: 48px;
+    --md-sys-shape-corner-full: 9999px;
+
+    /* Spacing */
+    --md-user-spacing-xs: 4px;
+    --md-user-spacing-sm: 8px;
+    --md-user-spacing-md: 16px;
+    --md-user-spacing-lg: 24px;
+    --md-user-spacing-xl: 32px;
+    --md-user-spacing-2xl: 48px;
+    --md-user-spacing-3xl: 56px;
+    --md-user-spacing-4xl: 64px;
+
+    /* Elevation levels */
+    --md-sys-elevation-level0: 0;
+    --md-sys-elevation-level1: 1;
+    --md-sys-elevation-level2: 2;
+    --md-sys-elevation-level3: 3;
+    --md-sys-elevation-level4: 4;
+    --md-sys-elevation-level5: 5;
+
+    --md-sys-state-hover-state-layer-opacity: 0.08;
+    --md-sys-state-focus-state-layer-opacity: 0.1;
+    --md-sys-state-pressed-state-layer-opacity: 0.1;
+
+    --sm-sys-color-link: var(--md-sys-color-primary);
+  }
+}

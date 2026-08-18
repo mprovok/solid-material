@@ -1,0 +1,30 @@
+@layer material.components {
+  .button[data-variant='tonal'] {
+    /* Variant tonal */
+
+    & > :last-child {
+      --md-comp-button-tonal-container-color-unselected: var(--md-comp-button-tonal-container-color);
+      --md-comp-button-tonal-container-color-selected: var(--md-comp-button-tonal-container-color);
+
+      --md-comp-button-tonal-label-color-unselected: var(--md-comp-button-tonal-label-color);
+      --md-comp-button-tonal-label-color-selected: var(--md-comp-button-tonal-label-color);
+
+      --md-comp-button-tonal-icon-color-unselected: var(--md-comp-button-tonal-icon-color);
+      --md-comp-button-tonal-icon-color-selected: var(--md-comp-button-tonal-icon-color);
+
+      /* State layer (ripple) */
+      --md-comp-button-tonal-hovered-container-state-layer-color-unselected: var(
+        --md-comp-button-tonal-hovered-container-state-layer-color
+      );
+      --md-comp-button-tonal-hovered-container-state-layer-color-selected: var(
+        --md-comp-button-tonal-hovered-container-state-layer-color
+      );
+      --md-comp-button-tonal-pressed-container-state-layer-color-unselected: var(
+        --md-comp-button-tonal-pressed-container-state-layer-color
+      );
+      --md-comp-button-tonal-pressed-container-state-layer-color-selected: var(
+        --md-comp-button-tonal-pressed-container-state-layer-color
+      );
+    }
+  }
+}

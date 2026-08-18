@@ -1,0 +1,35 @@
+@layer material.components {
+  .layout {
+    display: flex;
+    contain: layout size;
+
+    /**
+     * Animate changing width of panes if spacer is active, but not if
+     * the user is dragging it with a pointer
+     */
+    &:not([data-dragging]):has(sm-spacer[data-active]) .pane {
+      transition-property: min-width, max-width;
+      transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+      transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+    }
+
+    /* Avoid selecting text in panes while dragging the spacer */
+    &[data-dragging] .pane {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    view-transition-name: sm-body-layout;
+  }
+
+  .spacer {
+    height: 100%;
+    z-index: 1;
+  }
+
+  .pane {
+    flex-grow: 1;
+    height: 100%;
+    contain: inline-size style;
+  }
+}

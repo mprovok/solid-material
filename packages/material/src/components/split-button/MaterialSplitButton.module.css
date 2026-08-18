@@ -1,0 +1,197 @@
+@import './styling/variants/MaterialSplitButtonVariantElevated.module.css';
+@import './styling/variants/MaterialSplitButtonVariantFilled.module.css';
+@import './styling/variants/MaterialSplitButtonVariantTonal.module.css';
+@import './styling/variants/MaterialSplitButtonVariantOutlined.module.css';
+
+@layer material.components {
+  :root {
+    --md-comp-split-button-gap: 2px;
+
+    /* Reduce trailing padding of extra small and small leading button a bit */
+    --md-comp-split-button-extra-small-leading-button-padding: 12px 10px;
+    --md-comp-split-button-small-leading-button-padding: 16px 12px;
+
+    /* Reduce gap between icon and label in extra small leading button a bit */
+    --md-comp-split-button-extra-small-leading-button-gap: 4px;
+
+    /* Trailing icon size */
+    --md-comp-split-button-extra-small-trailing-icon-size: 22px;
+    --md-comp-split-button-small-trailing-icon-size: 22px;
+    --md-comp-split-button-medium-trailing-icon-size: 26px;
+    --md-comp-split-button-large-trailing-icon-size: 38px;
+    --md-comp-split-button-extra-large-trailing-icon-size: 50px;
+
+    /* Trailing icon offset (unselected) (optically centered) */
+    --md-comp-split-button-extra-small-trailing-icon-offset: -1px;
+    --md-comp-split-button-small-trailing-icon-offset: -1px;
+    --md-comp-split-button-medium-trailing-icon-offset: -2px;
+    --md-comp-split-button-large-trailing-icon-offset: -3px;
+    --md-comp-split-button-extra-large-trailing-icon-offset: -6px;
+
+    /* Trailing icon padding (selected) */
+    --md-comp-split-button-extra-small-trailing-icon-padding: 13px;
+    --md-comp-split-button-small-trailing-icon-padding: 13px;
+    --md-comp-split-button-medium-trailing-icon-padding: 15px;
+    --md-comp-split-button-large-trailing-icon-padding: 29px;
+    --md-comp-split-button-extra-large-trailing-icon-padding: 43px;
+
+    /* Inner corner shape */
+    --md-comp-split-button-extra-small-inner-shape: 4px;
+    --md-comp-split-button-small-inner-shape: 4px;
+    --md-comp-split-button-medium-inner-shape: 4px;
+    --md-comp-split-button-large-inner-shape: 8px;
+    --md-comp-split-button-extra-large-inner-shape: 12px;
+
+    /* Hovered inner corner shape */
+    --md-comp-split-button-extra-small-hovered-inner-shape: var(--md-sys-shape-corner-small);
+    --md-comp-split-button-small-hovered-inner-shape: var(--md-sys-shape-corner-medium);
+    --md-comp-split-button-medium-hovered-inner-shape: var(--md-sys-shape-corner-medium);
+    --md-comp-split-button-large-hovered-inner-shape: var(--md-sys-shape-corner-large-increased);
+    --md-comp-split-button-extra-large-hovered-inner-shape: var(--md-sys-shape-corner-large-increased);
+
+    /* Pressed inner corner shape */
+    --md-comp-split-button-extra-small-shape-pressed-morph: var(--md-sys-shape-corner-small);
+    --md-comp-split-button-small-shape-pressed-morph: var(--md-sys-shape-corner-medium);
+    --md-comp-split-button-medium-shape-pressed-morph: var(--md-sys-shape-corner-medium);
+    --md-comp-split-button-large-shape-pressed-morph: var(--md-sys-shape-corner-large-increased);
+    --md-comp-split-button-extra-large-shape-pressed-morph: var(--md-sys-shape-corner-large-increased);
+  }
+
+  .button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--md-comp-split-button-gap);
+
+    width: fit-content;
+
+    /* Inner corner shape (round leading button) */
+    --md-comp-button-extra-small-shape-round: var(--md-comp-split-button-extra-small-inner-shape);
+    --md-comp-button-small-shape-round: var(--md-comp-split-button-small-inner-shape);
+    --md-comp-button-medium-shape-round: var(--md-comp-split-button-medium-inner-shape);
+    --md-comp-button-large-shape-round: var(--md-comp-split-button-large-inner-shape);
+    --md-comp-button-extra-large-shape-round: var(--md-comp-split-button-extra-large-inner-shape);
+
+    /* Inner corner shape (square trailing icon button) */
+    --md-comp-button-extra-small-shape-square: var(--md-comp-split-button-extra-small-inner-shape);
+    --md-comp-button-small-shape-square: var(--md-comp-split-button-small-inner-shape);
+    --md-comp-button-medium-shape-square: var(--md-comp-split-button-medium-inner-shape);
+    --md-comp-button-large-shape-square: var(--md-comp-split-button-large-inner-shape);
+    --md-comp-button-extra-large-shape-square: var(--md-comp-split-button-extra-large-inner-shape);
+
+    /* Pressed inner corner shape */
+    --md-comp-button-extra-small-shape-pressed-morph: var(--md-comp-split-button-extra-small-shape-pressed-morph);
+    --md-comp-button-small-shape-pressed-morph: var(--md-comp-split-button-small-shape-pressed-morph);
+    --md-comp-button-medium-shape-pressed-morph: var(--md-comp-split-button-medium-shape-pressed-morph);
+    --md-comp-button-large-shape-pressed-morph: var(--md-comp-split-button-large-shape-pressed-morph);
+    --md-comp-button-extra-large-shape-pressed-morph: var(--md-comp-split-button-extra-large-shape-pressed-morph);
+
+    /* Make sure focus ring is not occluded by other button */
+    sm-button:focus-within {
+      z-index: 1;
+    }
+
+    /* Split buttons change there shape when hovered, unlike regular buttons */
+    sm-button:hover:not(:has(> :is(a, button):disabled)) {
+      /* Hovered inner corner shape (round leading button) */
+      --md-comp-button-extra-small-shape-round: var(--md-comp-split-button-extra-small-hovered-inner-shape);
+      --md-comp-button-small-shape-round: var(--md-comp-split-button-small-hovered-inner-shape);
+      --md-comp-button-medium-shape-round: var(--md-comp-split-button-medium-hovered-inner-shape);
+      --md-comp-button-large-shape-round: var(--md-comp-split-button-large-hovered-inner-shape);
+      --md-comp-button-extra-large-shape-round: var(--md-comp-split-button-extra-large-hovered-inner-shape);
+
+      /* Hovered inner corner shape (square trailing button) */
+      --md-comp-button-extra-small-shape-square: var(--md-comp-split-button-extra-small-hovered-inner-shape);
+      --md-comp-button-small-shape-square: var(--md-comp-split-button-small-hovered-inner-shape);
+      --md-comp-button-medium-shape-square: var(--md-comp-split-button-medium-hovered-inner-shape);
+      --md-comp-button-large-shape-square: var(--md-comp-split-button-large-hovered-inner-shape);
+      --md-comp-button-extra-large-shape-square: var(--md-comp-split-button-extra-large-hovered-inner-shape);
+    }
+
+    /* Leading button */
+    & > :first-child {
+      /* Outer corners */
+      button {
+        border-start-start-radius: calc(var(--md-comp-button-container-height) * 0.5);
+        border-end-start-radius: calc(var(--md-comp-button-container-height) * 0.5);
+      }
+
+      --md-focus-ring-shape-start-start: calc(var(--md-comp-button-container-height) * 0.5);
+      --md-focus-ring-shape-end-start: calc(var(--md-comp-button-container-height) * 0.5);
+
+      /* Reduce trailing padding of extra small and small leading button a bit */
+      --md-comp-button-extra-small-padding: var(--md-comp-split-button-extra-small-leading-button-padding);
+      --md-comp-button-small-padding: var(--md-comp-split-button-small-leading-button-padding);
+
+      /* Reduce gap between icon and label in extra small leading button a bit */
+      --md-comp-button-extra-small-gap: var(--md-comp-split-button-extra-small-leading-button-gap);
+    }
+
+    /* Trailing icon button */
+    & > :last-child {
+      /* Outer corners */
+      button {
+        border-start-end-radius: calc(var(--md-comp-button-container-height) * 0.5);
+        border-end-end-radius: calc(var(--md-comp-button-container-height) * 0.5);
+      }
+
+      /* Icon size */
+      --md-comp-icon-button-extra-small-icon-size: var(--md-comp-split-button-extra-small-trailing-icon-size);
+      --md-comp-icon-button-small-icon-size: var(--md-comp-split-button-small-trailing-icon-size);
+      --md-comp-icon-button-medium-icon-size: var(--md-comp-split-button-medium-trailing-icon-size);
+      --md-comp-icon-button-large-icon-size: var(--md-comp-split-button-large-trailing-icon-size);
+      --md-comp-icon-button-extra-large-icon-size: var(--md-comp-split-button-extra-large-trailing-icon-size);
+
+      /* Icon padding */
+      --md-comp-icon-button-extra-small-default-padding: var(--md-comp-split-button-extra-small-trailing-icon-padding);
+      --md-comp-icon-button-small-default-padding: var(--md-comp-split-button-small-trailing-icon-padding);
+      --md-comp-icon-button-medium-default-padding: var(--md-comp-split-button-medium-trailing-icon-padding);
+      --md-comp-icon-button-large-default-padding: var(--md-comp-split-button-large-trailing-icon-padding);
+      --md-comp-icon-button-extra-large-default-padding: var(--md-comp-split-button-extra-large-trailing-icon-padding);
+
+      sm-button {
+        --md-focus-ring-shape-start-end: calc(var(--md-comp-button-container-height) * 0.5);
+        --md-focus-ring-shape-end-end: calc(var(--md-comp-button-container-height) * 0.5);
+
+        md-icon {
+          transition-property: translate, rotate;
+          transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+          transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+        }
+
+        &[data-toggle='false'] {
+          --direction: 1;
+
+          &:dir(rtl) {
+            --direction: -1;
+          }
+
+          /* Optically center asymmetrical icon button */
+          &[data-size='extra-small'] md-icon {
+            translate: calc(var(--direction) * var(--md-comp-split-button-extra-small-trailing-icon-offset));
+          }
+          &[data-size='small'] md-icon {
+            translate: calc(var(--direction) * var(--md-comp-split-button-small-trailing-icon-offset));
+          }
+          &[data-size='medium'] md-icon {
+            translate: calc(var(--direction) * var(--md-comp-split-button-medium-trailing-icon-offset));
+          }
+          &[data-size='large'] md-icon {
+            translate: calc(var(--direction) * var(--md-comp-split-button-large-trailing-icon-offset));
+          }
+          &[data-size='extra-large'] md-icon {
+            translate: calc(var(--direction) * var(--md-comp-split-button-extra-large-trailing-icon-offset));
+          }
+
+          md-icon {
+            rotate: 90deg;
+          }
+        }
+
+        &[data-toggle='true'] md-icon {
+          rotate: 270deg;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+<style type="text/css">
+  @layer material.reset, material.theme, material.transitions, material.components;
+</style>

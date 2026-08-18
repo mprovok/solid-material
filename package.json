@@ -1,0 +1,38 @@
+{
+  "name": "solid-material",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Mark Provo Kluit",
+  "scripts": {
+    "husky": "husky",
+    "build": "pnpm run -r -s build",
+    "start": "pnpm run --filter=@solid-material/landing-page dev",
+    "preview": "pnpm run --filter=@solid-material/landing-page preview",
+    "storybook": "pnpm run --filter=@solid-material/material storybook",
+    "test": "pnpm run -r -s --color=always test",
+    "lint": "pnpm run -r -s --color=always --no-bail lint",
+    "format": "pnpm oxfmt",
+    "format:check": "pnpm oxfmt --check",
+    "install:chromium": "pnpm --filter=@solid-material/material exec playwright install chromium --with-deps",
+    "install:webkit": "pnpm --filter=@solid-material/material exec playwright install webkit --with-deps"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.1",
+    "@commitlint/config-conventional": "21.2.0",
+    "@tsconfig/strictest": "2.0.8",
+    "husky": "9.1.7",
+    "oxfmt": "0.56.0",
+    "oxlint": "1.71.0",
+    "oxlint-tsgolint": "0.23.0",
+    "typescript": "6.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=11.14 <12"
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

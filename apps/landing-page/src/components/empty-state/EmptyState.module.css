@@ -1,0 +1,6 @@
+.container {
+  height: 100%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+}
