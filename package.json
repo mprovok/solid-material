@@ -29,7 +29,7 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": ">=11.14 <12"
+      "version": ">=11.22 <12"
     }
   },
   "engines": {
