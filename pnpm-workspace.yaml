@@ -43,5 +43,9 @@ catalogs:
     '@solidjs/router': 0.16.1
     '@solidjs/meta': 0.29.4
 
+versioning:
+  changelog:
+    storage: repository
+
 minimumReleaseAgeExclude:
   - fast-uri@3.1.4
