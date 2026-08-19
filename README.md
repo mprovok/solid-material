@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<a href="https://github.com/mprovok/solid-material/actions/workflows/lint.yml"><img src="https://github.com/mprovok/solid-material/actions/workflows/lint.yml/badge.svg?branch=main" alt="lint status"></a>
+
 Material 3 Expressive for SolidJS
 
 </div>
