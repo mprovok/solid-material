@@ -76,7 +76,7 @@ export const Example = meta.story({
     selected: false
   },
   play: async ({ canvas, step }) => {
-    const separator = canvas.getByRole('separator');
+    const separator = await canvas.findByRole('separator');
     const button = within(separator).getByRole('presentation');
 
     separator.focus();
