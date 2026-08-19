@@ -14,10 +14,10 @@ export default defineConfig({
       enabled: true,
       headless: true,
       // At least one instance is required
-      instances: [{ browser: 'chromium' }]
+      instances: [{ browser: 'webkit' }]
     },
     coverage: {
-      provider: 'v8',
+      provider: 'istanbul',
       reporter: [['cobertura', { file: 'coverage.xml' }], ['text']],
       reportOnFailure: true
     }
