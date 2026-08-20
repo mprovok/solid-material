@@ -20,12 +20,12 @@ import { ThemeBlackContext, ThemeColorModeContext } from '../contexts';
 
 import styles from './settings.module.css';
 
-import BrightnessMediumIcon from '@solidmaterial/icons/400/outlined/brightness_medium.svg';
+import BrightnessAutoIcon from '@solidmaterial/icons/400/outlined/brightness_auto.svg';
 import DarkModeIcon from '@solidmaterial/icons/400/outlined/dark_mode.svg';
 import LightModeIcon from '@solidmaterial/icons/400/outlined/light_mode.svg';
 
 export const THEME_ICON: Record<ThemeColorMode, MaterialIconSvg> = {
-  [ThemeColorMode.SYSTEM]: BrightnessMediumIcon,
+  [ThemeColorMode.SYSTEM]: BrightnessAutoIcon,
   [ThemeColorMode.LIGHT]: LightModeIcon,
   [ThemeColorMode.DARK]: DarkModeIcon
 };
