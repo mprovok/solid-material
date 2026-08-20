@@ -4,6 +4,7 @@
 dist/
 node_modules/
 coverage/
+storybook-static/
 
 .vitest-attachments/
 __screenshots__/
