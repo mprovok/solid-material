@@ -12,8 +12,8 @@ import { ThemeColorModeContext } from '../../../contexts';
 
 import { SettingsColorButtons } from './SettingsColorButtons';
 
-import BrightnessMediumFillIcon from '@solidmaterial/icons/400/outlined/brightness_medium-fill.svg';
-import BrightnessMediumIcon from '@solidmaterial/icons/400/outlined/brightness_medium.svg';
+import BrightnessAutoFillIcon from '@solidmaterial/icons/400/outlined/brightness_auto-fill.svg';
+import BrightnessAutoIcon from '@solidmaterial/icons/400/outlined/brightness_auto.svg';
 import DarkModeFillIcon from '@solidmaterial/icons/400/outlined/dark_mode-fill.svg';
 import DarkModeIcon from '@solidmaterial/icons/400/outlined/dark_mode.svg';
 import LightModeFillIcon from '@solidmaterial/icons/400/outlined/light_mode-fill.svg';
@@ -24,7 +24,7 @@ export interface SettingsToolbarProps {
 }
 
 export const LIGHT_DARK_MODE_ICONS: Record<ThemeColorMode, [MaterialIconSvg, MaterialIconSvg]> = {
-  [ThemeColorMode.SYSTEM]: [BrightnessMediumFillIcon, BrightnessMediumIcon],
+  [ThemeColorMode.SYSTEM]: [BrightnessAutoFillIcon, BrightnessAutoIcon],
   [ThemeColorMode.LIGHT]: [LightModeFillIcon, LightModeIcon],
   [ThemeColorMode.DARK]: [DarkModeFillIcon, DarkModeIcon]
 };
