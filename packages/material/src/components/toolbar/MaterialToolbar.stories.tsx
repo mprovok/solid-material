@@ -7,17 +7,17 @@ import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
 import { MaterialToolbar } from './MaterialToolbar';
 
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
-import FormatBoldFillIcon from '@solid-material/icons/400/outlined/format_bold-fill.svg';
-import FormatBoldIcon from '@solid-material/icons/400/outlined/format_bold.svg';
-import FormatColorFillFillIcon from '@solid-material/icons/400/outlined/format_color_fill-fill.svg';
-import FormatColorFillIcon from '@solid-material/icons/400/outlined/format_color_fill.svg';
-import FormatColorTextFillIcon from '@solid-material/icons/400/outlined/format_color_text-fill.svg';
-import FormatColorTextIcon from '@solid-material/icons/400/outlined/format_color_text.svg';
-import FormatItalicFillIcon from '@solid-material/icons/400/outlined/format_italic-fill.svg';
-import FormatItalicIcon from '@solid-material/icons/400/outlined/format_italic.svg';
-import FormatUnderlinedFillIcon from '@solid-material/icons/400/outlined/format_underlined-fill.svg';
-import FormatUnderlinedIcon from '@solid-material/icons/400/outlined/format_underlined.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
+import FormatBoldFillIcon from '@solidmaterial/icons/400/outlined/format_bold-fill.svg';
+import FormatBoldIcon from '@solidmaterial/icons/400/outlined/format_bold.svg';
+import FormatColorFillFillIcon from '@solidmaterial/icons/400/outlined/format_color_fill-fill.svg';
+import FormatColorFillIcon from '@solidmaterial/icons/400/outlined/format_color_fill.svg';
+import FormatColorTextFillIcon from '@solidmaterial/icons/400/outlined/format_color_text-fill.svg';
+import FormatColorTextIcon from '@solidmaterial/icons/400/outlined/format_color_text.svg';
+import FormatItalicFillIcon from '@solidmaterial/icons/400/outlined/format_italic-fill.svg';
+import FormatItalicIcon from '@solidmaterial/icons/400/outlined/format_italic.svg';
+import FormatUnderlinedFillIcon from '@solidmaterial/icons/400/outlined/format_underlined-fill.svg';
+import FormatUnderlinedIcon from '@solidmaterial/icons/400/outlined/format_underlined.svg';
 
 const PlaceholderButtons: Component = () => {
   const [isBold, setBold] = createSignal(true);

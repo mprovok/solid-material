@@ -1,11 +1,11 @@
 import '@fontsource/google-sans-flex/latin-400.css';
 import type { Component, ParentComponent } from 'solid-js';
 
-import { MaterialSkeletonManager } from '@solid-material/material/components/skeleton';
-import { MaterialTheme } from '@solid-material/material/styling';
-import { enableViewTransitions } from '@solid-material/material/utils';
 import { Link, MetaProvider } from '@solidjs/meta';
 import { Route, Router } from '@solidjs/router';
+import { MaterialSkeletonManager } from '@solidmaterial/material/components/skeleton';
+import { MaterialTheme } from '@solidmaterial/material/styling';
+import { enableViewTransitions } from '@solidmaterial/material/utils';
 import { createSignal, lazy } from 'solid-js';
 import { render } from 'solid-js/web';
 
@@ -20,7 +20,7 @@ import RouteGetStarted from './routes/get-started';
 
 import './index.css';
 
-import totalDissolvedSolidsIcon from '@solid-material/icons/400/outlined/total_dissolved_solids.svg?raw';
+import totalDissolvedSolidsIcon from '@solidmaterial/icons/400/outlined/total_dissolved_solids.svg?raw';
 
 type LazyComponent = Component & {
   preload: () => Promise<{ default: Component }>;

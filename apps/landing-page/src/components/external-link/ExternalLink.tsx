@@ -1,9 +1,9 @@
 import type { FlowComponent } from 'solid-js';
 
-import { MaterialIcon } from '@solid-material/material/components/icon';
 import { A } from '@solidjs/router';
+import { MaterialIcon } from '@solidmaterial/material/components/icon';
 
-import OpenInNewIcon from '@solid-material/icons/400/outlined/open_in_new.svg';
+import OpenInNewIcon from '@solidmaterial/icons/400/outlined/open_in_new.svg';
 
 export interface ExternalLinkProps {
   href: string;

@@ -1,4 +1,4 @@
-# @solid-material/material
+# @solidmaterial/material
 
 ## 1.0.0
 

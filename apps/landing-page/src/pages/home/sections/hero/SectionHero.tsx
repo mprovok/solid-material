@@ -1,9 +1,9 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialButton } from '@solid-material/material/components/button';
-import { MaterialCard } from '@solid-material/material/components/card';
-import { H1, H2, Span } from '@solid-material/material/components/typography';
-import { Breakpoints } from '@solid-material/material/utils';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { MaterialCard } from '@solidmaterial/material/components/card';
+import { H1, H2, Span } from '@solidmaterial/material/components/typography';
+import { Breakpoints } from '@solidmaterial/material/utils';
 import { Show } from 'solid-js';
 
 /* Used as a social button to link to GitHub project (see https://brand.github.com/foundations/logo) */

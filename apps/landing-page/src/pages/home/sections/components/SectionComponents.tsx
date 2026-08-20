@@ -1,8 +1,8 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialCard, MaterialCardBody } from '@solid-material/material/components/card';
-import { H2, H3, Span } from '@solid-material/material/components/typography';
-import { Breakpoints } from '@solid-material/material/utils';
+import { MaterialCard, MaterialCardBody } from '@solidmaterial/material/components/card';
+import { H2, H3, Span } from '@solidmaterial/material/components/typography';
+import { Breakpoints } from '@solidmaterial/material/utils';
 import { For, Show } from 'solid-js';
 
 import { ExternalLink } from '../../../../components/external-link/ExternalLink';

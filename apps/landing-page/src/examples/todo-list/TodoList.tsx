@@ -1,14 +1,14 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialAppBar } from '@solid-material/material/components/app-bar';
-import { MaterialButton } from '@solid-material/material/components/button';
-import { MaterialCheckbox } from '@solid-material/material/components/checkbox';
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
-import { MaterialList, MaterialListItem } from '@solid-material/material/components/list';
-import { MaterialTextField } from '@solid-material/material/components/text-field';
-import { Span } from '@solid-material/material/components/typography';
-import { Breakpoints } from '@solid-material/material/utils';
 import { useNavigate } from '@solidjs/router';
+import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { MaterialCheckbox } from '@solidmaterial/material/components/checkbox';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
+import { MaterialList, MaterialListItem } from '@solidmaterial/material/components/list';
+import { MaterialTextField } from '@solidmaterial/material/components/text-field';
+import { Span } from '@solidmaterial/material/components/typography';
+import { Breakpoints } from '@solidmaterial/material/utils';
 import { For, Show } from 'solid-js';
 import { createStore, reconcile } from 'solid-js/store';
 
@@ -17,9 +17,9 @@ import type { ExampleProps } from '../examples.types';
 
 import styles from './TodoList.module.css';
 
-import AddIcon from '@solid-material/icons/400/outlined/add.svg';
-import ChecklistIcon from '@solid-material/icons/400/outlined/checklist.svg';
-import DeleteIcon from '@solid-material/icons/400/outlined/delete.svg';
+import AddIcon from '@solidmaterial/icons/400/outlined/add.svg';
+import ChecklistIcon from '@solidmaterial/icons/400/outlined/checklist.svg';
+import DeleteIcon from '@solidmaterial/icons/400/outlined/delete.svg';
 
 type Todo = { id: number; text: string; completed: boolean };
 

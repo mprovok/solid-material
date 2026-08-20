@@ -6,7 +6,7 @@ import preview from '../../../.storybook/preview';
 import { MaterialChip } from './MaterialChip';
 import { MaterialChipSet } from './MaterialChipSet';
 
-import MenuIcon from '@solid-material/icons/400/outlined/menu.svg';
+import MenuIcon from '@solidmaterial/icons/400/outlined/menu.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialChip/Assist',

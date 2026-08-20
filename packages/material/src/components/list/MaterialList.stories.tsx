@@ -12,9 +12,9 @@ import type { MaterialListItemProps } from './MaterialListItem';
 import { MaterialList } from './MaterialList';
 import { MaterialListItem } from './MaterialListItem';
 
-import FavoriteIcon from '@solid-material/icons/400/outlined/favorite.svg';
-import OpenInNewIcon from '@solid-material/icons/400/outlined/open_in_new.svg';
-import StarIcon from '@solid-material/icons/400/outlined/star.svg';
+import FavoriteIcon from '@solidmaterial/icons/400/outlined/favorite.svg';
+import OpenInNewIcon from '@solidmaterial/icons/400/outlined/open_in_new.svg';
+import StarIcon from '@solidmaterial/icons/400/outlined/star.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialList',

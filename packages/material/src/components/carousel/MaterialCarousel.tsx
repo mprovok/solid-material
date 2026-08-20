@@ -13,7 +13,7 @@ import { MaterialCarouselFullscreen } from './MaterialCarouselFullscreen';
 
 import styles from './MaterialCarousel.module.css';
 
-import ArrowForwardIcon from '@solid-material/icons/400/outlined/arrow_forward.svg';
+import ArrowForwardIcon from '@solidmaterial/icons/400/outlined/arrow_forward.svg';
 
 export type MaterialCarouselVariant = 'multi-browse' | 'uncontained' | 'hero' | 'centered-hero' | 'full-screen';
 

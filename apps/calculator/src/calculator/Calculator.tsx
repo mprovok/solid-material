@@ -1,10 +1,10 @@
 import type { JSX, VoidComponent } from 'solid-js';
 
-import { MaterialButton } from '@solid-material/material/components/button';
-import { MaterialButtonGroup } from '@solid-material/material/components/button-group';
-import { MaterialIcon } from '@solid-material/material/components/icon';
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
-import { Span } from '@solid-material/material/components/typography';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { MaterialButtonGroup } from '@solidmaterial/material/components/button-group';
+import { MaterialIcon } from '@solidmaterial/material/components/icon';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
+import { Span } from '@solidmaterial/material/components/typography';
 import { For, Match, Show, Switch, createEffect, createMemo, createSignal } from 'solid-js';
 
 import { Breakpoints } from '../../../../packages/material/src/utils/breakpoints';
@@ -28,9 +28,9 @@ import { backspace, balanceParentheses, process, tokenizeNumber } from './tokeni
 
 import styles from './Calculator.module.css';
 
-import BackspaceIcon from '@solid-material/icons/400/rounded/backspace.svg';
-import CollapseAllIcon from '@solid-material/icons/400/rounded/collapse_all.svg';
-import ExpandAllIcon from '@solid-material/icons/400/rounded/expand_all.svg';
+import BackspaceIcon from '@solidmaterial/icons/400/rounded/backspace.svg';
+import CollapseAllIcon from '@solidmaterial/icons/400/rounded/collapse_all.svg';
+import ExpandAllIcon from '@solidmaterial/icons/400/rounded/expand_all.svg';
 
 const isAppendableAction = (action: CalculatorAction): boolean =>
   [

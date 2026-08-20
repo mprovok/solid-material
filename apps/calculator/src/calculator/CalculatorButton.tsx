@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { MaterialButton } from '@solid-material/material/components/button';
+import { MaterialButton } from '@solidmaterial/material/components/button';
 import { useContext } from 'solid-js';
 
 import type { CalculatorAction } from './Calculator.types';

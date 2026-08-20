@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialButton } from '@solid-material/material/components/button';
-import { MaterialButtonGroup } from '@solid-material/material/components/button-group';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { MaterialButtonGroup } from '@solidmaterial/material/components/button-group';
 import { Index, createSignal } from 'solid-js';
 
 export const ExampleConnectedButtonGroup: VoidComponent = () => {

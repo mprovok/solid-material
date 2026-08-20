@@ -1,12 +1,12 @@
-'@solid-material/icons@1.0.0':
+'@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
     - curly-mangos-drum
-'@solid-material/material@1.0.0':
+'@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
     - curly-mangos-drum
-'@solid-material/vite-plugin-solid-svg@1.0.0':
+'@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:
     - curly-mangos-drum

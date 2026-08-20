@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialButton } from '@solid-material/material/components/button';
-import { MaterialFab } from '@solid-material/material/components/fab';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { MaterialFab } from '@solidmaterial/material/components/fab';
 
 import { ExampleConnectedButtonGroup } from './examples/ExampleConnectedButtonGroup';
 import { ExampleList } from './examples/ExampleList';
@@ -12,7 +12,7 @@ import { ExampleSplitButtonMenu } from './examples/ExampleSplitButtonMenu';
 
 import styles from './ComponentsGrid.module.css';
 
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
 export const ComponentsGrid: VoidComponent = () => {
   return (

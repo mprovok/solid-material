@@ -1,9 +1,9 @@
-import type { DragHandlePosition } from '@solid-material/material/layouts';
+import type { DragHandlePosition } from '@solidmaterial/material/layouts';
 import type { ParentComponent } from 'solid-js';
 
-import { MaterialListDetailLayout, MaterialPane } from '@solid-material/material/layouts';
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useParams } from '@solidjs/router';
+import { MaterialListDetailLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { Show, createMemo } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
@@ -12,8 +12,8 @@ import { ExampleList, ITEMS } from '../../pages/examples/ExampleList';
 
 import styles from './[[name]].module.css';
 
-import AppsIcon from '@solid-material/icons/400/outlined/apps.svg';
-import ErrorIcon from '@solid-material/icons/400/outlined/error.svg';
+import AppsIcon from '@solidmaterial/icons/400/outlined/apps.svg';
+import ErrorIcon from '@solidmaterial/icons/400/outlined/error.svg';
 
 const PageExamples: ParentComponent = () => {
   const params = useParams<{ name: string }>();

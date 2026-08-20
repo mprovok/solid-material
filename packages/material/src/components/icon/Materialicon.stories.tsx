@@ -2,7 +2,7 @@ import preview from '../../../.storybook/preview';
 
 import { MaterialIcon } from './MaterialIcon';
 
-import MenuIcon from '@solid-material/icons/400/outlined/menu.svg';
+import MenuIcon from '@solidmaterial/icons/400/outlined/menu.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialIcon',

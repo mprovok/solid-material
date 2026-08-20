@@ -1,10 +1,10 @@
 import type { Component } from 'solid-js';
 
-import { MaterialAppBar } from '@solid-material/material/components/app-bar';
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
-import { H2 } from '@solid-material/material/components/typography';
-import { MaterialBodyLayout, MaterialPane } from '@solid-material/material/layouts';
 import { MetaProvider, Title } from '@solidjs/meta';
+import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
+import { H2 } from '@solidmaterial/material/components/typography';
+import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { createSignal } from 'solid-js';
 
 /* Used as a social button to link to GitHub project (see https://brand.github.com/foundations/logo) */
@@ -20,7 +20,7 @@ import { SectionLicense } from '../pages/home/sections/license/SectionLicense';
 
 import styles from './index.module.css';
 
-import SettingsFillIcon from '@solid-material/icons/400/outlined/settings-fill.svg';
+import SettingsFillIcon from '@solidmaterial/icons/400/outlined/settings-fill.svg';
 
 const PageHome: Component = () => {
   const [isToolbarVisible, setToolbarVisible] = createSignal(false);

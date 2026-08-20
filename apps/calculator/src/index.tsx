@@ -1,11 +1,11 @@
 import '@fontsource/google-sans-flex/latin-400.css';
 import type { ParentComponent, Signal } from 'solid-js';
 
-import { MaterialSkeletonManager } from '@solid-material/material/components/skeleton';
-import { MaterialTheme, ThemeColorMode } from '@solid-material/material/styling';
-import { enableViewTransitions } from '@solid-material/material/utils';
 import { makePersisted } from '@solid-primitives/storage';
 import { Route, Router } from '@solidjs/router';
+import { MaterialSkeletonManager } from '@solidmaterial/material/components/skeleton';
+import { MaterialTheme, ThemeColorMode } from '@solidmaterial/material/styling';
+import { enableViewTransitions } from '@solidmaterial/material/utils';
 import { createEffect, createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
 

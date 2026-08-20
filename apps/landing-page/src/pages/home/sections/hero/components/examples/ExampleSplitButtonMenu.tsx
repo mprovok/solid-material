@@ -1,10 +1,10 @@
 import type { VoidComponent } from 'solid-js';
 
-import { showSnack } from '@solid-material/material/components/snackbar';
-import { MaterialSplitButtonMenu } from '@solid-material/material/components/split-button';
+import { showSnack } from '@solidmaterial/material/components/snackbar';
+import { MaterialSplitButtonMenu } from '@solidmaterial/material/components/split-button';
 import { createSignal } from 'solid-js';
 
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
 export const ExampleSplitButtonMenu: VoidComponent = () => {
   const [label, setLabel] = createSignal('Label');

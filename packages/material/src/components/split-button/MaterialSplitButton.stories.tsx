@@ -9,7 +9,7 @@ import type { MaterialSplitButtonVariant } from './MaterialSplitButton';
 
 import { MaterialSplitButton } from './MaterialSplitButton';
 
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
 const meta = preview.meta({
   title: 'Buttons/MaterialSplitButton',

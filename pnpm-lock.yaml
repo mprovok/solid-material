@@ -289,10 +289,10 @@ importers:
       '@fontsource/google-sans-flex':
         specifier: 5.2.3
         version: 5.2.3
-      '@solid-material/icons':
+      '@solidmaterial/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@solid-material/material':
+      '@solidmaterial/material':
         specifier: workspace:*
         version: link:../../packages/material
       '@solid-primitives/storage':
@@ -311,7 +311,7 @@ importers:
         specifier: catalog:solid
         version: 1.9.14
     devDependencies:
-      '@solid-material/vite-plugin-solid-svg':
+      '@solidmaterial/vite-plugin-solid-svg':
         specifier: workspace:*
         version: link:../../packages/vite-plugin-solid-svg
       '@solidjs/testing-library':
@@ -341,10 +341,10 @@ importers:
       '@fontsource/google-sans-flex':
         specifier: 5.2.3
         version: 5.2.3
-      '@solid-material/icons':
+      '@solidmaterial/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@solid-material/material':
+      '@solidmaterial/material':
         specifier: workspace:*
         version: link:../../packages/material
       '@solidjs/meta':
@@ -357,7 +357,7 @@ importers:
         specifier: catalog:solid
         version: 1.9.14
     devDependencies:
-      '@solid-material/vite-plugin-solid-svg':
+      '@solidmaterial/vite-plugin-solid-svg':
         specifier: workspace:*
         version: link:../../packages/vite-plugin-solid-svg
       '@solidjs/testing-library':
@@ -395,7 +395,7 @@ importers:
       '@material/web':
         specifier: 2.4.1
         version: 2.4.1
-      '@solid-material/icons':
+      '@solidmaterial/icons':
         specifier: workspace:*
         version: link:../icons
       '@solid-primitives/active-element':
@@ -432,7 +432,7 @@ importers:
         specifier: catalog:solid
         version: 1.9.14
     devDependencies:
-      '@solid-material/vite-plugin-solid-svg':
+      '@solidmaterial/vite-plugin-solid-svg':
         specifier: workspace:*
         version: link:../vite-plugin-solid-svg
       '@storybook/addon-a11y':

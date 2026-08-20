@@ -1,7 +1,7 @@
-import type { MaterialButtonShape } from '@solid-material/material/components/button';
+import type { MaterialButtonShape } from '@solidmaterial/material/components/button';
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { createEffect, createSignal } from 'solid-js';
 
 import styles from './ColorButton.module.css';

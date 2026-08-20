@@ -1,12 +1,12 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
-import { MaterialSearch, MaterialSearchBar } from '@solid-material/material/components/search';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
+import { MaterialSearch, MaterialSearchBar } from '@solidmaterial/material/components/search';
 import { Match, Switch, createSignal } from 'solid-js';
 
-import FavoriteIcon from '@solid-material/icons/400/outlined/favorite.svg';
-import MapIcon from '@solid-material/icons/400/outlined/map.svg';
-import StarIcon from '@solid-material/icons/400/outlined/star.svg';
+import FavoriteIcon from '@solidmaterial/icons/400/outlined/favorite.svg';
+import MapIcon from '@solidmaterial/icons/400/outlined/map.svg';
+import StarIcon from '@solidmaterial/icons/400/outlined/star.svg';
 
 export const ExampleSearchBar: VoidComponent = () => {
   const [searchInput, setSearchInput] = createSignal('');

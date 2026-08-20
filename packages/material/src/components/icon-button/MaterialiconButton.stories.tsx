@@ -13,14 +13,14 @@ import type { MaterialIconButtonProps } from './MaterialIconButton';
 
 import { MaterialIconButton } from './MaterialIconButton';
 
-import BookmarkIcon from '@solid-material/icons/400/outlined/bookmark.svg';
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
-import PauseIcon from '@solid-material/icons/400/outlined/pause.svg';
-import PlayArrowIcon from '@solid-material/icons/400/outlined/play_arrow.svg';
-import SettingsFillIcon from '@solid-material/icons/400/outlined/settings-fill.svg';
-import SettingsIcon from '@solid-material/icons/400/outlined/settings.svg';
-import MoreVertIcon from '@solid-material/icons/400/rounded/more_vert.svg';
-import VideocamIcon from '@solid-material/icons/400/rounded/videocam.svg';
+import BookmarkIcon from '@solidmaterial/icons/400/outlined/bookmark.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
+import PauseIcon from '@solidmaterial/icons/400/outlined/pause.svg';
+import PlayArrowIcon from '@solidmaterial/icons/400/outlined/play_arrow.svg';
+import SettingsFillIcon from '@solidmaterial/icons/400/outlined/settings-fill.svg';
+import SettingsIcon from '@solidmaterial/icons/400/outlined/settings.svg';
+import MoreVertIcon from '@solidmaterial/icons/400/rounded/more_vert.svg';
+import VideocamIcon from '@solidmaterial/icons/400/rounded/videocam.svg';
 
 const meta = preview.meta({
   title: 'Buttons/MaterialIconButton',

@@ -6,8 +6,8 @@ import preview from '../../../.storybook/preview';
 import { MaterialChip } from './MaterialChip';
 import { MaterialChipSet } from './MaterialChipSet';
 
-import BatteryAndroidBoltIcon from '@solid-material/icons/400/outlined/battery_android_bolt.svg';
-import CheckCircleIcon from '@solid-material/icons/400/outlined/check_circle.svg';
+import BatteryAndroidBoltIcon from '@solidmaterial/icons/400/outlined/battery_android_bolt.svg';
+import CheckCircleIcon from '@solidmaterial/icons/400/outlined/check_circle.svg';
 
 const onRemove = (event: Event) => {
   console.info('onRemove', event);

@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { H2, Span } from '@solid-material/material/components/typography';
+import { H2, Span } from '@solidmaterial/material/components/typography';
 
 import { ExternalLink } from '../../../../components/external-link/ExternalLink';
 

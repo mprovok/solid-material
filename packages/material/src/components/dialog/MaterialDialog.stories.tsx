@@ -10,7 +10,7 @@ import type { MaterialDialogProps } from './MaterialDialog';
 
 import { MaterialDialog } from './MaterialDialog';
 
-import BookmarkIcon from '@solid-material/icons/400/outlined/bookmark.svg';
+import BookmarkIcon from '@solidmaterial/icons/400/outlined/bookmark.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialDialog',

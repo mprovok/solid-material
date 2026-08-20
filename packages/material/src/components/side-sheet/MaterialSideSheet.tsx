@@ -8,8 +8,8 @@ import { H1 } from '../typography/Typography';
 
 import styles from './MaterialSideSheet.module.css';
 
-import ArrowBackIcon from '@solid-material/icons/400/outlined/arrow_back.svg';
-import CloseIcon from '@solid-material/icons/400/outlined/close.svg';
+import ArrowBackIcon from '@solidmaterial/icons/400/outlined/arrow_back.svg';
+import CloseIcon from '@solidmaterial/icons/400/outlined/close.svg';
 
 const EASING_DECELERATE_MS = 250;
 

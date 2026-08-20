@@ -4,9 +4,9 @@ import preview from '../../../.storybook/preview';
 
 import { MaterialFab } from './MaterialFab';
 
-import EditFillIcon from '@solid-material/icons/400/outlined/edit-fill.svg';
-import FavoriteIcon from '@solid-material/icons/400/outlined/favorite.svg';
-import NavigationIcon from '@solid-material/icons/400/outlined/navigation.svg';
+import EditFillIcon from '@solidmaterial/icons/400/outlined/edit-fill.svg';
+import FavoriteIcon from '@solidmaterial/icons/400/outlined/favorite.svg';
+import NavigationIcon from '@solidmaterial/icons/400/outlined/navigation.svg';
 
 const meta = preview.meta({
   title: 'Buttons/MaterialFab',

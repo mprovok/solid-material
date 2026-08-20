@@ -4,7 +4,7 @@ import { MaterialIcon } from '../icon/MaterialIcon';
 
 import { MaterialBadge } from './MaterialBadge';
 
-import FavoriteIcon from '@solid-material/icons/400/outlined/favorite.svg';
+import FavoriteIcon from '@solidmaterial/icons/400/outlined/favorite.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialBadge',

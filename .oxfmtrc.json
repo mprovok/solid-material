@@ -8,7 +8,7 @@
     "customGroups": [
       {
         "groupName": "icons",
-        "elementNamePattern": ["@solid-material/icons/**"]
+        "elementNamePattern": ["@solidmaterial/icons/**"]
       },
       {
         "groupName": "style",

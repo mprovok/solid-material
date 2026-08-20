@@ -1,18 +1,18 @@
-import type { MaterialIconSvg } from '@solid-material/material/components/icon';
+import type { MaterialIconSvg } from '@solidmaterial/material/components/icon';
 import type { Component, VoidComponent } from 'solid-js';
 
-import { MaterialAppBar } from '@solid-material/material/components/app-bar';
-import { MaterialButton } from '@solid-material/material/components/button';
-import { MaterialDialog } from '@solid-material/material/components/dialog';
-import { MaterialIcon } from '@solid-material/material/components/icon';
-import { MaterialList, MaterialListItem } from '@solid-material/material/components/list';
-import { MaterialRadio } from '@solid-material/material/components/radio';
-import { MaterialSwitch } from '@solid-material/material/components/switch';
-import { H2 } from '@solid-material/material/components/typography';
-import { MaterialBodyLayout, MaterialPane } from '@solid-material/material/layouts';
-import { ThemeColorMode } from '@solid-material/material/styling';
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
+import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { MaterialDialog } from '@solidmaterial/material/components/dialog';
+import { MaterialIcon } from '@solidmaterial/material/components/icon';
+import { MaterialList, MaterialListItem } from '@solidmaterial/material/components/list';
+import { MaterialRadio } from '@solidmaterial/material/components/radio';
+import { MaterialSwitch } from '@solidmaterial/material/components/switch';
+import { H2 } from '@solidmaterial/material/components/typography';
+import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
+import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { Index, createSignal, createUniqueId, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
@@ -20,9 +20,9 @@ import { ThemeBlackContext, ThemeColorModeContext } from '../contexts';
 
 import styles from './settings.module.css';
 
-import BrightnessMediumIcon from '@solid-material/icons/400/outlined/brightness_medium.svg';
-import DarkModeIcon from '@solid-material/icons/400/outlined/dark_mode.svg';
-import LightModeIcon from '@solid-material/icons/400/outlined/light_mode.svg';
+import BrightnessMediumIcon from '@solidmaterial/icons/400/outlined/brightness_medium.svg';
+import DarkModeIcon from '@solidmaterial/icons/400/outlined/dark_mode.svg';
+import LightModeIcon from '@solidmaterial/icons/400/outlined/light_mode.svg';
 
 export const THEME_ICON: Record<ThemeColorMode, MaterialIconSvg> = {
   [ThemeColorMode.SYSTEM]: BrightnessMediumIcon,

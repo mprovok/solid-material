@@ -4,8 +4,8 @@ import { Show } from 'solid-js';
 
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
-import MenuIcon from '@solid-material/icons/400/outlined/menu.svg';
-import MenuOpenIcon from '@solid-material/icons/400/outlined/menu_open.svg';
+import MenuIcon from '@solidmaterial/icons/400/outlined/menu.svg';
+import MenuOpenIcon from '@solidmaterial/icons/400/outlined/menu_open.svg';
 
 export type MaterialNavigationMenuButton = {
   ariaLabel?: string;

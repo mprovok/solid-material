@@ -10,7 +10,7 @@ import { MaterialPane } from '../../pane/MaterialPane';
 
 import { MaterialListDetailLayout } from './MaterialListDetailLayout';
 
-import AccountCircleFill from '@solid-material/icons/400/outlined/account_circle-fill.svg';
+import AccountCircleFill from '@solidmaterial/icons/400/outlined/account_circle-fill.svg';
 
 const meta = preview.meta({
   title: 'Layouts/MaterialListDetailLayout',

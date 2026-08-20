@@ -1,5 +1,5 @@
 {
-  "name": "@solid-material/landing-page",
+  "name": "@solidmaterial/landing-page",
   "version": "1.0.0",
   "private": true,
   "bugs": {
@@ -23,15 +23,15 @@
   },
   "dependencies": {
     "@fontsource/google-sans-flex": "5.2.3",
-    "@solid-material/icons": "workspace:*",
-    "@solid-material/material": "workspace:*",
     "@solidjs/meta": "catalog:solid",
     "@solidjs/router": "catalog:solid",
+    "@solidmaterial/icons": "workspace:*",
+    "@solidmaterial/material": "workspace:*",
     "solid-js": "catalog:solid"
   },
   "devDependencies": {
-    "@solid-material/vite-plugin-solid-svg": "workspace:*",
     "@solidjs/testing-library": "0.8.10",
+    "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "@vitest/browser-playwright": "catalog:vitest",
     "@vitest/coverage-istanbul": "catalog:vitest",
     "playwright": "1.59.1",

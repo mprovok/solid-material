@@ -12,10 +12,10 @@ import type { MaterialFabMenuItem, MaterialFabMenuProps } from './MaterialFabMen
 
 import { MaterialFabMenu } from './MaterialFabMenu';
 
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
-import PhotoFillIcon from '@solid-material/icons/400/outlined/photo-fill.svg';
-import SpeakerFillIcon from '@solid-material/icons/400/outlined/speaker-fill.svg';
-import VideocamFillIcon from '@solid-material/icons/400/outlined/videocam-fill.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
+import PhotoFillIcon from '@solidmaterial/icons/400/outlined/photo-fill.svg';
+import SpeakerFillIcon from '@solidmaterial/icons/400/outlined/speaker-fill.svg';
+import VideocamFillIcon from '@solidmaterial/icons/400/outlined/videocam-fill.svg';
 
 const meta = preview.meta({
   title: 'Buttons/MaterialFabMenu',

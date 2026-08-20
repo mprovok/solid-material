@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { Span } from '@solid-material/material/components/typography';
+import { Span } from '@solidmaterial/material/components/typography';
 
 import styles from './FixedWidthDigit.module.css';
 

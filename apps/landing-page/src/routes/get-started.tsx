@@ -1,11 +1,11 @@
 import type { Component } from 'solid-js';
 
-import { MaterialAppBar } from '@solid-material/material/components/app-bar';
-import { H2, H3, Span } from '@solid-material/material/components/typography';
-import { MaterialBodyLayout, MaterialPane } from '@solid-material/material/layouts';
-import { Breakpoints } from '@solid-material/material/utils';
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
+import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { H2, H3, Span } from '@solidmaterial/material/components/typography';
+import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
+import { Breakpoints } from '@solidmaterial/material/utils';
 import { createSignal } from 'solid-js';
 
 import exampleCssLayers from '../assets/example-css-layers.txt?raw';
@@ -53,9 +53,9 @@ const PageGetStarted: Component = () => {
               </p>
               <PromptBlock
                 prompts={{
-                  pnpm: 'pnpm add @solid-material/material',
-                  yarn: 'yarn add @solid-material/material',
-                  npm: 'npm install @solid-material/material'
+                  pnpm: 'pnpm add @solidmaterial/material',
+                  yarn: 'yarn add @solidmaterial/material',
+                  npm: 'npm install @solidmaterial/material'
                 }}
                 active={activeTab()}
                 onChange={setActiveTab}
@@ -66,9 +66,9 @@ const PageGetStarted: Component = () => {
               <p>To use the Material icons (which are SVG files) in your project, run:</p>
               <PromptBlock
                 prompts={{
-                  pnpm: 'pnpm add @solid-material/icons',
-                  yarn: 'yarn add @solid-material/icons',
-                  npm: 'npm install @solid-material/icons'
+                  pnpm: 'pnpm add @solidmaterial/icons',
+                  yarn: 'yarn add @solidmaterial/icons',
+                  npm: 'npm install @solidmaterial/icons'
                 }}
                 active={activeTab()}
                 onChange={setActiveTab}
@@ -76,9 +76,9 @@ const PageGetStarted: Component = () => {
               <p>You also need to add a Vite plugin so that the SVG files can be loaded as SolidJS components:</p>
               <PromptBlock
                 prompts={{
-                  pnpm: 'pnpm add -D @solid-material/vite-plugin-solid-svg',
-                  yarn: 'yarn add -D @solid-material/vite-plugin-solid-svg',
-                  npm: 'npm install -D @solid-material/vite-plugin-solid-svg'
+                  pnpm: 'pnpm add -D @solidmaterial/vite-plugin-solid-svg',
+                  yarn: 'yarn add -D @solidmaterial/vite-plugin-solid-svg',
+                  npm: 'npm install -D @solidmaterial/vite-plugin-solid-svg'
                 }}
                 active={activeTab()}
                 onChange={setActiveTab}

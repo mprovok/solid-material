@@ -3,9 +3,9 @@ import preview from '../../../.storybook/preview';
 import { MaterialTab } from './MaterialTab';
 import { MaterialTabs } from './MaterialTabs';
 
-import MusicIcon from '@solid-material/icons/400/rounded/music_note.svg';
-import PhotoIcon from '@solid-material/icons/400/rounded/photo.svg';
-import VideocamIcon from '@solid-material/icons/400/rounded/videocam.svg';
+import MusicIcon from '@solidmaterial/icons/400/rounded/music_note.svg';
+import PhotoIcon from '@solidmaterial/icons/400/rounded/photo.svg';
+import VideocamIcon from '@solidmaterial/icons/400/rounded/videocam.svg';
 
 const getTabs = () => [
   {

@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 
-import { MaterialCard } from '@solid-material/material/components/card';
-import { Span } from '@solid-material/material/components/typography';
+import { MaterialCard } from '@solidmaterial/material/components/card';
+import { Span } from '@solidmaterial/material/components/typography';
 import { Show, createSignal } from 'solid-js';
 
 import { CopyToClipBoardButton } from '../copy-to-clipboard-button/CopyToClipboardButton';

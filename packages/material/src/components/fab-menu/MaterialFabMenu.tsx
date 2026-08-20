@@ -10,7 +10,7 @@ import { MaterialFab } from '../fab/MaterialFab';
 
 import styles from './MaterialFabMenu.module.css';
 
-import CloseIcon from '@solid-material/icons/400/outlined/close.svg';
+import CloseIcon from '@solidmaterial/icons/400/outlined/close.svg';
 
 export type MaterialFabMenuItem = {
   label: string;

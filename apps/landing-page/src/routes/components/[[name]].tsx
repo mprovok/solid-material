@@ -1,9 +1,9 @@
 import type { Component } from 'solid-js';
 
-import { H1 } from '@solid-material/material/components/typography';
-import { MaterialListDetailLayout, MaterialPane } from '@solid-material/material/layouts';
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useParams } from '@solidjs/router';
+import { H1 } from '@solidmaterial/material/components/typography';
+import { MaterialListDetailLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { Show, createMemo } from 'solid-js';
 
 import { EmptyState } from '../../components/empty-state/EmptyState';
@@ -19,8 +19,8 @@ import {
 
 import styles from './[[name]].module.css';
 
-import CodeBlocksIcon from '@solid-material/icons/400/outlined/code_blocks.svg';
-import ErrorIcon from '@solid-material/icons/400/outlined/error.svg';
+import CodeBlocksIcon from '@solidmaterial/icons/400/outlined/code_blocks.svg';
+import ErrorIcon from '@solidmaterial/icons/400/outlined/error.svg';
 
 const PageComponents: Component = () => {
   const params = useParams<{ name: string }>();

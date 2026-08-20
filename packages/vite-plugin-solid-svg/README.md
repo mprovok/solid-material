@@ -1,4 +1,4 @@
-# @solid-material/vite-plugin-solid-svg
+# @solidmaterial/vite-plugin-solid-svg
 
 Extend Vite with ability to use SVG files as SolidJS components.
 
@@ -16,7 +16,7 @@ This project is a fork of https://github.com/jfgodoy/vite-plugin-solid-svg with 
 ## Install
 
 ```bash
-pnpm add -D @solid-material/vite-plugin-solid-svg
+pnpm add -D @solidmaterial/vite-plugin-solid-svg
 ```
 
 ## Setup
@@ -24,7 +24,7 @@ pnpm add -D @solid-material/vite-plugin-solid-svg
 ```ts
 // vite.config.js
 import solidPlugin from 'vite-plugin-solid';
-import solidSvg from '@solid-material/vite-plugin-solid-svg';
+import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -42,7 +42,7 @@ to import SVG files as SolidJS components:
 // tsconfig.json
 "compilerOptions": {
   "types": [
-    "@solid-material/vite-plugin-solid-svg/types"
+    "@solidmaterial/vite-plugin-solid-svg/types"
     "vite/client",
   ],
 },

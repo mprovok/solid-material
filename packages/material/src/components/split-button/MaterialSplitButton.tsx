@@ -9,7 +9,7 @@ import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
 import styles from './MaterialSplitButton.module.css';
 
-import ChevronRightIcon from '@solid-material/icons/400/outlined/chevron_right.svg';
+import ChevronRightIcon from '@solidmaterial/icons/400/outlined/chevron_right.svg';
 
 export type MaterialSplitButtonVariant = 'elevated' | 'filled' | 'tonal' | 'outlined';
 

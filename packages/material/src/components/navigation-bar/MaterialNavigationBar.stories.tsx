@@ -7,12 +7,12 @@ import preview from '../../../.storybook/preview';
 
 import { MaterialNavigationBar } from './MaterialNavigationBar';
 
-import PhotoFillIcon from '@solid-material/icons/400/outlined/photo-fill.svg';
-import PhotoIcon from '@solid-material/icons/400/outlined/photo.svg';
-import SpeakerFillIcon from '@solid-material/icons/400/outlined/speaker-fill.svg';
-import SpeakerIcon from '@solid-material/icons/400/outlined/speaker.svg';
-import VideocamFillIcon from '@solid-material/icons/400/outlined/videocam-fill.svg';
-import VideocamIcon from '@solid-material/icons/400/outlined/videocam.svg';
+import PhotoFillIcon from '@solidmaterial/icons/400/outlined/photo-fill.svg';
+import PhotoIcon from '@solidmaterial/icons/400/outlined/photo.svg';
+import SpeakerFillIcon from '@solidmaterial/icons/400/outlined/speaker-fill.svg';
+import SpeakerIcon from '@solidmaterial/icons/400/outlined/speaker.svg';
+import VideocamFillIcon from '@solidmaterial/icons/400/outlined/videocam-fill.svg';
+import VideocamIcon from '@solidmaterial/icons/400/outlined/videocam.svg';
 
 const getItems = (): MaterialNavigationItemType[] => [
   {

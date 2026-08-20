@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { H2, H3, Span } from '@solid-material/material/components/typography';
+import { H2, H3, Span } from '@solidmaterial/material/components/typography';
 
 import { UnorderedList } from '../../../../components/unordered-list/UnorderedList';
 

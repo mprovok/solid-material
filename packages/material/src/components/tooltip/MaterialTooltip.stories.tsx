@@ -10,7 +10,7 @@ import { MaterialPlainTooltip } from './MaterialPlainTooltip';
 import { MaterialRichTooltip } from './MaterialRichTooltip';
 import { MaterialTooltip } from './MaterialTooltip';
 
-import FormatColorFillIcon from '@solid-material/icons/400/outlined/format_color_fill.svg';
+import FormatColorFillIcon from '@solidmaterial/icons/400/outlined/format_color_fill.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialTooltip',

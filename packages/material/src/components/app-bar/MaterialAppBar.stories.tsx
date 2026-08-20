@@ -8,9 +8,9 @@ import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
 import { MaterialAppBar } from './MaterialAppBar';
 
-import CalendarTodayFillIcon from '@solid-material/icons/400/outlined/calendar_today-fill.svg';
-import MapFillIcon from '@solid-material/icons/400/outlined/map-fill.svg';
-import SearchIcon from '@solid-material/icons/400/outlined/search.svg';
+import CalendarTodayFillIcon from '@solidmaterial/icons/400/outlined/calendar_today-fill.svg';
+import MapFillIcon from '@solidmaterial/icons/400/outlined/map-fill.svg';
+import SearchIcon from '@solidmaterial/icons/400/outlined/search.svg';
 
 const PlaceholderText: Component = () => {
   return (

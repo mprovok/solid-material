@@ -7,7 +7,7 @@ import type { MenuPlacementAlignment, MenuPlacementSide } from './MaterialMenu.t
 
 import { getAnchorCorner, getMenuCorner } from './menu-utils';
 
-import ArrowRightIcon from '@solid-material/icons/400/outlined/arrow_right.svg';
+import ArrowRightIcon from '@solidmaterial/icons/400/outlined/arrow_right.svg';
 
 export interface MaterialSubMenuProps {
   label: JSX.Element;

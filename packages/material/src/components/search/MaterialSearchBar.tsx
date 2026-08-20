@@ -14,9 +14,9 @@ import { MaterialSearchFocusContext, MaterialSearchOpenContext } from './Materia
 
 import styles from './MaterialSearchBar.module.css';
 
-import ChevronBackwardIcon from '@solid-material/icons/400/outlined/chevron_backward.svg';
-import CloseIcon from '@solid-material/icons/400/outlined/close.svg';
-import SearchIcon from '@solid-material/icons/400/outlined/search.svg';
+import ChevronBackwardIcon from '@solidmaterial/icons/400/outlined/chevron_backward.svg';
+import CloseIcon from '@solidmaterial/icons/400/outlined/close.svg';
+import SearchIcon from '@solidmaterial/icons/400/outlined/search.svg';
 
 export interface MaterialSearchBarProps {
   input: Accessor<string>;

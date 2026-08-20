@@ -1,4 +1,4 @@
-# @solid-material/icons
+# @solidmaterial/icons
 
 This package contains the [Material Symbols][url-google-mdi] made by Google, downloaded using
 [@material-design-icons/scripts][url-material-design-icons-script], with an optical size of 24px

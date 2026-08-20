@@ -1,4 +1,4 @@
-import solidSvg from '@solid-material/vite-plugin-solid-svg';
+import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 // oxlint-disable-next-line import/no-nodejs-modules

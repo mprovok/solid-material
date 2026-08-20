@@ -1,10 +1,10 @@
-import type { MaterialIconSvg } from '@solid-material/material/components/icon';
+import type { MaterialIconSvg } from '@solidmaterial/material/components/icon';
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialButtonGroup } from '@solid-material/material/components/button-group';
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
-import { MaterialToolbar } from '@solid-material/material/components/toolbar';
-import { ThemeColorMode } from '@solid-material/material/styling';
+import { MaterialButtonGroup } from '@solidmaterial/material/components/button-group';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
+import { MaterialToolbar } from '@solidmaterial/material/components/toolbar';
+import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { Index, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
@@ -12,12 +12,12 @@ import { ThemeColorModeContext } from '../../../contexts';
 
 import { SettingsColorButtons } from './SettingsColorButtons';
 
-import BrightnessMediumFillIcon from '@solid-material/icons/400/outlined/brightness_medium-fill.svg';
-import BrightnessMediumIcon from '@solid-material/icons/400/outlined/brightness_medium.svg';
-import DarkModeFillIcon from '@solid-material/icons/400/outlined/dark_mode-fill.svg';
-import DarkModeIcon from '@solid-material/icons/400/outlined/dark_mode.svg';
-import LightModeFillIcon from '@solid-material/icons/400/outlined/light_mode-fill.svg';
-import LightModeIcon from '@solid-material/icons/400/outlined/light_mode.svg';
+import BrightnessMediumFillIcon from '@solidmaterial/icons/400/outlined/brightness_medium-fill.svg';
+import BrightnessMediumIcon from '@solidmaterial/icons/400/outlined/brightness_medium.svg';
+import DarkModeFillIcon from '@solidmaterial/icons/400/outlined/dark_mode-fill.svg';
+import DarkModeIcon from '@solidmaterial/icons/400/outlined/dark_mode.svg';
+import LightModeFillIcon from '@solidmaterial/icons/400/outlined/light_mode-fill.svg';
+import LightModeIcon from '@solidmaterial/icons/400/outlined/light_mode.svg';
 
 export interface SettingsToolbarProps {
   open: boolean;

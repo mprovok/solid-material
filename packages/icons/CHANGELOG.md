@@ -1,4 +1,4 @@
-# @solid-material/icons
+# @solidmaterial/icons
 
 ## 1.0.0
 

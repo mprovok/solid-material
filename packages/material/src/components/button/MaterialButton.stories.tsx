@@ -15,11 +15,11 @@ import type {
 
 import { MaterialButton } from './MaterialButton';
 
-import ArrowForwardIcon from '@solid-material/icons/400/outlined/arrow_forward.svg';
-import BatteryAndroidBoltIcon from '@solid-material/icons/400/outlined/battery_android_bolt.svg';
-import EditFillIcon from '@solid-material/icons/400/outlined/edit-fill.svg';
-import PauseFillIcon from '@solid-material/icons/400/outlined/pause-fill.svg';
-import PlayArrowIcon from '@solid-material/icons/400/outlined/play_arrow.svg';
+import ArrowForwardIcon from '@solidmaterial/icons/400/outlined/arrow_forward.svg';
+import BatteryAndroidBoltIcon from '@solidmaterial/icons/400/outlined/battery_android_bolt.svg';
+import EditFillIcon from '@solidmaterial/icons/400/outlined/edit-fill.svg';
+import PauseFillIcon from '@solidmaterial/icons/400/outlined/pause-fill.svg';
+import PlayArrowIcon from '@solidmaterial/icons/400/outlined/play_arrow.svg';
 
 const meta = preview.meta({
   title: 'Buttons/MaterialButton',

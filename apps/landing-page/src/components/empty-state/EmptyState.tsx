@@ -1,7 +1,7 @@
 import type { JSX, VoidComponent } from 'solid-js';
 
-import { MaterialIcon } from '@solid-material/material/components/icon';
-import { H1, Span } from '@solid-material/material/components/typography';
+import { MaterialIcon } from '@solidmaterial/material/components/icon';
+import { H1, Span } from '@solidmaterial/material/components/typography';
 import { Show } from 'solid-js';
 
 import styles from './EmptyState.module.css';

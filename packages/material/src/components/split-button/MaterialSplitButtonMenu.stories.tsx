@@ -4,7 +4,7 @@ import preview from '../../../.storybook/preview';
 
 import { MaterialSplitButtonMenu } from './MaterialSplitButtonMenu';
 
-import EditIcon from '@solid-material/icons/400/outlined/edit.svg';
+import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
 const meta = preview.meta({
   title: 'Buttons/MaterialSplitButtonMenu',

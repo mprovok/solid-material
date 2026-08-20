@@ -1,8 +1,8 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialButton } from '@solid-material/material/components/button';
-import { showSnack } from '@solid-material/material/components/snackbar';
-import { MaterialRichTooltip } from '@solid-material/material/components/tooltip';
+import { MaterialButton } from '@solidmaterial/material/components/button';
+import { showSnack } from '@solidmaterial/material/components/snackbar';
+import { MaterialRichTooltip } from '@solidmaterial/material/components/tooltip';
 import { createSignal } from 'solid-js';
 
 const getMessage = (count: number) => {

@@ -8,9 +8,9 @@ import { H1, H2 } from '../typography/Typography';
 
 import styles from './MaterialAppBar.module.css';
 
-import ArrowBackIcon from '@solid-material/icons/400/outlined/arrow_back.svg';
-import ArrowBackIosNewIcon from '@solid-material/icons/400/outlined/arrow_back_ios_new.svg';
-import MenuIcon from '@solid-material/icons/400/outlined/menu.svg';
+import ArrowBackIcon from '@solidmaterial/icons/400/outlined/arrow_back.svg';
+import ArrowBackIosNewIcon from '@solidmaterial/icons/400/outlined/arrow_back_ios_new.svg';
+import MenuIcon from '@solidmaterial/icons/400/outlined/menu.svg';
 
 export type MaterialAppBarVariant = 'small' | 'medium' | 'large';
 

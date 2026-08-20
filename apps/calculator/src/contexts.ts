@@ -1,6 +1,6 @@
 import type { Context, Signal } from 'solid-js';
 
-import { ThemeColorMode } from '@solid-material/material/styling';
+import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { createContext, createSignal } from 'solid-js';
 
 export const ThemeColorModeContext: Context<Signal<ThemeColorMode>> = createContext(

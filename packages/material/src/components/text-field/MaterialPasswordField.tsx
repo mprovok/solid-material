@@ -8,8 +8,8 @@ import type { MaterialTextFieldProps } from './MaterialTextField';
 
 import { MaterialTextField } from './MaterialTextField';
 
-import VisibilityIcon from '@solid-material/icons/400/outlined/visibility.svg';
-import VisibilityOffIcon from '@solid-material/icons/400/outlined/visibility_off.svg';
+import VisibilityIcon from '@solidmaterial/icons/400/outlined/visibility.svg';
+import VisibilityOffIcon from '@solidmaterial/icons/400/outlined/visibility_off.svg';
 
 export interface MaterialPasswordFieldProps extends Omit<
   MaterialTextFieldProps,

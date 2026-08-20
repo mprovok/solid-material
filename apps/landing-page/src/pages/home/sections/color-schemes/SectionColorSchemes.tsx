@@ -1,9 +1,9 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialCard } from '@solid-material/material/components/card';
-import { MaterialSelect } from '@solid-material/material/components/select';
-import { H2, H3, Span } from '@solid-material/material/components/typography';
-import { ColorRoles, DEFAULT_MATERIAL_THEME_COLOR, isThemeVariant } from '@solid-material/material/styling';
+import { MaterialCard } from '@solidmaterial/material/components/card';
+import { MaterialSelect } from '@solidmaterial/material/components/select';
+import { H2, H3, Span } from '@solidmaterial/material/components/typography';
+import { ColorRoles, DEFAULT_MATERIAL_THEME_COLOR, isThemeVariant } from '@solidmaterial/material/styling';
 import { useContext } from 'solid-js';
 
 import { Info } from '../../../../components/info/Info';

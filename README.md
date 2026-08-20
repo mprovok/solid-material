@@ -12,11 +12,11 @@ Solid Material is a component library implementing [Material 3 Expressive][url-m
 
 ## Packages
 
-| Package                                              |
-| ---------------------------------------------------- |
-| [@solid-material/material][url-sm-material]          |
-| [@solid-material/icons][url-sm-icons]                |
-| [@solid-material/vite-plugin-solid-svg][url-sm-vite] |
+| Package                                             |
+| --------------------------------------------------- |
+| [@solidmaterial/material][url-sm-material]          |
+| [@solidmaterial/icons][url-sm-icons]                |
+| [@solidmaterial/vite-plugin-solid-svg][url-sm-vite] |
 
 ## License
 

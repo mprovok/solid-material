@@ -16,9 +16,9 @@ import { MaterialSearch } from './MaterialSearch';
 import { MaterialSearchBar } from './MaterialSearchBar';
 import { MaterialSearchResults } from './MaterialSearchResults';
 
-import FavoriteIcon from '@solid-material/icons/400/outlined/favorite.svg';
-import OpenInNewIcon from '@solid-material/icons/400/outlined/open_in_new.svg';
-import StarIcon from '@solid-material/icons/400/outlined/star.svg';
+import FavoriteIcon from '@solidmaterial/icons/400/outlined/favorite.svg';
+import OpenInNewIcon from '@solidmaterial/icons/400/outlined/open_in_new.svg';
+import StarIcon from '@solidmaterial/icons/400/outlined/star.svg';
 
 const meta = preview.meta({
   title: 'Components/MaterialSearch',

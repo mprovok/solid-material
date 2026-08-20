@@ -1,12 +1,12 @@
 import type { FlowComponent } from 'solid-js';
 
-import { MaterialCard } from '@solid-material/material/components/card';
-import { MaterialIcon } from '@solid-material/material/components/icon';
-import { Span } from '@solid-material/material/components/typography';
+import { MaterialCard } from '@solidmaterial/material/components/card';
+import { MaterialIcon } from '@solidmaterial/material/components/icon';
+import { Span } from '@solidmaterial/material/components/typography';
 
 import styles from './Info.module.css';
 
-import InfoIcon from '@solid-material/icons/400/outlined/info.svg';
+import InfoIcon from '@solidmaterial/icons/400/outlined/info.svg';
 
 export const Info: FlowComponent = props => {
   return (

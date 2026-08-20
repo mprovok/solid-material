@@ -1,5 +1,5 @@
 {
-  "name": "@solid-material/material",
+  "name": "@solidmaterial/material",
   "version": "1.0.0",
   "private": false,
   "description": "Material 3 Expressive for SolidJS",
@@ -87,7 +87,6 @@
     "@fontsource-variable/roboto-flex": "5.2.8",
     "@material/material-color-utilities": "0.4.0",
     "@material/web": "2.4.1",
-    "@solid-material/icons": "workspace:*",
     "@solid-primitives/active-element": "2.1.6",
     "@solid-primitives/intersection-observer": "2.2.5",
     "@solid-primitives/media": "2.3.6",
@@ -98,10 +97,11 @@
     "@solid-primitives/scheduled": "1.5.3",
     "@solid-primitives/transition-group": "1.1.2",
     "@solidjs/router": "catalog:solid",
+    "@solidmaterial/icons": "workspace:*",
     "solid-js": "catalog:solid"
   },
   "devDependencies": {
-    "@solid-material/vite-plugin-solid-svg": "workspace:*",
+    "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
     "@storybook/addon-vitest": "catalog:storybook",
@@ -118,7 +118,7 @@
     "vitest": "catalog:vitest"
   },
   "peerDependencies": {
-    "@solid-material/vite-plugin-solid-svg": "workspace:*",
+    "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "solid-js": "^1.9.0"
   }
 }

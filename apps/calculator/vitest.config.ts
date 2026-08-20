@@ -1,4 +1,4 @@
-import solidSvg from '@solid-material/vite-plugin-solid-svg';
+import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { playwright } from '@vitest/browser-playwright';
 import solidPlugin from 'vite-plugin-solid';
 import { defineConfig } from 'vitest/config';

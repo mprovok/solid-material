@@ -1,4 +1,4 @@
-# @solid-material/material
+# @solidmaterial/material
 
 Solid Material is a component library implementing [Material 3 Expressive][url-m3] using [SolidJS][url-solid].
 

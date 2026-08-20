@@ -1,11 +1,11 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialIconButton } from '@solid-material/material/components/icon-button';
-import { showSnack } from '@solid-material/material/components/snackbar';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
+import { showSnack } from '@solidmaterial/material/components/snackbar';
 
 import styles from './CopyToClipboardButton.module.css';
 
-import ContentCopyIcon from '@solid-material/icons/400/outlined/content_copy.svg';
+import ContentCopyIcon from '@solidmaterial/icons/400/outlined/content_copy.svg';
 
 export interface CopyToClipBoardButtonProps {
   content: string;

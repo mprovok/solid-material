@@ -1,4 +1,4 @@
-# @solid-material/vite-plugin-solid-svg
+# @solidmaterial/vite-plugin-solid-svg
 
 ## 1.0.0
 

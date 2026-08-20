@@ -9,7 +9,7 @@ import { MaterialIcon } from '../icon/MaterialIcon';
 
 import styles from './MaterialDialog.module.css';
 
-import CloseIcon from '@solid-material/icons/400/outlined/close.svg';
+import CloseIcon from '@solidmaterial/icons/400/outlined/close.svg';
 
 export interface MaterialDialogProps {
   open: boolean;
