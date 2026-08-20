@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "description": "A calculator web app using Solid Material",
-  "bugs": {
-    "url": "https://github.com/mprovok/solid-material/issues"
-  },
+  "bugs": "https://github.com/mprovok/solid-material/issues",
   "license": "Apache-2.0",
   "author": "Mark Provo Kluit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mprovok/solid-material",
+    "url": "git+https://github.com/mprovok/solid-material.git",
     "directory": "apps/calculator"
   },
   "type": "module",

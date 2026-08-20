@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mprovok/solid-material",
+    "url": "git+https://github.com/mprovok/solid-material.git",
     "directory": "packages/icons"
   },
   "files": [

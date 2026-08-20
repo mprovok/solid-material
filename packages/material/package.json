@@ -13,14 +13,12 @@
     "solidjs",
     "ui"
   ],
-  "bugs": {
-    "url": "https://github.com/mprovok/solid-material/issues"
-  },
+  "bugs": "https://github.com/mprovok/solid-material/issues",
   "license": "Apache-2.0",
   "author": "Mark Provo Kluit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mprovok/solid-material",
+    "url": "git+https://github.com/mprovok/solid-material.git",
     "directory": "packages/material"
   },
   "files": [
@@ -28,10 +26,6 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.ts"
-    },
     "./components/*": {
       "types": "./src/components/*/index.d.ts",
       "default": "./src/components/*/index.ts"
@@ -51,10 +45,6 @@
   },
   "publishConfig": {
     "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.ts"
-      },
       "./components/*": {
         "types": "./dist/components/*/index.d.ts",
         "default": "./dist/components/*/index.js"
