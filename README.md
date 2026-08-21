@@ -2,6 +2,7 @@
 
 <div align="center">
 
+<a href="https://npmjs.com/package/@solidmaterial/material"><img src="https://img.shields.io/npm/v/@solidmaterial/material.svg" alt="NPM package"></a>
 <a href="https://github.com/mprovok/solid-material/actions/workflows/ci.yml"><img src="https://github.com/mprovok/solid-material/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status"></a>
 
 Material 3 Expressive for SolidJS
