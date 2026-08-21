@@ -2,11 +2,23 @@
   dir: packages/icons
   intents:
     - curly-mangos-drum
+'@solidmaterial/icons@1.0.1':
+  dir: packages/icons
+  intents:
+    - happy-geese-rush
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
     - curly-mangos-drum
+'@solidmaterial/material@1.0.1':
+  dir: packages/material
+  intents:
+    - happy-geese-rush
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:
     - curly-mangos-drum
+'@solidmaterial/vite-plugin-solid-svg@1.0.1':
+  dir: packages/vite-plugin-solid-svg
+  intents:
+    - happy-geese-rush

@@ -1,6 +1,6 @@
 {
   "name": "@solidmaterial/vite-plugin-solid-svg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Import SVG files as Solid.js Components",
   "keywords": [
