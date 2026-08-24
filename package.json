@@ -6,6 +6,10 @@
   "scripts": {
     "husky": "husky",
     "build": "pnpm run -r -s build",
+    "build:storybook": "pnpm run --filter=@solidmaterial/material storybook:build",
+    "site:build": "pnpm run build && pnpm run build:storybook && pnpm run site:copy-storybook && pnpm run site:copy-calculator",
+    "site:copy-storybook": "cp -r packages/material/storybook-static apps/landing-page/dist/storybook",
+    "site:copy-calculator": "cp -r apps/calculator/dist apps/landing-page/dist/calculator",
     "start": "pnpm run --filter=@solidmaterial/landing-page dev",
     "preview": "pnpm run --filter=@solidmaterial/landing-page preview",
     "storybook": "pnpm run --filter=@solidmaterial/material storybook",
