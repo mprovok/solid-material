@@ -11,9 +11,9 @@ export default defineMain({
     disableTelemetry: true,
     disableWhatsNewNotifications: true
   },
-  viteFinal: (config, _options) => ({
+  viteFinal: (config, options) => ({
     ...config,
-    base: '/storybook/',
+    base: options.configType === 'PRODUCTION' ? '/storybook/' : '/',
     build: {
       ...config.build,
       // Minification using Lightning CSS breaks animations in carousel
