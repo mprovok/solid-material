@@ -1,6 +1,7 @@
 .hero {
   --md-comp-card-filled-container-color: var(--md-sys-color-primary-container);
   --sm-sys-color-link: var(--md-sys-color-on-primary-container);
+  container-type: inline-size;
 }
 
 .hero-body {
