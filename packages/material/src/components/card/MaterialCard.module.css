@@ -23,7 +23,6 @@
     display: block;
     position: relative;
     contain: layout style;
-    container-type: inline-size;
     background-color: var(--md-comp-card-container-color);
     border-radius: var(--md-comp-card-container-shape);
 
