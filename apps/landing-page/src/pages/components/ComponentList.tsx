@@ -58,7 +58,7 @@ export const COMPONENTS: (ListItemType & { storyBookId: string })[] = [
   {
     name: 'badge',
     icon: AppBadgingIcon,
-    label: 'MaterialBadge',
+    label: 'MaterialBadge 😵',
     storyBookId: 'components-materialbadge--docs'
   },
   {
@@ -88,7 +88,7 @@ export const COMPONENTS: (ListItemType & { storyBookId: string })[] = [
   {
     name: 'dialog',
     icon: DialogsIcon,
-    label: 'MaterialDialog',
+    label: 'MaterialDialog 😵',
     storyBookId: 'components-materialdialog--docs'
   },
   {
@@ -142,7 +142,7 @@ export const COMPONENTS: (ListItemType & { storyBookId: string })[] = [
   {
     name: 'side-sheet',
     icon: ViewSidebarIcon,
-    label: 'MaterialSideSheet',
+    label: 'MaterialSideSheet 😵',
     storyBookId: 'components-materialsidesheet--docs'
   },
   {
@@ -330,19 +330,19 @@ export const LAYOUT: (ListItemType & { storyBookId: string })[] = [
   {
     name: 'body-layout',
     icon: ViewColumnIcon,
-    label: 'MaterialBodyLayout',
+    label: 'MaterialBodyLayout 😵',
     storyBookId: 'layouts-materialbodylayout--docs'
   },
   {
     name: 'list-detail-layout',
     icon: ViewColumn2Icon,
-    label: 'MaterialListDetailLayout',
+    label: 'MaterialListDetailLayout 😵',
     storyBookId: 'layouts-materiallistdetaillayout--docs'
   },
   {
     name: 'navigation-layout',
     icon: ResponsiveLayoutIcon,
-    label: 'MaterialNavigationLayout',
+    label: 'MaterialNavigationLayout 💤',
     storyBookId: 'layouts-materialnavigationlayout--docs'
   }
 ];

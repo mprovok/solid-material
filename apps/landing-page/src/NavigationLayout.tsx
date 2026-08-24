@@ -50,7 +50,7 @@ export const NavigationLayout: FlowComponent = props => {
       label: 'Storybook',
       icon: LibraryBooksIcon,
       activeIcon: LibraryBooksFillIcon,
-      href: '/storybook',
+      href: '/storybook/',
       target: '_blank'
     },
     {

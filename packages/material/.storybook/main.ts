@@ -10,5 +10,14 @@ export default defineMain({
   core: {
     disableTelemetry: true,
     disableWhatsNewNotifications: true
-  }
+  },
+  viteFinal: (config, _options) => ({
+    ...config,
+    base: '/storybook/',
+    build: {
+      ...config.build,
+      // Minification using Lightning CSS breaks animations in carousel
+      cssMinify: 'esbuild'
+    }
+  })
 });

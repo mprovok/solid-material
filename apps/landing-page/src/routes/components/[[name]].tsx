@@ -22,6 +22,11 @@ import styles from './[[name]].module.css';
 import CodeBlocksIcon from '@solidmaterial/icons/400/outlined/code_blocks.svg';
 import ErrorIcon from '@solidmaterial/icons/400/outlined/error.svg';
 
+const getStorybookBaseURL = () => {
+  const isDev = import.meta.env.MODE === 'development';
+  return isDev ? `http://${globalThis.location.hostname}:6006` : `${globalThis.location.origin}/storybook`;
+};
+
 const PageComponents: Component = () => {
   const params = useParams<{ name: string }>();
 
@@ -90,7 +95,7 @@ const PageComponents: Component = () => {
               {item => (
                 <main style={{ height: '100%', padding: 0, 'overflow-y': 'clip' }}>
                   <iframe
-                    src={`http://${globalThis.location.hostname}:6006/iframe.html?id=${item().storyBookId}&viewMode=docs`}
+                    src={`${getStorybookBaseURL()}/iframe.html?id=${item().storyBookId}&viewMode=docs`}
                     title={item().label}
                     width="100%"
                     height="100%"
