@@ -21,7 +21,12 @@ const RouteHome: Component = () => {
             variant="small"
             title=""
             trailingButtons={
-              <MaterialIconButton variant="text" title="Settings" icon={<SettingsFillIcon />} href="/settings" />
+              <MaterialIconButton
+                variant="text"
+                title="Settings"
+                icon={<SettingsFillIcon />}
+                href="/calculator/settings"
+              />
             }
           />
           <Calculator />

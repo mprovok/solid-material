@@ -6,10 +6,10 @@
   "display": "standalone",
   "theme_color": "#6750a4",
   "background_color": "#fdf7fe",
-  "start_url": "/",
+  "start_url": "..",
   "icons": [
     {
-      "src": "/assets/favicon.svg",
+      "src": "favicon.svg",
       "type": "image/svg+xml",
       "sizes": "any"
     }

@@ -8,6 +8,7 @@ export default defineConfig({
   server: {
     port: 4000
   },
+  base: '/calculator',
   build: {
     license: true,
     target: 'es2025',

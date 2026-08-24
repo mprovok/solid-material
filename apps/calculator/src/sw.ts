@@ -8,7 +8,7 @@ declare const self: ServiceWorkerGlobalScope;
 
 const SW_CACHE_NAME = 'v1';
 
-const NO_HASH_FILES = ['/index.html', '/assets/favicon.svg'];
+const NO_HASH_FILES = ['/calculator/index.html', '/calculator/assets/favicon.svg'];
 
 const PRECACHED_FILES = [...NO_HASH_FILES, manifest, fontRoboto, fontGoogle];
 

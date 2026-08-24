@@ -49,7 +49,7 @@ const root = document.querySelector('#root');
 
 render(
   () => (
-    <Router root={RootLayout}>
+    <Router root={RootLayout} base="/calculator">
       <Route path="/" component={RouteHome} />
       <Route path="/settings" component={RouteSettings} />
     </Router>
