@@ -1,5 +1,14 @@
 # @solidmaterial/landing-page
 
+## 1.0.2
+
+### Patch Changes
+
+- Enable viewing most Storybook pages
+
+- Updated dependencies:
+  - @solidmaterial/material@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes

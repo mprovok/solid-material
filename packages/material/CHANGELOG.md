@@ -1,5 +1,11 @@
 # @solidmaterial/material
 
+## 1.0.2
+
+### Patch Changes
+
+- Fix rendering of MaterialCard
+
 ## 1.0.1
 
 ### Patch Changes

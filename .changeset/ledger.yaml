@@ -6,6 +6,10 @@
   dir: apps/calculator
   intents:
     - warm-cameras-pull
+'@solidmaterial/calculator@1.0.2':
+  dir: apps/calculator
+  intents:
+    - clean-tables-count
 '@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
@@ -22,6 +26,10 @@
   dir: apps/landing-page
   intents:
     - warm-cameras-pull
+'@solidmaterial/landing-page@1.0.2':
+  dir: apps/landing-page
+  intents:
+    - four-tires-lay
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
@@ -30,6 +38,10 @@
   dir: packages/material
   intents:
     - happy-geese-rush
+'@solidmaterial/material@1.0.2':
+  dir: packages/material
+  intents:
+    - bold-months-call
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:
