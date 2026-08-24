@@ -1,7 +1,7 @@
 minimumReleaseAge: 4320
 savePrefix: ''
 strictDepBuilds: true
-blockExoticSubDeps: true
+blockExoticSubdeps: true
 trustPolicy: no-downgrade
 
 trustPolicyExclude:
@@ -10,7 +10,7 @@ trustPolicyExclude:
 
 engineStrict: true
 resolutionMode: time-based
-strictPeerDeps: true
+strictPeerDependencies: true
 verifyDepsBeforeRun: error
 
 packages:
