@@ -29,6 +29,8 @@ export default defineConfig({
       // At least one instance is required
       instances: [{ browser: 'chromium' }, { browser: 'webkit' }]
     },
+    reporters: ['default', 'junit'],
+    outputFile: 'coverage/tests.junit.xml',
     coverage: {
       provider: 'istanbul',
       reporter: [['cobertura', { file: 'coverage.xml' }], ['text']]
