@@ -30,6 +30,7 @@ jobs:
         with:
           cache: true
       - run: pnpm run build
+      - run: pnpm run build:storybook
   lint:
     needs: audit
     runs-on: ubuntu-slim
