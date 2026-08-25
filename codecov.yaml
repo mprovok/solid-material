@@ -1,0 +1,23 @@
+comment:
+  layout: 'header, diff, flags, components'
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: 90%
+        threshold: 1%
+        informational: true
+  individual_components:
+    - component_id: app_calculator
+      name: App Calculator
+      paths:
+        - apps/calculator/**
+    - component_id: app_landing-page
+      name: Landing page
+      paths:
+        - apps/landing-page/**
+    - component_id: package_material
+      name: Package material
+      paths:
+        - packages/material/**

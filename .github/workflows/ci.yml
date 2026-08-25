@@ -44,6 +44,9 @@ jobs:
       - run: pnpm run format:check
   test:
     needs: audit
+    permissions:
+      contents: read
+      id-token: write
     runs-on: macos-latest # apt update for browser download hangs on ubuntu
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -54,3 +57,10 @@ jobs:
           cache: true
       - run: pnpm run install:webkit
       - run: pnpm run test
+
+      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+        name: Upload coverage reports to Codecov
+        with:
+          use_oidc: true
+          disable_telem: true
+          exclude: packages/icons/icons
