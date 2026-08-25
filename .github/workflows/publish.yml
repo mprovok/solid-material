@@ -2,10 +2,13 @@ name: Publish
 
 on:
   push:
-    tags: ['v*']
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  build:
+  publish:
     permissions:
       contents: read
       id-token: write
