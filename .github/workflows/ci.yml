@@ -29,8 +29,8 @@ jobs:
       - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
         with:
           cache: true
-      - run: pnpm run build
-      - run: pnpm run build:storybook
+      - run: pnpm run build --affected
+      - run: pnpm run build:storybook --affected
   lint:
     needs: audit
     runs-on: ubuntu-slim
@@ -41,7 +41,7 @@ jobs:
       - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
         with:
           cache: true
-      - run: pnpm run lint
+      - run: pnpm run lint --affected
       - run: pnpm run format:check
   test:
     needs: audit
@@ -54,7 +54,7 @@ jobs:
         with:
           cache: true
       - run: pnpm run install:webkit
-      - run: pnpm run test
+      - run: pnpm run test --affected
 
       - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         name: Upload coverage reports to Codecov

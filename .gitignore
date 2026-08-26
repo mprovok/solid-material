@@ -9,6 +9,8 @@ storybook-static/
 .vitest-attachments/
 __screenshots__/
 
+.turbo
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
