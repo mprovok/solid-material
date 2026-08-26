@@ -1,4 +1,5 @@
 import '@fontsource/google-sans-flex/latin-400.css';
+import '@fontsource/google-sans-flex/latin-500.css';
 import type { Component, ParentComponent } from 'solid-js';
 
 import { Link, MetaProvider } from '@solidjs/meta';

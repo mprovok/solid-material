@@ -28,11 +28,25 @@
     gap: var(--md-user-spacing-xl);
 
     h1 {
-      margin-bottom: var(--md-user-spacing-xs);
+      margin-bottom: var(--md-user-spacing-lg);
+      font-weight: 500;
     }
 
     h2 {
-      margin-bottom: var(--md-user-spacing-lg);
+      margin-bottom: var(--md-user-spacing-xs);
+
+      color: var(--md-sys-color-on-primary-container);
+      text-transform: uppercase;
+    }
+
+    @media (width >= 1200px) {
+      h1 {
+        font-size: 4.5rem;
+      }
+
+      h2 {
+        margin-bottom: var(--md-user-spacing-md);
+      }
     }
 
     .content {

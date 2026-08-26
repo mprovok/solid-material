@@ -14,7 +14,7 @@ import { ComponentsGrid } from './components/ComponentsGrid';
 import styles from './SectionHero.module.css';
 
 export const SectionHero: VoidComponent = () => {
-  const isMobile = () => Breakpoints.isCompactWidth() || Breakpoints.isCompactHeight();
+  const isMobile = () => Breakpoints.isCompactWidth();
 
   return (
     <div class={styles['hero']}>
@@ -22,12 +22,12 @@ export const SectionHero: VoidComponent = () => {
         <div class={styles['hero-body']}>
           <div class={styles['left-column']}>
             <div class={styles['content']}>
-              <H1 role="display" size={isMobile() ? 'medium' : 'large'}>
-                Solid Material
-              </H1>
-              <H2 role="headline" size="small">
+              <H2 role="title" size="small">
                 Material 3 Expressive for SolidJS
               </H2>
+              <H1 role="display" size="large">
+                Solid Material
+              </H1>
               <Span role="body" size="large">
                 Solid Material is a component library implementing the Material 3 Expressive spec using{' '}
                 <ExternalLink href="https://www.solidjs.com/">SolidJS</ExternalLink>, a JavaScript framework for
