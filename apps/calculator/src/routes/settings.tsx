@@ -13,9 +13,10 @@ import { MaterialSwitch } from '@solidmaterial/material/components/switch';
 import { H2 } from '@solidmaterial/material/components/typography';
 import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { ThemeColorMode } from '@solidmaterial/material/styling';
-import { Index, createSignal, createUniqueId, useContext } from 'solid-js';
+import { Index, Show, createSignal, createUniqueId, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
+import { BUTTON_PRESS_VIBRATE_MS } from '../calculator/Calculator.types';
 import { ThemeBlackContext, ThemeColorModeContext, VibrateContext } from '../contexts';
 
 import styles from './settings.module.css';
@@ -121,18 +122,27 @@ const RouteSettings: Component = () => {
                 Black theme
               </MaterialListItem>
             </MaterialList>
-            <H2 role="title" size="small">
-              Behavior
-            </H2>
-            <MaterialList segmented={true} ariaLabel="Behavior">
-              <MaterialListItem
-                end={<MaterialSwitch selected={isVibrate()} ariaLabel="Vibrate" onChange={setVibrate} />}
-                supportingText="Vibrate when pressing buttons"
-                onClick={() => setVibrate(value => !value)}
-              >
-                Vibrate
-              </MaterialListItem>
-            </MaterialList>
+            <Show when={navigator.vibrate !== undefined}>
+              <H2 role="title" size="small">
+                Behavior
+              </H2>
+              <MaterialList segmented={true} ariaLabel="Behavior">
+                <MaterialListItem
+                  end={<MaterialSwitch selected={isVibrate()} ariaLabel="Vibrate" onChange={setVibrate} />}
+                  supportingText="Vibrate when pressing buttons"
+                  onClick={() => {
+                    // If vibration was previously turned off, then vibrate once to
+                    // let the user experience what will happen during button presses
+                    if (!isVibrate()) {
+                      globalThis.navigator.vibrate(BUTTON_PRESS_VIBRATE_MS);
+                    }
+                    setVibrate(value => !value);
+                  }}
+                >
+                  Vibrate
+                </MaterialListItem>
+              </MaterialList>
+            </Show>
           </main>
         </MaterialPane>
       </MaterialBodyLayout>
