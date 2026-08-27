@@ -2,6 +2,7 @@ import type { VoidComponent } from 'solid-js';
 
 import { useNavigate } from '@solidjs/router';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { Breakpoints } from '@solidmaterial/material/utils';
 
 import type { ExampleListItemType } from '../../pages/examples/ExampleList';
@@ -12,6 +13,7 @@ import { Calculator as CalculatorApp } from '../../../../calculator/src/calculat
 import styles from './Calculator.module.css';
 
 import CalculateIcon from '@solidmaterial/icons/400/outlined/calculate.svg';
+import OpenInNewIcon from '@solidmaterial/icons/400/outlined/open_in_new.svg';
 
 export const Calculator: VoidComponent<ExampleProps> = props => {
   const navigate = useNavigate();
@@ -25,9 +27,18 @@ export const Calculator: VoidComponent<ExampleProps> = props => {
         variant={isMobile() ? 'small' : 'large'}
         title={props.data.label}
         leadingButtonAriaLabel="Go back to list"
+        trailingButtons={
+          <MaterialIconButton
+            variant="text"
+            title="Open webapp"
+            icon={<OpenInNewIcon />}
+            href="/calculator"
+            target="_blank"
+          />
+        }
         onNavigate={navigateBackToList}
       />
-      <CalculatorApp />
+      <CalculatorApp vibrate={true} />
     </div>
   );
 };
