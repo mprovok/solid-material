@@ -7,7 +7,7 @@ export const SIZE = 'medium';
 export const ICON_SIZE = 'medium';
 
 // Duration in milliseconds to vibrate when pressing a button
-export const BUTTON_PRESS_VIBRATE_MS = 100;
+export const BUTTON_PRESS_VIBRATE_MS = 50;
 
 // oxlint-disable typescript/prefer-enum-initializers
 export enum CalculatorAction {
