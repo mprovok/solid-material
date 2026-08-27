@@ -3,8 +3,6 @@ import type { VoidComponent } from 'solid-js';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialCard } from '@solidmaterial/material/components/card';
 import { H1, H2, Span } from '@solidmaterial/material/components/typography';
-import { Breakpoints } from '@solidmaterial/material/utils';
-import { Show } from 'solid-js';
 
 /* Used as a social button to link to GitHub project (see https://brand.github.com/foundations/logo) */
 import { ExternalLink } from '../../../../components/external-link/ExternalLink';
@@ -14,8 +12,6 @@ import { ComponentsGrid } from './components/ComponentsGrid';
 import styles from './SectionHero.module.css';
 
 export const SectionHero: VoidComponent = () => {
-  const isMobile = () => Breakpoints.isCompactWidth();
-
   return (
     <div class={styles['hero']}>
       <MaterialCard variant="filled" size="extra-large">
@@ -38,11 +34,9 @@ export const SectionHero: VoidComponent = () => {
               Get started
             </MaterialButton>
           </div>
-          <Show when={!isMobile()}>
-            <div class={styles['right-column']}>
-              <ComponentsGrid />
-            </div>
-          </Show>
+          <div class={styles['right-column']}>
+            <ComponentsGrid />
+          </div>
         </div>
       </MaterialCard>
     </div>

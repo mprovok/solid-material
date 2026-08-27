@@ -1,6 +1,5 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialFab } from '@solidmaterial/material/components/fab';
 
 import { ExampleConnectedButtonGroup } from './examples/ExampleConnectedButtonGroup';
@@ -34,9 +33,6 @@ export const ComponentsGrid: VoidComponent = () => {
       </div>
       <div class={styles['fab']}>
         <MaterialFab color="tertiary" size="medium" icon={<EditIcon />} />
-      </div>
-      <div class={styles['button']}>
-        <MaterialButton variant="elevated">Elevated button</MaterialButton>
       </div>
       <div class={styles['list']}>
         <ExampleList />

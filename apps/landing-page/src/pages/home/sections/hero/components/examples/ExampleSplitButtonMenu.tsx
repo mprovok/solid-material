@@ -6,6 +6,8 @@ import { createSignal } from 'solid-js';
 
 import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
+const LABELS = ['Label', 'Two', 'Three'];
+
 export const ExampleSplitButtonMenu: VoidComponent = () => {
   const [label, setLabel] = createSignal('Label');
 
@@ -20,20 +22,7 @@ export const ExampleSplitButtonMenu: VoidComponent = () => {
     <MaterialSplitButtonMenu
       variant="filled"
       icon={<EditIcon />}
-      menuItems={[
-        {
-          label: 'Label',
-          onClick: () => setLabel('Label')
-        },
-        {
-          label: 'Label 2',
-          onClick: () => setLabel('Label 2')
-        },
-        {
-          label: 'Label 3',
-          onClick: () => setLabel('Label 3')
-        }
-      ]}
+      menuItems={LABELS.map(text => ({ label: text, onClick: () => setLabel(text) }))}
       onClick={onClick}
     >
       {label()}

@@ -15,9 +15,9 @@
   padding: var(--md-user-spacing-4xl);
   gap: var(--md-user-spacing-2xl);
 
-  @container (width < 820px) {
-    padding: var(--md-user-spacing-xl);
-    gap: var(--md-user-spacing-xl);
+  @container (width < 840px) {
+    grid-template-columns: 1fr;
+    gap: var(--md-user-spacing-3xl);
   }
 
   .left-column {
@@ -33,7 +33,7 @@
     }
 
     h2 {
-      margin-bottom: var(--md-user-spacing-xs);
+      margin-bottom: var(--md-user-spacing-sm);
 
       color: var(--md-sys-color-on-primary-container);
       text-transform: uppercase;
@@ -61,6 +61,16 @@
 
     display: grid;
     place-content: center;
+
+    @media (width < 600px) {
+      /* Give the component grid a bit more space on mobile */
+      padding: var(--md-user-spacing-md);
+      margin: calc(-1 * var(--md-user-spacing-md));
+
+      /* But avoid moving the grid too close to the "Get started" button */
+      padding-top: var(--md-user-spacing-lg);
+      margin-top: 0;
+    }
   }
 }
 
@@ -68,7 +78,7 @@
   .hero-body {
     grid-template-columns: 1fr;
     padding: var(--md-user-spacing-2xl);
-    gap: var(--md-user-spacing-xl);
+    gap: var(--md-user-spacing-3xl);
   }
 }
 
@@ -76,6 +86,7 @@
   .hero-body {
     grid-template-columns: 1fr;
     padding: var(--md-user-spacing-xl);
+    gap: var(--md-user-spacing-3xl);
 
     .left-column {
       justify-items: stretch;

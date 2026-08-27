@@ -1,55 +1,66 @@
 .components-grid {
   --md-comp-search-view-min-width: 100%;
 
-  width: fit-content;
-  height: min-content;
-
   display: grid;
   grid-auto-flow: column;
   gap: var(--md-user-spacing-sm);
-  grid-template-columns: auto min-content auto;
+  grid-template-columns: auto minmax(80px, min-content) auto;
   grid-template-rows: repeat(5, min-content);
 
+  grid-template-areas:
+    'tooltip split-button split-button'
+    'tooltip button-group button-group'
+    'tooltip fab list'
+    'snackbar snackbar list'
+    'search-bar search-bar search-bar';
+
   .tooltip {
-    grid-column: 1;
-    grid-row: 1 / span 3;
+    grid-area: tooltip;
     align-self: end;
   }
 
   .snackbar {
-    grid-column: 1 / span 2;
-    grid-row: 4;
     min-width: 25ch;
+    grid-area: snackbar;
   }
 
   .search-bar {
-    grid-column: 1 / span 3;
-    grid-row: 5;
+    grid-area: search-bar;
   }
 
   .split-button {
-    grid-column: 2 / span 2;
-    grid-row: 1;
+    grid-area: split-button;
+    align-self: end;
   }
 
   .button-group {
-    grid-column: 2 / span 2;
-    grid-row: 2;
+    grid-area: button-group;
   }
 
   .fab {
-    grid-column: 2;
-    grid-row: 3;
-    width: min-content;
-  }
-
-  .button {
-    grid-column: 3;
-    grid-row: 3;
+    grid-area: fab;
   }
 
   .list {
-    grid-column: 3;
-    grid-row: 3 / span 2;
+    grid-area: list;
+  }
+}
+
+@media (width < 600px) {
+  .components-grid {
+    grid-template-columns: auto min-content;
+    grid-template-rows: repeat(4, min-content);
+
+    grid-template-areas:
+      'tooltip split-button'
+      'tooltip button-group'
+      'tooltip fab'
+      'snackbar snackbar';
+
+    /* Hide components which do not fit in hero card on mobile */
+    .search-bar,
+    .list {
+      display: none;
+    }
   }
 }
