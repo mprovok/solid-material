@@ -9,11 +9,14 @@ export interface SuperscriptProps {
 
 export const Superscript: VoidComponent<SuperscriptProps> = props => {
   return (
-    <math class={styles['math']}>
-      <msup>
-        <mi>{props.base}</mi>
-        <mn>{props.superscript}</mn>
-      </msup>
-    </math>
+    <>
+      <span>{props.base}</span>
+      <math class={styles['math']}>
+        <msup>
+          <mi></mi>
+          <mn>{props.superscript}</mn>
+        </msup>
+      </math>
+    </>
   );
 };
