@@ -5,9 +5,8 @@ import { MaterialButtonGroup } from '@solidmaterial/material/components/button-g
 import { MaterialIcon } from '@solidmaterial/material/components/icon';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { Span } from '@solidmaterial/material/components/typography';
+import { Breakpoints } from '@solidmaterial/material/utils';
 import { For, Match, Show, Switch, createEffect, createMemo, createSignal } from 'solid-js';
-
-import { Breakpoints } from '../../../../packages/material/src/utils/breakpoints';
 
 import type { Token } from './tokenizer/types';
 
@@ -44,9 +43,11 @@ const isAppendableAction = (action: CalculatorAction): boolean =>
     CalculatorAction.FACTORIAL
   ].includes(action);
 
-const vibrate = () => globalThis.navigator.vibrate(BUTTON_PRESS_VIBRATE_MS);
+export interface CalculatorProps {
+  vibrate: boolean;
+}
 
-export const Calculator: VoidComponent = () => {
+export const Calculator: VoidComponent<CalculatorProps> = props => {
   const [isExpanded, setExpanded] = createSignal(false);
   const [isInverted, setInverted] = createSignal(false);
   const [isDegrees, setDegrees] = createSignal(false);
@@ -60,6 +61,12 @@ export const Calculator: VoidComponent = () => {
   const [error, setError] = createSignal<string>();
 
   const isMobile = () => Breakpoints.isCompactWidth() || Breakpoints.isCompactHeight();
+
+  const vibrate = () => {
+    if (props.vibrate) {
+      globalThis.navigator.vibrate(BUTTON_PRESS_VIBRATE_MS);
+    }
+  };
 
   const pressAC = () => {
     setInputTokens([]);

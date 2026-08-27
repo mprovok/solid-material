@@ -6,7 +6,7 @@ import fontGoogle from '../node_modules/@fontsource/google-sans-flex/files/googl
 
 declare const self: ServiceWorkerGlobalScope;
 
-const SW_CACHE_NAME = 'v1';
+const SW_CACHE_NAME = 'v2';
 
 const NO_HASH_FILES = ['/calculator/index.html', '/calculator/assets/favicon.svg'];
 

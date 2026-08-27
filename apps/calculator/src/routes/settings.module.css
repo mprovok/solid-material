@@ -3,6 +3,7 @@
 
   :is(h2, h3) {
     margin-bottom: var(--md-user-spacing-md);
+    margin-inline-start: var(--md-user-spacing-md);
   }
 
   * + :is(h2, h3) {

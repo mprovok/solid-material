@@ -16,7 +16,7 @@ import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { Index, createSignal, createUniqueId, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
-import { ThemeBlackContext, ThemeColorModeContext } from '../contexts';
+import { ThemeBlackContext, ThemeColorModeContext, VibrateContext } from '../contexts';
 
 import styles from './settings.module.css';
 
@@ -59,6 +59,7 @@ const RouteSettings: Component = () => {
 
   const [themeColorMode, setThemeColorMode] = useContext(ThemeColorModeContext);
   const [isBlackTheme, setBlackTheme] = useContext(ThemeBlackContext);
+  const [isVibrate, setVibrate] = useContext(VibrateContext);
 
   const [openDialog, setOpenDialog] = createSignal(false);
 
@@ -118,6 +119,18 @@ const RouteSettings: Component = () => {
                 onClick={() => setBlackTheme(value => !value)}
               >
                 Black theme
+              </MaterialListItem>
+            </MaterialList>
+            <H2 role="title" size="small">
+              Behavior
+            </H2>
+            <MaterialList segmented={true} ariaLabel="Behavior">
+              <MaterialListItem
+                end={<MaterialSwitch selected={isVibrate()} ariaLabel="Vibrate" onChange={setVibrate} />}
+                supportingText="Vibrate when pressing buttons"
+                onClick={() => setVibrate(value => !value)}
+              >
+                Vibrate
               </MaterialListItem>
             </MaterialList>
           </main>

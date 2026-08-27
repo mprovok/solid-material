@@ -9,7 +9,7 @@ import { enableViewTransitions } from '@solidmaterial/material/utils';
 import { createEffect, createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
 
-import { ThemeBlackContext, ThemeColorModeContext } from './contexts';
+import { ThemeBlackContext, ThemeColorModeContext, VibrateContext } from './contexts';
 
 import './index.css';
 import RouteHome from './routes';
@@ -26,6 +26,10 @@ const RootLayout: ParentComponent = props => {
   );
   const [isBlack, setBlack] = makePersisted<boolean, Signal<boolean>>(createSignal(false), { name: 'theme-use-black' });
 
+  const [isVibrate, setVibrate] = makePersisted<boolean, Signal<boolean>>(createSignal(true), {
+    name: 'behavior-vibrate'
+  });
+
   createEffect(() => {
     if (isBlack()) {
       globalThis.document.documentElement.dataset['black'] = '';
@@ -38,7 +42,9 @@ const RootLayout: ParentComponent = props => {
     <MaterialTheme theme="tonal-spot" mode={mode()}>
       <ThemeColorModeContext.Provider value={[mode, setMode]}>
         <ThemeBlackContext.Provider value={[isBlack, setBlack]}>
-          <MaterialSkeletonManager>{props.children}</MaterialSkeletonManager>
+          <VibrateContext.Provider value={[isVibrate, setVibrate]}>
+            <MaterialSkeletonManager>{props.children}</MaterialSkeletonManager>
+          </VibrateContext.Provider>
         </ThemeBlackContext.Provider>
       </ThemeColorModeContext.Provider>
     </MaterialTheme>

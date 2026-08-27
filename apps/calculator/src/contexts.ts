@@ -8,3 +8,5 @@ export const ThemeColorModeContext: Context<Signal<ThemeColorMode>> = createCont
 );
 
 export const ThemeBlackContext: Context<Signal<boolean>> = createContext(createSignal(false));
+
+export const VibrateContext: Context<Signal<boolean>> = createContext(createSignal(true));
