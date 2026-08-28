@@ -1,4 +1,9 @@
 .math {
+  msup {
+    /* Remove extra spacing after <mn> so that text in <msup> is horizontally centered */
+    display: inline-block;
+  }
+
   mi,
   mn {
     font-family: var(--md-ref-typeface-brand, Roboto);
