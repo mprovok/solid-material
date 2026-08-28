@@ -19,6 +19,5 @@
 
   main {
     height: calc(100% - 64px);
-    padding-top: 0;
   }
 }

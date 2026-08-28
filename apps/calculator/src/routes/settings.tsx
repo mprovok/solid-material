@@ -56,7 +56,7 @@ const RadioButtonTheme: VoidComponent<RadioButtonThemeProps> = props => {
 
 const RouteSettings: Component = () => {
   const navigate = useNavigate();
-  const navigateBack = () => navigate('..');
+  const navigateBack = () => navigate('..', { state: { transition: 'backward' } });
 
   const [themeColorMode, setThemeColorMode] = useContext(ThemeColorModeContext);
   const [isBlackTheme, setBlackTheme] = useContext(ThemeBlackContext);

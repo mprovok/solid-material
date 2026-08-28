@@ -7,6 +7,8 @@ import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layout
 
 import { Calculator } from '../calculator/Calculator';
 
+import styles from './index.module.css';
+
 import SettingsFillIcon from '@solidmaterial/icons/400/outlined/settings-fill.svg';
 
 const RouteHome: Component = () => {
@@ -26,10 +28,13 @@ const RouteHome: Component = () => {
                 title="Settings"
                 icon={<SettingsFillIcon />}
                 href="/calculator/settings"
+                transition="forward"
               />
             }
           />
-          <Calculator />
+          <main class={styles['main']}>
+            <Calculator />
+          </main>
         </MaterialPane>
       </MaterialBodyLayout>
     </>

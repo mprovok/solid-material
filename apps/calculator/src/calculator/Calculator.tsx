@@ -149,193 +149,191 @@ export const Calculator: VoidComponent = () => {
 
   return (
     <CalculatorExecuteActionContext.Provider value={processButton}>
-      <main class={styles['main']}>
-        <div class={styles['container']}>
-          <output aria-label={displayAriaLabel()}>
-            <Switch
-              fallback={
-                <Span role="display" size={displayFontSize()} class={styles['input']}>
-                  <For each={input()}>{item => <>{item}</>}</For>
-                </Span>
-              }
-            >
-              <Match when={error() !== undefined}>
-                <Span role="display" size={displayFontSize()} class={styles['error']}>
-                  {error()}
-                </Span>
-              </Match>
-              <Match when={output() !== undefined}>
-                <Span role="display" size={displayFontSize()} class={styles['output']}>
-                  {output()}
-                </Span>
-              </Match>
-            </Switch>
-          </output>
-          <div class={styles['status-bar']}>
-            <MaterialIconButton
-              variant="text"
-              size="small"
-              icon={isExpanded() ? <CollapseAllIcon /> : <ExpandAllIcon />}
-              title={isExpanded() ? 'Hide scientific buttons' : 'Show scientific buttons'}
-              onClick={() => setExpanded(v => !v)}
-            />
-            <Show when={hasToggledDegrees()}>
-              <Span role="headline" size="small">
-                {isDegrees() ? 'DEG' : 'RAD'}
+      <div class={styles['container']}>
+        <output aria-label={displayAriaLabel()}>
+          <Switch
+            fallback={
+              <Span role="display" size={displayFontSize()} class={styles['input']}>
+                <For each={input()}>{item => <>{item}</>}</For>
               </Span>
-            </Show>
+            }
+          >
+            <Match when={error() !== undefined}>
+              <Span role="display" size={displayFontSize()} class={styles['error']}>
+                {error()}
+              </Span>
+            </Match>
+            <Match when={output() !== undefined}>
+              <Span role="display" size={displayFontSize()} class={styles['output']}>
+                {output()}
+              </Span>
+            </Match>
+          </Switch>
+        </output>
+        <div class={styles['status-bar']}>
+          <MaterialIconButton
+            variant="text"
+            size="small"
+            icon={isExpanded() ? <CollapseAllIcon /> : <ExpandAllIcon />}
+            title={isExpanded() ? 'Hide scientific buttons' : 'Show scientific buttons'}
+            onClick={() => setExpanded(v => !v)}
+          />
+          <Show when={hasToggledDegrees()}>
+            <Span role="headline" size="small">
+              {isDegrees() ? 'DEG' : 'RAD'}
+            </Span>
+          </Show>
+        </div>
+        <div bool:data-expanded={isExpanded()} class={styles['buttons']}>
+          <div class={styles['scientific-buttons']} aria-hidden={!isExpanded()} inert={!isExpanded()}>
+            <MaterialButtonGroup variant="standard">
+              <Switch>
+                <Match when={isInverted()}>
+                  <CalculatorButton action={CalculatorAction.SQUARE} ariaLabel="Square">
+                    <Superscript base="x" superscript="2" />
+                  </CalculatorButton>
+                </Match>
+                <Match when={!isInverted()}>
+                  <CalculatorButton action={CalculatorAction.SQRT}>√</CalculatorButton>
+                </Match>
+              </Switch>
+              <CalculatorButton action={CalculatorAction.PI}>π</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.OPERATOR_POWER} ariaLabel="Power">
+                ^
+              </CalculatorButton>
+              <CalculatorButton action={CalculatorAction.FACTORIAL} ariaLabel="Factorial">
+                !
+              </CalculatorButton>
+            </MaterialButtonGroup>
+            <div class={styles['mode-button-row']}>
+              <div>
+                <MaterialButton
+                  variant="tonal"
+                  size={SIZE}
+                  toggle={isDegrees()}
+                  ariaLabel="Degrees"
+                  onClick={() => {
+                    setDegrees(v => !v);
+                    setToggledDegrees(true);
+                  }}
+                >
+                  <FixedWidthDigit>Deg</FixedWidthDigit>
+                </MaterialButton>
+              </div>
+              <div>
+                <MaterialButtonGroup variant="standard">
+                  <Switch>
+                    <Match when={isInverted()}>
+                      <CalculatorButton action={CalculatorAction.ARCSIN} ariaLabel="Inverse sine">
+                        <Superscript base="sin" superscript="-1" />
+                      </CalculatorButton>
+                      <CalculatorButton action={CalculatorAction.ARCCOS} ariaLabel="Inverse cosine">
+                        <Superscript base="cos" superscript="-1" />
+                      </CalculatorButton>
+                      <CalculatorButton action={CalculatorAction.ARCTAN} ariaLabel="Inverse tangent">
+                        <Superscript base="tan" superscript="-1" />
+                      </CalculatorButton>
+                    </Match>
+                    <Match when={!isInverted()}>
+                      <CalculatorButton action={CalculatorAction.SIN} ariaLabel="Sine">
+                        sin
+                      </CalculatorButton>
+                      <CalculatorButton action={CalculatorAction.COS} ariaLabel="Cosine">
+                        cos
+                      </CalculatorButton>
+                      <CalculatorButton action={CalculatorAction.TAN} ariaLabel="Tangent">
+                        tan
+                      </CalculatorButton>
+                    </Match>
+                  </Switch>
+                </MaterialButtonGroup>
+              </div>
+            </div>
+            <div class={styles['mode-button-row']}>
+              <div>
+                <MaterialButton
+                  variant="tonal"
+                  size={SIZE}
+                  toggle={isInverted()}
+                  ariaLabel="Invert scientific buttons"
+                  onClick={() => setInverted(v => !v)}
+                >
+                  <FixedWidthDigit>Inv</FixedWidthDigit>
+                </MaterialButton>
+              </div>
+              <div>
+                <MaterialButtonGroup variant="standard">
+                  <CalculatorButton action={CalculatorAction.E} ariaLabel="Euler's number">
+                    e
+                  </CalculatorButton>
+                  <Switch>
+                    <Match when={isInverted()}>
+                      <CalculatorButton action={CalculatorAction.EXP} ariaLabel="Euler's number raised to a power">
+                        <Superscript base="e" superscript="x" />
+                      </CalculatorButton>
+                      <CalculatorButton action={CalculatorAction.TEN_POWER_X} ariaLabel="10 raised to a power">
+                        <Superscript base="10" superscript="x" />
+                      </CalculatorButton>
+                    </Match>
+                    <Match when={!isInverted()}>
+                      <CalculatorButton action={CalculatorAction.LN} ariaLabel="Natural logarithm">
+                        ln
+                      </CalculatorButton>
+                      <CalculatorButton action={CalculatorAction.LOG} ariaLabel="Base 10 logarithm">
+                        log
+                      </CalculatorButton>
+                    </Match>
+                  </Switch>
+                </MaterialButtonGroup>
+              </div>
+            </div>
           </div>
-          <div bool:data-expanded={isExpanded()} class={styles['buttons']}>
-            <div class={styles['scientific-buttons']} aria-hidden={!isExpanded()} inert={!isExpanded()}>
-              <MaterialButtonGroup variant="standard">
-                <Switch>
-                  <Match when={isInverted()}>
-                    <CalculatorButton action={CalculatorAction.SQUARE} ariaLabel="Square">
-                      <Superscript base="x" superscript="2" />
-                    </CalculatorButton>
-                  </Match>
-                  <Match when={!isInverted()}>
-                    <CalculatorButton action={CalculatorAction.SQRT}>√</CalculatorButton>
-                  </Match>
-                </Switch>
-                <CalculatorButton action={CalculatorAction.PI}>π</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.OPERATOR_POWER} ariaLabel="Power">
-                  ^
-                </CalculatorButton>
-                <CalculatorButton action={CalculatorAction.FACTORIAL} ariaLabel="Factorial">
-                  !
-                </CalculatorButton>
-              </MaterialButtonGroup>
-              <div class={styles['mode-button-row']}>
-                <div>
-                  <MaterialButton
-                    variant="tonal"
-                    size={SIZE}
-                    toggle={isDegrees()}
-                    ariaLabel="Degrees"
-                    onClick={() => {
-                      setDegrees(v => !v);
-                      setToggledDegrees(true);
-                    }}
-                  >
-                    <FixedWidthDigit>Deg</FixedWidthDigit>
-                  </MaterialButton>
-                </div>
-                <div>
-                  <MaterialButtonGroup variant="standard">
-                    <Switch>
-                      <Match when={isInverted()}>
-                        <CalculatorButton action={CalculatorAction.ARCSIN} ariaLabel="Inverse sine">
-                          <Superscript base="sin" superscript="-1" />
-                        </CalculatorButton>
-                        <CalculatorButton action={CalculatorAction.ARCCOS} ariaLabel="Inverse cosine">
-                          <Superscript base="cos" superscript="-1" />
-                        </CalculatorButton>
-                        <CalculatorButton action={CalculatorAction.ARCTAN} ariaLabel="Inverse tangent">
-                          <Superscript base="tan" superscript="-1" />
-                        </CalculatorButton>
-                      </Match>
-                      <Match when={!isInverted()}>
-                        <CalculatorButton action={CalculatorAction.SIN} ariaLabel="Sine">
-                          sin
-                        </CalculatorButton>
-                        <CalculatorButton action={CalculatorAction.COS} ariaLabel="Cosine">
-                          cos
-                        </CalculatorButton>
-                        <CalculatorButton action={CalculatorAction.TAN} ariaLabel="Tangent">
-                          tan
-                        </CalculatorButton>
-                      </Match>
-                    </Switch>
-                  </MaterialButtonGroup>
-                </div>
-              </div>
-              <div class={styles['mode-button-row']}>
-                <div>
-                  <MaterialButton
-                    variant="tonal"
-                    size={SIZE}
-                    toggle={isInverted()}
-                    ariaLabel="Invert scientific buttons"
-                    onClick={() => setInverted(v => !v)}
-                  >
-                    <FixedWidthDigit>Inv</FixedWidthDigit>
-                  </MaterialButton>
-                </div>
-                <div>
-                  <MaterialButtonGroup variant="standard">
-                    <CalculatorButton action={CalculatorAction.E} ariaLabel="Euler's number">
-                      e
-                    </CalculatorButton>
-                    <Switch>
-                      <Match when={isInverted()}>
-                        <CalculatorButton action={CalculatorAction.EXP} ariaLabel="Euler's number raised to a power">
-                          <Superscript base="e" superscript="x" />
-                        </CalculatorButton>
-                        <CalculatorButton action={CalculatorAction.TEN_POWER_X} ariaLabel="10 raised to a power">
-                          <Superscript base="10" superscript="x" />
-                        </CalculatorButton>
-                      </Match>
-                      <Match when={!isInverted()}>
-                        <CalculatorButton action={CalculatorAction.LN} ariaLabel="Natural logarithm">
-                          ln
-                        </CalculatorButton>
-                        <CalculatorButton action={CalculatorAction.LOG} ariaLabel="Base 10 logarithm">
-                          log
-                        </CalculatorButton>
-                      </Match>
-                    </Switch>
-                  </MaterialButtonGroup>
-                </div>
-              </div>
-            </div>
-            <div class={styles['main-buttons']}>
-              <MaterialButtonGroup variant="standard">
-                <MaterialButton variant="tonal" size={SIZE} ariaLabel="Clear" onClick={pressAC}>
-                  <FixedWidthDigit>AC</FixedWidthDigit>
-                </MaterialButton>
-                <CalculatorButton action={CalculatorAction.PARENTHESES} ariaLabel="Opening or closing parenthesis">
-                  ( )
-                </CalculatorButton>
-                <CalculatorButton action={CalculatorAction.PERCENT}>%</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.OPERATOR_DIVIDE}>÷</CalculatorButton>
-              </MaterialButtonGroup>
-              <MaterialButtonGroup variant="standard">
-                <CalculatorButton action={CalculatorAction.DIGIT_7}>7</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DIGIT_8}>8</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DIGIT_9}>9</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.OPERATOR_MULTIPLY}>×</CalculatorButton>
-              </MaterialButtonGroup>
-              <MaterialButtonGroup variant="standard">
-                <CalculatorButton action={CalculatorAction.DIGIT_4}>4</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DIGIT_5}>5</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DIGIT_6}>6</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.OPERATOR_SUBTRACT}>−</CalculatorButton>
-              </MaterialButtonGroup>
-              <MaterialButtonGroup variant="standard">
-                <CalculatorButton action={CalculatorAction.DIGIT_1}>1</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DIGIT_2}>2</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DIGIT_3}>3</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.OPERATOR_ADD}>+</CalculatorButton>
-              </MaterialButtonGroup>
-              <MaterialButtonGroup variant="standard">
-                <CalculatorButton action={CalculatorAction.DIGIT_0}>0</CalculatorButton>
-                <CalculatorButton action={CalculatorAction.DECIMAL_SEPARATOR} ariaLabel="Decimal separator">
-                  ,
-                </CalculatorButton>
-                <MaterialButton variant="tonal" size={SIZE} ariaLabel="Backspace" onClick={pressBackspace}>
-                  <MaterialIcon size={ICON_SIZE}>
-                    <BackspaceIcon />
-                  </MaterialIcon>
-                </MaterialButton>
-                <MaterialButton variant="tonal" size={SIZE} ariaLabel="Evaluate" onClick={pressEquals}>
-                  <FixedWidthDigit>=</FixedWidthDigit>
-                </MaterialButton>
-              </MaterialButtonGroup>
-            </div>
+          <div class={styles['main-buttons']}>
+            <MaterialButtonGroup variant="standard">
+              <MaterialButton variant="tonal" size={SIZE} ariaLabel="Clear" onClick={pressAC}>
+                <FixedWidthDigit>AC</FixedWidthDigit>
+              </MaterialButton>
+              <CalculatorButton action={CalculatorAction.PARENTHESES} ariaLabel="Opening or closing parenthesis">
+                ( )
+              </CalculatorButton>
+              <CalculatorButton action={CalculatorAction.PERCENT}>%</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.OPERATOR_DIVIDE}>÷</CalculatorButton>
+            </MaterialButtonGroup>
+            <MaterialButtonGroup variant="standard">
+              <CalculatorButton action={CalculatorAction.DIGIT_7}>7</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DIGIT_8}>8</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DIGIT_9}>9</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.OPERATOR_MULTIPLY}>×</CalculatorButton>
+            </MaterialButtonGroup>
+            <MaterialButtonGroup variant="standard">
+              <CalculatorButton action={CalculatorAction.DIGIT_4}>4</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DIGIT_5}>5</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DIGIT_6}>6</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.OPERATOR_SUBTRACT}>−</CalculatorButton>
+            </MaterialButtonGroup>
+            <MaterialButtonGroup variant="standard">
+              <CalculatorButton action={CalculatorAction.DIGIT_1}>1</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DIGIT_2}>2</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DIGIT_3}>3</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.OPERATOR_ADD}>+</CalculatorButton>
+            </MaterialButtonGroup>
+            <MaterialButtonGroup variant="standard">
+              <CalculatorButton action={CalculatorAction.DIGIT_0}>0</CalculatorButton>
+              <CalculatorButton action={CalculatorAction.DECIMAL_SEPARATOR} ariaLabel="Decimal separator">
+                ,
+              </CalculatorButton>
+              <MaterialButton variant="tonal" size={SIZE} ariaLabel="Backspace" onClick={pressBackspace}>
+                <MaterialIcon size={ICON_SIZE}>
+                  <BackspaceIcon />
+                </MaterialIcon>
+              </MaterialButton>
+              <MaterialButton variant="tonal" size={SIZE} ariaLabel="Evaluate" onClick={pressEquals}>
+                <FixedWidthDigit>=</FixedWidthDigit>
+              </MaterialButton>
+            </MaterialButtonGroup>
           </div>
         </div>
-      </main>
+      </div>
     </CalculatorExecuteActionContext.Provider>
   );
 };

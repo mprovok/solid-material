@@ -43,11 +43,13 @@ export const Calculator: VoidComponent<ExampleProps> = props => {
         }
         onNavigate={navigateBackToList}
       />
-      <VibrateContext.Provider value={[isVibrate, setVibrate]}>
-        <ExpandContext.Provider value={[isExpanded, setExpanded]}>
-          <CalculatorApp />
-        </ExpandContext.Provider>
-      </VibrateContext.Provider>
+      <main class={styles['main']}>
+        <VibrateContext.Provider value={[isVibrate, setVibrate]}>
+          <ExpandContext.Provider value={[isExpanded, setExpanded]}>
+            <CalculatorApp />
+          </ExpandContext.Provider>
+        </VibrateContext.Provider>
+      </main>
     </div>
   );
 };
