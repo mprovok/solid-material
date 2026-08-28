@@ -9,7 +9,7 @@ import { enableViewTransitions } from '@solidmaterial/material/utils';
 import { createEffect, createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
 
-import { ThemeBlackContext, ThemeColorModeContext, VibrateContext } from './contexts';
+import { ExpandContext, ThemeBlackContext, ThemeColorModeContext, VibrateContext } from './contexts';
 
 import './index.css';
 import RouteHome from './routes';
@@ -30,6 +30,10 @@ const RootLayout: ParentComponent = props => {
     name: 'behavior-vibrate'
   });
 
+  const [isExpanded, setExpanded] = makePersisted<boolean, Signal<boolean>>(createSignal(false), {
+    name: 'behavior-expand'
+  });
+
   createEffect(() => {
     if (isBlack()) {
       globalThis.document.documentElement.dataset['black'] = '';
@@ -43,7 +47,9 @@ const RootLayout: ParentComponent = props => {
       <ThemeColorModeContext.Provider value={[mode, setMode]}>
         <ThemeBlackContext.Provider value={[isBlack, setBlack]}>
           <VibrateContext.Provider value={[isVibrate, setVibrate]}>
-            <MaterialSkeletonManager>{props.children}</MaterialSkeletonManager>
+            <ExpandContext.Provider value={[isExpanded, setExpanded]}>
+              <MaterialSkeletonManager>{props.children}</MaterialSkeletonManager>
+            </ExpandContext.Provider>
           </VibrateContext.Provider>
         </ThemeBlackContext.Provider>
       </ThemeColorModeContext.Provider>
