@@ -97,7 +97,7 @@
     }
 
     &[data-variant='full-screen'] {
-      height: 100vh;
+      height: 100dvh;
       flex-direction: column;
       gap: var(--md-user-spacing-md);
 

@@ -3,7 +3,7 @@
     display: grid;
     grid-template-rows: auto min-content;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
   }
 
   .bar {

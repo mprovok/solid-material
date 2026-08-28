@@ -57,9 +57,9 @@
     align-items: center;
 
     min-width: 100vw;
-    min-height: 100vh;
+    min-height: 100dvh;
     max-width: 100vw;
-    max-height: 100vh;
+    max-height: 100dvh;
 
     overflow-y: scroll;
     scrollbar-width: none;
@@ -118,7 +118,7 @@
 
   .space {
     width: 100vw;
-    min-height: 100vh;
+    min-height: 100dvh;
     pointer-events: none;
 
     /* Needed to snap top of bottom sheet to bottom of screen */
@@ -132,7 +132,7 @@
     height: 100%;
     width: 100vw;
     max-width: var(--md-comp-sheet-bottom-max-width);
-    max-height: 100vh;
+    max-height: 100dvh;
     container-type: inline-size;
 
     /* Needed to snap top of bottom sheet to top of screen */
@@ -150,7 +150,7 @@
     --border-radius: var(--default-border-radius);
 
     &[data-full-height] {
-      min-height: 100vh;
+      min-height: 100dvh;
 
       @media (width > 640px) {
         min-height: calc(100vh - 56px);

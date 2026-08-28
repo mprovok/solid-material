@@ -104,7 +104,7 @@
     display: block;
     padding-inline: 20px;
 
-    height: 100vh;
+    height: 100dvh;
     overflow-x: hidden;
 
     transition:

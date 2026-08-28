@@ -30,7 +30,7 @@
     &:modal {
       position: fixed;
       min-width: 100vw;
-      min-height: 100vh;
+      min-height: 100dvh;
     }
 
     /* Without higher specificity it Chrome does not display the side sheet */
