@@ -98,7 +98,7 @@
     &::view-transition-new(sm-body-layout) {
       animation-name: slide-in-from-right, fade-in, mix-blend-mode-plus-lighter;
       animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
-      animation-duration: var(--md-sys-motion-duration-medium3);
+      animation-duration: var(--md-sys-motion-duration-medium2);
       animation-delay: var(--md-sys-motion-duration-short3);
     }
   }
@@ -113,7 +113,7 @@
     &::view-transition-new(sm-body-layout) {
       animation-name: slide-in-from-left, fade-in, mix-blend-mode-plus-lighter;
       animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
-      animation-duration: var(--md-sys-motion-duration-medium3);
+      animation-duration: var(--md-sys-motion-duration-medium2);
       animation-delay: var(--md-sys-motion-duration-short3);
     }
   }
