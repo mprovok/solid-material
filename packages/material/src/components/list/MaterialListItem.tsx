@@ -30,6 +30,8 @@ export interface MaterialListItemProps {
   // Links
   href?: string;
   target?: '_self' | '_blank' | '_parent' | '_top';
+  download?: string;
+  transition?: string;
 
   ariaLabel?: string;
 }
@@ -81,6 +83,8 @@ export const MaterialListItem: FlowComponent<MaterialListItemProps> = props => {
         attr:type={getType() === 'button' ? 'button' : undefined}
         attr:href={props.href}
         attr:target={props.target}
+        download={props.download}
+        state={props.transition !== undefined ? JSON.stringify({ transition: props.transition }) : undefined}
         class={styles['content']}
         ref={ref}
         onClick={(event: PointerEvent) => props.onClick?.(event)}
