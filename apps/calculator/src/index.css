@@ -11,10 +11,10 @@
 }
 
 #root {
-  height: 100vh;
+  height: 100dvh;
 
   sm-body-layout {
-    height: 100vh;
+    height: 100dvh;
   }
 
   main {
