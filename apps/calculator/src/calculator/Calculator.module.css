@@ -135,28 +135,16 @@
   & > :first-child {
     max-width: var(--digit-button-width);
 
-    @media (prefers-color-scheme: light) {
-      --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-90);
-      --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-20);
-    }
-    @media (prefers-color-scheme: dark) {
-      --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-30);
-      --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-80);
-    }
+    --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-90);
+    --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-20);
   }
 }
 
 /* Operator buttons around the digits between AC and = */
 .scientific-buttons,
 .main-buttons :is(sm-button-group:first-child > :not(:first-child), sm-button-group:nth-child(n + 2) > :last-child) {
-  @media (prefers-color-scheme: light) {
-    --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-90);
-    --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-30);
-  }
-  @media (prefers-color-scheme: dark) {
-    --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-20);
-    --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-80);
-  }
+  --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-90);
+  --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-30);
 }
 
 /* AC button */
@@ -169,4 +157,19 @@
 .main-buttons sm-button-group:last-child > :last-child {
   --md-comp-button-tonal-container-color: var(--md-sys-color-primary-container);
   --md-comp-button-tonal-label-color: var(--md-sys-color-on-primary-container);
+}
+
+:root[data-theme='dark'] {
+  /* Buttons "Deg" and "Inv" */
+  .mode-button-row > :first-child {
+    --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-30);
+    --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-80);
+  }
+
+  /* Operator buttons around the digits between AC and = */
+  .scientific-buttons,
+  .main-buttons :is(sm-button-group:first-child > :not(:first-child), sm-button-group:nth-child(n + 2) > :last-child) {
+    --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-20);
+    --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-80);
+  }
 }
