@@ -37,6 +37,7 @@ export interface MaterialIconButtonProps {
   href?: string;
   target?: '_self' | '_blank' | '_parent' | '_top';
   download?: string;
+  transition?: string;
 
   ref?: Ref<Element>;
 

@@ -41,6 +41,7 @@ export interface MaterialButtonProps {
   href?: string;
   target?: '_self' | '_blank' | '_parent' | '_top';
   download?: string;
+  transition?: string;
 
   onClick?: (event: PointerEvent) => void;
 }
@@ -90,6 +91,7 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
         href={props.href}
         target={props.target}
         download={props.download}
+        state={props.transition !== undefined ? JSON.stringify({ transition: props.transition }) : undefined}
         role={props.href === undefined && props.toggle !== undefined ? 'switch' : undefined}
         aria-label={props.ariaLabel}
         aria-expanded={props.ariaExpanded}
