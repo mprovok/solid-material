@@ -1,0 +1,11 @@
+.main {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--md-user-spacing-sm);
+}
+
+.logo {
+  width: 6rem;
+  aspect-ratio: 1 / 1;
+}

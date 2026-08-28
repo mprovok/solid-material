@@ -13,6 +13,7 @@ import { ExpandContext, ThemeBlackContext, ThemeColorModeContext, VibrateContext
 
 import './index.css';
 import RouteHome from './routes';
+import RouteAbout from './routes/about';
 import RouteSettings from './routes/settings';
 
 const RootLayout: ParentComponent = props => {
@@ -63,6 +64,7 @@ render(
   () => (
     <Router root={RootLayout} base="/calculator">
       <Route path="/" component={RouteHome} />
+      <Route path="/about" component={RouteAbout} />
       <Route path="/settings" component={RouteSettings} />
     </Router>
   ),

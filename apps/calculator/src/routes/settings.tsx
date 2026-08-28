@@ -16,6 +16,7 @@ import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { Index, Show, createSignal, createUniqueId, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
+import manifest from '../../manifest.json';
 import { BUTTON_PRESS_VIBRATE_MS } from '../calculator/Calculator.types';
 import { ThemeBlackContext, ThemeColorModeContext, VibrateContext } from '../contexts';
 
@@ -57,6 +58,7 @@ const RadioButtonTheme: VoidComponent<RadioButtonThemeProps> = props => {
 const RouteSettings: Component = () => {
   const navigate = useNavigate();
   const navigateBack = () => navigate('..', { state: { transition: 'backward' } });
+  const navigateToAbout = () => navigate('/about', { state: { transition: 'forward' } });
 
   const [themeColorMode, setThemeColorMode] = useContext(ThemeColorModeContext);
   const [isBlackTheme, setBlackTheme] = useContext(ThemeBlackContext);
@@ -143,6 +145,14 @@ const RouteSettings: Component = () => {
                 </MaterialListItem>
               </MaterialList>
             </Show>
+            <H2 role="title" size="small">
+              Other
+            </H2>
+            <MaterialList segmented={true} ariaLabel="Other">
+              <MaterialListItem supportingText={manifest.name} onClick={navigateToAbout}>
+                About the app
+              </MaterialListItem>
+            </MaterialList>
           </main>
         </MaterialPane>
       </MaterialBodyLayout>
