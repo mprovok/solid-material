@@ -13,6 +13,7 @@
     "solidjs",
     "ui"
   ],
+  "homepage": "https://solid-material.sites.deploybase.eu/",
   "bugs": "https://github.com/mprovok/solid-material/issues",
   "license": "Apache-2.0",
   "author": "Mark Provo Kluit",
