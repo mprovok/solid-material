@@ -1,5 +1,26 @@
 # @solidmaterial/landing-page
 
+## 1.1.0
+
+### Minor Changes
+
+- Add button to calculator webapp in app bar
+
+### Patch Changes
+
+- Enable component grid in hero on mobile
+
+- Fix showing selected component on mobile and tablets
+
+- Use top-level and forward/backward transitions
+
+- Improve styling of fonts in hero a bit
+
+- Center header of empty state component
+
+- Updated dependencies:
+  - @solidmaterial/material@1.1.0
+
 ## 1.0.2
 
 ### Patch Changes

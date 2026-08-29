@@ -10,6 +10,20 @@
   dir: apps/calculator
   intents:
     - clean-tables-count
+'@solidmaterial/calculator@1.1.0':
+  dir: apps/calculator
+  intents:
+    - bright-ideas-juggle
+    - clean-rockets-fix
+    - cute-animals-read
+    - fuzzy-cobras-sip
+    - light-olives-relate
+    - open-geese-wink
+    - plain-poems-kick
+    - purple-spies-chew
+    - sweet-streets-love
+    - tired-seas-write
+    - twelve-tigers-sit
 '@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
@@ -30,6 +44,15 @@
   dir: apps/landing-page
   intents:
     - four-tires-lay
+'@solidmaterial/landing-page@1.1.0':
+  dir: apps/landing-page
+  intents:
+    - cold-queens-trade
+    - great-moments-leave
+    - light-meteors-raise
+    - loud-moons-occur
+    - sunny-dryers-thank
+    - tricky-bushes-occur
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
@@ -42,6 +65,16 @@
   dir: packages/material
   intents:
     - bold-months-call
+'@solidmaterial/material@1.1.0':
+  dir: packages/material
+  intents:
+    - fluffy-hoops-yawn
+    - humble-streets-agree
+    - hungry-pillows-spend
+    - khaki-weeks-follow
+    - odd-places-double
+    - salty-bobcats-eat
+    - wide-boats-enjoy
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:

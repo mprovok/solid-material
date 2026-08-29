@@ -1,6 +1,6 @@
 {
   "name": "@solidmaterial/calculator",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "description": "A calculator web app using Solid Material",
   "bugs": "https://github.com/mprovok/solid-material/issues",
