@@ -30,7 +30,7 @@ export const SectionHero: VoidComponent = () => {
                 building user interfaces like React, but with fine-grained reactivity for better performance.
               </Span>
             </div>
-            <MaterialButton variant="filled" size="large" href="/get-started">
+            <MaterialButton variant="filled" size="large" href="/get-started" transition="top-level">
               Get started
             </MaterialButton>
           </div>

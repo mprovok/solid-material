@@ -355,7 +355,7 @@ export interface ComponentListProps {
 export const ComponentList: VoidComponent<ComponentListProps> = props => {
   const navigate = useNavigate();
 
-  const onClick = (name: string) => navigate(`/components/${name}`);
+  const onClick = (name: string) => navigate(`/components/${name}`, { state: { transition: 'forward' } });
 
   return <List items={props.items} name={props.name} onClick={onClick} />;
 };

@@ -23,7 +23,7 @@ import styles from './get-started.module.css';
 
 const PageGetStarted: Component = () => {
   const navigate = useNavigate();
-  const navigateBackToList = () => navigate(-1);
+  const navigateBackToList = () => navigate('..', { state: { transition: 'top-level' } });
 
   const isMobile = () => Breakpoints.isCompactWidth();
 

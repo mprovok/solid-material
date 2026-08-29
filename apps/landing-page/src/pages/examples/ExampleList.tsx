@@ -19,7 +19,7 @@ export interface ExampleListProps {
 export const ExampleList: VoidComponent<ExampleListProps> = props => {
   const navigate = useNavigate();
 
-  const onClick = (name: string) => navigate(`/examples/${name}`);
+  const onClick = (name: string) => navigate(`/examples/${name}`, { state: { transition: 'forward' } });
 
   return <List items={ITEMS} name={props.name} onClick={onClick} />;
 };
