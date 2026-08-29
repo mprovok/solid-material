@@ -3,4 +3,5 @@
   display: grid;
   place-content: center;
   justify-items: center;
+  text-align: center;
 }
