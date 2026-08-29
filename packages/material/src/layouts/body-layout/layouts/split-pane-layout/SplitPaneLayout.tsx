@@ -54,6 +54,7 @@ export const SplitPaneLayout: FlowComponent<TwoPaneLayoutProps> = props => {
       dragHandleAriaValue={props.dragHandleAriaValue}
       onMoveSpacer={onMoveSpacer}
       onDragSpacer={props.onDragSpacer}
+      class={props.class}
     >
       {panes()}
     </FlexibleFixedLayout>

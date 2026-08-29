@@ -3,6 +3,7 @@ import type { MaterialBodyLayoutWithDragHandleProps } from '../MaterialBodyLayou
 export interface TwoPaneLayoutProps extends MaterialBodyLayoutWithDragHandleProps {
   maximumWidth: number;
   margin: [number, number];
+  class?: string | undefined;
 }
 
 export interface FixedAndFlexiblePaneLayoutProps extends TwoPaneLayoutProps {

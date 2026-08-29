@@ -18,6 +18,7 @@ export type MaterialBodyLayoutVariant = 'split' | 'flexible-fixed' | 'fixed-flex
 
 export interface MaterialBodyLayoutProps extends MaterialBodyLayoutWithDragHandleProps {
   variant: MaterialBodyLayoutVariant;
+  class?: string | undefined;
 }
 
 const LAYOUTS: Record<MaterialBodyLayoutVariant, FlowComponent<TwoPaneLayoutProps>> = {

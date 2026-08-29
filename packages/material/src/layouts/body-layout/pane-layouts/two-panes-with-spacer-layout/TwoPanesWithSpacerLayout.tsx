@@ -19,6 +19,7 @@ export interface TwoPanesWithSpacerLayoutProps extends FixedAndFlexiblePaneLayou
   offsetRight: number;
   leftPaneWidth?: number;
   rightPaneWidth?: number;
+  class?: string | undefined;
   getUpdatedPosition: (position: number, delta: number) => number;
 }
 
@@ -67,7 +68,10 @@ export const TwoPanesWithSpacerLayout: FlowComponent<TwoPanesWithSpacerLayoutPro
   return (
     <sm-body-layout
       bool:data-dragging={isDraggingHandle()}
-      class={styles['layout']}
+      classList={{
+        [styles['layout']!]: true,
+        [props.class ?? '']: props.class !== undefined
+      }}
       style={{
         'padding-inline-start': `${props.margin[0]}px`,
         'padding-inline-end': `${props.margin[1]}px`

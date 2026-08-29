@@ -8,6 +8,8 @@ import type { MaterialNavigationLayoutProps } from '../../navigation-layout/Mate
 import { Breakpoints } from '../../../utils/breakpoints';
 import { MaterialBodyLayout } from '../../body-layout/MaterialBodyLayout';
 
+import styles from './MaterialListDetailLayout.module.css';
+
 export interface MaterialListDetailLayoutProps extends MaterialBodyLayoutWithDragHandleProps {
   selected: boolean;
   preferSpace?: MaterialNavigationLayoutProps['preferSpace'];
@@ -23,7 +25,12 @@ export const MaterialListDetailLayout: FlowComponent<MaterialListDetailLayoutPro
   const visibleChildren = () => (showOnePane() ? panes.toArray()[localProps.selected ? 1 : 0] : panes());
 
   return (
-    <MaterialBodyLayout variant="fixed-flexible" showDragHandle={localProps.showDragHandle} {...otherProps}>
+    <MaterialBodyLayout
+      variant="fixed-flexible"
+      showDragHandle={localProps.showDragHandle}
+      class={styles['list-detail-layout']}
+      {...otherProps}
+    >
       {visibleChildren()}
     </MaterialBodyLayout>
   );
