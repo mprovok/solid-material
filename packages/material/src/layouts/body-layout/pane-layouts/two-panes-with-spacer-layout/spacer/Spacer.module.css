@@ -9,16 +9,22 @@
     display: grid;
     place-content: center;
 
-    &:not(:empty) {
-      cursor: ew-resize;
-    }
-
     &[data-orientation='horizontal'] {
       writing-mode: horizontal-tb;
+      touch-action: pan-y pinch-zoom;
+
+      &:not(:empty) {
+        cursor: ew-resize;
+      }
     }
 
     &[data-orientation='vertical'] {
       writing-mode: vertical-lr;
+      touch-action: pan-x pinch-zoom;
+
+      &:not(:empty) {
+        cursor: ns-resize;
+      }
     }
   }
 }

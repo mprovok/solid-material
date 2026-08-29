@@ -91,7 +91,7 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
   const onPointerLeave = () => setPointerId(undefined);
 
   const onClickDragHandle = (event: PointerEvent) => {
-    if (!hasMoved() && event.detail === 2) {
+    if (!hasMoved() && (event.detail >= 2 || event.pointerType !== 'mouse')) {
       const value = props.preferredWidth;
 
       if (value !== undefined) {
@@ -127,6 +127,11 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
     snapWidths: props.snapWidths
   });
 
+  const onContextMenu = (event: Event) => {
+    // Prevent activating long-press when holding drag handle on mobile
+    event.preventDefault();
+  };
+
   return (
     <sm-spacer
       ref={pointerRef}
@@ -135,6 +140,7 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
       attr:data-orientation={props.orientation}
       onPointerEnter={onPointerEnter}
       onPointerLeave={onPointerLeave}
+      onContextMenu={onContextMenu}
     >
       <DragHandle
         active={isActive()}
