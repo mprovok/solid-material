@@ -89,13 +89,15 @@
   }
 
   :root:active-view-transition-type(forward) {
-    &::view-transition-old(sm-body-layout) {
+    &::view-transition-old(sm-body-layout),
+    &::view-transition-old(sm-detail-pane) {
       animation-name: slide-out-to-left, fade-out, mix-blend-mode-plus-lighter;
       animation-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
       animation-duration: var(--md-sys-motion-duration-short3);
     }
 
-    &::view-transition-new(sm-body-layout) {
+    &::view-transition-new(sm-body-layout),
+    &::view-transition-new(sm-detail-pane) {
       animation-name: slide-in-from-right, fade-in, mix-blend-mode-plus-lighter;
       animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
       animation-duration: var(--md-sys-motion-duration-medium2);
@@ -104,24 +106,28 @@
 
     /* Reverse the direction for RTL languages */
     &:dir(rtl) {
-      &::view-transition-old(sm-body-layout) {
+      &::view-transition-old(sm-body-layout),
+      &::view-transition-old(sm-detail-pane) {
         animation-name: slide-out-to-right, fade-out, mix-blend-mode-plus-lighter;
       }
 
-      &::view-transition-new(sm-body-layout) {
+      &::view-transition-new(sm-body-layout),
+      &::view-transition-new(sm-detail-pane) {
         animation-name: slide-in-from-left, fade-in, mix-blend-mode-plus-lighter;
       }
     }
   }
 
   :root:active-view-transition-type(backward) {
-    &::view-transition-old(sm-body-layout) {
+    &::view-transition-old(sm-body-layout),
+    &::view-transition-old(sm-detail-pane) {
       animation-name: slide-out-to-right, fade-out, mix-blend-mode-plus-lighter;
       animation-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
       animation-duration: var(--md-sys-motion-duration-short3);
     }
 
-    &::view-transition-new(sm-body-layout) {
+    &::view-transition-new(sm-body-layout),
+    &::view-transition-new(sm-detail-pane) {
       animation-name: slide-in-from-left, fade-in, mix-blend-mode-plus-lighter;
       animation-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
       animation-duration: var(--md-sys-motion-duration-medium2);
@@ -130,11 +136,13 @@
 
     /* Reverse the direction for RTL languages */
     &:dir(rtl) {
-      &::view-transition-old(sm-body-layout) {
+      &::view-transition-old(sm-body-layout),
+      &::view-transition-old(sm-detail-pane) {
         animation-name: slide-out-to-left, fade-out, mix-blend-mode-plus-lighter;
       }
 
-      &::view-transition-new(sm-body-layout) {
+      &::view-transition-new(sm-body-layout),
+      &::view-transition-new(sm-detail-pane) {
         animation-name: slide-in-from-right, fade-in, mix-blend-mode-plus-lighter;
       }
     }

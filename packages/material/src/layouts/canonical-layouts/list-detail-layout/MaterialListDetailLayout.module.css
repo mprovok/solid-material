@@ -1,8 +1,11 @@
-.list-detail-layout {
-  view-transition-name: none;
+:root:active-view-transition-type(forward),
+:root:active-view-transition-type(backward) {
+  .list-detail-layout {
+    view-transition-name: none;
 
-  /* Apply the transition to just the detail pane */
-  & > :last-child {
-    view-transition-name: sm-body-layout;
+    /* Apply the transition to just the detail pane */
+    & > :last-child {
+      view-transition-name: sm-detail-pane;
+    }
   }
 }
