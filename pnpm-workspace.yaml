@@ -46,6 +46,3 @@ catalogs:
 versioning:
   changelog:
     storage: repository
-
-minimumReleaseAgeExclude:
-  - fast-uri@3.1.4
