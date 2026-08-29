@@ -41,7 +41,7 @@ const PageComponents: Component = () => {
       <MetaProvider>
         <Title>Solid Material - Components</Title>
       </MetaProvider>
-      <MaterialListDetailLayout selected={false}>
+      <MaterialListDetailLayout selected={params.name !== undefined}>
         <MaterialPane class={styles['list-pane']}>
           <aside>
             <H1 role="label" size="large">
