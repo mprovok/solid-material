@@ -1,0 +1,36 @@
+.input,
+.output,
+.error {
+  display: flex;
+  flex-direction: row-reverse;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: end;
+  text-wrap: nowrap;
+
+  height: var(--md-user-spacing-4xl);
+
+  @media (width < 600px) or (height < 480px) {
+    height: var(--md-user-spacing-2xl);
+  }
+}
+
+.input {
+  /* Prevent the superscript (^2) from being wider than needed */
+  math {
+    display: inline-block;
+
+    msup {
+      display: inline-block;
+      vertical-align: super;
+    }
+  }
+}
+
+.output {
+  color: var(--md-ref-palette-green-60);
+}
+
+.error {
+  color: var(--md-sys-color-error-container);
+}

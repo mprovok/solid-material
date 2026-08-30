@@ -6,10 +6,11 @@ import { MaterialIcon } from '@solidmaterial/material/components/icon';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { Span } from '@solidmaterial/material/components/typography';
 import { Breakpoints } from '@solidmaterial/material/utils';
-import { For, Match, Show, Switch, createEffect, createMemo, createSignal, useContext } from 'solid-js';
+import { For, Match, Show, Switch, createEffect, createSignal, useContext } from 'solid-js';
 
 import { ExpandContext, VibrateContext } from '../contexts';
 
+import type { DisplayVariant } from './components/Display';
 import type { Token } from './tokenizer/types';
 
 import {
@@ -20,6 +21,7 @@ import {
   SIZE
 } from './Calculator.types';
 import { CalculatorButton } from './CalculatorButton';
+import { Display } from './components/Display';
 import { evaluate } from './evaluate/evaluate';
 import { FixedWidthDigit } from './FixedWidthDigit';
 import { parse } from './parser/parser';
@@ -145,31 +147,24 @@ export const Calculator: VoidComponent = () => {
     return input().length > 0 ? 'Input' : 'Input empty';
   };
 
-  const displayFontSize = createMemo(() => (isMobile() ? 'medium' : 'large'));
+  const displayVariant = (): DisplayVariant => {
+    if (error() !== undefined) {
+      return 'error';
+    } else if (output() !== undefined) {
+      return 'output';
+    }
+    return 'input';
+  };
 
   return (
     <CalculatorExecuteActionContext.Provider value={processButton}>
       <div class={styles['container']}>
-        <output aria-label={displayAriaLabel()}>
-          <Switch
-            fallback={
-              <Span role="display" size={displayFontSize()} class={styles['input']}>
-                <For each={input()}>{item => <>{item}</>}</For>
-              </Span>
-            }
-          >
-            <Match when={error() !== undefined}>
-              <Span role="display" size={displayFontSize()} class={styles['error']}>
-                {error()}
-              </Span>
-            </Match>
-            <Match when={output() !== undefined}>
-              <Span role="display" size={displayFontSize()} class={styles['output']}>
-                {output()}
-              </Span>
-            </Match>
+        <Display variant={displayVariant()} ariaLabel={displayAriaLabel()}>
+          <Switch fallback={<For each={input()}>{item => <>{item}</>}</For>}>
+            <Match when={error() !== undefined}>{error()}</Match>
+            <Match when={output() !== undefined}>{output()}</Match>
           </Switch>
-        </output>
+        </Display>
         <div class={styles['status-bar']}>
           <MaterialIconButton
             variant="text"
