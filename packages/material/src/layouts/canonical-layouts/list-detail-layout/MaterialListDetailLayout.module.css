@@ -1,11 +1,22 @@
 :root:active-view-transition-type(forward),
 :root:active-view-transition-type(backward) {
+  /* Causes the sliding in/out content to clipped by the pane in Chrome and Firefox */
+  &::view-transition-group(sm-detail-pane) {
+    border-radius: var(--md-comp-pane-container-shape);
+    contain: paint;
+  }
+
   .list-detail-layout {
     view-transition-name: none;
 
-    /* Apply the transition to just the detail pane */
-    & > :last-child {
+    /* Apply the transition to just the detail pane (when 2 panes are visible) */
+    & > :last-child sm-pane > * {
       view-transition-name: sm-detail-pane;
+      height: 100%;
+
+      /* Needed for WebKit */
+      border-radius: var(--md-comp-pane-container-shape);
+      contain: paint;
     }
   }
 }
