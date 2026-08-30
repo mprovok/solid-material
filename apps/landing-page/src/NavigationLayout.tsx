@@ -16,6 +16,11 @@ import LibraryBooksFillIcon from '@solidmaterial/icons/400/outlined/library_book
 import LibraryBooksIcon from '@solidmaterial/icons/400/outlined/library_books.svg';
 import StartIcon from '@solidmaterial/icons/400/outlined/start.svg';
 
+const getStorybookBaseURL = () => {
+  const isDev = import.meta.env.MODE === 'development';
+  return isDev ? `http://${globalThis.location.hostname}:6006` : `${globalThis.location.origin}/storybook`;
+};
+
 export const NavigationLayout: FlowComponent = props => {
   const items: MaterialNavigationItemType[] = [
     {
@@ -50,7 +55,7 @@ export const NavigationLayout: FlowComponent = props => {
       label: 'Storybook',
       icon: LibraryBooksIcon,
       activeIcon: LibraryBooksFillIcon,
-      href: '/storybook/',
+      href: getStorybookBaseURL(),
       target: '_blank'
     },
     {
