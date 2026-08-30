@@ -64,60 +64,58 @@ export const TodoList: VoidComponent<ExampleProps> = props => {
   };
 
   return (
-    <>
+    <div class={styles['container']}>
       <MaterialAppBar
         variant={isMobile() ? 'small' : 'large'}
         title={props.data.label}
         leadingButtonAriaLabel="Go back to list"
         onNavigate={navigateBackToList}
       />
-      <main>
-        <div class={styles['container']}>
-          <form action="" method="dialog" onSubmit={onSubmit} class={styles['form']}>
-            <MaterialTextField variant="filled" required name="text" placeholder="Todo" />
-            <MaterialButton variant="tonal" size="medium" type="submit" icon={<AddIcon />}>
-              Add Todo
-            </MaterialButton>
-          </form>
-          <Show when={todos.length > 0}>
-            <section class={styles['list']}>
-              <MaterialList segmented={true}>
-                <For each={todos}>
-                  {todo => {
-                    return (
-                      <MaterialListItem
-                        start={
-                          <MaterialCheckbox
-                            inert={true}
-                            checked={todo.completed}
-                            ariaLabel={`Item '${todo.text}' is ${todo.completed ? 'completed' : 'not completed'}`}
-                          />
-                        }
-                        end={
-                          <MaterialIconButton
-                            variant="text"
-                            icon={<DeleteIcon />}
-                            title="Remove"
-                            onClick={(event: PointerEvent) => removeTodo(event, todo.id)}
-                          />
-                        }
-                        ariaLabel={todo.text}
-                        onClick={() => toggleTodo(todo.id)}
-                      >
-                        <span classList={{ [styles['completed']!]: todo.completed }}>{todo.text}</span>
-                      </MaterialListItem>
-                    );
-                  }}
-                </For>
-              </MaterialList>
-              <Span role="body" size="medium" class={styles['summary']}>
-                {`${todos.filter(t => t.completed).length} out of ${todos.length} completed`}
-              </Span>
-            </section>
-          </Show>
-        </div>
+      <main class={styles['main']}>
+        <form action="" method="dialog" onSubmit={onSubmit} class={styles['form']}>
+          <MaterialTextField variant="filled" required name="text" placeholder="Todo" />
+          <MaterialButton variant="tonal" size="medium" type="submit" icon={<AddIcon />}>
+            Add Todo
+          </MaterialButton>
+        </form>
+        <Show when={todos.length > 0}>
+          <section class={styles['list']}>
+            <MaterialList segmented={true}>
+              <For each={todos}>
+                {todo => {
+                  return (
+                    <MaterialListItem
+                      start={
+                        <MaterialCheckbox
+                          inert={true}
+                          checked={todo.completed}
+                          ariaLabel={`Item '${todo.text}' is ${todo.completed ? 'completed' : 'not completed'}`}
+                        />
+                      }
+                      end={
+                        <MaterialIconButton
+                          variant="text"
+                          icon={<DeleteIcon />}
+                          title="Remove"
+                          onClick={(event: PointerEvent) => removeTodo(event, todo.id)}
+                        />
+                      }
+                      ariaLabel={todo.text}
+                      onClick={() => toggleTodo(todo.id)}
+                    >
+                      <span classList={{ [styles['completed']!]: todo.completed }}>{todo.text}</span>
+                    </MaterialListItem>
+                  );
+                }}
+              </For>
+            </MaterialList>
+            <Span role="body" size="medium" class={styles['summary']}>
+              {`${todos.filter(t => t.completed).length} out of ${todos.length} completed`}
+            </Span>
+          </section>
+        </Show>
       </main>
-    </>
+    </div>
   );
 };
 

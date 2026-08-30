@@ -1,4 +1,10 @@
 .container {
+  height: 100%;
+
+  --md-comp-app-bar-container-color: transparent;
+}
+
+.main {
   display: flex;
   flex-direction: column;
   gap: var(--md-user-spacing-md);
