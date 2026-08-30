@@ -15,7 +15,7 @@ const Wrapper: FlowComponent = props => {
 };
 
 describe('TodoList', () => {
-  test('it will render an text input and a button', () => {
+  test('it will render a text input and a button', () => {
     const { getByPlaceholderText, getByText } = render(() => <TodoList data={TodoListExampleItem} />, {
       wrapper: Wrapper
     });
@@ -25,9 +25,11 @@ describe('TodoList', () => {
   });
 
   test('it will add a new todo', async () => {
-    const { getByPlaceholderText, getByText } = render(() => <TodoList data={TodoListExampleItem} />, {
+    const { getByPlaceholderText, getByText, queryByRole } = render(() => <TodoList data={TodoListExampleItem} />, {
       wrapper: Wrapper
     });
+
+    expect(queryByRole('listitem')).toBeNull();
 
     const input = getByPlaceholderText('Todo') as HTMLInputElement;
     input.value = 'test new todo';
@@ -37,6 +39,30 @@ describe('TodoList', () => {
 
     expect(input.value).toBe('');
     expect(getByText(/test new todo/)).toBeInTheDocument();
+  });
+
+  test('it will remove a new todo', async () => {
+    const { getByPlaceholderText, getByText, getByRole, findByRole, queryByRole } = render(
+      () => <TodoList data={TodoListExampleItem} />,
+      {
+        wrapper: Wrapper
+      }
+    );
+
+    const input = getByPlaceholderText('Todo') as HTMLInputElement;
+    input.value = 'test new todo';
+
+    const button = getByText('Add Todo');
+    fireEvent.click(button);
+
+    // Wait for item to be added to the DOM
+    const item = await findByRole('listitem');
+    expect(item).toBeInTheDocument();
+
+    const removeButton = getByRole('button', { name: 'Remove' });
+    fireEvent.click(removeButton);
+
+    expect(queryByRole('listitem')).toBeNull();
   });
 
   test('it will mark a todo as completed', async () => {
