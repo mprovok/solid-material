@@ -16,8 +16,4 @@
   sm-body-layout {
     height: 100dvh;
   }
-
-  main {
-    height: calc(100% - 64px);
-  }
 }

@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js';
 
-import { Superscript } from '../Superscript';
+import { Superscript } from '../components/Superscript';
 
 import type { Constant, Operator, Token, TokenType } from './types';
 

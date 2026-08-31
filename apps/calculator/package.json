@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fontsource/google-sans-flex": "5.2.3",
+    "@solid-primitives/media": "2.3.6",
     "@solid-primitives/storage": "4.4.0",
     "@solidjs/meta": "catalog:solid",
     "@solidjs/router": "catalog:solid",

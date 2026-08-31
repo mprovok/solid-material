@@ -1,0 +1,14 @@
+.mode-button-row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--md-comp-button-group-standard-size-medium-gap);
+
+  & > * {
+    flex-grow: 1;
+    display: grid;
+  }
+
+  & > :first-child {
+    max-width: var(--digit-button-width);
+  }
+}

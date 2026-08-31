@@ -1,0 +1,5 @@
+@media (orientation: landscape) {
+  .expand-button {
+    rotate: 90deg;
+  }
+}

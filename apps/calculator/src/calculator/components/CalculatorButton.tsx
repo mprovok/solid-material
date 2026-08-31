@@ -3,9 +3,10 @@ import type { FlowComponent } from 'solid-js';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { useContext } from 'solid-js';
 
-import type { CalculatorAction } from './Calculator.types';
+import type { CalculatorAction } from '../Calculator.types';
 
-import { CalculatorExecuteActionContext, SIZE } from './Calculator.types';
+import { CalculatorExecuteActionContext, SIZE } from '../Calculator.types';
+
 import { FixedWidthDigit } from './FixedWidthDigit';
 
 export interface CalculatorButtonProps {

@@ -33,13 +33,6 @@
   width: 100%;
   container-type: size;
 
-  --columns: 4;
-  --rows: 5;
-
-  &[data-expanded] {
-    --rows: 8;
-  }
-
   sm-button-group > div {
     flex-grow: 1;
     display: grid;
@@ -61,77 +54,141 @@
   --md-comp-button-medium-container-height: var(--digit-button-height);
 }
 
-.scientific-buttons {
-  transition-property: opacity;
-  transition-duration: var(--md-sys-motion-duration-spatial-fast);
-  transition-timing-function: var(--md-sys-motion-spring-spatial-fast);
+@media (orientation: portrait) {
+  .buttons {
+    --columns: 4;
+    --rows: 5;
 
-  opacity: 1;
-}
+    &[data-expanded] {
+      --rows: 8;
+    }
 
-.buttons:not([data-expanded]) .scientific-buttons {
-  --md-comp-button-medium-container-height: 0px;
-  opacity: 0;
-}
+    .scientific-buttons {
+      transition-property: opacity;
+      transition-duration: var(--md-sys-motion-duration-spatial-fast);
+      transition-timing-function: var(--md-sys-motion-spring-spatial-fast);
 
-.main-buttons {
-  /**
-   * Make sure main buttons bounce at the top instead of the bottom when
-   * collapsing the scientific buttons
-   */
-  position: absolute;
-  inset: 0;
-  top: auto;
-}
+      opacity: 1;
+    }
 
-.mode-button-row {
-  display: flex;
-  flex-direction: row;
-  gap: var(--md-comp-button-group-standard-size-medium-gap);
+    .main-buttons {
+      /**
+       * Make sure main buttons bounce at the top instead of the bottom when
+       * collapsing the scientific buttons
+       */
+      position: absolute;
+      inset: 0;
+      top: auto;
+    }
 
-  & > * {
-    flex-grow: 1;
-    display: grid;
-  }
-
-  & > :first-child {
-    max-width: var(--digit-button-width);
-
-    --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-90);
-    --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-20);
-  }
-}
-
-/* Operator buttons around the digits between AC and = */
-.scientific-buttons,
-.main-buttons :is(sm-button-group:first-child > :not(:first-child), sm-button-group:nth-child(n + 2) > :last-child) {
-  --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-90);
-  --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-30);
-}
-
-/* AC button */
-.main-buttons sm-button-group:first-child > :first-child {
-  --md-comp-button-tonal-container-color: var(--md-sys-color-tertiary-container);
-  --md-comp-button-tonal-label-color: var(--md-sys-color-on-tertiary-container);
-}
-
-/* = button */
-.main-buttons sm-button-group:last-child > :last-child {
-  --md-comp-button-tonal-container-color: var(--md-sys-color-primary-container);
-  --md-comp-button-tonal-label-color: var(--md-sys-color-on-primary-container);
-}
-
-:root[data-theme='dark'] {
-  /* Buttons "Deg" and "Inv" */
-  .mode-button-row > :first-child {
-    --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-30);
-    --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-80);
+    &:not([data-expanded]) .scientific-buttons {
+      --md-comp-button-medium-container-height: 16px;
+      opacity: 0;
+    }
   }
 
   /* Operator buttons around the digits between AC and = */
   .scientific-buttons,
   .main-buttons :is(sm-button-group:first-child > :not(:first-child), sm-button-group:nth-child(n + 2) > :last-child) {
-    --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-20);
-    --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-80);
+    --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-90);
+    --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-30);
+  }
+
+  :root[data-theme='dark'] {
+    /* Operator buttons around the digits between AC and = */
+    .scientific-buttons,
+    .main-buttons
+      :is(sm-button-group:first-child > :not(:first-child), sm-button-group:nth-child(n + 2) > :last-child) {
+      --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-20);
+      --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-80);
+    }
+  }
+
+  /* AC button */
+  :root .main-buttons sm-button-group:first-child > :first-child {
+    --md-comp-button-tonal-container-color: var(--md-sys-color-tertiary-container);
+    --md-comp-button-tonal-label-color: var(--md-sys-color-on-tertiary-container);
+  }
+
+  /* = button */
+  :root .main-buttons.main-buttons sm-button-group:last-child > :last-child {
+    --md-comp-button-tonal-container-color: var(--md-sys-color-primary-container);
+    --md-comp-button-tonal-label-color: var(--md-sys-color-on-primary-container);
+  }
+}
+
+@media (orientation: landscape) {
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    column-gap: var(--md-comp-button-group-standard-size-medium-gap);
+
+    transition-property: column-gap;
+    transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+    transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+
+    --rows: 4;
+    --columns: 8;
+
+    .main-buttons,
+    .scientific-buttons {
+      flex-grow: 1;
+    }
+
+    .scientific-buttons {
+      transition:
+        max-width var(--md-sys-motion-duration-standard-spatial-fast) var(--md-sys-motion-spring-standard-spatial-fast),
+        scale var(--md-sys-motion-duration-standard-spatial-fast) var(--md-sys-motion-spring-standard-spatial-fast),
+        opacity var(--md-sys-motion-duration-effects-fast) var(--md-sys-motion-spring-effects-fast);
+
+      transform-origin: left;
+
+      &:dir(rtl) {
+        transform-origin: right;
+      }
+
+      max-width: calc(var(--digit-button-width) * 3 + 2 * var(--md-comp-button-group-standard-size-medium-gap));
+      opacity: 1;
+    }
+
+    &:not([data-expanded]) {
+      column-gap: 0;
+
+      .scientific-buttons {
+        max-width: 0;
+        scale: 0 1;
+
+        opacity: 0;
+      }
+    }
+  }
+
+  /* Operator buttons to the right of the digits (except AC and =) */
+  .scientific-buttons,
+  .main-buttons sm-button-group > :nth-child(n + 4) {
+    --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-90);
+    --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-30);
+  }
+
+  :root[data-theme='dark'] {
+    /* Operator buttons around the digits between AC and = */
+    .scientific-buttons,
+    .main-buttons sm-button-group > :nth-child(n + 4) {
+      --md-comp-button-tonal-container-color: var(--md-ref-palette-blue-20);
+      --md-comp-button-tonal-label-color: var(--md-ref-palette-blue-80);
+    }
+  }
+
+  /* AC button */
+  :root .main-buttons sm-button-group:first-child > :last-child {
+    --md-comp-button-tonal-container-color: var(--md-sys-color-tertiary-container);
+    --md-comp-button-tonal-label-color: var(--md-sys-color-on-tertiary-container);
+  }
+
+  /* = button */
+  :root .main-buttons sm-button-group:last-child > :last-child {
+    --md-comp-button-tonal-container-color: var(--md-sys-color-primary-container);
+    --md-comp-button-tonal-label-color: var(--md-sys-color-on-primary-container);
   }
 }

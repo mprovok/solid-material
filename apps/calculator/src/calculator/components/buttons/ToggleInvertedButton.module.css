@@ -1,0 +1,11 @@
+.button {
+  --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-90);
+  --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-20);
+}
+
+:root[data-theme='dark'] {
+  .button {
+    --md-comp-button-tonal-container-color-unselected: var(--md-ref-palette-orange-30);
+    --md-comp-button-tonal-label-color-unselected: var(--md-ref-palette-orange-80);
+  }
+}

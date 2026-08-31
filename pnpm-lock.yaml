@@ -292,6 +292,9 @@ importers:
       '@fontsource/google-sans-flex':
         specifier: 5.2.3
         version: 5.2.3
+      '@solid-primitives/media':
+        specifier: 2.3.6
+        version: 2.3.6(solid-js@1.9.14)
       '@solid-primitives/storage':
         specifier: 4.4.0
         version: 4.4.0(solid-js@1.9.14)
