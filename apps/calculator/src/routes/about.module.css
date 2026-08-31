@@ -10,3 +10,7 @@
   width: 6rem;
   aspect-ratio: 1 / 1;
 }
+
+:root[data-theme='dark'] .logo {
+  filter: invert(1);
+}
