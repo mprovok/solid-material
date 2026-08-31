@@ -1,5 +1,18 @@
 # @solidmaterial/calculator
 
+## 1.2.0
+
+### Minor Changes
+
+- Use a distinct button layout for landscape orientation
+
+### Patch Changes
+
+- Fix visibility of logo in dark mode
+
+- Updated dependencies:
+  - @solidmaterial/material@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

@@ -24,6 +24,11 @@
     - sweet-streets-love
     - tired-seas-write
     - twelve-tigers-sit
+'@solidmaterial/calculator@1.2.0':
+  dir: apps/calculator
+  intents:
+    - salty-apes-heal
+    - silly-parts-tan
 '@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
@@ -53,6 +58,11 @@
     - loud-moons-occur
     - sunny-dryers-thank
     - tricky-bushes-occur
+'@solidmaterial/landing-page@1.1.1':
+  dir: apps/landing-page
+  intents:
+    - crisp-books-eat
+    - ninety-eggs-care
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
@@ -75,6 +85,11 @@
     - odd-places-double
     - salty-bobcats-eat
     - wide-boats-enjoy
+'@solidmaterial/material@1.1.1':
+  dir: packages/material
+  intents:
+    - puny-eagles-care
+    - smooth-things-buy
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:

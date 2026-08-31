@@ -1,5 +1,13 @@
 # @solidmaterial/material
 
+## 1.1.1
+
+### Patch Changes
+
+- Fix top-level transition from list-detail layout
+
+- Apply transition to content of detail pane, not the pane itself
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @solidmaterial/landing-page
 
+## 1.1.1
+
+### Patch Changes
+
+- Fix Storybook URL in development build
+
+- Reduce the required minimum width of calculator to properly be displayed in small detail panes
+
+- Updated dependencies:
+  - @solidmaterial/material@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
