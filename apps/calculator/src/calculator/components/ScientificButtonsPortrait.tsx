@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { MaterialButtonGroup } from '@solidmaterial/material/components/button-group';
-import { Match, Switch, createSignal } from 'solid-js';
+import { Match, Switch } from 'solid-js';
 
 import { CalculatorAction } from '../Calculator.types';
 import { ToggleDegreesButton } from '../components/buttons/ToggleDegreesButton';
@@ -14,22 +14,22 @@ import styles from './ScientificButtonsPortrait.module.css';
 
 export interface ScientificButtonsPortraitProps {
   toggleDegrees: boolean;
+  toggleInverted: boolean;
   onClickDegrees: () => void;
+  onClickInverted: () => void;
 }
 
 export const ScientificButtonsPortrait: VoidComponent<ScientificButtonsPortraitProps> = props => {
-  const [isInverted, setInverted] = createSignal(false);
-
   return (
     <>
       <MaterialButtonGroup variant="standard">
         <Switch>
-          <Match when={isInverted()}>
+          <Match when={props.toggleInverted}>
             <CalculatorButton action={CalculatorAction.SQUARE} ariaLabel="Square">
               <Superscript base="x" superscript="2" />
             </CalculatorButton>
           </Match>
-          <Match when={!isInverted()}>
+          <Match when={!props.toggleInverted}>
             <CalculatorButton action={CalculatorAction.SQRT}>√</CalculatorButton>
           </Match>
         </Switch>
@@ -46,7 +46,7 @@ export const ScientificButtonsPortrait: VoidComponent<ScientificButtonsPortraitP
         <div>
           <MaterialButtonGroup variant="standard">
             <Switch>
-              <Match when={isInverted()}>
+              <Match when={props.toggleInverted}>
                 <CalculatorButton action={CalculatorAction.ARCSIN} ariaLabel="Inverse sine">
                   <Superscript base="sin" superscript="-1" />
                 </CalculatorButton>
@@ -57,7 +57,7 @@ export const ScientificButtonsPortrait: VoidComponent<ScientificButtonsPortraitP
                   <Superscript base="tan" superscript="-1" />
                 </CalculatorButton>
               </Match>
-              <Match when={!isInverted()}>
+              <Match when={!props.toggleInverted}>
                 <CalculatorButton action={CalculatorAction.SIN} ariaLabel="Sine">
                   sin
                 </CalculatorButton>
@@ -73,14 +73,14 @@ export const ScientificButtonsPortrait: VoidComponent<ScientificButtonsPortraitP
         </div>
       </div>
       <div class={styles['mode-button-row']}>
-        <ToggleInvertedButton toggle={isInverted()} onClick={() => setInverted(v => !v)} />
+        <ToggleInvertedButton toggle={props.toggleInverted} onClick={props.onClickInverted} />
         <div>
           <MaterialButtonGroup variant="standard">
             <CalculatorButton action={CalculatorAction.E} ariaLabel="Euler's number">
               e
             </CalculatorButton>
             <Switch>
-              <Match when={isInverted()}>
+              <Match when={props.toggleInverted}>
                 <CalculatorButton action={CalculatorAction.EXP} ariaLabel="Euler's number raised to a power">
                   <Superscript base="e" superscript="x" />
                 </CalculatorButton>
@@ -88,7 +88,7 @@ export const ScientificButtonsPortrait: VoidComponent<ScientificButtonsPortraitP
                   <Superscript base="10" superscript="x" />
                 </CalculatorButton>
               </Match>
-              <Match when={!isInverted()}>
+              <Match when={!props.toggleInverted}>
                 <CalculatorButton action={CalculatorAction.LN} ariaLabel="Natural logarithm">
                   ln
                 </CalculatorButton>

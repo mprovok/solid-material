@@ -40,6 +40,7 @@ export const Calculator: VoidComponent = () => {
   const [isExpanded, _setExpanded] = useContext(ExpandContext);
   const [isVibrate, _setVibrate] = useContext(VibrateContext);
 
+  const [isInverted, setInverted] = createSignal(false);
   const [isDegrees, setDegrees] = createSignal(false);
   const [hasToggledDegrees, setToggledDegrees] = createSignal(false);
 
@@ -165,7 +166,9 @@ export const Calculator: VoidComponent = () => {
           <div class={styles['scientific-buttons']} aria-hidden={!isExpanded()} inert={!isExpanded()}>
             <Dynamic
               component={isOrientationPortrait() ? ScientificButtonsPortrait : ScientificButtonsLandscape}
+              toggleInverted={isInverted()}
               toggleDegrees={isDegrees()}
+              onClickInverted={() => setInverted(v => !v)}
               onClickDegrees={() => {
                 setDegrees(v => !v);
                 setToggledDegrees(true);
