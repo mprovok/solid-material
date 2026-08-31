@@ -8,4 +8,7 @@
 
 .main {
   height: 100%;
+
+  /* Reduce the required minimum width to properly be displayed in small detail panes */
+  --md-comp-button-medium-padding: 12px;
 }
