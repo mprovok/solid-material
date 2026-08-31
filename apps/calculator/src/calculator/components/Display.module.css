@@ -1,8 +1,13 @@
+.display {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .input,
 .output,
 .error {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   overflow-x: auto;
   overflow-y: hidden;
   text-align: end;

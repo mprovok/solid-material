@@ -148,7 +148,7 @@ export const Calculator: VoidComponent = () => {
     <CalculatorExecuteActionContext.Provider value={processButton}>
       <div class={styles['container']}>
         <Display variant={displayVariant()} ariaLabel={displayAriaLabel()}>
-          <Switch fallback={<For each={input()}>{item => <>{item}</>}</For>}>
+          <Switch fallback={<For each={input()}>{item => <span>{item}</span>}</For>}>
             <Match when={error() !== undefined}>{error()}</Match>
             <Match when={output() !== undefined}>{output()}</Match>
           </Switch>

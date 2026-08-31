@@ -24,7 +24,7 @@ export const Display: FlowComponent<DisplayProps> = props => {
   const displayFontSize = createMemo(() => (isMobile() ? 'medium' : 'large'));
 
   return (
-    <output aria-label={props.ariaLabel}>
+    <output aria-label={props.ariaLabel} class={styles['display']}>
       <Span role="display" size={displayFontSize()} class={VARIANT_CLASS[props.variant]}>
         {props.children}
       </Span>
