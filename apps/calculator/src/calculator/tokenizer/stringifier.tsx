@@ -29,7 +29,7 @@ const TOKEN_STRINGIFIER: Record<TokenType, TokenStringifier> = {
   FUNCTION: (token: Token) => (isFunction(token) ? `${token.function}(` : ''),
   CONSTANT: (token: Token) => (isConstant(token) ? CONSTANTS[token.constant] : ''),
   SQRT: (_token: Token) => '√',
-  SQUARE: (_token: Token) => <Superscript base="" superscript="2" />,
+  SQUARE: (_token: Token) => <Superscript superscript="2" />,
   PARENTHESIS_OPEN: (_token: Token) => '(',
   PARENTHESIS_CLOSE: (_token: Token) => ')',
   FACTORIAL: (_token: Token) => '!',

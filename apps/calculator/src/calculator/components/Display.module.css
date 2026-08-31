@@ -1,22 +1,81 @@
 .display {
   display: flex;
   flex-direction: row-reverse;
+  align-items: end;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Needed when bottom of text box is trimmed in browsers which support text-box-* */
+  padding-bottom: 2px;
+
+  /* Mobile */
+  @media (width < 600px) or (height < 480px) {
+    @media (orientation: portrait) {
+      height: 10rem;
+
+      --digit-max-size: 5rem;
+      --digit-min-size: 2.5rem;
+
+      --display-max-ch: 15;
+      --display-min-ch: 6;
+    }
+
+    @media (orientation: landscape) {
+      height: 4rem;
+
+      --digit-max-size: 3rem;
+      --digit-min-size: 2rem;
+
+      --display-max-ch: 34;
+      --display-min-ch: 24;
+    }
+  }
+
+  /* Tablets and desktop */
+  @media (width >= 600px) and (height >= 480px) {
+    @media (orientation: portrait) {
+      height: 10rem;
+
+      --digit-max-size: 5rem;
+      --digit-min-size: 3.5rem;
+
+      --display-max-ch: 23;
+      --display-min-ch: 16;
+    }
+
+    @media (orientation: landscape) {
+      height: 10rem;
+
+      --digit-max-size: 5rem;
+      --digit-min-size: 3.5rem;
+
+      --display-max-ch: 30;
+      --display-min-ch: 22;
+    }
+  }
+
+  --digit-size: calc(
+    (var(--count, 1) - var(--display-min-ch)) / (var(--display-max-ch) - var(--display-min-ch)) *
+      (var(--digit-min-size) - var(--digit-max-size)) + var(--digit-max-size)
+  );
+
+  --md-sys-typescale-display-medium-size: clamp(var(--digit-min-size), var(--digit-size), var(--digit-max-size));
+  --md-sys-typescale-display-medium-line-height: var(--md-sys-typescale-display-medium-size);
 }
 
 .input,
 .output,
 .error {
+  height: fit-content;
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  overflow-y: hidden;
+  flex-direction: row-reverse;
   text-align: end;
   text-wrap: nowrap;
 
-  height: var(--md-user-spacing-4xl);
-
-  @media (width < 600px) or (height < 480px) {
-    height: var(--md-user-spacing-2xl);
+  & > span {
+    text-box-trim: trim-end;
+    text-box-edge: cap alphabetic;
   }
 }
 

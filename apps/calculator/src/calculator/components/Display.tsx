@@ -1,8 +1,7 @@
 import type { FlowComponent } from 'solid-js';
 
 import { Span } from '@solidmaterial/material/components/typography';
-import { Breakpoints } from '@solidmaterial/material/utils';
-import { createMemo } from 'solid-js';
+import { For, children } from 'solid-js';
 
 import styles from './Display.module.css';
 
@@ -20,13 +19,19 @@ const VARIANT_CLASS: Record<DisplayVariant, string> = {
 };
 
 export const Display: FlowComponent<DisplayProps> = props => {
-  const isMobile = () => Breakpoints.isCompactWidth() || Breakpoints.isCompactHeight();
-  const displayFontSize = createMemo(() => (isMobile() ? 'medium' : 'large'));
+  const digits = children(() => props.children);
+
+  const count = () =>
+    digits
+      .toArray()
+      .filter(digit => digit !== undefined)
+      .map(digit => (typeof digit === 'string' ? digit.length : 1))
+      .reduce((a, b) => a + b, 0);
 
   return (
-    <output aria-label={props.ariaLabel} class={styles['display']}>
-      <Span role="display" size={displayFontSize()} class={VARIANT_CLASS[props.variant]}>
-        {props.children}
+    <output aria-label={props.ariaLabel} class={styles['display']} style={{ '--count': count() }}>
+      <Span role="display" size="medium" class={VARIANT_CLASS[props.variant]}>
+        <For each={digits.toArray().toReversed()}>{item => <span>{item}</span>}</For>
       </Span>
     </output>
   );

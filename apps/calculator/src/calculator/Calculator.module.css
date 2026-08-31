@@ -8,10 +8,6 @@
 
   display: grid;
   grid-template-rows: min-content min-content auto;
-
-  & > output {
-    overflow-x: auto;
-  }
 }
 
 .status-bar {

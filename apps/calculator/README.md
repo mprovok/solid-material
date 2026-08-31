@@ -11,7 +11,6 @@ It tries to imitate the basic calculator app found in Android, but with a few di
 It is missing the following features:
 
 - Automatic insertion of the thousands separator
-- Automatic font size adjustment of input
 - Horizontal scrolling of input and output
 - Cursor
 - Cut/copy/paste and MS/MR/M+/M- functionality

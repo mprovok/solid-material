@@ -8,4 +8,9 @@
   mn {
     font-family: var(--md-ref-typeface-brand, Roboto);
   }
+
+  mn {
+    /* Slightly lower the exponent */
+    margin-top: 4px;
+  }
 }

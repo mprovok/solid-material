@@ -2,7 +2,7 @@ import type { JSX, VoidComponent } from 'solid-js';
 
 import { createMediaQuery } from '@solid-primitives/media';
 import { Span } from '@solidmaterial/material/components/typography';
-import { For, Match, Show, Switch, createEffect, createSignal, useContext } from 'solid-js';
+import { Match, Show, Switch, createEffect, createSignal, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import { ExpandContext, VibrateContext } from '../contexts';
@@ -148,7 +148,7 @@ export const Calculator: VoidComponent = () => {
     <CalculatorExecuteActionContext.Provider value={processButton}>
       <div class={styles['container']}>
         <Display variant={displayVariant()} ariaLabel={displayAriaLabel()}>
-          <Switch fallback={<For each={input()}>{item => <span>{item}</span>}</For>}>
+          <Switch fallback={input()}>
             <Match when={error() !== undefined}>{error()}</Match>
             <Match when={output() !== undefined}>{output()}</Match>
           </Switch>
