@@ -1,9 +1,10 @@
 import type { MdTabs } from '@material/web/tabs/tabs';
 
 import '@material/web/tabs/tabs.js';
-import type { Accessor, JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { Accessor, VoidComponent } from 'solid-js';
 
-import { Index, Show, createEffect, createSignal, createUniqueId } from 'solid-js';
+import { For, Show, createSignal, createUniqueId } from 'solid-js';
 
 import type { MaterialTabVariant } from './MaterialTab';
 
@@ -36,11 +37,7 @@ const isMdTabsTarget = (target: EventTarget): target is MdTabs => {
 };
 
 export const MaterialTabs: VoidComponent<MaterialTabsProps> = props => {
-  const [activeTabIndex, setActiveTabIndex] = createSignal(props.activeTabIndex ?? 0);
-
-  createEffect(() => {
-    setActiveTabIndex(props.activeTabIndex ?? 0);
-  });
+  const [activeTabIndex, setActiveTabIndex] = createSignal(() => props.activeTabIndex ?? 0);
 
   const id = createUniqueId();
 
@@ -57,12 +54,12 @@ export const MaterialTabs: VoidComponent<MaterialTabsProps> = props => {
   return (
     <div>
       <md-tabs
-        bool:auto-activate={props.autoActivate}
-        attr:active-tab-index={activeTabIndex()}
-        attr:aria-label={props.ariaLabel}
+        auto-activate={props.autoActivate}
+        active-tab-index={activeTabIndex()}
+        aria-label={props.ariaLabel}
         onChange={onChange}
       >
-        <Index each={props.tabs}>
+        <For each={props.tabs} keyed={false}>
           {(tab, index) => (
             <MaterialTab
               variant={props.variant}
@@ -75,12 +72,12 @@ export const MaterialTabs: VoidComponent<MaterialTabsProps> = props => {
               {tab().label}
             </MaterialTab>
           )}
-        </Index>
+        </For>
         <Show when={props.alignment === 'start'}>
           <div style={{ flex: '100%' }}></div>
         </Show>
       </md-tabs>
-      <Index each={props.tabs}>
+      <For each={props.tabs} keyed={false}>
         {(tab, index) => (
           <div
             role="tabpanel"
@@ -91,7 +88,7 @@ export const MaterialTabs: VoidComponent<MaterialTabsProps> = props => {
             <Show when={index === activeTabIndex()}>{tab().panel()}</Show>
           </div>
         )}
-      </Index>
+      </For>
     </div>
   );
 };

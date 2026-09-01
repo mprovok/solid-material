@@ -1,7 +1,7 @@
 import type { Context, FlowComponent } from 'solid-js';
 
 import { createMutationObserver } from '@solid-primitives/mutation-observer';
-import { createContext, createSignal, onCleanup } from 'solid-js';
+import { createContext, createSignal, onSettled } from 'solid-js';
 
 export const MaterialSkeletonIndexContext: Context<{
   add: (target: Element) => void;
@@ -51,13 +51,9 @@ export const MaterialSkeletonManager: FlowComponent = props => {
     return skeletons().indexOf(target);
   };
 
-  onCleanup(() => {
-    stop();
+  onSettled(() => {
+    return () => stop();
   });
 
-  return (
-    <MaterialSkeletonIndexContext.Provider value={{ add, remove, index }}>
-      {props.children}
-    </MaterialSkeletonIndexContext.Provider>
-  );
+  return <MaterialSkeletonIndexContext value={{ add, remove, index }}>{props.children}</MaterialSkeletonIndexContext>;
 };

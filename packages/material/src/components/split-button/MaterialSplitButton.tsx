@@ -1,6 +1,7 @@
-import type { JSX, ParentComponent, Ref } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { ParentComponent, Ref } from 'solid-js';
 
-import { splitProps } from 'solid-js';
+import { omit } from 'solid-js';
 
 import type { MaterialButtonSize } from '../button/MaterialButton';
 
@@ -32,31 +33,38 @@ export interface MaterialSplitButtonProps {
 }
 
 export const MaterialSplitButton: ParentComponent<MaterialSplitButtonProps> = props => {
-  const [openProps, sharedProps, menuProps, otherProps] = splitProps(
+  const otherProps = omit(
     props,
-    ['open', 'onToggle'],
-    ['variant', 'size', 'disabled'],
-    ['menuButtonRef', 'menuButtonAriaLabel', 'menuButtonTitle']
+    'open',
+    'onToggle',
+    'variant',
+    'size',
+    'disabled',
+    'menuButtonRef',
+    'menuButtonAriaLabel',
+    'menuButtonTitle'
   );
 
   const onClickArrowButton = () => {
-    openProps.onToggle(!openProps.open);
+    props.onToggle(!props.open);
   };
 
   return (
-    <sm-split-button attr:data-variant={sharedProps.variant} class={styles['button']}>
-      <MaterialButton {...sharedProps} {...otherProps} shape="round">
+    <sm-split-button data-variant={props.variant} class={styles['button']}>
+      <MaterialButton variant={props.variant} size={props.size} disabled={props.disabled} {...otherProps} shape="round">
         {props.children}
       </MaterialButton>
       <MaterialIconButton
-        {...sharedProps}
-        ref={menuProps.menuButtonRef}
+        variant={props.variant}
+        size={props.size}
+        disabled={props.disabled}
+        ref={props.menuButtonRef}
         icon={<ChevronRightIcon />}
         shape="square"
-        toggle={openProps.open}
-        title={menuProps.menuButtonTitle}
-        ariaLabel={menuProps.menuButtonAriaLabel}
-        ariaExpanded={openProps.open}
+        toggle={props.open}
+        title={props.menuButtonTitle}
+        ariaLabel={props.menuButtonAriaLabel}
+        ariaExpanded={props.open}
         onClick={onClickArrowButton}
       />
     </sm-split-button>

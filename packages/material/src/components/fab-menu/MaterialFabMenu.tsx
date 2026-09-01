@@ -1,6 +1,7 @@
-import type { JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { VoidComponent } from 'solid-js';
 
-import { For, Show, createSignal, splitProps } from 'solid-js';
+import { For, Show, createSignal, omit } from 'solid-js';
 
 import type { MaterialFabColor, MaterialFabSize } from '../fab/MaterialFab';
 
@@ -33,7 +34,7 @@ export interface MaterialFabMenuProps {
 }
 
 export const MaterialFabMenu: VoidComponent<MaterialFabMenuProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['items', 'icon', 'ariaLabel', 'closeButtonAriaLabel']);
+  const otherProps = omit(props, 'items', 'icon', 'ariaLabel', 'closeButtonAriaLabel');
 
   const [isOpen, setOpen] = createSignal(false);
 
@@ -43,13 +44,13 @@ export const MaterialFabMenu: VoidComponent<MaterialFabMenuProps> = props => {
 
   return (
     <sm-fab-menu class={styles['fab-menu']}>
-      <div bool:data-open={isOpen()} class={styles['fab']}>
+      <div data-open={isOpen()} class={styles['fab']}>
         <MaterialFab
           {...otherProps}
-          icon={isOpen() ? <CloseIcon /> : localProps.icon}
+          icon={isOpen() ? <CloseIcon /> : props.icon}
           iconOnly={true}
           shape={isOpen() ? 'round' : 'square'}
-          ariaLabel={isOpen() ? localProps.closeButtonAriaLabel : localProps.ariaLabel}
+          ariaLabel={isOpen() ? props.closeButtonAriaLabel : props.ariaLabel}
           ariaExpanded={isOpen()}
           onClick={onClickFab}
         />
@@ -57,7 +58,7 @@ export const MaterialFabMenu: VoidComponent<MaterialFabMenuProps> = props => {
       <Transition>
         <Show when={isOpen()}>
           <div role="menu" class={styles['menu']}>
-            <For each={localProps.items}>
+            <For each={props.items}>
               {item => (
                 <div role="menuitem" class={styles['item']}>
                   <MaterialButton

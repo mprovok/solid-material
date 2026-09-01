@@ -25,32 +25,38 @@ export const MaterialMenu: FlowComponent<MaterialMenuProps> = props => {
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLElement;
 
-  createEffect(() => {
-    if (ref !== null && 'anchorElement' in ref) {
-      ref.anchorElement = props.anchor;
+  createEffect(
+    () => props.anchor,
+    anchor => {
+      if (ref !== null && 'anchorElement' in ref) {
+        ref.anchorElement = anchor;
+      }
     }
-  });
+  );
 
-  createEffect(() => {
-    if (ref !== null && 'open' in ref) {
-      ref.open = props.open;
+  createEffect(
+    () => props.open,
+    open => {
+      if (ref !== null && 'open' in ref) {
+        ref.open = open;
+      }
     }
-  });
+  );
 
   const prefersReducedMotion = createMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <md-menu
       ref={ref}
-      attr:positioning="popover"
-      attr:anchor-corner={Array.isArray(props.placement) ? getAnchorCorner(...props.placement) : undefined}
-      attr:menu-corner={Array.isArray(props.placement) ? getMenuCorner(...props.placement) : undefined}
-      bool:quick={prefersReducedMotion()}
-      bool:stay-open-on-outside-click={props.stayOpenOnOutsideClick}
-      bool:stay-open-on-focusout={props.stayOpenOnFocusout}
-      attr:x-offset={Array.isArray(props.offset) ? props.offset[0] : undefined}
-      attr:y-offset={Array.isArray(props.offset) ? props.offset[1] : undefined}
-      attr:aria-label={props.ariaLabel}
+      positioning="popover"
+      anchor-corner={Array.isArray(props.placement) ? getAnchorCorner(...props.placement) : undefined}
+      menu-corner={Array.isArray(props.placement) ? getMenuCorner(...props.placement) : undefined}
+      quick={prefersReducedMotion()}
+      stay-open-on-outside-click={props.stayOpenOnOutsideClick}
+      stay-open-on-focusout={props.stayOpenOnFocusout}
+      x-offset={Array.isArray(props.offset) ? props.offset[0] : undefined}
+      y-offset={Array.isArray(props.offset) ? props.offset[1] : undefined}
+      aria-label={props.ariaLabel}
       onClosed={(event: Event) => props.onClose?.(event)}
     >
       {props.children}

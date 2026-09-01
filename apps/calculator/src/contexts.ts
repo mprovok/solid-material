@@ -1,11 +1,9 @@
+import type { ThemeColorMode } from '@solidmaterial/material/styling';
 import type { Context, Signal } from 'solid-js';
 
-import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { createContext, createSignal } from 'solid-js';
 
-export const ThemeColorModeContext: Context<Signal<ThemeColorMode>> = createContext(
-  createSignal(ThemeColorMode.SYSTEM)
-);
+export const ThemeColorModeContext: Context<Signal<ThemeColorMode>> = createContext();
 
 export const ThemeBlackContext: Context<Signal<boolean>> = createContext(createSignal(false));
 

@@ -1,7 +1,7 @@
 import type { FlowComponent } from 'solid-js';
 
 import { createWindowSize } from '@solid-primitives/resize-observer';
-import { children, createMemo, createSignal } from 'solid-js';
+import { children, createMemo, createSignal, untrack } from 'solid-js';
 
 import type { TwoPaneLayoutProps } from '../../pane-layouts/pane-layout.types';
 
@@ -19,15 +19,15 @@ export const TwoPaneFixedFlexibleLayout: FlowComponent<TwoPaneLayoutProps> = pro
   const snapWidths = () => [smallSnapWidth(), spacerVisuallyCentered()];
 
   // Do not make the initial width reactive to the width of the window
-  const initialWidth = smallSnapWidth();
+  const initialWidth = untrack(() => smallSnapWidth());
 
   const [width, setWidth] = createSignal(initialWidth);
 
   const panes = children(() => props.children);
   const visiblePanesCount = createMemo(() => panes.toArray().filter(item => item !== undefined).length);
 
-  const fixedPaneWidth = () => (visiblePanesCount() > 1 ? width() : props.maximumWidth);
-  const showDragHandle = () => (visiblePanesCount() > 1 ? props.showDragHandle : false);
+  const fixedPaneWidth = createMemo(() => (visiblePanesCount() > 1 ? width() : props.maximumWidth));
+  const showDragHandle = createMemo(() => (visiblePanesCount() > 1 ? props.showDragHandle : false));
 
   const onMoveSpacer = (position: number, range: [number, number]) => {
     setWidth(position);

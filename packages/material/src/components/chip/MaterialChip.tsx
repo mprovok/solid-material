@@ -2,10 +2,11 @@ import '@material/web/chips/assist-chip.js';
 import '@material/web/chips/filter-chip.js';
 import '@material/web/chips/input-chip.js';
 import '@material/web/chips/suggestion-chip.js';
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
-import { Match, Show, Switch, createEffect, createSignal } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic } from '@solidjs/web';
+import { Match, Show, Switch, createSignal } from 'solid-js';
 
 import { MaterialIcon } from '../icon/MaterialIcon';
 
@@ -84,13 +85,13 @@ const MaterialAssistChip: FlowComponent<MaterialAssistChipProps> = props => {
 
   return (
     <md-assist-chip
-      attr:aria-label={props.ariaLabel}
-      bool:disabled={props.disabled}
-      bool:always-focusable={props.alwaysFocusable}
-      bool:has-icon={hasIcon()}
-      bool:elevated={props.elevated}
-      attr:href={props.href}
-      attr:target={props.target}
+      aria-label={props.ariaLabel}
+      disabled={props.disabled}
+      always-focusable={props.alwaysFocusable}
+      has-icon={hasIcon()}
+      elevated={props.elevated}
+      href={props.href}
+      target={props.target}
       on:update-focus={(event: Event) => props.onUpdateFocus?.(event)}
       onClick={(event: PointerEvent) => props.onClick?.(event)}
     >
@@ -108,11 +109,7 @@ const MaterialAssistChip: FlowComponent<MaterialAssistChipProps> = props => {
  * Can be used as an alternative to toggle buttons and checkboxes.
  */
 const MaterialFilterChip: FlowComponent<MaterialFilterChipProps> = props => {
-  const [isSelected, setIsSelected] = createSignal(Boolean(props.selected));
-
-  createEffect(() => {
-    setIsSelected(Boolean(props.selected));
-  });
+  const [isSelected, setIsSelected] = createSignal(() => Boolean(props.selected));
 
   const hasIcon = () => props.icon !== undefined && !isSelected();
   const hasSelectedIcon = () => props.selectedIcon !== undefined && isSelected();
@@ -124,14 +121,14 @@ const MaterialFilterChip: FlowComponent<MaterialFilterChipProps> = props => {
 
   return (
     <md-filter-chip
-      attr:aria-label={props.ariaLabel}
-      bool:disabled={props.disabled}
-      bool:always-focusable={props.alwaysFocusable}
-      bool:has-icon={hasIcon()}
-      bool:selected={isSelected()}
-      bool:has-selected-icon={hasSelectedIcon()}
-      bool:elevated={props.elevated}
-      bool:removable={props.onRemove !== undefined}
+      aria-label={props.ariaLabel}
+      disabled={props.disabled}
+      always-focusable={props.alwaysFocusable}
+      has-icon={hasIcon()}
+      selected={isSelected()}
+      has-selected-icon={hasSelectedIcon()}
+      elevated={props.elevated}
+      removable={props.onRemove !== undefined}
       on:remove={(event: Event) => props.onRemove?.(event)}
       onClick={onClick}
     >
@@ -156,15 +153,15 @@ const MaterialInputChip: FlowComponent<MaterialInputChipProps> = props => {
 
   return (
     <md-input-chip
-      attr:aria-label={props.ariaLabel}
-      bool:disabled={props.disabled}
-      bool:always-focusable={props.alwaysFocusable}
-      bool:has-icon={hasIcon()}
-      bool:selected={props.selected}
-      bool:avatar={props.avatar}
-      bool:remove-only={props.removeOnly}
-      attr:href={props.href}
-      attr:target={props.target}
+      aria-label={props.ariaLabel}
+      disabled={props.disabled}
+      always-focusable={props.alwaysFocusable}
+      has-icon={hasIcon()}
+      selected={props.selected}
+      avatar={props.avatar}
+      remove-only={props.removeOnly}
+      href={props.href}
+      target={props.target}
       on:remove={(event: Event) => props.onRemove?.(event)}
       onClick={(event: PointerEvent) => props.removeOnly !== true && props.onClick?.(event)}
     >
@@ -184,13 +181,13 @@ const MaterialSuggestionChip: FlowComponent<MaterialSuggestionChipProps> = props
 
   return (
     <md-suggestion-chip
-      attr:aria-label={props.ariaLabel}
-      bool:disabled={props.disabled}
-      bool:always-focusable={props.alwaysFocusable}
-      bool:has-icon={hasIcon()}
-      bool:elevated={props.elevated}
-      attr:href={props.href}
-      attr:target={props.target}
+      aria-label={props.ariaLabel}
+      disabled={props.disabled}
+      always-focusable={props.alwaysFocusable}
+      has-icon={hasIcon()}
+      elevated={props.elevated}
+      href={props.href}
+      target={props.target}
       onClick={(event: PointerEvent) => props.onClick?.(event)}
     >
       {props.children}

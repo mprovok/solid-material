@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { Index, Show, createMemo } from 'solid-js';
+import { For, Show, createMemo } from 'solid-js';
 
 import type { MaterialNavigationItemType } from '../navigation-item/MaterialNavigationItem';
 
@@ -76,13 +76,13 @@ export const MaterialNavigationRail: VoidComponent<MaterialNavigationRailProps> 
       role="navigation"
       aria-label={props.ariaLabel}
       class={styles['container']}
-      bool:data-modal={isModal()}
-      bool:data-center={isCenter()}
-      bool:data-always-expanded={isHiddenWhenCollapsed()}
-      bool:data-show={isExpanded() && isHiddenWhenCollapsed()}
+      data-modal={isModal()}
+      data-center={isCenter()}
+      data-always-expanded={isHiddenWhenCollapsed()}
+      data-show={isExpanded() && isHiddenWhenCollapsed()}
     >
       <div class={styles['rail-container']}>
-        <div class={styles['rail']} bool:data-expanded={isVisuallyExpanded()}>
+        <div class={styles['rail']} data-expanded={isVisuallyExpanded()}>
           <md-elevation></md-elevation>
           <div class={styles['menu-fab']}>
             <Show when={hasMenuButton()}>
@@ -105,16 +105,16 @@ export const MaterialNavigationRail: VoidComponent<MaterialNavigationRailProps> 
               class={styles['items']}
               onKeyDown={onKeyDown}
             >
-              <Index each={props.items}>
+              <For each={props.items} keyed={false}>
                 {item => <MaterialNavigationItem {...item()} expanded={isVisuallyExpanded()} />}
-              </Index>
+              </For>
               <Show when={props.secondary}>
                 {nonNullishSecondary => (
                   <Show when={nonNullishSecondary().items.length > 0}>
                     <Span role="label" size="large" class={styles['secondary-header']}>
                       {nonNullishSecondary().label}
                     </Span>
-                    <Index each={nonNullishSecondary().items}>
+                    <For each={nonNullishSecondary().items} keyed={false}>
                       {item => (
                         <MaterialNavigationItem
                           {...item()}
@@ -122,7 +122,7 @@ export const MaterialNavigationRail: VoidComponent<MaterialNavigationRailProps> 
                           disabled={!isVisuallyExpanded() || item().disabled}
                         />
                       )}
-                    </Index>
+                    </For>
                   </Show>
                 )}
               </Show>

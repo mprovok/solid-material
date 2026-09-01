@@ -1,8 +1,6 @@
-import type { Context } from 'solid-js';
-import type { SetStoreFunction } from 'solid-js/store';
+import type { StoreSetter } from 'solid-js';
 
-import { createContext, useContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
+import { createStore } from 'solid-js';
 
 export type MaterialSnackDuration = 'short' | 'long' | 'indefinite';
 
@@ -16,10 +14,11 @@ export type MaterialSnack = {
   dismissable: boolean;
 };
 
-export const MaterialSnackbarContext: Context<[get: MaterialSnack[], set: SetStoreFunction<MaterialSnack[]>]> =
-  createContext(createStore<MaterialSnack[]>([]));
+export const snackStore: [get: MaterialSnack[], set: StoreSetter<MaterialSnack[]>] = createStore<MaterialSnack[]>([]);
 
 export const showSnack = (snack: MaterialSnack): void => {
-  const [state, setState] = useContext(MaterialSnackbarContext);
-  setState(state.length, snack);
+  const [_state, setState] = snackStore;
+  setState(draft => {
+    draft.push(snack);
+  });
 };

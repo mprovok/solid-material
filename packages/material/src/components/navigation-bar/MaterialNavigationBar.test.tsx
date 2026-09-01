@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { MemoryRouter, Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -12,11 +12,14 @@ import { MaterialNavigationBar } from './MaterialNavigationBar';
 import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
 const Wrapper: FlowComponent = props => {
+  const MemoryRouter = createRouter({
+    routes: [{ path: '/', component: () => props.children }],
+    history: memoryHistory('/')
+  });
+
   return (
     <MaterialTheme>
-      <MemoryRouter>
-        <Route path="/" component={() => props.children} />
-      </MemoryRouter>
+      <MemoryRouter>{props => <>{props.children}</>}</MemoryRouter>
     </MaterialTheme>
   );
 };

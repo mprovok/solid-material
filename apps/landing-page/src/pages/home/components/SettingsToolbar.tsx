@@ -1,12 +1,12 @@
 import type { MaterialIconSvg } from '@solidmaterial/material/components/icon';
 import type { VoidComponent } from 'solid-js';
 
+import { Dynamic } from '@solidjs/web';
 import { MaterialButtonGroup } from '@solidmaterial/material/components/button-group';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { MaterialToolbar } from '@solidmaterial/material/components/toolbar';
 import { ThemeColorMode } from '@solidmaterial/material/styling';
-import { Index, useContext } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { For, useContext } from 'solid-js';
 
 import { ThemeColorModeContext } from '../../../contexts';
 
@@ -41,7 +41,10 @@ export const SettingsToolbar: VoidComponent<SettingsToolbarProps> = props => {
   return (
     <MaterialToolbar show={props.open} direction="horizontal" mode="floating" color="vibrant">
       <MaterialButtonGroup variant="connected">
-        <Index each={[ThemeColorMode.SYSTEM, ThemeColorMode.LIGHT, ThemeColorMode.DARK] satisfies ThemeColorMode[]}>
+        <For
+          each={[ThemeColorMode.SYSTEM, ThemeColorMode.LIGHT, ThemeColorMode.DARK] satisfies ThemeColorMode[]}
+          keyed={false}
+        >
           {mode => (
             <MaterialIconButton
               variant="filled"
@@ -52,7 +55,7 @@ export const SettingsToolbar: VoidComponent<SettingsToolbarProps> = props => {
               onClick={() => setThemeColorMode(mode)}
             />
           )}
-        </Index>
+        </For>
       </MaterialButtonGroup>
       <SettingsColorButtons />
     </MaterialToolbar>

@@ -1,6 +1,6 @@
 import type { FlowComponent, VoidComponent } from 'solid-js';
 
-import { Show, onCleanup, onMount, useContext } from 'solid-js';
+import { Show, onSettled, useContext } from 'solid-js';
 
 import { Transition } from '../../utils/transitions';
 
@@ -18,12 +18,9 @@ const MaterialSkeletonLoader: VoidComponent = () => {
 
   const { add, remove, index } = useContext(MaterialSkeletonIndexContext);
 
-  onMount(() => {
+  onSettled(() => {
     add(ref);
-  });
-
-  onCleanup(() => {
-    remove(ref);
+    return () => remove(ref);
   });
 
   return <sm-skeleton ref={ref} class={styles['skeleton']} style={{ '--index': index(ref) }} />;

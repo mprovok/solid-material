@@ -3,7 +3,7 @@ import type { VoidComponent } from 'solid-js';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialButtonGroup } from '@solidmaterial/material/components/button-group';
 import { Breakpoints } from '@solidmaterial/material/utils';
-import { Index, createSignal } from 'solid-js';
+import { For, createSignal } from 'solid-js';
 
 const LABELS = ['One', 'Two', 'Three'];
 const LABELS_MOBILE = ['A', 'B', 'C'];
@@ -15,7 +15,7 @@ export const ExampleConnectedButtonGroup: VoidComponent = () => {
 
   return (
     <MaterialButtonGroup variant="connected">
-      <Index each={Array.from({ length: 3 })}>
+      <For each={Array.from({ length: 3 })} keyed={false}>
         {(_, index) => (
           <MaterialButton
             variant="tonal"
@@ -27,7 +27,7 @@ export const ExampleConnectedButtonGroup: VoidComponent = () => {
             {isMobile() ? LABELS_MOBILE[index] : LABELS[index]}
           </MaterialButton>
         )}
-      </Index>
+      </For>
     </MaterialButtonGroup>
   );
 };

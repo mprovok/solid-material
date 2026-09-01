@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
-import { splitProps } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic } from '@solidjs/web';
+import { omit } from 'solid-js';
 
 import type { MaterialFabProps } from '../fab/MaterialFab';
 import type { MaterialIconSvg } from '../icon/MaterialIcon';
@@ -18,17 +18,17 @@ export interface MaterialNavigationRailFabButtonProps extends MaterialNavigation
 }
 
 export const MaterialNavigationRailFabButton: VoidComponent<MaterialNavigationRailFabButtonProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['expanded', 'icon', 'label', 'title', 'ariaLabel']);
+  const otherProps = omit(props, 'expanded', 'icon', 'label', 'title', 'ariaLabel');
 
   return (
     <MaterialFab
       {...otherProps}
       size="small"
-      icon={<Dynamic component={localProps.icon} />}
-      ariaLabel={localProps.expanded ? undefined : (localProps.ariaLabel ?? localProps.label)}
-      title={localProps.expanded ? undefined : (localProps.title ?? localProps.label)}
+      icon={<Dynamic component={props.icon} />}
+      ariaLabel={props.expanded ? undefined : (props.ariaLabel ?? props.label)}
+      title={props.expanded ? undefined : (props.title ?? props.label)}
     >
-      {localProps.expanded ? localProps.label : undefined}
+      {props.expanded ? props.label : undefined}
     </MaterialFab>
   );
 };

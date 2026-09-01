@@ -1,6 +1,7 @@
-import type { Component, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { Component } from 'solid-js';
 
-import { Index, splitProps } from 'solid-js';
+import { For, omit } from 'solid-js';
 
 import preview from '../../../.storybook/preview';
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
@@ -27,10 +28,12 @@ const meta = preview.meta({
 const MaterialListRenderer: Component<
   Omit<MaterialListProps, 'children'> & { items: (MaterialListItemProps & { children: JSX.Element })[] }
 > = args => {
-  const [localArgs, otherArgs] = splitProps(args, ['items']);
+  const otherArgs = omit(args, 'items');
   return (
     <MaterialList {...otherArgs}>
-      <Index each={localArgs.items}>{item => <MaterialListItem {...item()} />}</Index>
+      <For each={args.items} keyed={false}>
+        {item => <MaterialListItem {...item()} />}
+      </For>
     </MaterialList>
   );
 };

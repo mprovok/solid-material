@@ -7,8 +7,11 @@ export const createDebouncedMemo = <T>(
   fn: (prev: T | undefined) => T,
   timeoutMs: number,
   value?: T,
-  options?: MemoOptions<T | undefined>
+  options?: MemoOptions<T>
 ): Accessor<T> => {
   const scheduled = createScheduled(f => debounce(f, timeoutMs));
-  return createMemo((prev: T | undefined) => (scheduled() || prev === undefined ? fn(value) : prev), value, options);
+  return createMemo<T>(
+    (prev: T | undefined = value): T => (scheduled() || prev === undefined ? fn(value) : prev),
+    options
+  );
 };

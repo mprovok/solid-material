@@ -12,9 +12,9 @@ describe('MaterialNavigationRailLayoutMenuButton', () => {
     it('renders a button when rail is modal and hidden when collapsed', async () => {
       const { baseElement } = render(
         () => (
-          <MaterialNavigationRailMenuContext.Provider value={[() => true, () => false, vi.fn()]}>
+          <MaterialNavigationRailMenuContext value={[() => true, () => false, vi.fn()]}>
             <MaterialNavigationRailLayoutMenuButton ariaLabel="Menu button" />
-          </MaterialNavigationRailMenuContext.Provider>
+          </MaterialNavigationRailMenuContext>
         ),
         { wrapper: MaterialTheme }
       );
@@ -27,9 +27,9 @@ describe('MaterialNavigationRailLayoutMenuButton', () => {
     it('renders nothing when rail is not modal or hidden when collapsed', async () => {
       const { baseElement } = render(
         () => (
-          <MaterialNavigationRailMenuContext.Provider value={[() => false, () => false, vi.fn()]}>
+          <MaterialNavigationRailMenuContext value={[() => false, () => false, vi.fn()]}>
             <MaterialNavigationRailLayoutMenuButton ariaLabel="Menu button" />
-          </MaterialNavigationRailMenuContext.Provider>
+          </MaterialNavigationRailMenuContext>
         ),
         { wrapper: MaterialTheme }
       );

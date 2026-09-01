@@ -1,5 +1,6 @@
+import type { JSX } from '@solidjs/web';
 import type { MaterialButtonProps } from '@solidmaterial/material/components/button';
-import type { FlowProps, JSX, VoidComponent } from 'solid-js';
+import type { FlowProps, VoidComponent } from 'solid-js';
 
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialIcon } from '@solidmaterial/material/components/icon';

@@ -30,14 +30,14 @@ export const MaterialSwitch: VoidComponent<MaterialSwitchProps> = props => {
 
   return (
     <md-switch
-      attr:aria-label={props.ariaLabel}
-      attr:id={props.id}
-      attr:name={props.name}
-      bool:selected={props.selected}
-      bool:icons={props.icons}
-      bool:show-only-selected-icon={props.icons === true && props.showOnlySelectedIcon}
-      bool:disabled={props.disabled}
-      bool:required={props.required}
+      aria-label={props.ariaLabel}
+      id={props.id}
+      name={props.name}
+      selected={props.selected}
+      icons={props.icons}
+      show-only-selected-icon={props.icons === true && props.showOnlySelectedIcon}
+      disabled={props.disabled}
+      required={props.required}
       onChange={[onChange, props.name]}
     ></md-switch>
   );

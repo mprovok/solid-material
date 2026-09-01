@@ -2,7 +2,7 @@ import type { MaterialButtonShape } from '@solidmaterial/material/components/but
 import type { VoidComponent } from 'solid-js';
 
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
-import { createEffect, createSignal } from 'solid-js';
+import { createSignal } from 'solid-js';
 
 import styles from './ColorButton.module.css';
 
@@ -18,11 +18,7 @@ export const ColorButton: VoidComponent<ColorButtonProps> = props => {
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLInputElement;
 
-  const [color, setColor] = createSignal(props.color);
-
-  createEffect(() => {
-    setColor(props.color);
-  });
+  const [color, setColor] = createSignal(() => props.color);
 
   const onInput = (event: InputEvent) => {
     if (event.target instanceof HTMLInputElement) {

@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { Match, Show, Switch, createEffect, createSignal } from 'solid-js';
+import { Match, Show, Switch, createSignal } from 'solid-js';
 
 import { MaterialBottomSheet } from '../../../components/bottom-sheet';
 import { MaterialSideSheet } from '../../../components/side-sheet/MaterialSideSheet';
@@ -21,11 +21,7 @@ export interface MaterialSupportingPaneProps {
 export const MaterialSupportingPane: FlowComponent<MaterialSupportingPaneProps> = props => {
   const isMobile = () => Breakpoints.isCompactWidth() || Breakpoints.isMediumWidth();
 
-  const [isOpen, setOpen] = createSignal(props.open ?? true);
-
-  createEffect(() => {
-    setOpen(props.open ?? true);
-  });
+  const [isOpen, setOpen] = createSignal(() => props.open ?? true);
 
   return (
     <MaterialPane>

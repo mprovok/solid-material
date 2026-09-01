@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { Index, children, createSignal } from 'solid-js';
+import { For, children, createSignal } from 'solid-js';
 
 import styles from './MaterialButtonGroup.module.css';
 
@@ -24,8 +24,10 @@ export const MaterialButtonGroup: FlowComponent<MaterialButtonGroupProps> = prop
   const buttons = children(() => props.children);
 
   return (
-    <sm-button-group attr:data-variant={props.variant} class={styles['group']} style={{ '--width': `${width()}px` }}>
-      <Index each={buttons.toArray()}>{button => <div onPointerEnter={onPointerEnter}>{button()}</div>}</Index>
+    <sm-button-group data-variant={props.variant} class={styles['group']} style={{ '--width': `${width()}px` }}>
+      <For each={buttons.toArray()} keyed={false}>
+        {button => <div onPointerEnter={onPointerEnter}>{button()}</div>}
+      </For>
     </sm-button-group>
   );
 };

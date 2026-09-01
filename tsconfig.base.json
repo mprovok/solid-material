@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
 
     "jsx": "preserve",
-    "jsxImportSource": "solid-js",
+    "jsxImportSource": "@solidjs/web",
 
     "allowImportingTsExtensions": false,
     "resolveJsonModule": true,

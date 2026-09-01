@@ -5,8 +5,8 @@ import type { VoidComponent } from 'solid-js';
 import { FilledSelect } from '@material/web/select/internal/filled-select';
 import { OutlinedSelect } from '@material/web/select/internal/outlined-select';
 import { createMediaQuery } from '@solid-primitives/media';
-import { Index } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic } from '@solidjs/web';
+import { For } from 'solid-js';
 
 import { MaterialSelectOption } from './MaterialSelectOption';
 
@@ -58,27 +58,27 @@ export const MaterialSelect: VoidComponent<MaterialSelectProps> = props => {
   return (
     <Dynamic
       component={selects[props.variant]}
-      attr:id={props.id}
-      attr:name={props.name}
-      attr:label={props.label}
-      attr:value={props.value}
-      bool:error={props.showError}
-      attr:error-text={props.errorText}
-      attr:supporting-text={props.supportingText}
-      bool:required={props.required}
-      bool:disabled={props.disabled}
-      bool:quick={prefersReducedMotion()}
-      bool:no-asterisk={props.noAsterisk}
-      attr:aria-label={props.ariaLabel}
+      id={props.id}
+      name={props.name}
+      label={props.label}
+      value={props.value}
+      error={props.showError}
+      error-text={props.errorText}
+      supporting-text={props.supportingText}
+      required={props.required}
+      disabled={props.disabled}
+      quick={prefersReducedMotion()}
+      no-asterisk={props.noAsterisk}
+      aria-label={props.ariaLabel}
       onChange={[onChange, props.name]}
     >
-      <Index each={props.options}>
+      <For each={props.options} keyed={false}>
         {option => (
           <MaterialSelectOption value={option().value} disabled={option().disabled} ariaLabel={option().ariaLabel}>
             {option().label}
           </MaterialSelectOption>
         )}
-      </Index>
+      </For>
     </Dynamic>
   );
 };

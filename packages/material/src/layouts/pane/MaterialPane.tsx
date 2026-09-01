@@ -7,14 +7,5 @@ export interface MaterialPaneProps {
 }
 
 export const MaterialPane: ParentComponent<MaterialPaneProps> = props => {
-  return (
-    <sm-pane
-      class={styles['pane']}
-      classList={{
-        [props.class ?? '']: props.class !== undefined
-      }}
-    >
-      {props.children}
-    </sm-pane>
-  );
+  return <sm-pane class={[styles['pane'], props.class]}>{props.children}</sm-pane>;
 };

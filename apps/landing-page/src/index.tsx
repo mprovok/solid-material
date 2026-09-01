@@ -1,14 +1,13 @@
 import '@fontsource/google-sans-flex/latin-400.css';
 import '@fontsource/google-sans-flex/latin-500.css';
-import type { Component, ParentComponent } from 'solid-js';
+import type { ParentComponent } from 'solid-js';
 
-import { Link, MetaProvider } from '@solidjs/meta';
-import { Route, Router } from '@solidjs/router';
+import { Link } from '@solidjs/meta';
+import { render } from '@solidjs/web';
 import { MaterialSkeletonManager } from '@solidmaterial/material/components/skeleton';
 import { MaterialTheme } from '@solidmaterial/material/styling';
 import { enableViewTransitions } from '@solidmaterial/material/utils';
-import { createSignal, lazy } from 'solid-js';
-import { render } from 'solid-js/web';
+import { createSignal } from 'solid-js';
 
 import type { ThemeVariant } from '../../../packages/material/src/styling/material-theme/MaterialTheme';
 
@@ -16,19 +15,12 @@ import { ThemeColorMode } from '../../../packages/material/src/styling/material-
 
 import { ColorContext, ThemeColorModeContext, ThemeVariantContext } from './contexts';
 import { NavigationLayout } from './NavigationLayout';
-import RouteHome from './routes';
-import RouteGetStarted from './routes/get-started';
 
 import './index.css';
 
+import { Router } from './router';
+
 import totalDissolvedSolidsIcon from '@solidmaterial/icons/400/outlined/total_dissolved_solids.svg?raw';
-
-type LazyComponent = Component & {
-  preload: () => Promise<{ default: Component }>;
-};
-
-const LazyPageComponents: LazyComponent = lazy(async () => import('./routes/components/[[name]]'));
-const LazyPageExamples: LazyComponent = lazy(async () => import('./routes/examples/[[name]]'));
 
 const RootLayout: ParentComponent = props => {
   enableViewTransitions();
@@ -39,33 +31,20 @@ const RootLayout: ParentComponent = props => {
 
   return (
     <MaterialTheme theme={theme()} color={color()} mode={mode()}>
-      <ThemeColorModeContext.Provider value={[mode, setMode]}>
-        <ThemeVariantContext.Provider value={[theme, setTheme]}>
-          <ColorContext.Provider value={[color, setColor]}>
+      <ThemeColorModeContext value={[mode, setMode]}>
+        <ThemeVariantContext value={[theme, setTheme]}>
+          <ColorContext value={[color, setColor]}>
             <MaterialSkeletonManager>
-              <MetaProvider>
-                <Link rel="icon" href={`data:image/svg+xml;utf8,${totalDissolvedSolidsIcon}`} />
-              </MetaProvider>
+              <Link rel="icon" href={`data:image/svg+xml;utf8,${totalDissolvedSolidsIcon}`} />
               <NavigationLayout>{props.children}</NavigationLayout>
             </MaterialSkeletonManager>
-          </ColorContext.Provider>
-        </ThemeVariantContext.Provider>
-      </ThemeColorModeContext.Provider>
+          </ColorContext>
+        </ThemeVariantContext>
+      </ThemeColorModeContext>
     </MaterialTheme>
   );
 };
 
 const root = document.querySelector('#root');
 
-render(
-  () => (
-    <Router root={RootLayout}>
-      <Route path="/" component={RouteHome} />
-      <Route path="/components/:name?" component={LazyPageComponents} />
-      <Route path="/examples/:name?" component={LazyPageExamples} />
-      <Route path="/get-started" component={RouteGetStarted} />
-      <Route path="*404" component={RouteHome} />
-    </Router>
-  ),
-  root!
-);
+render(() => <Router>{props => <RootLayout {...props} />}</Router>, root!);

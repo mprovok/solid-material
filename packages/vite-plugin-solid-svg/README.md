@@ -23,7 +23,7 @@ pnpm add -D @solidmaterial/vite-plugin-solid-svg
 
 ```ts
 // vite.config.js
-import solidPlugin from 'vite-plugin-solid';
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { defineConfig } from 'vite';
 

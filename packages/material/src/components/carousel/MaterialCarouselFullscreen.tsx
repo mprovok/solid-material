@@ -12,15 +12,18 @@ export const MaterialCarouselFullscreen: FlowComponent<MaterialCarouselFullscree
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLDialogElement;
 
-  createEffect(() => {
-    if (ref !== undefined) {
-      if (props.fullscreen) {
-        ref.showModal();
-      } else {
-        ref.close();
+  createEffect(
+    () => props.fullscreen,
+    isFullscreen => {
+      if (ref !== undefined) {
+        if (isFullscreen) {
+          ref.showModal();
+        } else {
+          ref.close();
+        }
       }
     }
-  });
+  );
 
   return (
     <Show when={props.fullscreen} fallback={props.children}>

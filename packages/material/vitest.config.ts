@@ -1,9 +1,9 @@
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 // oxlint-disable-next-line import/no-nodejs-modules
 import path from 'node:path';
-import solidPlugin from 'vite-plugin-solid';
 import { defineConfig } from 'vitest/config';
 
 // oxlint-disable-next-line import/no-default-export

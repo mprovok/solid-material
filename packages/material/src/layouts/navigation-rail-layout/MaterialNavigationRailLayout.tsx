@@ -1,7 +1,7 @@
 import type { Accessor, Context, FlowComponent } from 'solid-js';
 
 import { createElementSize } from '@solid-primitives/resize-observer';
-import { createContext, createEffect, createMemo, createSignal } from 'solid-js';
+import { createContext, createEffect, createMemo, createSignal, untrack } from 'solid-js';
 
 import type { MaterialNavigationLayoutProps } from '../navigation-layout/MaterialNavigationLayout.types';
 
@@ -12,8 +12,9 @@ import { shouldShowBar } from '../navigation-layout/utils';
 import styles from './MaterialNavigationRailLayout.module.css';
 
 // Provide an accessor otherwise the consumers do not receive the updated rail width
-export const MaterialNavigationLayoutRailWidthContext: Context<Accessor<number> | undefined> =
-  createContext<Accessor<number>>();
+export const MaterialNavigationLayoutRailWidthContext: Context<Accessor<number>> = createContext<Accessor<number>>(
+  () => 0
+);
 
 export const MaterialNavigationRailMenuContext: Context<
   [Accessor<boolean>, Accessor<boolean>, (event: PointerEvent) => void]
@@ -37,15 +38,16 @@ export const MaterialNavigationRailLayout: FlowComponent<MaterialNavigationLayou
 
   const [navigationRailWidth, setNavigationRailWidth] = createSignal(0);
 
-  createEffect(prev => {
-    if (elementSize.width !== null && elementSize.width !== prev) {
-      setNavigationRailWidth(elementSize.width);
+  createEffect(
+    () => elementSize.width,
+    (width, prev = 0) => {
+      if (width !== null && width !== prev) {
+        setNavigationRailWidth(width);
+      }
     }
+  );
 
-    return elementSize.width;
-  }, elementSize.width ?? 0);
-
-  const [isExpanded, setIsExpanded] = createSignal(Breakpoints.isExtraLargeWidth());
+  const [isExpanded, setIsExpanded] = createSignal(untrack(() => Breakpoints.isExtraLargeWidth()));
 
   const onClickMenuButton = () => setIsExpanded(expanded => !expanded);
 
@@ -65,7 +67,7 @@ export const MaterialNavigationRailLayout: FlowComponent<MaterialNavigationLayou
 
   return (
     <sm-nav-rail-layout class={styles['container']}>
-      <div class={styles['rail']} bool:data-show={showRail()} ref={setTarget}>
+      <div class={styles['rail']} data-show={showRail()} ref={setTarget}>
         <MaterialNavigationRail
           show={showRail()}
           items={props.items}
@@ -80,11 +82,11 @@ export const MaterialNavigationRailLayout: FlowComponent<MaterialNavigationLayou
           onClickMenuButton={onClickMenuButton}
         />
       </div>
-      <MaterialNavigationLayoutRailWidthContext.Provider value={navigationRailWidth}>
-        <MaterialNavigationRailMenuContext.Provider value={[isHiddenWhenCollapsed, isExpanded, onClickMenuButton]}>
+      <MaterialNavigationLayoutRailWidthContext value={navigationRailWidth}>
+        <MaterialNavigationRailMenuContext value={[isHiddenWhenCollapsed, isExpanded, onClickMenuButton]}>
           {props.children}
-        </MaterialNavigationRailMenuContext.Provider>
-      </MaterialNavigationLayoutRailWidthContext.Provider>
+        </MaterialNavigationRailMenuContext>
+      </MaterialNavigationLayoutRailWidthContext>
     </sm-nav-rail-layout>
   );
 };
