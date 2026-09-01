@@ -10,6 +10,10 @@
   }
 }
 
+body {
+  background-color: var(--md-sys-color-surface);
+}
+
 #root {
   height: 100dvh;
 

@@ -2,8 +2,8 @@ import '@material/web/progress/circular-progress.js';
 import '@material/web/progress/linear-progress.js';
 import type { ParentComponent, VoidComponent } from 'solid-js';
 
-import { Show, children, onMount, splitProps } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic } from '@solidjs/web';
+import { Show, children, omit, onSettled } from 'solid-js';
 
 import styles from './MaterialProgress.module.css';
 
@@ -30,12 +30,12 @@ export interface MaterialProgressProps {
 const MaterialLinearProgress: VoidComponent<MaterialProgressProps> = props => {
   return (
     <md-linear-progress
-      attr:aria-label={props.ariaLabel}
-      attr:value={props.value}
-      attr:max={props.maximum}
-      attr:buffer={props.buffer}
-      bool:indeterminate={props.indeterminate}
-      bool:four-color={props.fourColor}
+      aria-label={props.ariaLabel}
+      value={props.value}
+      max={props.maximum}
+      buffer={props.buffer}
+      indeterminate={props.indeterminate}
+      four-color={props.fourColor}
     ></md-linear-progress>
   );
 };
@@ -44,7 +44,7 @@ const MaterialCircularProgress: VoidComponent<MaterialProgressProps> = props => 
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLElement;
 
-  onMount(() => {
+  onSettled(() => {
     // Fix tiny empty gap between left and right side of circle
     const styleSheet = new CSSStyleSheet();
     ref.shadowRoot?.adoptedStyleSheets.push(styleSheet);
@@ -54,11 +54,11 @@ const MaterialCircularProgress: VoidComponent<MaterialProgressProps> = props => 
   return (
     <md-circular-progress
       ref={ref}
-      attr:aria-label={props.ariaLabel}
-      attr:value={props.value}
-      attr:max={props.maximum}
-      bool:indeterminate={props.indeterminate}
-      bool:four-color={props.fourColor}
+      aria-label={props.ariaLabel}
+      value={props.value}
+      max={props.maximum}
+      indeterminate={props.indeterminate}
+      four-color={props.fourColor}
     ></md-circular-progress>
   );
 };
@@ -76,17 +76,19 @@ const progress: Record<MaterialProgressVariant, VoidComponent<MaterialProgressPr
 };
 
 export const MaterialProgress: ParentComponent<MaterialProgressProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['children']);
+  const otherProps = omit(props, 'children');
 
   const isCircular = () => props.variant === 'circular';
-  const iconButton = children(() => isCircular() && localProps.children);
+  const iconButton = children(() => isCircular() && props.children);
 
   return (
     <div
-      class={props.size !== undefined ? SIZE_MAPPING[props.size] : undefined}
-      classList={{
-        [styles['circular-button']!]: isCircular() && iconButton() !== undefined
-      }}
+      class={[
+        props.size !== undefined ? SIZE_MAPPING[props.size] : undefined,
+        {
+          [styles['circular-button']!]: isCircular() && iconButton() !== undefined
+        }
+      ]}
     >
       <Dynamic component={progress[props.variant]} {...otherProps} />
       <Show when={isCircular()}>{iconButton()}</Show>

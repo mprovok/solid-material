@@ -1,4 +1,5 @@
-import type { JSX, ParentComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { ParentComponent } from 'solid-js';
 
 import { Show, children } from 'solid-js';
 
@@ -71,10 +72,10 @@ export const MaterialFab: ParentComponent<MaterialFabProps> = props => {
 
   return (
     <sm-fab
-      attr:data-color={props.color ?? 'primary-container'}
-      attr:data-size={size()}
-      bool:data-extended={label() !== undefined}
-      bool:data-icon-only={props.iconOnly}
+      data-color={props.color ?? 'primary-container'}
+      data-size={size()}
+      data-extended={label() !== undefined}
+      data-icon-only={props.iconOnly}
       class={styles['fab']}
     >
       <MaterialTooltip

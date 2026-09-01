@@ -1,7 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { A } from '@solidjs/router';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic } from '@solidjs/web';
 
 import type { MaterialIconSvg } from '../icon/MaterialIcon';
 
@@ -46,21 +45,19 @@ export const MaterialNavigationItem: VoidComponent<MaterialNavigationItemProps> 
   const ariaLabel = () => props.ariaLabel ?? props.label;
 
   return (
-    <A
+    <a
       ref={refAnchor}
       href={props.href}
       target={props.target}
-      end={props.end}
-      state={{ transition: 'top-level' }}
+      state={JSON.stringify({ transition: 'top-level' })}
       role="menuitem"
       tabindex={props.disabled === true ? -1 : 0}
-      bool:data-disabled={props.disabled}
-      bool:data-expanded={props.expanded}
+      data-end={props.end}
+      data-disabled={props.disabled}
+      data-expanded={props.expanded}
       aria-label={props.badge?.ariaLabel !== undefined ? `[${ariaLabel()}] ${props.badge?.ariaLabel}` : ariaLabel()}
       aria-controls={props.ariaControls}
       class={styles['button']}
-      activeClass={styles['active']}
-      inactiveClass={styles['inactive']}
     >
       <MaterialFocusRing attachTo={refAnchor} />
       <div ref={refIndicator} class={styles['indicator']}>
@@ -78,6 +75,6 @@ export const MaterialNavigationItem: VoidComponent<MaterialNavigationItemProps> 
       <div class={styles['label-wrapper']}>
         <span class={styles['label']}>{props.label}</span>
       </div>
-    </A>
+    </a>
   );
 };

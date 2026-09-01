@@ -1,7 +1,8 @@
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
+import { Dynamic } from '@solidjs/web';
 import { Show, createUniqueId, useContext } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
 import { MaterialFocusRing } from '../focus-ring/MaterialFocusRing';
 import { MaterialRipple } from '../ripple/MaterialRipple';
@@ -65,24 +66,24 @@ export const MaterialListItem: FlowComponent<MaterialListItemProps> = props => {
 
   return (
     <sm-list-element
-      bool:data-selected={isSelectable && props.selected}
-      bool:data-disabled={props.disabled}
-      bool:data-interactive={isInteractive()}
-      attr:data-align={props.align}
+      data-selected={isSelectable && props.selected}
+      data-disabled={props.disabled}
+      data-interactive={isInteractive()}
+      data-align={props.align}
       role={isSelectable ? 'option' : 'listitem'}
       inert={props.disabled}
       aria-label={props.ariaLabel}
-      attr:aria-labelledby={props.ariaLabel === undefined && props.children !== undefined ? id : undefined}
+      aria-labelledby={props.ariaLabel === undefined && props.children !== undefined ? id : undefined}
       aria-selected={isSelectable ? props.selected : undefined}
       class={styles['item']}
     >
       <Dynamic
         component={ELEMENTS[getType()]}
-        bool:disabled={props.disabled}
-        attr:tabindex={isInteractive() ? 0 : -1}
-        attr:type={getType() === 'button' ? 'button' : undefined}
-        attr:href={props.href}
-        attr:target={props.target}
+        disabled={props.disabled}
+        tabindex={isInteractive() ? 0 : -1}
+        type={getType() === 'button' ? 'button' : undefined}
+        href={props.href}
+        target={props.target}
         download={props.download}
         state={props.transition !== undefined ? JSON.stringify({ transition: props.transition }) : undefined}
         class={styles['content']}

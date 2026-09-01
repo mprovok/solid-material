@@ -46,5 +46,5 @@ export enum CalculatorAction {
   SQUARE
 }
 
-export const CalculatorExecuteActionContext: Context<((action: CalculatorAction) => void) | undefined> =
+export const CalculatorExecuteActionContext: Context<(action: CalculatorAction) => void> =
   createContext<(action: CalculatorAction) => void>();

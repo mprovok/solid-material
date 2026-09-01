@@ -77,17 +77,17 @@ export const DragHandle: VoidComponent<DragHandleProps> = props => {
       tabindex={0}
       aria-label={props.ariaLabel}
       aria-orientation={ORIENTATION[props.direction]}
-      attr:aria-valuenow={props.ariaValue}
-      attr:aria-valuetext={props.ariaValueText}
+      aria-valuenow={props.ariaValue}
+      aria-valuetext={props.ariaValueText}
       class={styles['drag-handle']}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >
       <div
         role="presentation"
-        bool:data-active={props.active}
-        bool:data-clickable={props.onClick !== undefined}
-        attr:data-direction={props.direction}
+        data-active={props.active}
+        data-clickable={props.onClick !== undefined}
+        data-direction={props.direction}
         class={styles['button']}
       >
         <MaterialFocusRing attachTo={ref} />

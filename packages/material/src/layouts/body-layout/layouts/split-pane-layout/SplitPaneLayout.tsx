@@ -22,14 +22,15 @@ export const SplitPaneLayout: FlowComponent<TwoPaneLayoutProps> = props => {
 
   const [width, setWidth] = createSignal(initialWidth);
 
-  createEffect<number>(prevWindowWidth => {
-    if (windowSize.width !== prevWindowWidth) {
-      const oldPercentage = width() / (prevWindowWidth - SPACER_WIDTH);
-      setWidth(oldPercentage * (windowSize.width - SPACER_WIDTH));
+  createEffect<number>(
+    () => windowSize.width,
+    (windowSizeWidth, prevWindowWidth = windowSize.width) => {
+      if (windowSizeWidth !== prevWindowWidth) {
+        const oldPercentage = width() / (prevWindowWidth - SPACER_WIDTH);
+        setWidth(oldPercentage * (windowSize.width - SPACER_WIDTH));
+      }
     }
-
-    return windowSize.width;
-  }, windowSize.width);
+  );
 
   const panes = children(() => props.children);
   const visiblePanesCount = createMemo(() => panes.toArray().filter(item => item !== undefined).length);

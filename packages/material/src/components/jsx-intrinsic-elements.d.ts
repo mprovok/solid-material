@@ -1,4 +1,4 @@
-declare module 'solid-js' {
+declare module '@solidjs/web' {
   namespace JSX {
     interface IntrinsicElements {
       'sm-nav-bar-layout': HTMLDivAttributes<HTMLDivElement>;

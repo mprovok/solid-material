@@ -29,12 +29,12 @@ export const MaterialMenuItem: FlowComponent<MaterialMenuItemProps> = props => {
 
   return (
     <md-menu-item
-      bool:keep-open={props.keepOpen}
-      bool:disabled={props.disabled}
-      bool:selected={props.selected}
-      attr:href={props.href}
-      attr:target={props.target}
-      attr:aria-label={props.ariaLabel}
+      keep-open={props.keepOpen}
+      disabled={props.disabled}
+      selected={props.selected}
+      href={props.href}
+      target={props.target}
+      aria-label={props.ariaLabel}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >

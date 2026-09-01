@@ -1,7 +1,8 @@
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { createVisibilityObserver } from '@solid-primitives/intersection-observer';
-import { Show, createEffect, createMemo, createSignal } from 'solid-js';
+import { Show, createEffect, createMemo, createSignal, untrack } from 'solid-js';
 
 import type { DragHandleMovement } from '../../layouts/drag-handle/DragHandle';
 
@@ -35,12 +36,10 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLDialogElement;
 
-  // oxlint-disable-next-line no-unassigned-vars
-  let refSheet!: HTMLDivElement;
+  const [refSheet, setRefSheet] = createSignal<HTMLDivElement>();
 
   // Use the IntersectionObserver API to detect the user has swiped the sheet out of view
-  const useVisibilityObserver = createVisibilityObserver();
-  const isIntersecting = useVisibilityObserver(() => refSheet);
+  const isIntersecting = createVisibilityObserver(refSheet, { initialValue: false });
 
   // Debounce the visibility signal to ignore momentary dip of the sheet out of the viewport
   // while the opening scroll animation passes a scroll snap point (happens with Chromium in CI)
@@ -72,14 +71,15 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     // before scrolling it to one of the children of the bottom sheet
     ref.scroll({ top: 0, behavior: 'instant' });
 
-    const firstIndex = props.availableIndices?.[0];
+    const availableIndices = untrack(() => props.availableIndices);
+    const firstIndex = availableIndices?.[0];
 
     // Always use the first index if it exists, otherwise show the whole bottom sheet
     if (firstIndex !== undefined) {
       showItem(firstIndex);
 
       // Reset the current index, set to -2 (all items) if there are one or no indices
-      setCurrentIndex((props.availableIndices?.length ?? 0) > 0 ? 0 : -2);
+      setCurrentIndex((availableIndices?.length ?? 0) > 0 ? 0 : -2);
     } else {
       showAllItems();
     }
@@ -89,49 +89,56 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     ref.scroll({ top: 0, behavior: 'auto' });
   };
 
-  createEffect(() => {
-    switch (props.variant) {
-      case 'modal': {
-        if (props.open) {
-          // The dialog is only closed after the sheet has scrolled out of
-          // view, so toggling props.open quickly can re-run this effect
-          // while the dialog is still open
-          if (!ref.open) {
-            ref.showModal();
+  createEffect(
+    () => props.open,
+    open => {
+      const variant = untrack(() => props.variant);
+      switch (variant) {
+        case 'modal': {
+          if (open) {
+            // The dialog is only closed after the sheet has scrolled out of
+            // view, so toggling props.open quickly can re-run this effect
+            // while the dialog is still open
+            if (!ref.open) {
+              ref.showModal();
+            }
+            showBottomSheet();
+          } else {
+            hideBottomSheet();
           }
-          showBottomSheet();
-        } else {
-          hideBottomSheet();
+          break;
         }
-        break;
-      }
-      case 'standard': {
-        if (props.open) {
-          ref.showPopover();
-          showBottomSheet();
-        } else {
-          hideBottomSheet();
+        case 'standard': {
+          if (open) {
+            ref.showPopover();
+            showBottomSheet();
+          } else {
+            hideBottomSheet();
+          }
+          break;
         }
-        break;
+        // No default
       }
-      // No default
     }
-  });
+  );
 
-  createEffect(() => {
+  createEffect(
+    () => isVisible(),
+    visible => {
     // Only close the sheet if it has been visible at least once, otherwise a
     // sheet that is opened on mount would be closed immediately, because the
     // visibility signal is false before the observer reports for the first time
-    if (isVisible()) {
+    const variant = untrack(() => props.variant);
+    if (visible) {
       setHasBeenVisible(true);
     } else if (hasBeenVisible()) {
-      if (props.variant === 'modal') {
+      if (variant === 'modal') {
         ref.close();
       } else {
         ref.hidePopover();
       }
     }
-  });
+  );
 
   const onToggle = (event: ToggleEvent) => {
     if (event.newState === 'closed') {
@@ -264,12 +271,12 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     >
       <div role="presentation" class={styles['space']} />
       <sm-bottom-sheet
-        ref={refSheet}
+        ref={setRefSheet}
         // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
         role="complementary"
-        attr:data-variant={props.variant}
-        bool:data-flat={props.flat}
-        bool:data-full-height={supportFullHeight()}
+        data-variant={props.variant}
+        data-flat={props.flat}
+        data-full-height={supportFullHeight()}
         class={styles['sheet']}
       >
         <md-elevation></md-elevation>

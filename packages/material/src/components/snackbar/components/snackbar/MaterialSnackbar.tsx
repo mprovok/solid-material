@@ -24,9 +24,9 @@ export const MaterialSnackbar: FlowComponent<MaterialSnackbarProps> = props => {
     <sm-snackbar
       // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="status"
-      attr:aria-atomic="true"
-      attr:aria-live="polite"
-      attr:aria-labelledby={id}
+      aria-atomic="true"
+      aria-live="polite"
+      aria-labelledby={id}
       class={styles['snackbar']}
     >
       <md-elevation></md-elevation>

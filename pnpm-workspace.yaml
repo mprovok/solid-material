@@ -25,7 +25,7 @@ catalogs:
     storybook: 10.6.3
     '@storybook/addon-a11y': 10.6.3
     '@storybook/addon-docs': 10.6.3
-    storybook-solidjs-vite: 10.6.0
+    storybook-solidjs-vite: 10.7.2
   tsdown:
     '@tsdown/css': 0.23.5
     tsdown: 0.23.5
@@ -38,11 +38,14 @@ catalogs:
     '@vitest/coverage-v8': 4.1.12
   vite:
     vite: 8.3.8
-    'vite-plugin-solid': 2.11.12
+    '@solidjs/vite-plugin': 3.0.0-next.41
   solid:
-    solid-js: 1.9.18
-    '@solidjs/router': 1.0.0
-    '@solidjs/meta': 0.29.4
+    solid-js: 2.0.0-rc.8
+    '@solidjs/web': 2.0.0-rc.8
+    '@solidjs/router': 2.0.0-next.23
+    '@solidjs/meta': 1.0.0-next.2
+  testing:
+    '@solidjs/testing-library': 1.0.0-beta.3
 
 versioning:
   changelog:

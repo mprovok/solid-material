@@ -1,16 +1,17 @@
-import type { Accessor, JSX, Setter, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { Accessor, Setter, VoidComponent } from 'solid-js';
 
-import { createActiveElement, createFocusSignal } from '@solid-primitives/active-element';
-import { Match, Show, Switch, createEffect, createSignal, onMount, useContext } from 'solid-js';
+import { createFocusSignal } from '@solid-primitives/focus';
+import { interactOutside } from '@solid-primitives/interaction';
+import { Match, Show, Switch, createEffect, createSignal, onSettled, useContext } from 'solid-js';
 
 import { Transition } from '../../utils/transitions';
-import { createDebouncedMemo } from '../../utils/utils';
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 import { MaterialIcon } from '../icon/MaterialIcon';
 import { MaterialRipple } from '../ripple/MaterialRipple';
 import { Span } from '../typography/Typography';
 
-import { MaterialSearchFocusContext, MaterialSearchOpenContext } from './MaterialSearch';
+import { MaterialSearchOpenContext } from './MaterialSearch';
 
 import styles from './MaterialSearchBar.module.css';
 
@@ -28,72 +29,56 @@ export interface MaterialSearchBarProps {
   showClearButton?: boolean;
   backButtonAriaLabel?: string;
   clearButtonAriaLabel?: string;
-  onInput?: (event: InputEvent) => void;
+  onInput?: (event?: InputEvent) => void;
 }
 
 export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props => {
-  // oxlint-disable-next-line no-unassigned-vars
-  let ref!: HTMLDivElement;
+  const [refInput, setRefInput] = createSignal<HTMLInputElement>();
 
-  // oxlint-disable-next-line no-unassigned-vars
-  let refInput!: HTMLInputElement;
-
-  const [hasFocus, setHasFocus] = useContext(MaterialSearchFocusContext);
-  const showResults = useContext(MaterialSearchOpenContext);
+  const isShowingResults = useContext(MaterialSearchOpenContext);
 
   const [isExpanded, setIsExpanded] = createSignal(props.initialFocus ?? false);
 
-  const isInputFocused = createFocusSignal(() => refInput);
+  const isInputFocused = createFocusSignal(() => refInput()!);
 
-  const activeElement = createActiveElement();
-  const debouncedActiveElement = createDebouncedMemo(() => activeElement(), 50);
-
-  const isSearchBarFocused = createDebouncedMemo(
-    () => debouncedActiveElement() !== null && (ref?.parentElement?.contains(debouncedActiveElement()) ?? false),
-    50
-  );
-
-  onMount(() => {
+  onSettled(() => {
     if (isExpanded()) {
-      refInput.focus();
+      refInput()?.focus();
     }
   });
 
   // Move to expanded state when input gains focus and move back to the
   // collapsed state when focus is moved to an element outside the search bar
 
-  createEffect(() => {
-    // If the search bar is collapsed, then it should never has focus
-    if (!isExpanded()) {
-      refInput.blur();
+  createEffect(
+    () => [isExpanded(), refInput()] as const,
+    ([isExpanded, input]) => {
+      // If the search bar is collapsed, then it should never has focus
+      if (!isExpanded) {
+        input?.blur();
+      } else if (input instanceof HTMLInputElement) {
+        // Trigger re-showing the search results
+        props.setInput('');
+        props.setInput(input.value);
+      }
     }
-  });
+  );
 
-  createEffect(() => {
-    // Collapse when search bar lost focus
-    if (!isSearchBarFocused() && !(showResults() && hasFocus())) {
+  createEffect(
+    () => isInputFocused(),
+    isInputFocused => {
+      // Expand if user moved focus to input field
+      if (isInputFocused) {
+        setIsExpanded(true);
+      }
+    }
+  );
+
+  const onInteractOutside = () => {
+    if (!isShowingResults()) {
       setIsExpanded(false);
     }
-  });
-
-  createEffect(() => {
-    // Expand if user moved focus to input field
-    if (isInputFocused()) {
-      setIsExpanded(true);
-    }
-  });
-
-  createEffect(() => {
-    setHasFocus(isExpanded());
-  });
-
-  createEffect(() => {
-    // When the user clicks on a search result, it may update the
-    // input text in the search bar. In that case the input field
-    // will automatically lose focus, but the search bar itself should stay
-    // in the 'focused' state
-    refInput.value = props.input();
-  });
+  };
 
   const onInput: JSX.InputEventHandler<HTMLInputElement, InputEvent> = event => {
     props.setInput(event.target.value);
@@ -107,13 +92,18 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
 
   const onClickClear = () => {
     props.setInput('');
-    refInput.focus();
+    refInput()?.focus();
   };
 
+  // When the user clicks on a search result, it may update the
+  // input text in the search bar. In that case the input field
+  // will automatically lose focus, but the search bar itself should stay
+  // in the 'focused' state
+
   return (
-    <sm-search-bar ref={ref} bool:data-expanded={isExpanded()} class={styles['bar']}>
+    <sm-search-bar ref={interactOutside({ onInteractOutside })} data-expanded={isExpanded()} class={styles['bar']}>
       <Show when={!isExpanded()}>
-        <MaterialRipple attachTo={refInput} />
+        <MaterialRipple attachTo={refInput()} />
       </Show>
       <md-elevation></md-elevation>
       <Transition>
@@ -144,13 +134,14 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
       </Transition>
       <Span role="body" size="large" class={styles['input']}>
         <input
-          ref={refInput}
+          ref={setRefInput}
           role="searchbox"
           type="text"
           name="search"
           autocomplete="off"
           placeholder={props.placeholder}
           required
+          value={props.input()}
           onInput={onInput}
         />
       </Span>
@@ -169,10 +160,10 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
             </div>
           </Match>
           <Match when={props.trailingButtons !== undefined && isExpanded()}>
-            <div class={styles['trailing-buttons']}>{props.trailingButtons?.(hasFocus())}</div>
+            <div class={styles['trailing-buttons']}>{props.trailingButtons?.(isExpanded())}</div>
           </Match>
           <Match when={props.trailingButtons !== undefined && !isExpanded()}>
-            <div class={styles['trailing-buttons']}>{props.trailingButtons?.(hasFocus())}</div>
+            <div class={styles['trailing-buttons']}>{props.trailingButtons?.(isExpanded())}</div>
           </Match>
         </Switch>
       </Transition>
