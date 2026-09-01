@@ -53,7 +53,7 @@ export const Calculator: VoidComponent = () => {
 
   const vibrate = () => {
     if (isVibrate()) {
-      globalThis.navigator.vibrate(BUTTON_PRESS_VIBRATE_MS);
+      globalThis.navigator.vibrate?.(BUTTON_PRESS_VIBRATE_MS);
     }
   };
 
