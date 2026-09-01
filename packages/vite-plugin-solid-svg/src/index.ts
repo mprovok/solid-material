@@ -42,8 +42,8 @@ const svgPlugin = (): Plugin => {
     },
 
     async resolveId(id, importer) {
-      // If solid-js/web is imported from an .svg file, resolve it normally
-      if (id === 'solid-js/web' && importer !== undefined && importer.endsWith('.svg')) {
+      // If @solidjs/web is imported from an .svg file, resolve it normally
+      if (id === '@solidjs/web' && importer !== undefined && importer.endsWith('.svg')) {
         return this.resolve(id, undefined, { skipSelf: true });
       }
       // oxlint-disable-next-line unicorn/no-useless-undefined

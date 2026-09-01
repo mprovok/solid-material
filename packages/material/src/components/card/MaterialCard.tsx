@@ -36,13 +36,12 @@ export const MaterialCard: FlowComponent<MaterialCardProps> = props => {
   return (
     <sm-card
       ref={ref}
-      attr:data-variant={props.variant}
-      attr:data-size={props.size}
-      bool:data-disabled={props.disabled}
-      attr:tabindex={isClickable() ? 0 : undefined}
-      attr:aria-label={props.ariaLabel}
-      class={styles['card']}
-      classList={{ [styles['clickable']!]: isClickable() }}
+      data-variant={props.variant}
+      data-size={props.size}
+      data-disabled={props.disabled}
+      tabindex={isClickable() ? 0 : undefined}
+      aria-label={props.ariaLabel}
+      class={[styles['card'], { [styles['clickable']!]: isClickable() }]}
       onClick={(event: PointerEvent) => props.disabled !== true && props.onClick?.(event)}
       onKeyDown={onKeyDown}
     >

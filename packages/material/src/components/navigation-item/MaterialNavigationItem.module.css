@@ -215,7 +215,7 @@
   }
 
   /* Make sure indicator is expanded and has different background color when item is active (represents current page) */
-  .button.active .indicator md-ripple {
+  .button:is([aria-current='page'], :not([data-end])[data-active]) .indicator md-ripple {
     width: 100%;
     --active-indicator-factor: 1;
 
@@ -226,7 +226,7 @@
   /*                               Active                               */
   /**********************************************************************/
 
-  .button.active {
+  .button:is([aria-current='page'], :not([data-end])[data-active]) {
     --md-ripple-hover-color: var(--md-comp-nav-item-active-hover-state-layer-color);
     --md-ripple-hover-opacity: var(--md-comp-nav-item-active-hover-state-layer-opacity);
     --md-ripple-pressed-color: var(--md-comp-nav-item-active-pressed-state-layer-color);
@@ -256,7 +256,7 @@
   /*                              Inactive                              */
   /**********************************************************************/
 
-  .button.inactive {
+  .button:not(:is([aria-current='page'], :not([data-end])[data-active])) {
     --md-ripple-hover-color: var(--md-comp-nav-item-inactive-hover-state-layer-color);
     --md-ripple-pressed-color: var(--md-comp-nav-item-inactive-pressed-state-layer-color);
 

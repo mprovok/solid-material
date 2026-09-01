@@ -1,6 +1,7 @@
-import type { JSX, Ref, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { Ref, VoidComponent } from 'solid-js';
 
-import { splitProps } from 'solid-js';
+import { omit } from 'solid-js';
 
 import type {
   MaterialButtonShape,
@@ -45,17 +46,15 @@ export interface MaterialIconButtonProps {
 }
 
 export const MaterialIconButton: VoidComponent<MaterialIconButtonProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['ref', 'width', 'title', 'ariaLabel']);
+  const otherProps = omit(props, 'ref', 'width', 'title', 'ariaLabel');
 
   return (
     <MaterialTooltip
       variant="plain"
-      tooltip={
-        localProps.title !== undefined ? <MaterialPlainTooltip>{localProps.title}</MaterialPlainTooltip> : undefined
-      }
+      tooltip={props.title !== undefined ? <MaterialPlainTooltip>{props.title}</MaterialPlainTooltip> : undefined}
     >
-      <sm-icon-button ref={localProps.ref} attr:data-width={localProps.width ?? 'default'} class={styles['button']}>
-        <MaterialButton {...otherProps} ariaLabel={localProps.ariaLabel ?? localProps.title} />
+      <sm-icon-button ref={props.ref} data-width={props.width ?? 'default'} class={styles['button']}>
+        <MaterialButton {...otherProps} ariaLabel={props.ariaLabel ?? props.title} />
       </sm-icon-button>
     </MaterialTooltip>
   );

@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { onCleanup, onMount, untrack } from 'solid-js';
+import { onSettled, untrack } from 'solid-js';
 
 import type { MaterialSnack, MaterialSnackDuration } from './MaterialSnackbarContext';
 
@@ -25,15 +25,15 @@ export interface MaterialSnackbarModalProps {
 export const MaterialSnackbarModal: VoidComponent<MaterialSnackbarModalProps> = props => {
   const snack = untrack(() => props.snack);
 
-  onMount(() => {
+  onSettled(() => {
+    let timer: number | undefined;
+
     if (!snack.dismissable && snack.duration !== 'indefinite') {
       const duration = DURATIONS[snack.duration ?? (snack.action?.label !== undefined ? 'long' : 'short')];
-      const timer = setTimeout(props.onClose, duration);
-
-      onCleanup(() => {
-        clearTimeout(timer);
-      });
+      timer = setTimeout(props.onClose, duration);
     }
+
+    return () => clearTimeout(timer);
   });
 
   const onAction = () => {
@@ -46,7 +46,7 @@ export const MaterialSnackbarModal: VoidComponent<MaterialSnackbarModalProps> = 
   };
 
   return (
-    <div popover="manual" class={styles['modal']} attr:data-alignment={props.alignment}>
+    <div popover="manual" class={styles['modal']} data-alignment={props.alignment}>
       <MaterialSnackbar
         actionLabel={snack.action?.label}
         closeTitle={props.closeTitle}

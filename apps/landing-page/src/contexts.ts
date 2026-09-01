@@ -1,12 +1,9 @@
-import type { ThemeVariant } from '@solidmaterial/material/styling';
+import type { ThemeColorMode, ThemeVariant } from '@solidmaterial/material/styling';
 import type { Context, Signal } from 'solid-js';
 
-import { ThemeColorMode } from '@solidmaterial/material/styling';
 import { createContext, createSignal } from 'solid-js';
 
-export const ThemeColorModeContext: Context<Signal<ThemeColorMode>> = createContext(
-  createSignal(ThemeColorMode.SYSTEM)
-);
+export const ThemeColorModeContext: Context<Signal<ThemeColorMode>> = createContext();
 
 export const ThemeVariantContext: Context<Signal<ThemeVariant | undefined>> = createContext(
   createSignal<ThemeVariant | undefined>('tonal-spot')

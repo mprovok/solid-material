@@ -1,4 +1,4 @@
-import { MemoryRouter, Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
 
 import type { MaterialNavigationItemType } from '../navigation-item/MaterialNavigationItem';
@@ -71,11 +71,14 @@ const meta = preview.meta({
   title: 'Navigation/MaterialNavigationRail',
   component: MaterialNavigationRail,
   decorators: [
-    createJSXDecorator(Story => (
-      <MemoryRouter>
-        <Route path="*" component={Story} />
-      </MemoryRouter>
-    ))
+    createJSXDecorator(Story => {
+      const Router = createRouter({
+        routes: [{ path: '*', component: Story }],
+        history: memoryHistory('/')
+      });
+
+      return <Router>{props => props.children}</Router>;
+    })
   ],
   parameters: {
     a11y: {

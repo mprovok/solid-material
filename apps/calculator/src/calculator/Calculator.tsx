@@ -1,9 +1,10 @@
-import type { JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { VoidComponent } from 'solid-js';
 
 import { createMediaQuery } from '@solid-primitives/media';
+import { Dynamic } from '@solidjs/web';
 import { Span } from '@solidmaterial/material/components/typography';
 import { Match, Show, Switch, createEffect, createSignal, useContext } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
 import { ExpandContext, VibrateContext } from '../contexts';
 
@@ -97,33 +98,37 @@ export const Calculator: VoidComponent = () => {
     vibrate();
   };
 
-  createEffect(() => {
-    setInput(toString(inputTokens()));
-  });
+  createEffect(
+    () => inputTokens(),
+    tokens => {
+      setInput(toString(tokens));
+    }
+  );
 
-  createEffect(() => {
-    try {
-      const tokens = outputTokens();
+  createEffect(
+    () => [outputTokens(), !isDegrees()] as const,
+    ([tokens, isRadians]) => {
+      try {
+        if (tokens.length > 0) {
+          const result = evaluate(parse(tokens, isRadians));
 
-      if (tokens.length > 0) {
-        const result = evaluate(parse(tokens, !isDegrees()));
-
-        if (Number.isNaN(result)) {
-          setError('Not a number');
-          setOutput(undefined);
+          if (Number.isNaN(result)) {
+            setError('Not a number');
+            setOutput(undefined);
+          } else {
+            setOutput(result);
+            setError(undefined);
+          }
         } else {
-          setOutput(result);
+          setOutput(undefined);
           setError(undefined);
         }
-      } else {
+      } catch {
+        setError('Invalid input');
         setOutput(undefined);
-        setError(undefined);
       }
-    } catch {
-      setError('Invalid input');
-      setOutput(undefined);
     }
-  });
+  );
 
   const displayAriaLabel = () => {
     if (error() !== undefined) {
@@ -146,7 +151,7 @@ export const Calculator: VoidComponent = () => {
   const isOrientationPortrait = createMediaQuery('(orientation: portrait)');
 
   return (
-    <CalculatorExecuteActionContext.Provider value={processButton}>
+    <CalculatorExecuteActionContext value={processButton}>
       <div class={styles['container']}>
         <Display variant={displayVariant()} ariaLabel={displayAriaLabel()}>
           <Switch fallback={input()}>
@@ -162,8 +167,12 @@ export const Calculator: VoidComponent = () => {
             </Span>
           </Show>
         </div>
-        <div bool:data-expanded={isExpanded()} class={styles['buttons']}>
-          <div class={styles['scientific-buttons']} aria-hidden={!isExpanded()} inert={!isExpanded()}>
+        <div data-expanded={isExpanded()} class={styles['buttons']}>
+          <div
+            class={styles['scientific-buttons']}
+            aria-hidden={!isExpanded() ? 'true' : 'false'}
+            inert={!isExpanded()}
+          >
             <Dynamic
               component={isOrientationPortrait() ? ScientificButtonsPortrait : ScientificButtonsLandscape}
               toggleInverted={isInverted()}
@@ -189,6 +198,6 @@ export const Calculator: VoidComponent = () => {
           </div>
         </div>
       </div>
-    </CalculatorExecuteActionContext.Provider>
+    </CalculatorExecuteActionContext>
   );
 };

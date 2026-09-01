@@ -1,6 +1,6 @@
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { playwright } from '@vitest/browser-playwright';
-import solidPlugin from 'vite-plugin-solid';
 import { defaultExclude, defineConfig } from 'vitest/config';
 
 const VISUAL_TESTS_PATTERN = 'src/**/*.vrt.test.{ts,tsx}';

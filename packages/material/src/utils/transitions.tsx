@@ -1,6 +1,7 @@
 import type { TransitionMode } from '@solid-primitives/transition-group';
 import type { BeforeLeaveEventArgs } from '@solidjs/router';
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { resolveFirst } from '@solid-primitives/refs';
 import { createSwitchTransition } from '@solid-primitives/transition-group';

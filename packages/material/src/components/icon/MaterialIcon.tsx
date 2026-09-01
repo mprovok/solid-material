@@ -1,5 +1,6 @@
 import '@material/web/icon/icon.js';
-import type { Component, ComponentProps, FlowComponent } from 'solid-js';
+import type { ComponentProps } from '@solidjs/web';
+import type { Component, FlowComponent } from 'solid-js';
 
 import styles from './MaterialIcon.module.css';
 
@@ -22,11 +23,10 @@ const SIZE_MAPPING: Record<MaterialIconSize, string> = {
 export const MaterialIcon: FlowComponent<MaterialIconProps> = props => {
   return (
     <md-icon
-      attr:slot={props.slot}
-      attr:aria-label={props.ariaLabel}
-      attr:aria-hidden={props.ariaLabel === undefined}
-      attr:role="img"
-      attr:class={props.size !== undefined ? SIZE_MAPPING[props.size] : undefined}
+      slot={props.slot}
+      aria-label={props.ariaLabel}
+      aria-hidden={props.ariaLabel === undefined}
+      class={props.size !== undefined ? SIZE_MAPPING[props.size] : undefined}
     >
       {props.children}
     </md-icon>

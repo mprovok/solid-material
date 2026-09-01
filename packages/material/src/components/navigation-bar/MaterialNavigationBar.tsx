@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { Index, createMemo } from 'solid-js';
+import { For, createMemo } from 'solid-js';
 
 import type { MaterialNavigationItemType } from '../navigation-item/MaterialNavigationItem';
 
@@ -49,19 +49,19 @@ export const MaterialNavigationBar: VoidComponent<MaterialNavigationBarProps> = 
         ref={refList}
         tabindex={-1}
         role="menubar"
-        bool:data-expanded={isExpanded()}
+        data-expanded={isExpanded()}
         aria-orientation="horizontal"
         aria-label={props.ariaLabel}
         class={styles['bar']}
         onKeyDown={onKeyDown}
       >
-        <Index each={props.items}>
+        <For each={props.items} keyed={false}>
           {item => (
             <div>
               <MaterialNavigationItem {...item()} expanded={isExpanded()} />
             </div>
           )}
-        </Index>
+        </For>
       </div>
     </sm-navigation-bar>
   );

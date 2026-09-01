@@ -9,5 +9,5 @@ export interface MaterialChipSetProps {
  * A component which shows one or more chips in a set
  */
 export const MaterialChipSet: ParentComponent<MaterialChipSetProps> = props => {
-  return <md-chip-set attr:aria-label={props.ariaLabel}>{props.children}</md-chip-set>;
+  return <md-chip-set aria-label={props.ariaLabel}>{props.children}</md-chip-set>;
 };
