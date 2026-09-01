@@ -2,11 +2,12 @@ import '@material/web/field/filled-field.js';
 import '@material/web/field/outlined-field.js';
 import '@material/web/textfield/filled-text-field.js';
 import '@material/web/textfield/outlined-text-field.js';
-import type { JSX, ParentComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { ParentComponent } from 'solid-js';
 
 import { TextField } from '@material/web/textfield/internal/text-field';
+import { Dynamic } from '@solidjs/web';
 import { Show } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
 import { MaterialIcon } from '../icon/MaterialIcon';
 
@@ -86,36 +87,36 @@ export const MaterialTextField: ParentComponent<MaterialTextFieldProps> = props 
   return (
     <Dynamic
       component={textFields[props.variant]}
-      attr:type={props.type}
-      attr:label={props.label}
-      attr:placeholder={props.placeholder}
-      attr:value={props.value}
-      attr:aria-label={props.ariaLabel}
-      attr:rows={props.rows}
-      attr:cols={props.columns}
-      bool:no-asterisk={props.noAsterisk}
-      attr:text-direction={props.textDirection}
-      bool:required={props.required}
-      bool:disabled={props.disabled}
-      bool:readonly={props.readOnly}
-      bool:multiple={props.multipleEmail}
-      bool:no-spinner={props.noSpinner}
-      attr:min={props.minimum}
-      attr:max={props.maximum}
-      attr:step={props.step}
-      attr:minlength={props.minLength}
-      attr:maxlength={props.maxLength}
-      attr:pattern={props.pattern}
-      attr:id={props.id}
-      attr:name={props.name}
-      attr:autocomplete={props.autocomplete ?? 'off'}
-      bool:error={props.showError}
-      attr:error-text={props.errorText}
-      attr:prefix-text={props.prefixText}
-      attr:suffix-text={props.suffixText}
-      attr:supporting-text={props.supportingText}
-      bool:has-leading-icon={props.icon !== undefined && props.iconPosition !== 'end'}
-      bool:has-trailing-icon={props.icon !== undefined && props.iconPosition === 'end'}
+      type={props.type}
+      label={props.label}
+      placeholder={props.placeholder}
+      value={props.value}
+      aria-label={props.ariaLabel}
+      rows={props.rows}
+      cols={props.columns}
+      no-asterisk={props.noAsterisk}
+      text-direction={props.textDirection}
+      required={props.required}
+      disabled={props.disabled}
+      readonly={props.readOnly}
+      multiple={props.multipleEmail}
+      no-spinner={props.noSpinner}
+      min={props.minimum}
+      max={props.maximum}
+      step={props.step}
+      minlength={props.minLength}
+      maxlength={props.maxLength}
+      pattern={props.pattern}
+      id={props.id}
+      name={props.name}
+      autocomplete={props.autocomplete ?? 'off'}
+      error={props.showError}
+      error-text={props.errorText}
+      prefix-text={props.prefixText}
+      suffix-text={props.suffixText}
+      supporting-text={props.supportingText}
+      has-leading-icon={props.icon !== undefined && props.iconPosition !== 'end'}
+      has-trailing-icon={props.icon !== undefined && props.iconPosition === 'end'}
       onChange={[onChange, props.name]}
       onInput={[onInput, props.name]}
     >

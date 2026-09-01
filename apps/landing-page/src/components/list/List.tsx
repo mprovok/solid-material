@@ -1,10 +1,10 @@
 import type { MaterialIconSvg } from '@solidmaterial/material/components/icon';
 import type { VoidComponent } from 'solid-js';
 
+import { Dynamic } from '@solidjs/web';
 import { MaterialIcon } from '@solidmaterial/material/components/icon';
 import { MaterialList, MaterialListItem } from '@solidmaterial/material/components/list';
 import { For } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
 export type ListItemType = {
   name: string;

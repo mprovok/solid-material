@@ -1,6 +1,6 @@
 import type { ParentComponent } from 'solid-js';
 
-import { For, createSignal, splitProps } from 'solid-js';
+import { For, createSignal, omit } from 'solid-js';
 
 import { MaterialFab } from '../fab/MaterialFab';
 import { MaterialMenu } from '../menu/MaterialMenu';
@@ -14,7 +14,7 @@ export interface MaterialFabWebMenuProps extends Omit<MaterialFabMenuProps, 'clo
 }
 
 export const MaterialFabWebMenu: ParentComponent<MaterialFabWebMenuProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['items', 'menuAriaLabel']);
+  const otherProps = omit(props, 'items', 'menuAriaLabel');
 
   const [isOpen, setOpen] = createSignal(false);
 
@@ -39,10 +39,10 @@ export const MaterialFabWebMenu: ParentComponent<MaterialFabWebMenuProps> = prop
         placement={['bottom', 'start']}
         open={isOpen()}
         anchor={menuRef}
-        ariaLabel={localProps.menuAriaLabel}
+        ariaLabel={props.menuAriaLabel}
         onClose={onCloseMenu}
       >
-        <For each={localProps.items}>
+        <For each={props.items}>
           {item => (
             <MaterialMenuItem ariaLabel={item.ariaLabel} onClick={item.onClick}>
               {item.label}

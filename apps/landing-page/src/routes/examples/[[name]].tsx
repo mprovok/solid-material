@@ -1,11 +1,12 @@
+import type { RouteComponent } from '@solidjs/router';
 import type { DragHandlePosition } from '@solidmaterial/material/layouts';
-import type { ParentComponent } from 'solid-js';
 
-import { MetaProvider, Title } from '@solidjs/meta';
-import { useParams } from '@solidjs/router';
+import { Title } from '@solidjs/meta';
+import { Dynamic } from '@solidjs/web';
 import { MaterialListDetailLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { Show, createMemo } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+
+import type { Router } from '../../router';
 
 import { EmptyState } from '../../components/empty-state/EmptyState';
 import { ExampleList, ITEMS } from '../../pages/examples/ExampleList';
@@ -15,18 +16,14 @@ import styles from './[[name]].module.css';
 import AppsIcon from '@solidmaterial/icons/400/outlined/apps.svg';
 import ErrorIcon from '@solidmaterial/icons/400/outlined/error.svg';
 
-const PageExamples: ParentComponent = () => {
-  const params = useParams<{ name: string }>();
-
-  const selectedItem = createMemo(() => ITEMS.find(item => params.name === item.name));
+const PageExamples: RouteComponent<typeof Router.paths.examples> = props => {
+  const selectedItem = createMemo(() => ITEMS.find(item => props.params.name === item.name));
 
   return (
     <>
-      <MetaProvider>
-        <Title>Solid Material - Examples</Title>
-      </MetaProvider>
+      <Title>Solid Material - Examples</Title>
       <MaterialListDetailLayout
-        selected={params.name !== undefined}
+        selected={props.params.name !== undefined}
         dragHandleAriaLabel="Drag handle"
         dragHandleAriaValue={(position: DragHandlePosition) =>
           position.percentage === 50 ? 'Center' : `${position.percentage}%`
@@ -34,12 +31,12 @@ const PageExamples: ParentComponent = () => {
       >
         <MaterialPane class={styles['list-pane']}>
           <aside>
-            <ExampleList name={params.name} />
+            <ExampleList name={props.params.name} />
           </aside>
         </MaterialPane>
         <MaterialPane>
           <Show
-            when={params.name}
+            when={props.params.name}
             fallback={
               <EmptyState
                 icon={<AppsIcon />}

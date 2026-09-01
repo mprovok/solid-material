@@ -1,7 +1,8 @@
-import type { JSX, ParentComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { ParentComponent } from 'solid-js';
 
+import { Dynamic } from '@solidjs/web';
 import { Show, children } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
 import type { TypographyRole, TypographySize } from '../typography/Typography';
 
@@ -62,6 +63,8 @@ const LABEL_SIZE: Record<MaterialButtonSize, TypographySize> = {
   'extra-large': 'large'
 };
 
+const toString = (value: boolean): 'true' | 'false' => (value ? 'true' : 'false');
+
 export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLDivElement;
@@ -81,11 +84,11 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
   return (
     <sm-button
       ref={ref}
-      attr:data-variant={props.variant}
-      attr:data-size={size()}
-      attr:data-shape={props.shape}
-      attr:data-toggle={props.toggle}
-      attr:data-position={props.iconPosition}
+      data-variant={props.variant}
+      data-size={size()}
+      data-shape={props.shape}
+      data-toggle={props.toggle !== undefined ? props.toggle.toString() : undefined}
+      data-position={props.iconPosition}
       class={styles['button']}
       onClick={(event: PointerEvent) => props.onClick?.(event)}
       onContextMenu={onContextMenu}
@@ -101,8 +104,8 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
         state={props.transition !== undefined ? JSON.stringify({ transition: props.transition }) : undefined}
         role={props.href === undefined && props.toggle !== undefined ? 'switch' : undefined}
         aria-label={props.ariaLabel}
-        aria-expanded={props.ariaExpanded}
-        attr:aria-checked={props.toggle}
+        aria-expanded={props.ariaExpanded !== undefined ? toString(props.ariaExpanded) : undefined}
+        aria-checked={props.toggle !== undefined ? toString(props.toggle) : undefined}
       >
         <MaterialFocusRing attachTo={refButton} />
         <MaterialRipple attachTo={ref} disabled={props.disabled} />

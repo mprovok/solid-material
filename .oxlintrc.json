@@ -16,6 +16,7 @@
   "rules": {
     "import/no-relative-parent-imports": "off",
     "jsx-a11y/aria-role": "off",
+    "no-shadow": "off",
     "no-undefined": "off",
     "no-void": "off",
     "oxc/no-async-await": "off",

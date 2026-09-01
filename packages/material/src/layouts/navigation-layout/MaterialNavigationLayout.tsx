@@ -8,7 +8,7 @@ import type { MaterialNavigationLayoutProps } from './MaterialNavigationLayout.t
 export const MaterialNavigationLayout: FlowComponent<MaterialNavigationLayoutProps> = props => {
   return (
     <MaterialNavigationBarLayout {...props}>
-      <MaterialNavigationRailLayout {...props}>{props.children}</MaterialNavigationRailLayout>
+      <MaterialNavigationRailLayout {...props} />
     </MaterialNavigationBarLayout>
   );
 };

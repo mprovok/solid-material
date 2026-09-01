@@ -1,27 +1,27 @@
-import type { Component } from 'solid-js';
+import type { RouteComponent } from '@solidjs/router';
 
 // oxlint-disable-next-line import/no-absolute-path
-import favIconUrl from '/assets/favicon.svg?url&no-inline';
+import favIconUrl from '/assets/favicon.svg?url';
 //
-import { MetaProvider, Title } from '@solidjs/meta';
+import { Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { H2, H3 } from '@solidmaterial/material/components/typography';
 import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
 
+import type { Router } from '../router';
+
 import manifest from '../../manifest.json';
 
 import styles from './about.module.css';
 
-const RouteAbout: Component = () => {
+const RouteAbout: RouteComponent<typeof Router.paths.about> = () => {
   const navigate = useNavigate();
   const navigateBack = () => navigate('/settings', { state: { transition: 'backward' } });
 
   return (
     <>
-      <MetaProvider>
-        <Title>About</Title>
-      </MetaProvider>
+      <Title>About</Title>
       <MaterialBodyLayout variant="flexible-fixed">
         <MaterialPane>
           <MaterialAppBar variant="small" title="About" leadingButtonAriaLabel="Go back" onNavigate={navigateBack} />

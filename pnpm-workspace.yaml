@@ -22,11 +22,11 @@ allowBuilds:
 
 catalogs:
   storybook:
-    storybook: 10.4.6
-    '@storybook/addon-a11y': 10.4.6
-    '@storybook/addon-docs': 10.4.6
-    '@storybook/addon-vitest': 10.4.6
-    storybook-solidjs-vite: 10.6.0
+    storybook: 10.6.0
+    '@storybook/addon-a11y': 10.6.0
+    '@storybook/addon-docs': 10.6.0
+    '@storybook/addon-vitest': 10.6.0
+    storybook-solidjs-vite: 10.7.2
   tsdown:
     '@tsdown/css': 0.22.5
     tsdown: 0.22.5
@@ -37,11 +37,15 @@ catalogs:
     '@vitest/coverage-v8': 4.1.11
   vite:
     vite: 8.1.5
-    'vite-plugin-solid': 2.11.12
+    '@solidjs/vite-plugin': 3.0.0-next.41
   solid:
-    solid-js: 1.9.14
-    '@solidjs/router': 0.16.1
-    '@solidjs/meta': 0.29.4
+    solid-js: 2.0.0-rc.8
+    '@solidjs/web': 2.0.0-rc.8
+    '@solidjs/router': 2.0.0-next.23
+    '@solidjs/meta': 1.0.0-next.2
+  testing:
+    '@solidjs/testing-library': 1.0.0-beta.3
+    playwright: 1.59.1
 
 versioning:
   changelog:

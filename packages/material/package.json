@@ -72,27 +72,32 @@
     "lint": "oxlint --report-unused-disable-directives",
     "lint:fix": "oxlint --fix --report-unused-disable-directives",
     "storybook": "storybook dev --port 6006 --no-version-updates --no-open --disable-telemetry",
-    "storybook:build": "storybook build --disable-telemetry"
+    "storybook:build": "storybook build --disable-telemetry",
+    "storybook:preview": "vite preview --host --port 4000 --outDir storybook-static"
   },
   "dependencies": {
     "@fontsource-variable/roboto-flex": "5.2.8",
     "@material/material-color-utilities": "0.4.0",
     "@material/web": "2.4.1",
-    "@solid-primitives/active-element": "2.1.6",
-    "@solid-primitives/intersection-observer": "2.2.5",
-    "@solid-primitives/media": "2.3.6",
-    "@solid-primitives/mutation-observer": "1.2.4",
-    "@solid-primitives/pointer": "0.3.6",
-    "@solid-primitives/refs": "1.1.4",
-    "@solid-primitives/resize-observer": "2.1.6",
-    "@solid-primitives/scheduled": "1.5.3",
-    "@solid-primitives/transition-group": "1.1.2",
+    "@solid-primitives/active-element": "3.0.0-next.2",
+    "@solid-primitives/focus": "1.0.0-next.4",
+    "@solid-primitives/interaction": "1.0.0-next.4",
+    "@solid-primitives/intersection-observer": "3.0.0-next.3",
+    "@solid-primitives/media": "4.0.0-next.2",
+    "@solid-primitives/mutation-observer": "3.0.0-next.2",
+    "@solid-primitives/pointer": "1.0.0-next.2",
+    "@solid-primitives/refs": "3.0.0-next.2",
+    "@solid-primitives/resize-observer": "4.0.0-next.3",
+    "@solid-primitives/scheduled": "2.0.0-next.2",
+    "@solid-primitives/transition-group": "2.0.0-next.2",
     "@solidjs/router": "catalog:solid",
+    "@solidjs/web": "catalog:solid",
     "@solidmaterial/icons": "workspace:*",
     "solid-js": "catalog:solid"
   },
   "devDependencies": {
-    "@solidjs/testing-library": "0.8.10",
+    "@solidjs/testing-library": "catalog:testing",
+    "@solidjs/vite-plugin": "catalog:vite",
     "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
@@ -101,16 +106,15 @@
     "@types/node": "24.13.2",
     "@vitest/browser-playwright": "catalog:vitest",
     "@vitest/coverage-istanbul": "catalog:vitest",
-    "playwright": "1.59.1",
+    "playwright": "catalog:testing",
     "storybook": "catalog:storybook",
     "storybook-solidjs-vite": "catalog:storybook",
     "tsdown": "catalog:tsdown",
     "vite": "catalog:vite",
-    "vite-plugin-solid": "catalog:vite",
     "vitest": "catalog:vitest"
   },
   "peerDependencies": {
     "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
-    "solid-js": "^1.9.0"
+    "solid-js": "^2.0.0"
   }
 }

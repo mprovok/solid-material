@@ -1,12 +1,13 @@
-import type { FlowComponent, JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent, VoidComponent } from 'solid-js';
 
 import { resolveFirst } from '@solid-primitives/refs';
 import { createSwitchTransition } from '@solid-primitives/transition-group';
-import { Show, useContext } from 'solid-js';
+import { Show } from 'solid-js';
 
 import type { MaterialSnackbarModalAlignment } from './MaterialSnackbarModal';
 
-import { MaterialSnackbarContext } from './MaterialSnackbarContext';
+import { snackStore } from './MaterialSnackbarContext';
 import { MaterialSnackbarModal } from './MaterialSnackbarModal';
 
 export type MaterialSnackbarContainerAlignment = MaterialSnackbarModalAlignment;
@@ -90,7 +91,7 @@ export const SnackbarTransition: FlowComponent = props => {
 };
 
 export const MaterialSnackbarContainer: VoidComponent<MaterialSnackbarContainerProps> = props => {
-  const [state, setState] = useContext(MaterialSnackbarContext);
+  const [state, setState] = snackStore;
 
   const removeLast = () => setState(snacks => snacks.toSpliced(-1));
   const currentSnack = () => state.at(-1);

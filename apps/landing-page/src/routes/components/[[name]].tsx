@@ -1,10 +1,11 @@
-import type { Component } from 'solid-js';
+import type { RouteComponent } from '@solidjs/router';
 
-import { MetaProvider, Title } from '@solidjs/meta';
-import { useParams } from '@solidjs/router';
+import { Title } from '@solidjs/meta';
 import { H1 } from '@solidmaterial/material/components/typography';
 import { MaterialListDetailLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { Show, createMemo } from 'solid-js';
+
+import type { Router } from '../../router';
 
 import { EmptyState } from '../../components/empty-state/EmptyState';
 import {
@@ -27,53 +28,49 @@ const getStorybookBaseURL = () => {
   return isDev ? `http://${globalThis.location.hostname}:6006` : `${globalThis.location.origin}/storybook`;
 };
 
-const PageComponents: Component = () => {
-  const params = useParams<{ name: string }>();
-
+const PageComponents: RouteComponent<typeof Router.paths.components> = props => {
   const selectedItem = createMemo(() =>
     [...COMPONENTS, ...BUTTONS, ...CONTROLS, ...UTILITIES, ...NAVIGATION, ...LAYOUT].find(
-      item => params.name === item.name
+      item => props.params.name === item.name
     )
   );
 
   return (
     <>
-      <MetaProvider>
-        <Title>Solid Material - Components</Title>
-      </MetaProvider>
-      <MaterialListDetailLayout selected={params.name !== undefined}>
+      <Title>Solid Material - Components</Title>
+      <MaterialListDetailLayout selected={props.params.name !== undefined}>
         <MaterialPane class={styles['list-pane']}>
           <aside>
             <H1 role="label" size="large">
               Components
             </H1>
-            <ComponentList items={COMPONENTS} name={params.name} />
+            <ComponentList items={COMPONENTS} name={props.params.name} />
             <H1 role="label" size="large">
               Buttons
             </H1>
-            <ComponentList items={BUTTONS} name={params.name} />
+            <ComponentList items={BUTTONS} name={props.params.name} />
             <H1 role="label" size="large">
               Controls
             </H1>
-            <ComponentList items={CONTROLS} name={params.name} />
+            <ComponentList items={CONTROLS} name={props.params.name} />
             <H1 role="label" size="large">
               Navigation
             </H1>
-            <ComponentList items={NAVIGATION} name={params.name} />
+            <ComponentList items={NAVIGATION} name={props.params.name} />
             <H1 role="label" size="large">
               Layout
             </H1>
-            <ComponentList items={LAYOUT} name={params.name} />
+            <ComponentList items={LAYOUT} name={props.params.name} />
             <H1 role="label" size="large">
               Utilities
             </H1>
-            <ComponentList items={UTILITIES} name={params.name} />
+            <ComponentList items={UTILITIES} name={props.params.name} />
           </aside>
         </MaterialPane>
 
         <MaterialPane>
           <Show
-            when={params.name}
+            when={props.params.name}
             fallback={
               <EmptyState
                 icon={<CodeBlocksIcon />}

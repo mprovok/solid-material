@@ -1,7 +1,8 @@
 // SPDX-Copyright: 2021 Jorge Godoy
 // SPDX-License-Identifier: MIT
 declare module '*.svg' {
-  import type { Component, ComponentProps } from 'solid-js';
+  import type { ComponentProps } from '@solidjs/web';
+  import type { Component } from 'solid-js';
   const c: Component<ComponentProps<'svg'>>;
   export default c;
 }

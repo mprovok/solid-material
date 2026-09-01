@@ -1,6 +1,6 @@
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
 
 // oxlint-disable-next-line import/no-default-export
 export default defineConfig({

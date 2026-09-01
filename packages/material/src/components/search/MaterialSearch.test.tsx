@@ -108,7 +108,7 @@ describe('MaterialSearch', () => {
       await expect.element(bar).toHaveAttribute('data-expanded');
 
       // When making correct text incorrect
-      await userEvent.keyboard('{Backspace}');
+      await userEvent.type(input, 'something');
 
       // Then search results are not visible
       await expect.element(results).not.toBeVisible();

@@ -1,5 +1,6 @@
 import '@material/web/menu/sub-menu.js';
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { MaterialIcon } from '../icon/MaterialIcon';
 
@@ -18,16 +19,16 @@ export interface MaterialSubMenuProps {
 export const MaterialSubMenu: FlowComponent<MaterialSubMenuProps> = props => {
   return (
     <md-sub-menu
-      attr:anchor-corner={Array.isArray(props.placement) ? getAnchorCorner(...props.placement) : undefined}
-      attr:menu-corner={Array.isArray(props.placement) ? getMenuCorner(...props.placement) : undefined}
+      anchor-corner={Array.isArray(props.placement) ? getAnchorCorner(...props.placement) : undefined}
+      menu-corner={Array.isArray(props.placement) ? getMenuCorner(...props.placement) : undefined}
     >
-      <md-menu-item slot="item" bool:disabled={props.disabled}>
+      <md-menu-item slot="item" disabled={props.disabled}>
         {props.label}
         <MaterialIcon slot="end">
           <ArrowRightIcon />
         </MaterialIcon>
       </md-menu-item>
-      <md-menu slot="menu" attr:positioning="popover">
+      <md-menu slot="menu" positioning="popover">
         {props.children}
       </md-menu>
     </md-sub-menu>

@@ -25,11 +25,11 @@ export const MaterialCarouselItem: FlowComponent<MaterialCarouselItemProps> = pr
     <MaterialCarouselItemHolder>
       <sm-carousel-item
         ref={ref}
-        attr:tabindex={props.disabled === true ? -1 : 0}
+        tabindex={props.disabled === true ? -1 : 0}
         // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
         role="listitem"
         aria-label={props.ariaLabel}
-        bool:data-disabled={props.disabled}
+        data-disabled={props.disabled}
         class={styles['item']}
         onClick={(event: PointerEvent) => props.onClick(event)}
       >

@@ -19,12 +19,12 @@ export const MaterialNavigationBarLayout: FlowComponent<MaterialNavigationLayout
   return (
     <sm-nav-bar-layout class={styles['container']}>
       {props.children}
-      <div class={styles['bar']} bool:data-show={showBar()}>
+      <div class={styles['bar']} data-show={showBar()}>
         <div class={styles['snackbar-fab']}>
           <div class={styles['snackbar']}>
             <MaterialSnackbarContainer alignment={props.snackbarAlignment} closeTitle={props.snackbarCloseTitle} />
           </div>
-          <div class={styles['fab']} bool:data-show={showFab()}>
+          <div class={styles['fab']} data-show={showFab()}>
             {props.fab?.bar}
           </div>
         </div>

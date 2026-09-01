@@ -1,8 +1,8 @@
 import type { FlowComponent } from 'solid-js';
 
 import { createWindowSize } from '@solid-primitives/resize-observer';
-import { children, createMemo, splitProps, useContext } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic } from '@solidjs/web';
+import { children, createMemo, omit, useContext } from 'solid-js';
 
 import { Breakpoints } from '../../utils/breakpoints';
 import { MaterialNavigationLayoutRailWidthContext } from '../navigation-rail-layout/MaterialNavigationRailLayout';
@@ -28,13 +28,12 @@ const LAYOUTS: Record<MaterialBodyLayoutVariant, FlowComponent<TwoPaneLayoutProp
 };
 
 export const MaterialBodyLayout: FlowComponent<MaterialBodyLayoutProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['variant', 'children']);
+  const otherProps = omit(props, 'variant', 'children');
 
-  const panes = children(() => localProps.children);
+  const panes = children(() => props.children);
   const visiblePanes = createMemo(() => panes.toArray().filter(item => item !== undefined));
 
-  const navigationRailWidth = useContext(MaterialNavigationLayoutRailWidthContext);
-  const railWidth = () => navigationRailWidth?.() ?? 0;
+  const railWidth = useContext(MaterialNavigationLayoutRailWidthContext);
 
   const margin = () => (Breakpoints.isCompactWidth() ? 16 : 24);
   const marginLeft = () => (railWidth() === 0 && visiblePanes().length > 1 ? margin() : 0);
@@ -45,7 +44,7 @@ export const MaterialBodyLayout: FlowComponent<MaterialBodyLayoutProps> = props 
 
   return (
     <Dynamic
-      component={LAYOUTS[localProps.variant]}
+      component={LAYOUTS[props.variant]}
       {...otherProps}
       maximumWidth={maximumWidth()}
       margin={[marginLeft(), marginRight()]}

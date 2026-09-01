@@ -27,15 +27,15 @@ export const MaterialCheckbox: VoidComponent<MaterialCheckboxProps> = props => {
 
   return (
     <md-checkbox
-      attr:aria-label={props.ariaLabel}
-      attr:touch-target="wrapper"
-      attr:id={props.id}
-      attr:name={props.name}
-      bool:checked={props.checked === true}
-      bool:indeterminate={props.checked === undefined}
-      bool:disabled={props.disabled}
-      bool:required={props.required}
-      bool:inert={props.inert}
+      aria-label={props.ariaLabel}
+      touch-target="wrapper"
+      id={props.id}
+      name={props.name}
+      checked={props.checked === true}
+      indeterminate={props.checked === undefined}
+      disabled={props.disabled}
+      required={props.required}
+      inert={props.inert}
       onChange={[onChange, props.name]}
     ></md-checkbox>
   );

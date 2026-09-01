@@ -30,15 +30,15 @@ export const MaterialToolbar: FlowComponent<MaterialToolbarProps> = props => {
   const center = () => !Breakpoints.isCompactWidth() && !Breakpoints.isMediumWidth();
 
   return (
-    <div class={styles['container']} bool:data-show={props.show ?? true}>
+    <div class={styles['container']} data-show={props.show ?? true}>
       <sm-toolbar
         role="toolbar"
         aria-orientation={props.direction}
         class={styles['toolbar']}
-        attr:data-direction={direction()}
-        attr:data-mode={props.mode}
-        attr:data-color={props.color ?? 'standard'}
-        bool:data-center={center()}
+        data-direction={direction()}
+        data-mode={props.mode}
+        data-color={props.color ?? 'standard'}
+        data-center={center()}
       >
         <md-elevation></md-elevation>
         {props.children}

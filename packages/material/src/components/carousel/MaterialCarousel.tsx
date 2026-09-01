@@ -110,8 +110,8 @@ export const MaterialCarousel: FlowComponent<MaterialCarouselProps> = props => {
           role="list"
           aria-label={props.ariaLabel}
           tabindex={-1}
-          attr:data-variant={props.variant}
-          bool:data-dragging={isActive()}
+          data-variant={props.variant}
+          data-dragging={isActive()}
           class={styles['carousel']}
           style={
             isFullscreen()

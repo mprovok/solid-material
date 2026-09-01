@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { Show, children, createMemo, createSignal } from 'solid-js';
+import { Show, children, createMemo, createSignal, untrack } from 'solid-js';
 
 import type { FixedAndFlexiblePaneLayoutProps } from '../pane-layout.types';
 
@@ -39,14 +39,19 @@ export const TwoPanesWithSpacerLayout: FlowComponent<TwoPanesWithSpacerLayoutPro
 
     // Snap to the closest width when user drops drag handle
     if (!isDragging) {
-      const sortedSnapWidths = props.snapWidths.toSorted(
-        (a, b) => Math.abs(a - props.width) - Math.abs(b - props.width)
-      );
-      const snapToWidth = sortedSnapWidths.find(
-        value => value - SNAP_MARGIN <= props.width && props.width <= value + SNAP_MARGIN
-      );
-      const clampedPosition = clamp(0, snapToWidth ?? props.width, maximumWidth());
-      props.onMoveSpacer?.(clampedPosition, [0, maximumWidth()]);
+      const clampedPosition = untrack(() => {
+        const sortedSnapWidths = props.snapWidths.toSorted(
+          (a, b) => Math.abs(a - props.width) - Math.abs(b - props.width)
+        );
+        const snapToWidth = sortedSnapWidths.find(
+          value => value - SNAP_MARGIN <= props.width && props.width <= value + SNAP_MARGIN
+        );
+        return clamp(0, snapToWidth ?? props.width, maximumWidth());
+      });
+
+      const maxWidth = untrack(() => maximumWidth());
+
+      props.onMoveSpacer?.(clampedPosition, [0, maxWidth]);
     }
 
     props.onDragSpacer?.(isDragging);
@@ -67,11 +72,8 @@ export const TwoPanesWithSpacerLayout: FlowComponent<TwoPanesWithSpacerLayoutPro
 
   return (
     <sm-body-layout
-      bool:data-dragging={isDraggingHandle()}
-      classList={{
-        [styles['layout']!]: true,
-        [props.class ?? '']: props.class !== undefined
-      }}
+      data-dragging={isDraggingHandle()}
+      class={[styles['layout'], props.class]}
       style={{
         'padding-inline-start': `${props.margin[0]}px`,
         'padding-inline-end': `${props.margin[1]}px`
@@ -80,7 +82,7 @@ export const TwoPanesWithSpacerLayout: FlowComponent<TwoPanesWithSpacerLayoutPro
       <div
         class={styles['pane']}
         inert={!isLeftPaneVisible()}
-        aria-hidden={!isLeftPaneVisible()}
+        aria-hidden={!isLeftPaneVisible() ? 'true' : 'false'}
         style={{
           'min-width': props.leftPaneWidth !== undefined ? `${props.leftPaneWidth}px` : undefined,
           'max-width': props.leftPaneWidth !== undefined ? `${props.leftPaneWidth}px` : undefined
@@ -113,7 +115,7 @@ export const TwoPanesWithSpacerLayout: FlowComponent<TwoPanesWithSpacerLayoutPro
         <div
           class={styles['pane']}
           inert={!isRightPaneVisible()}
-          aria-hidden={!isRightPaneVisible()}
+          aria-hidden={!isRightPaneVisible() ? 'true' : 'false'}
           style={{
             'min-width': props.rightPaneWidth !== undefined ? `${props.rightPaneWidth}px` : undefined,
             'max-width': props.rightPaneWidth !== undefined ? `${props.rightPaneWidth}px` : undefined

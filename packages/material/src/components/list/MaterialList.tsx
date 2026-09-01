@@ -57,14 +57,14 @@ export const MaterialList: ParentComponent<MaterialListProps> = props => {
       ref={refList}
       class={styles['list']}
       role={props.selectable ? 'listbox' : 'list'}
-      attr:aria-label={props.ariaLabel}
-      attr:aria-multiselectable={isMultiselectable()}
-      bool:data-segmented={props.segmented}
+      aria-label={props.ariaLabel}
+      aria-multiselectable={isMultiselectable()}
+      data-segmented={props.segmented}
       onKeyDown={onKeyDown}
     >
-      <MaterialListSelectableContext.Provider value={props.selectable !== undefined}>
+      <MaterialListSelectableContext value={props.selectable !== undefined}>
         {props.children}
-      </MaterialListSelectableContext.Provider>
+      </MaterialListSelectableContext>
     </sm-list>
   );
 };

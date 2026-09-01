@@ -1,6 +1,6 @@
 import type { ParentComponent } from 'solid-js';
 
-import { For, createSignal, splitProps } from 'solid-js';
+import { For, createSignal, omit } from 'solid-js';
 
 import type { MaterialMenuPlacement } from '../menu/MaterialMenu';
 
@@ -27,7 +27,7 @@ export interface MaterialSplitButtonMenuProps extends Omit<
 }
 
 export const MaterialSplitButtonMenu: ParentComponent<MaterialSplitButtonMenuProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['menuItems', 'menuPlacement', 'menuAriaLabel']);
+  const otherProps = omit(props, 'menuItems', 'menuPlacement', 'menuAriaLabel');
 
   const [menuRef, setMenuRef] = createSignal<Element>();
   const [isOpen, setOpen] = createSignal(false);
@@ -45,13 +45,13 @@ export const MaterialSplitButtonMenu: ParentComponent<MaterialSplitButtonMenuPro
       <MaterialSplitButton {...otherProps} menuButtonRef={setMenuRef} open={isOpen()} onToggle={onToggle} />
       <MaterialMenu
         offset={[0, 4]}
-        placement={localProps.menuPlacement ?? ['bottom', 'start']}
+        placement={props.menuPlacement ?? ['bottom', 'start']}
         open={isOpen()}
         anchor={menuRef()}
-        ariaLabel={localProps.menuAriaLabel}
+        ariaLabel={props.menuAriaLabel}
         onClose={onCloseMenu}
       >
-        <For each={localProps.menuItems}>
+        <For each={props.menuItems}>
           {item => (
             <MaterialMenuItem ariaLabel={item.ariaLabel} onClick={item.onClick}>
               {item.label}

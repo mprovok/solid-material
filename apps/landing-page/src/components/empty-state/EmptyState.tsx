@@ -1,4 +1,5 @@
-import type { JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { VoidComponent } from 'solid-js';
 
 import { MaterialIcon } from '@solidmaterial/material/components/icon';
 import { H1, Span } from '@solidmaterial/material/components/typography';

@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { createEffect, createSignal } from 'solid-js';
+import { createSignal } from 'solid-js';
 
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
@@ -19,11 +19,7 @@ export interface MaterialPasswordFieldProps extends Omit<
 }
 
 export const MaterialPasswordField: VoidComponent<MaterialPasswordFieldProps> = props => {
-  const [isVisible, setVisible] = createSignal(props.visible ?? false);
-
-  createEffect(() => {
-    setVisible(props.visible ?? false);
-  });
+  const [isVisible, setVisible] = createSignal(() => props.visible ?? false);
 
   const onClickToggleVisibility = () => {
     setVisible(visible => !visible);

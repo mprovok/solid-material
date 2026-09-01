@@ -1,9 +1,11 @@
-import type { Component } from 'solid-js';
+import type { RouteComponent } from '@solidjs/router';
 
-import { MetaProvider, Title } from '@solidjs/meta';
+import { Title } from '@solidjs/meta';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
+
+import type { Router } from '../router';
 
 import { Calculator } from '../calculator/Calculator';
 
@@ -11,12 +13,10 @@ import styles from './index.module.css';
 
 import SettingsFillIcon from '@solidmaterial/icons/400/outlined/settings-fill.svg';
 
-const RouteHome: Component = () => {
+const RouteHome: RouteComponent<typeof Router.paths> = () => {
   return (
     <>
-      <MetaProvider>
-        <Title>Calculator</Title>
-      </MetaProvider>
+      <Title>Calculator</Title>
       <MaterialBodyLayout variant="flexible-fixed">
         <MaterialPane>
           <MaterialAppBar

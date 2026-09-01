@@ -1,7 +1,8 @@
-import type { JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { VoidComponent } from 'solid-js';
 
 import { createViewportObserver } from '@solid-primitives/intersection-observer';
-import { Match, Show, Switch, createMemo, createSignal, onCleanup, onMount } from 'solid-js';
+import { Match, Show, Switch, createMemo, createSignal, onSettled } from 'solid-js';
 
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 import { H1, H2 } from '../typography/Typography';
@@ -44,11 +45,9 @@ export const MaterialAppBar: VoidComponent<MaterialAppBarProps> = props => {
     threshold: Array.from({ length: 101 }).map((_, i) => i * 0.01)
   });
 
-  onMount(() => {
-    if (refAppendix !== undefined) {
-      add(refAppendix, onIntersectAppendix);
-      onCleanup(() => remove(refAppendix));
-    }
+  onSettled(() => {
+    add(refAppendix, onIntersectAppendix);
+    return () => remove(refAppendix);
   });
 
   const isScrolling = () => intersectionRatio() < 0.9;
@@ -63,7 +62,7 @@ export const MaterialAppBar: VoidComponent<MaterialAppBarProps> = props => {
 
   return (
     <>
-      <sm-app-bar class={styles['app-bar']} bool:data-scrolling={isScrolling()} bool:data-elevated={isElevated()}>
+      <sm-app-bar class={styles['app-bar']} data-scrolling={isScrolling()} data-elevated={isElevated()}>
         <md-elevation></md-elevation>
         <Show when={props.onNavigate !== undefined}>
           <div class={styles['back-button']}>
@@ -87,8 +86,7 @@ export const MaterialAppBar: VoidComponent<MaterialAppBarProps> = props => {
           </div>
         </Show>
         <div
-          class={styles['text']}
-          classList={{ [styles['center']!]: props.center }}
+          class={[styles['text'], { [styles['center']!]: props.center !== undefined }]}
           style={{ opacity: appBarTextOpacity() }}
         >
           <H1 role="title" size="large">
@@ -108,8 +106,7 @@ export const MaterialAppBar: VoidComponent<MaterialAppBarProps> = props => {
       <div ref={refAppendix} class={styles['appendix']}>
         <Show when={hasAppendixContent()}>
           <div
-            class={styles['appendix-inner']}
-            classList={{ [styles['center']!]: props.center }}
+            class={[styles['appendix-inner'], { [styles['center']!]: props.center !== undefined }]}
             data-variant={props.variant}
           >
             <div style={{ opacity: appendixTextOpacity() }}>

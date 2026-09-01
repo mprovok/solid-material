@@ -9,7 +9,7 @@ export interface MaterialSelectOptionProps {
 
 export const MaterialSelectOption: ParentComponent<MaterialSelectOptionProps> = props => {
   return (
-    <md-select-option attr:value={props.value} bool:disabled={props.disabled} attr:aria-label={props.ariaLabel}>
+    <md-select-option value={props.value} disabled={props.disabled} aria-label={props.ariaLabel}>
       {props.children}
     </md-select-option>
   );

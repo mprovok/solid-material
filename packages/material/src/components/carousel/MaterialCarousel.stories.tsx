@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { For, splitProps } from 'solid-js';
+import { For, omit } from 'solid-js';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
 import { expect, fn, userEvent, waitFor } from 'storybook/test';
 
@@ -51,9 +51,9 @@ interface CarouselItemsProps extends MaterialCarouselItemProps {
 }
 
 const CarouselItems: VoidComponent<CarouselItemsProps> = args => {
-  const [localProps, itemArgs] = splitProps(args, ['length']);
+  const itemArgs = omit(args, 'length');
   return (
-    <For each={Array.from({ length: localProps.length })}>
+    <For each={Array.from({ length: args.length })}>
       {_ => (
         <MaterialCarouselItem {...itemArgs}>
           <img

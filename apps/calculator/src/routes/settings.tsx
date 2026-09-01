@@ -1,8 +1,10 @@
+import type { RouteComponent } from '@solidjs/router';
 import type { MaterialIconSvg } from '@solidmaterial/material/components/icon';
-import type { Component, VoidComponent } from 'solid-js';
+import type { VoidComponent } from 'solid-js';
 
-import { MetaProvider, Title } from '@solidjs/meta';
+import { Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
+import { Dynamic } from '@solidjs/web';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialDialog } from '@solidmaterial/material/components/dialog';
@@ -13,8 +15,9 @@ import { MaterialSwitch } from '@solidmaterial/material/components/switch';
 import { H2 } from '@solidmaterial/material/components/typography';
 import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
 import { ThemeColorMode } from '@solidmaterial/material/styling';
-import { Index, Show, createSignal, createUniqueId, useContext } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { For, Show, createSignal, createUniqueId, useContext } from 'solid-js';
+
+import type { Router } from '../router';
 
 import manifest from '../../manifest.json';
 import { BUTTON_PRESS_VIBRATE_MS } from '../calculator/Calculator.types';
@@ -55,9 +58,9 @@ const RadioButtonTheme: VoidComponent<RadioButtonThemeProps> = props => {
   );
 };
 
-const RouteSettings: Component = () => {
+const RouteSettings: RouteComponent<typeof Router.paths.settings> = () => {
   const navigate = useNavigate();
-  const navigateBack = () => navigate('..', { state: { transition: 'backward' } });
+  const navigateBack = () => navigate('/', { state: { transition: 'backward' } });
   const navigateToAbout = () => navigate('/about', { state: { transition: 'forward' } });
 
   const [themeColorMode, setThemeColorMode] = useContext(ThemeColorModeContext);
@@ -71,9 +74,7 @@ const RouteSettings: Component = () => {
 
   return (
     <>
-      <MetaProvider>
-        <Title>Settings</Title>
-      </MetaProvider>
+      <Title>Settings</Title>
       <MaterialDialog
         title="Theme"
         actions={[
@@ -84,18 +85,18 @@ const RouteSettings: Component = () => {
         open={openDialog()}
         onClose={onCloseTheme}
       >
-        <Index each={[ThemeColorMode.SYSTEM, ThemeColorMode.LIGHT, ThemeColorMode.DARK] satisfies ThemeColorMode[]}>
+        <For each={[ThemeColorMode.SYSTEM, ThemeColorMode.LIGHT, ThemeColorMode.DARK]}>
           {mode => (
             <RadioButtonTheme
-              mode={mode()}
-              isChecked={themeColorMode() === mode()}
+              mode={mode}
+              isChecked={themeColorMode() === mode}
               onChange={() => {
-                setThemeColorMode(mode());
+                setThemeColorMode(mode);
                 onCloseTheme();
               }}
             />
           )}
-        </Index>
+        </For>
       </MaterialDialog>
       <MaterialBodyLayout variant="flexible-fixed">
         <MaterialPane>

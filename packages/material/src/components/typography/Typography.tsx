@@ -1,6 +1,7 @@
-import type { JSX, ParentComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { ParentComponent } from 'solid-js';
 
-import { splitProps } from 'solid-js';
+import { omit } from 'solid-js';
 
 export type TypographySize = 'small' | 'medium' | 'large';
 
@@ -48,15 +49,9 @@ export const H6: ParentComponent<TypographyProps> = props => (
 export type SpanProps = TypographyProps & Omit<JSX.HTMLAttributes<HTMLSpanElement>, 'role'>;
 
 export const Span: ParentComponent<SpanProps> = props => {
-  const [localProps, otherProps] = splitProps(props, ['role', 'size', 'class']);
+  const otherProps = omit(props, 'role', 'size', 'class');
   return (
-    <span
-      classList={{
-        [getFontClass(localProps.role, localProps.size)]: true,
-        [localProps.class ?? '']: localProps.class !== undefined
-      }}
-      {...otherProps}
-    >
+    <span class={[getFontClass(props.role, props.size), props.class]} {...otherProps}>
       {props.children}
     </span>
   );

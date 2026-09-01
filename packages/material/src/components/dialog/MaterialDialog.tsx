@@ -1,5 +1,6 @@
 import '@material/web/dialog/dialog.js';
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { createMediaQuery } from '@solid-primitives/media';
 import { Show } from 'solid-js';
@@ -36,11 +37,11 @@ export const MaterialDialog: FlowComponent<MaterialDialogProps> = props => {
       <md-dialog
         ref={ref}
         class={styles['dialog']}
-        attr:open=""
-        bool:quick={prefersReducedMotion()}
-        bool:no-focus-trap={props.closeButton}
-        attr:type={props.alert === true ? 'alert' : undefined}
-        attr:aria-label={props.ariaLabel}
+        open=""
+        quick={prefersReducedMotion()}
+        no-focus-trap={props.closeButton}
+        type={props.alert === true ? 'alert' : undefined}
+        aria-label={props.ariaLabel}
         onClosed={(event: Event) => props.onClose?.(event)}
       >
         <Show when={props.icon}>

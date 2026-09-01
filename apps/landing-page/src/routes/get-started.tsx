@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 
-import { MetaProvider, Title } from '@solidjs/meta';
+import { Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { H2, H3, Span } from '@solidmaterial/material/components/typography';
@@ -31,9 +31,7 @@ const PageGetStarted: Component = () => {
 
   return (
     <>
-      <MetaProvider>
-        <Title>Solid Material - Geting started</Title>
-      </MetaProvider>
+      <Title>Solid Material - Geting started</Title>
       <MaterialBodyLayout variant="flexible-fixed">
         <MaterialPane>
           <MaterialAppBar

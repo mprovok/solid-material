@@ -3,7 +3,7 @@ import type { FlowComponent } from 'solid-js';
 import { Variant } from '@material/material-color-utilities';
 import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
 import { usePrefersDark } from '@solid-primitives/media';
-import { createEffect, onCleanup } from 'solid-js';
+import { createEffect } from 'solid-js';
 
 import { getStyleSheetBaselineColors } from './material-theme-baseline';
 // Import Material Web Components
@@ -87,26 +87,33 @@ const dynamicTheme: (variant: ThemeVariant, version: ThemeVersion) => ThemeGener
  */
 export const MaterialTheme: FlowComponent<MaterialThemeProps> = props => {
   // Update CSS for palette colors
-  createEffect(() => {
-    const color = props.color !== undefined && isValidColor(props.color) ? props.color : DEFAULT_MATERIAL_THEME_COLOR;
+  createEffect(
+    () => [props.color, props.theme] as const,
+    ([color, theme]) => {
+      const themeColor = color !== undefined && isValidColor(color) ? color : DEFAULT_MATERIAL_THEME_COLOR;
 
-    const getStylesheet = props.theme !== undefined ? dynamicTheme(props.theme, '2025') : baselineTheme();
-    const styleSheet = getStylesheet(color);
-    document.adoptedStyleSheets.push(styleSheet);
+      const getStylesheet = theme !== undefined ? dynamicTheme(theme, '2025') : baselineTheme();
+      const styleSheet = getStylesheet(themeColor);
+      document.adoptedStyleSheets.push(styleSheet);
 
-    onCleanup(() => {
-      const index = document.adoptedStyleSheets.indexOf(styleSheet);
-      document.adoptedStyleSheets.splice(index);
-    });
-  });
+      return () => {
+        const index = document.adoptedStyleSheets.indexOf(styleSheet);
+        document.adoptedStyleSheets.splice(index);
+      };
+    }
+  );
 
   const prefersDark = usePrefersDark();
 
-  createEffect(() => {
-    const systemMode = prefersDark() ? 'dark' : 'light';
-    const mode = (props.mode ?? ThemeColorMode.SYSTEM) === ThemeColorMode.SYSTEM ? systemMode : props.mode;
-    globalThis.document.documentElement.dataset['theme'] = mode;
-  });
+  createEffect(
+    () => {
+      const systemMode = prefersDark() ? ThemeColorMode.DARK : ThemeColorMode.LIGHT;
+      return props.mode === undefined || props.mode === ThemeColorMode.SYSTEM ? systemMode : props.mode;
+    },
+    mode => {
+      globalThis.document.documentElement.dataset['theme'] = mode;
+    }
+  );
 
   return props.children;
 };

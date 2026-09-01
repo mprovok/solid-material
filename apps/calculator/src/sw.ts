@@ -1,7 +1,7 @@
 /// <reference lib="WebWorker" />
 
 import fontRoboto from '../../../packages/material/node_modules/@fontsource-variable/roboto-flex/files/roboto-flex-latin-wght-normal.woff2';
-import manifest from '../manifest.json?url&no-inline';
+import manifest from '../manifest.json?url';
 import fontGoogle from '../node_modules/@fontsource/google-sans-flex/files/google-sans-flex-latin-400-normal.woff2';
 
 declare const self: ServiceWorkerGlobalScope;

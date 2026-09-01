@@ -1,6 +1,6 @@
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { playwright } from '@vitest/browser-playwright';
-import solidPlugin from 'vite-plugin-solid';
 import { defineConfig } from 'vitest/config';
 
 // oxlint-disable-next-line import/no-default-export

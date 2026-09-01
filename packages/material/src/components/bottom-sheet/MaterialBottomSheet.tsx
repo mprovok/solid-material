@@ -1,7 +1,8 @@
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { createVisibilityObserver } from '@solid-primitives/intersection-observer';
-import { Show, createEffect, createMemo, createSignal } from 'solid-js';
+import { Show, createEffect, createMemo, createSignal, untrack } from 'solid-js';
 
 import type { DragHandleMovement } from '../../layouts/drag-handle/DragHandle';
 
@@ -32,12 +33,10 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLDialogElement;
 
-  // oxlint-disable-next-line no-unassigned-vars
-  let refSheet!: HTMLDivElement;
+  const [refSheet, setRefSheet] = createSignal<HTMLDivElement>();
 
   // Use the IntersectionObserver API to detect the user has swiped the sheet out of view
-  const useVisibilityObserver = createVisibilityObserver();
-  const isVisible = useVisibilityObserver(() => refSheet);
+  const isVisible = createVisibilityObserver(refSheet, { initialValue: false });
 
   const [currentIndex, setCurrentIndex] = createSignal(0);
 
@@ -64,58 +63,65 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     // before scrolling it to one of the children of the bottom sheet
     ref.scroll({ top: 0, behavior: 'instant' });
 
-    const firstIndex = props.availableIndices?.[0];
+    const availableIndices = untrack(() => props.availableIndices);
+    const firstIndex = availableIndices?.[0];
 
     // Always use the first index if it exists, otherwise show the whole bottom sheet
     if (firstIndex !== undefined) {
       showItem(firstIndex);
 
       // Reset the current index, set to -2 (all items) if there are one or no indices
-      setCurrentIndex((props.availableIndices?.length ?? 0) > 0 ? 0 : -2);
+      setCurrentIndex((availableIndices?.length ?? 0) > 0 ? 0 : -2);
     } else {
       showAllItems();
     }
   };
 
   const hideBottomSheet = () => {
-    if (isVisible()) {
-      ref.scroll({ top: 0, behavior: 'auto' });
-    }
+    ref.scroll({ top: 0, behavior: 'auto' });
   };
 
-  createEffect(() => {
-    switch (props.variant) {
-      case 'modal': {
-        if (props.open) {
-          ref.showModal();
-          showBottomSheet();
-        } else {
-          hideBottomSheet();
+  createEffect(
+    () => props.open,
+    open => {
+      const variant = untrack(() => props.variant);
+      switch (variant) {
+        case 'modal': {
+          if (open) {
+            ref.showModal();
+            showBottomSheet();
+          } else {
+            hideBottomSheet();
+          }
+          break;
         }
-        break;
-      }
-      case 'standard': {
-        if (props.open) {
-          ref.showPopover();
-          showBottomSheet();
-        } else {
-          hideBottomSheet();
+        case 'standard': {
+          if (open) {
+            ref.showPopover();
+            showBottomSheet();
+          } else {
+            hideBottomSheet();
+          }
+          break;
         }
-        break;
+        // No default
       }
-      // No default
     }
-  });
+  );
 
-  createEffect(() => {
-    if (!isVisible()) {
-      if (props.variant === 'modal') {
-        ref.close();
-      } else {
-        ref.hidePopover();
+  createEffect(
+    () => isVisible(),
+    visible => {
+      const variant = untrack(() => props.variant);
+      if (!visible) {
+        if (variant === 'modal') {
+          ref.close();
+        } else {
+          ref.hidePopover();
+        }
       }
     }
-  });
+  );
 
   const onToggle = (event: ToggleEvent) => {
     if (event.newState === 'closed') {
@@ -248,12 +254,12 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     >
       <div role="presentation" class={styles['space']} />
       <sm-bottom-sheet
-        ref={refSheet}
+        ref={setRefSheet}
         // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
         role="complementary"
-        attr:data-variant={props.variant}
-        bool:data-flat={props.flat}
-        bool:data-full-height={supportFullHeight()}
+        data-variant={props.variant}
+        data-flat={props.flat}
+        data-full-height={supportFullHeight()}
         class={styles['sheet']}
       >
         <md-elevation></md-elevation>

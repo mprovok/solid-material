@@ -29,15 +29,15 @@ export const MaterialRadio: VoidComponent<MaterialRadioProps> = props => {
 
   return (
     <md-radio
-      attr:aria-label={props.ariaLabel}
-      attr:touch-target="wrapper"
-      attr:id={props.id}
-      attr:name={props.name}
-      attr:value={props.value}
-      bool:checked={props.checked === true}
-      bool:disabled={props.disabled}
-      bool:required={props.required}
-      bool:inert={props.inert}
+      aria-label={props.ariaLabel}
+      touch-target="wrapper"
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      checked={props.checked === true}
+      disabled={props.disabled}
+      required={props.required}
+      inert={props.inert}
       onChange={[onChange, [props.name, props.value]]}
     ></md-radio>
   );

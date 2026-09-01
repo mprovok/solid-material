@@ -1,4 +1,5 @@
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { Show, createEffect, createSignal } from 'solid-js';
 
@@ -38,25 +39,24 @@ export const MaterialSideSheet: FlowComponent<MaterialSideSheetProps> = props =>
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLDialogElement;
 
-  const [isOpen, setIsOpen] = createSignal(props.open);
+  const [isOpen, setIsOpen] = createSignal(() => props.open);
 
-  createEffect(() => {
-    setIsOpen(props.open);
-  });
-
-  createEffect(() => {
-    if (isOpen()) {
-      if (props.variant === 'modal') {
-        ref.showModal();
+  createEffect(
+    () => [props.variant, isOpen()] as const,
+    ([variant, isOpen]) => {
+      if (isOpen) {
+        if (variant === 'modal') {
+          ref.showModal();
+        } else {
+          ref.show();
+        }
       } else {
-        ref.show();
+        setTimeout(() => {
+          ref.close();
+        }, EASING_DECELERATE_MS);
       }
-    } else {
-      setTimeout(() => {
-        ref.close();
-      }, EASING_DECELERATE_MS);
     }
-  });
+  );
 
   const onToggle = (event: ToggleEvent) => {
     if (event.newState === 'closed') {
@@ -76,7 +76,7 @@ export const MaterialSideSheet: FlowComponent<MaterialSideSheetProps> = props =>
     // oxlint-disable-next-line jsx_a11y/click-events-have-key-events jsx-a11y/no-noninteractive-element-interactions
     <dialog
       ref={ref}
-      bool:data-open={isOpen()}
+      data-open={isOpen()}
       closedby={CLOSED_BY[props.variant]}
       class={styles['dialog']}
       onToggle={onToggle}
@@ -86,9 +86,9 @@ export const MaterialSideSheet: FlowComponent<MaterialSideSheetProps> = props =>
         class={styles['sheet']}
         // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
         role="complementary"
-        bool:data-detached={props.variant === 'standard' && props.detached === true}
-        bool:data-divider={props.variant === 'standard' && props.detached !== true && props.divider}
-        attr:data-variant={props.variant}
+        data-detached={props.variant === 'standard' && props.detached === true}
+        data-divider={props.variant === 'standard' && props.detached !== true && props.divider}
+        data-variant={props.variant}
       >
         <div class={styles['container']}>
           <md-elevation></md-elevation>

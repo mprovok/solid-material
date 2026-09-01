@@ -9,8 +9,7 @@ import { MaterialList, MaterialListItem } from '@solidmaterial/material/componen
 import { MaterialTextField } from '@solidmaterial/material/components/text-field';
 import { Span } from '@solidmaterial/material/components/typography';
 import { Breakpoints } from '@solidmaterial/material/utils';
-import { For, Show } from 'solid-js';
-import { createStore, reconcile } from 'solid-js/store';
+import { For, Show, createStore, reconcile } from 'solid-js';
 
 import type { ExampleListItemType } from '../../pages/examples/ExampleList';
 import type { ExampleProps } from '../examples.types';
@@ -32,7 +31,9 @@ export const TodoList: VoidComponent<ExampleProps> = props => {
   const [todos, setTodos] = createStore<Todo[]>([]);
 
   const addTodo = (text: string) => {
-    setTodos(todos.length, { id: Math.max(-1, ...todos.map(t => t.id)) + 1, text, completed: false });
+    setTodos(items => {
+      items.push({ id: Math.max(-1, ...todos.map(t => t.id)) + 1, text, completed: false });
+    });
   };
 
   const removeTodo = (event: PointerEvent, id: number) => {
@@ -41,11 +42,10 @@ export const TodoList: VoidComponent<ExampleProps> = props => {
   };
 
   const toggleTodo = (id: number) => {
-    setTodos(
-      items => items.id === id,
-      'completed',
-      c => !c
-    );
+    setTodos(items => {
+      const item = items[id]!;
+      item.completed = !item.completed;
+    });
   };
 
   const onSubmit = (event: SubmitEvent) => {
@@ -103,7 +103,7 @@ export const TodoList: VoidComponent<ExampleProps> = props => {
                       ariaLabel={todo.text}
                       onClick={() => toggleTodo(todo.id)}
                     >
-                      <span classList={{ [styles['completed']!]: todo.completed }}>{todo.text}</span>
+                      <span class={{ [styles['completed']!]: todo.completed }}>{todo.text}</span>
                     </MaterialListItem>
                   );
                 }}

@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { MemoryRouter, Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, test } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -8,11 +8,12 @@ import { page, userEvent } from 'vitest/browser';
 import { TodoList, TodoListExampleItem } from './TodoList';
 
 const Wrapper: FlowComponent = props => {
-  return (
-    <MemoryRouter>
-      <Route path="/" component={() => props.children} />
-    </MemoryRouter>
-  );
+  const MemoryRouter = createRouter({
+    routes: [{ path: '/', component: () => props.children }],
+    history: memoryHistory('/')
+  });
+
+  return <MemoryRouter>{props => <>{props.children}</>}</MemoryRouter>;
 };
 
 describe('TodoList', () => {

@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { createFocusSignal } from '@solid-primitives/active-element';
+import { focus } from '@solid-primitives/active-element';
 import { createPerPointerListeners } from '@solid-primitives/pointer';
 import { createEffect, createSignal, untrack } from 'solid-js';
 
@@ -30,70 +30,62 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
   // also by the keyboard
   const [isActive, setIsActive] = createSignal(false);
 
-  const [isPointerActive, setIsPointerActive] = createSignal(false);
-  const [pointerId, setPointerId] = createSignal<number>();
-  const [hasMoved, setHasMoved] = createSignal(false);
+  const [isPointerActive, setIsPointerActive] = createSignal(false, { ownedWrite: true });
+  const [hasMoved, setHasMoved] = createSignal(false, { ownedWrite: true });
 
   // oxlint-disable-next-line no-unassigned-vars
   let pointerRef!: HTMLDivElement;
 
   createPerPointerListeners({
-    target: pointerRef,
     onDown(pointer, onMove, onUp) {
-      if (pointer.pointerId === pointerId()) {
-        setIsPointerActive(true);
-
-        const startPosition = props.position;
-
-        onMove(e => {
-          if (isActive()) {
-            setHasMoved(true);
-
-            switch (props.orientation) {
-              case 'horizontal': {
-                props.onMove?.(startPosition, e.clientX - pointer.clientX);
-                break;
-              }
-              case 'vertical': {
-                props.onMove?.(startPosition, e.clientY - pointer.clientY);
-                break;
-              }
-              // No default
-            }
-          }
-        });
-        onUp(() => setIsPointerActive(false));
+      if (!(pointer.target instanceof HTMLElement) || !pointerRef?.contains(pointer.target)) {
+        return;
       }
+
+      setIsPointerActive(true);
+      const startPosition = props.position;
+
+      onMove(e => {
+        if (isActive()) {
+          setHasMoved(true);
+
+          switch (props.orientation) {
+            case 'horizontal': {
+              props.onMove?.(startPosition, e.clientX - pointer.clientX);
+              break;
+            }
+            case 'vertical': {
+              props.onMove?.(startPosition, e.clientY - pointer.clientY);
+              break;
+            }
+            // No default
+          }
+        }
+      });
+      onUp(() => setIsPointerActive(false));
     }
   });
 
-  createEffect(() => {
-    const active = isPointerActive();
-    untrack(() => {
+  createEffect(
+    () => isPointerActive(),
+    isPointerActive => {
       // If the drag handle was activated by the pointer, then call onDrag
       // so that animations for the width of the fixed pane can be disabled.
       // This causes the width of the pane to adjust instantly and not lag behind.
-      props.onDrag(active);
+      props.onDrag(isPointerActive);
 
-      setIsActive(active);
+      setIsActive(isPointerActive);
       setHasMoved(false);
-    });
-  });
-
-  const isFocused = createFocusSignal(() => pointerRef);
-
-  createEffect(() => {
-    if (!isFocused()) {
-      untrack(() => {
-        if (!isPointerActive()) {
-          setIsActive(false);
-        }
-      });
     }
-  });
+  );
 
-  const onPointerEnter = (event: PointerEvent) => setPointerId(event.pointerId);
-  const onPointerLeave = () => setPointerId(undefined);
+  const onFocus = (focus: boolean) => {
+    const pointerActive = untrack(() => isPointerActive());
+
+    if (!focus && !pointerActive) {
+      setIsActive(false);
+    }
+  };
 
   const onClickDragHandle = (event: PointerEvent) => {
     if (!hasMoved() && (event.detail >= 2 || event.pointerType !== 'mouse')) {
@@ -139,12 +131,15 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
 
   return (
     <sm-spacer
-      ref={pointerRef}
+      ref={[
+        focus(onFocus),
+        (el: HTMLDivElement) => {
+          pointerRef = el;
+        }
+      ]}
       class={styles['spacer']}
-      bool:data-active={isActive()}
-      attr:data-orientation={props.orientation}
-      onPointerEnter={onPointerEnter}
-      onPointerLeave={onPointerLeave}
+      data-active={isActive()}
+      data-orientation={props.orientation}
       onContextMenu={onContextMenu}
     >
       <DragHandle
@@ -166,5 +161,5 @@ export interface EmptySpacerProps {
 }
 
 export const EmptySpacer: VoidComponent<EmptySpacerProps> = props => {
-  return <sm-spacer attr:data-orientation={props.orientation} class={styles['spacer']} />;
+  return <sm-spacer data-orientation={props.orientation} class={styles['spacer']} />;
 };

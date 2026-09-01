@@ -1,4 +1,5 @@
-import type { FlowComponent, JSX } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { FlowComponent } from 'solid-js';
 
 import { Show } from 'solid-js';
 

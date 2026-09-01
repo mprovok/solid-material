@@ -1,10 +1,10 @@
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 // oxlint-disable-next-line import/no-nodejs-modules
 import { readFileSync } from 'node:fs';
 // oxlint-disable-next-line import/no-nodejs-modules
 import path from 'node:path';
 import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
 
 // oxlint-disable-next-line typescript/no-unsafe-assignment
 const packageJson: { version: string } = JSON.parse(
@@ -21,6 +21,7 @@ export default defineConfig({
   build: {
     license: true,
     target: 'es2025',
+    assetsInlineLimit: 0,
 
     rolldownOptions: {
       input: {
