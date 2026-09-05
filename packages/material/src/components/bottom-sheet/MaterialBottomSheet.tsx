@@ -1,7 +1,7 @@
 import type { FlowComponent, JSX } from 'solid-js';
 
 import { createVisibilityObserver } from '@solid-primitives/intersection-observer';
-import { Show, createEffect, createSignal } from 'solid-js';
+import { Show, createEffect, createMemo, createSignal } from 'solid-js';
 
 import type { DragHandleMovement } from '../../layouts/drag-handle/DragHandle';
 
@@ -207,6 +207,35 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     setCurrentIndex(nextIndex);
   };
 
+  const dragHandleIndexCount = createMemo(() => {
+    return (props.availableIndices?.length ?? 0) + (supportFullHeight() ? 2 : 1);
+  });
+
+  const dragHandleIndex = () => {
+    const index = currentIndex();
+    const count = dragHandleIndexCount();
+
+    if (index === -2) {
+      // All items
+      return supportFullHeight() ? count - 1 : count;
+    } else if (index === -1) {
+      // Full height
+      return count;
+    }
+
+    const indexItem = props.availableIndices?.[index];
+
+    if (indexItem === undefined) {
+      // Sheet is moved to reveal all items in showBottomSheet()
+      return supportFullHeight() ? count - 1 : count;
+    }
+
+    // + 1 to make the index 1-based
+    return indexItem + 1;
+  };
+
+  const dragHandleValuePercentage = () => Math.round((dragHandleIndex() / dragHandleIndexCount()) * 100);
+
   return (
     // oxlint-disable-next-line jsx_a11y/click-events-have-key-events jsx-a11y/no-noninteractive-element-interactions
     <dialog
@@ -235,6 +264,7 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
                 direction="vertical"
                 active={false}
                 ariaLabel={props.dragHandleAriaLabel}
+                ariaValue={dragHandleValuePercentage()}
                 onClick={onClickDragHandle}
                 onKeyDown={onKeyDownDragHandle}
                 onMove={onMoveDragHandle}
