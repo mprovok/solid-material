@@ -33,7 +33,8 @@ export default defineConfig({
     outputFile: 'coverage/tests.junit.xml',
     coverage: {
       provider: 'istanbul',
-      reporter: [['cobertura', { file: 'coverage.xml' }], ['text']]
+      reporter: [['cobertura', { file: 'coverage.xml' }], ['text']],
+      reportOnFailure: true
     }
   }
 });
