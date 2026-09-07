@@ -1,8 +1,9 @@
 import type { FlowComponent } from 'solid-js';
 
 import { MemoryRouter, Route } from '@solidjs/router';
-import { fireEvent, render, waitFor, within } from '@solidjs/testing-library';
+import { render } from '@solidjs/testing-library';
 import { describe, expect, test } from 'vitest';
+import { page, userEvent } from 'vitest/browser';
 
 import { TodoList, TodoListExampleItem } from './TodoList';
 
@@ -15,85 +16,86 @@ const Wrapper: FlowComponent = props => {
 };
 
 describe('TodoList', () => {
-  test('it will render a text input and a button', () => {
-    const { getByPlaceholderText, getByText } = render(() => <TodoList data={TodoListExampleItem} />, {
+  test('it will render a text input and a button', async () => {
+    const { baseElement } = render(() => <TodoList data={TodoListExampleItem} />, {
       wrapper: Wrapper
     });
+    const screen = page.elementLocator(baseElement);
 
-    expect(getByPlaceholderText('Todo')).toBeInTheDocument();
-    expect(getByText('Add Todo')).toBeInTheDocument();
+    await expect.element(screen.getByRole('textbox', { name: 'Todo' })).toBeInTheDocument();
+    await expect.element(screen.getByText('Add Todo')).toBeInTheDocument();
   });
 
   test('it will add a new todo', async () => {
-    const { getByPlaceholderText, getByText, queryByRole } = render(() => <TodoList data={TodoListExampleItem} />, {
+    const { baseElement, queryByRole } = render(() => <TodoList data={TodoListExampleItem} />, {
       wrapper: Wrapper
     });
+    const screen = page.elementLocator(baseElement);
 
     expect(queryByRole('listitem')).toBeNull();
 
-    const input = getByPlaceholderText('Todo') as HTMLInputElement;
-    input.value = 'test new todo';
+    const input = screen.getByRole('textbox', { name: 'Todo' });
+    await userEvent.fill(input, 'test new todo');
 
-    const button = getByText('Add Todo');
-    fireEvent.click(button);
+    const button = screen.getByText('Add Todo');
+    await userEvent.click(button);
 
-    expect(input.value).toBe('');
-    expect(getByText(/test new todo/)).toBeInTheDocument();
+    await expect.element(input).toHaveValue('');
+    await expect.element(screen.getByText(/test new todo/u)).toBeInTheDocument();
   });
 
   test('it will remove a new todo', async () => {
-    const { getByPlaceholderText, getByText, getByRole, findByRole, queryByRole } = render(
-      () => <TodoList data={TodoListExampleItem} />,
-      {
-        wrapper: Wrapper
-      }
-    );
+    const { baseElement, queryByRole } = render(() => <TodoList data={TodoListExampleItem} />, {
+      wrapper: Wrapper
+    });
+    const screen = page.elementLocator(baseElement);
 
-    const input = getByPlaceholderText('Todo') as HTMLInputElement;
-    input.value = 'test new todo';
+    const input = screen.getByRole('textbox', { name: 'Todo' });
+    await userEvent.fill(input, 'test new todo');
 
-    const button = getByText('Add Todo');
-    fireEvent.click(button);
+    const button = screen.getByText('Add Todo');
+    await userEvent.click(button);
 
     // Wait for item to be added to the DOM
-    const item = await findByRole('listitem');
-    expect(item).toBeInTheDocument();
+    const item = screen.getByRole('listitem');
+    await expect.element(item).toBeInTheDocument();
 
-    const removeButton = getByRole('button', { name: 'Remove' });
-    fireEvent.click(removeButton);
+    const removeButton = screen.getByRole('button', { name: 'Remove', exact: true });
+    await userEvent.click(removeButton);
 
     expect(queryByRole('listitem')).toBeNull();
   });
 
   test('it will mark a todo as completed', async () => {
-    const { getByPlaceholderText, findByRole, getByText } = render(() => <TodoList data={TodoListExampleItem} />, {
+    const { baseElement } = render(() => <TodoList data={TodoListExampleItem} />, {
       wrapper: Wrapper
     });
+    const screen = page.elementLocator(baseElement);
 
-    const input = getByPlaceholderText('Todo') as HTMLInputElement;
-    input.value = 'mark new todo as completed';
+    const input = screen.getByRole('textbox', { name: 'Todo' });
+    await userEvent.fill(input, 'mark new todo as completed');
 
-    const button = getByText('Add Todo');
-    fireEvent.click(button);
+    const button = screen.getByText('Add Todo');
+    await userEvent.click(button);
 
     // Wait for item to be added to the DOM
-    const item = await findByRole('listitem');
-    expect(item).toBeInTheDocument();
+    const item = screen.getByRole('listitem');
+    await expect.element(item).toBeInTheDocument();
 
     // Check checkbox is not checked
-    const completed = item.querySelector('md-checkbox');
-    expect(completed?.checked).toBe(false);
+    const completed = screen.getByRole('checkbox');
+    await expect.element(completed).not.toBeChecked();
 
     // Click list item
-    const itemButtons = within(item).getAllByRole('button');
-    fireEvent.click(itemButtons[0] as HTMLButtonElement);
+    const itemButton = item.getByRole('button').first();
+    await userEvent.click(itemButton);
 
     // Wait for checkbox to become checked
-    await waitFor(async () => expect(completed?.checked).toBe(true));
+    await expect.element(completed).toBeChecked();
 
-    const text = getByText('mark new todo as completed');
-    expect(text).toHaveStyle({
-      'text-decoration': 'line-through'
+    const text = screen.getByText('mark new todo as completed');
+    await expect.element(text).toHaveStyle({
+      textDecoration: 'line-through'
     });
   });
 });
