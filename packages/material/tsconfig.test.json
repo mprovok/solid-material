@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["@solidmaterial/vite-plugin-solid-svg/types", "vite/client"]
+  },
+  "include": ["src/**/*.test.tsx"],
+  "files": ["vitest.setup.d.ts"],
+  "references": [{ "path": "./tsconfig.build.json" }]
+}

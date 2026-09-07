@@ -13,7 +13,6 @@
     "typeAware": true,
     "typeCheck": true
   },
-  "ignorePatterns": ["*.test.tsx"],
   "rules": {
     "import/no-relative-parent-imports": "off",
     "jsx-a11y/aria-role": "off",
@@ -74,6 +73,12 @@
       "rules": {
         "import/no-default-export": "off",
         "typescript/no-unsafe-member-access": "off"
+      }
+    },
+    {
+      "files": ["*.test.tsx"],
+      "rules": {
+        "typescript/unbound-method": "off"
       }
     }
   ]

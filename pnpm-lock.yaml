@@ -438,6 +438,9 @@ importers:
         specifier: catalog:solid
         version: 1.9.14
     devDependencies:
+      '@solidjs/testing-library':
+        specifier: 0.8.10
+        version: 0.8.10(@solidjs/router@0.16.1(solid-js@1.9.14))(solid-js@1.9.14)
       '@solidmaterial/vite-plugin-solid-svg':
         specifier: workspace:*
         version: link:../vite-plugin-solid-svg

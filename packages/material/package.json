@@ -92,6 +92,7 @@
     "solid-js": "catalog:solid"
   },
   "devDependencies": {
+    "@solidjs/testing-library": "0.8.10",
     "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
