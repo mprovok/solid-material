@@ -7,6 +7,9 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [solidPlugin(), solidSvg()],
   test: {
+    name: 'components',
+    include: ['src/**/*.test.tsx'],
+    setupFiles: 'vitest.setup.ts',
     environment: 'node',
     globals: true,
     browser: {
