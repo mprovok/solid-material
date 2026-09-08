@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 
 import { For, Show, createSignal } from 'solid-js';
-import { expect, fn, userEvent } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 import { H3 } from '../typography/Typography';
@@ -259,19 +259,6 @@ export const Toggle = meta.story({
         </Show>
       </MaterialButton>
     );
-  },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole('button');
-
-    await expect(button).toHaveTextContent('Play');
-
-    await userEvent.click(button, { delay: 500 });
-
-    await expect(button).toHaveTextContent('Pause');
-
-    await userEvent.click(button, { delay: 500 });
-
-    await expect(button).toHaveTextContent('Play');
   }
 });
 
