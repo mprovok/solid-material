@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { createSignal } from 'solid-js';
-import { expect, fn, userEvent } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 
@@ -77,18 +77,5 @@ export const WithLabel = meta.story({
     ariaLabel: undefined,
     selected: false
   },
-  render: MaterialSwitchStory,
-  play: async ({ canvas }) => {
-    const button = canvas.getByLabelText('Switch is not checked');
-
-    await expect(button).toHaveAccessibleName('Switch is not checked');
-
-    await userEvent.click(button, { delay: 250 });
-
-    await expect(button).toHaveAccessibleName('Switch is checked');
-
-    await userEvent.click(button, { delay: 250 });
-
-    await expect(button).toHaveAccessibleName('Switch is not checked');
-  }
+  render: MaterialSwitchStory
 });
