@@ -5,7 +5,7 @@ import { createSignal } from 'solid-js';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
-import { MaterialTheme } from '../../styling';
+import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialIcon } from '../icon/MaterialIcon';
 import { MaterialList } from '../list/MaterialList';
 import { MaterialListItem } from '../list/MaterialListItem';
@@ -32,40 +32,40 @@ const RenderComponent: VoidComponent<RenderComponentProps> = props => {
   };
 
   return (
-    <MaterialTheme>
-      <MaterialSearch open={isSearchOpen()} layout="docked">
-        <MaterialSearchBar
-          placeholder="Placeholder"
-          input={searchInput}
-          setInput={setSearchInput}
-          initialFocus={props.initialFocus}
-          showClearButton={props.showClearButton}
-          backButtonAriaLabel="Back"
-          clearButtonAriaLabel="Clear input"
-        />
-        <MaterialSearchResults>
-          <MaterialList segmented={true}>
-            <MaterialListItem
-              start={
-                <MaterialIcon>
-                  <StarIcon />
-                </MaterialIcon>
-              }
-              onClick={onClickSearchResultItem}
-            >
-              Search result item
-            </MaterialListItem>
-          </MaterialList>
-        </MaterialSearchResults>
-      </MaterialSearch>
-    </MaterialTheme>
+    <MaterialSearch open={isSearchOpen()} layout="docked">
+      <MaterialSearchBar
+        placeholder="Placeholder"
+        input={searchInput}
+        setInput={setSearchInput}
+        initialFocus={props.initialFocus}
+        showClearButton={props.showClearButton}
+        backButtonAriaLabel="Back"
+        clearButtonAriaLabel="Clear input"
+      />
+      <MaterialSearchResults>
+        <MaterialList segmented={true}>
+          <MaterialListItem
+            start={
+              <MaterialIcon>
+                <StarIcon />
+              </MaterialIcon>
+            }
+            onClick={onClickSearchResultItem}
+          >
+            Search result item
+          </MaterialListItem>
+        </MaterialList>
+      </MaterialSearchResults>
+    </MaterialSearch>
   );
 };
 
 describe('MaterialSearch', () => {
   describe('Interaction', () => {
     it('shows search results when typing correct text', async () => {
-      const { baseElement } = render(() => <RenderComponent />);
+      const { baseElement } = render(() => <RenderComponent />, {
+        wrapper: MaterialTheme
+      });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
       const results = screen.getByElement('sm-search-results');
@@ -92,7 +92,9 @@ describe('MaterialSearch', () => {
     });
 
     it('hides search results when making correct text incorrect', async () => {
-      const { baseElement } = render(() => <RenderComponent initialFocus initialText="text" />);
+      const { baseElement } = render(() => <RenderComponent initialFocus initialText="text" />, {
+        wrapper: MaterialTheme
+      });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
       const results = screen.getByElement('sm-search-results');
@@ -118,7 +120,9 @@ describe('MaterialSearch', () => {
     });
 
     it('hides search results when clicking outside search bar', async () => {
-      const { baseElement } = render(() => <RenderComponent initialFocus initialText="text" />);
+      const { baseElement } = render(() => <RenderComponent initialFocus initialText="text" />, {
+        wrapper: MaterialTheme
+      });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
       const results = screen.getByElement('sm-search-results');
@@ -143,7 +147,9 @@ describe('MaterialSearch', () => {
     });
 
     it('shows search results when clicking on bar with correct text', async () => {
-      const { baseElement } = render(() => <RenderComponent initialText="text" />);
+      const { baseElement } = render(() => <RenderComponent initialText="text" />, {
+        wrapper: MaterialTheme
+      });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
       const results = screen.getByElement('sm-search-results');
@@ -168,7 +174,9 @@ describe('MaterialSearch', () => {
     });
 
     it('hides results when clicking on search result item', async () => {
-      const { baseElement } = render(() => <RenderComponent initialFocus initialText="text" />);
+      const { baseElement } = render(() => <RenderComponent initialFocus initialText="text" />, {
+        wrapper: MaterialTheme
+      });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
       const results = screen.getByElement('sm-search-results');
