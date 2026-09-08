@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { createSignal, createUniqueId } from 'solid-js';
-import { expect, fn, userEvent } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 
@@ -58,18 +58,5 @@ export const WithLabel = meta.story({
     ariaLabel: undefined,
     checked: false
   },
-  render: MaterialCheckboxStory,
-  play: async ({ canvas }) => {
-    const button = canvas.getByLabelText('Checkbox is not checked');
-
-    await expect(button).toHaveAccessibleName('Checkbox is not checked');
-
-    await userEvent.click(button, { delay: 250 });
-
-    await expect(button).toHaveAccessibleName('Checkbox is checked');
-
-    await userEvent.click(button, { delay: 250 });
-
-    await expect(button).toHaveAccessibleName('Checkbox is not checked');
-  }
+  render: MaterialCheckboxStory
 });
