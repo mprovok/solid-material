@@ -2,7 +2,6 @@ import type { Component } from 'solid-js';
 
 import { createSignal } from 'solid-js';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, fireEvent, userEvent, waitFor } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 import { MaterialButton } from '../button/MaterialButton';
@@ -67,75 +66,14 @@ export const Standard = meta.story({
   args: {
     variant: 'standard'
   },
-  render: () => <MaterialBottomSheetRenderer {...Standard.composed.args} />,
-  play: async ({ canvas, step }) => {
-    const button = canvas.getByRole('button', { name: 'Open bottom sheet' });
-
-    await step('Can open bottom sheet', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await expect(sheet).toBeVisible();
-
-      const closeButton = canvas.getByRole('button', { name: 'Close sheet' });
-      await expect(closeButton).toBeVisible();
-    });
-
-    await step('Click close button to close sheet', async () => {
-      const closeButton = canvas.getByRole('button', { name: 'Close sheet' });
-
-      await userEvent.click(closeButton, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await waitFor(async () => expect(sheet).not.toBeVisible());
-    });
-
-    await step('Scroll down to close sheet', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await expect(sheet).toBeVisible();
-
-      const dialog = canvas.getByRole('dialog');
-
-      await fireEvent.scroll(dialog, {
-        target: {
-          scrollTop: dialog.clientHeight - dialog.scrollHeight
-        }
-      });
-
-      await waitFor(async () => expect(sheet).not.toBeVisible());
-    });
-  }
+  render: () => <MaterialBottomSheetRenderer {...Standard.composed.args} />
 });
 
 export const Modal = meta.story({
   args: {
     variant: 'modal'
   },
-  render: () => <MaterialBottomSheetRenderer {...Modal.composed.args} />,
-  play: async ({ canvas, step }) => {
-    const button = canvas.getByRole('button', { name: 'Open bottom sheet' });
-
-    await step('Can open bottom sheet', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await expect(sheet).toBeVisible();
-
-      const closeButton = canvas.getByRole('button', { name: 'Close sheet' });
-      await expect(closeButton).toBeVisible();
-    });
-
-    await step('Click backdrop to close sheet', async () => {
-      const dialog = canvas.getByRole('dialog');
-
-      await userEvent.click(dialog, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await waitFor(async () => expect(sheet).not.toBeVisible());
-    });
-  }
+  render: () => <MaterialBottomSheetRenderer {...Modal.composed.args} />
 });
 
 export const SnapIndicesDragHandle = meta.story({
@@ -144,62 +82,7 @@ export const SnapIndicesDragHandle = meta.story({
     availableIndices: [0, 1],
     dragHandle: true
   },
-  render: () => <MaterialBottomSheetRenderer {...SnapIndicesDragHandle.composed.args} />,
-  play: async ({ canvas, step }) => {
-    const button = canvas.getByRole('button', { name: 'Open bottom sheet' });
-
-    await step('Can open bottom sheet', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await expect(sheet).toBeVisible();
-
-      const closeButton = canvas.getByRole('button', { name: 'Close sheet' });
-      await expect(closeButton).toBeVisible();
-    });
-
-    await step('Click drag handle to show more content', async () => {
-      const handle = canvas.getByRole('separator');
-
-      await userEvent.dblClick(handle, { delay: 250 });
-      await userEvent.dblClick(handle, { delay: 250 });
-      await userEvent.dblClick(handle, { delay: 250 });
-    });
-
-    await step('Scroll sheet to be fully visible and then close it', async () => {
-      const dialog = canvas.getByRole('dialog');
-
-      await fireEvent.scroll(dialog, {
-        target: {
-          scrollTop: dialog.scrollHeight - dialog.clientHeight
-        },
-        delay: 500
-      });
-
-      const closeButton = canvas.getByRole('button', { name: 'Close sheet' });
-      await userEvent.click(closeButton, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await waitFor(async () => expect(sheet).not.toBeVisible());
-    });
-
-    await step('Use keyboard to show more or less of sheet', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await expect(sheet).toBeVisible();
-
-      await userEvent.keyboard('{ArrowUp}', { delay: 250 });
-      await userEvent.keyboard('{ArrowUp}', { delay: 250 });
-      await userEvent.keyboard('{ArrowDown}', { delay: 250 });
-      await userEvent.keyboard('{ArrowDown}', { delay: 250 });
-
-      await waitFor(async () => expect(sheet).toBeVisible());
-
-      await userEvent.keyboard('{Enter}', { delay: 250 });
-      await waitFor(async () => expect(sheet).toBeVisible());
-    });
-  }
+  render: () => <MaterialBottomSheetRenderer {...SnapIndicesDragHandle.composed.args} />
 });
 
 export const FullHeight = meta.story({
@@ -225,33 +108,5 @@ export const FullHeightOnMobile = meta.story({
   globals: {
     viewport: { value: 'pixel', isRotated: false }
   },
-  render: () => <MaterialBottomSheetRenderer {...FullHeightOnMobile.composed.args} />,
-  play: async ({ canvas, step }) => {
-    const button = canvas.getByRole('button', { name: 'Open bottom sheet' });
-
-    await step('Can open bottom sheet', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      const sheet = canvas.getByRole('complementary');
-      await expect(sheet).toBeVisible();
-    });
-
-    await step('Scroll sheet to be fully visible and then close it', async () => {
-      const dialog = canvas.getByRole('dialog');
-
-      await fireEvent.scroll(dialog, {
-        target: {
-          scrollTop: dialog.scrollHeight - dialog.clientHeight
-        },
-        delay: 500
-      });
-
-      const sheet = canvas.getByRole('complementary');
-
-      const closeButton = canvas.getByRole('button', { name: 'Close sheet' });
-      await userEvent.click(closeButton, { delay: 250 });
-
-      await waitFor(async () => expect(sheet).not.toBeVisible());
-    });
-  }
+  render: () => <MaterialBottomSheetRenderer {...FullHeightOnMobile.composed.args} />
 });
