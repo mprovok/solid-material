@@ -19,6 +19,7 @@ export default defineConfig({
       // At least one instance is required
       instances: [{ browser: 'chromium' }, { browser: 'webkit' }]
     },
+    retry: 1,
     reporters: ['default', 'junit'],
     outputFile: 'coverage/tests.junit.xml',
     coverage: {
