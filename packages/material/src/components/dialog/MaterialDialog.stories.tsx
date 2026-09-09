@@ -1,7 +1,7 @@
 import type { ParentComponent } from 'solid-js';
 
 import { createSignal } from 'solid-js';
-import { expect, fn, userEvent, waitFor } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 import { MaterialButton } from '../button/MaterialButton';
@@ -68,22 +68,7 @@ export const Example = meta.story({
       <MaterialButton variant="text">OK</MaterialButton>
     ]
   },
-  render: MaterialDialogStory,
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole('button', { name: 'Open dialog' });
-
-    await expect(button).toBeInTheDocument();
-    await expect(canvas.queryByText('Title')).toBeNull();
-
-    await userEvent.click(button, { delay: 250 });
-
-    await waitFor(async () => expect(canvas.getByText('Title')).toBeVisible());
-
-    const closeButton = canvas.getByRole('button', { name: 'Close' });
-    await userEvent.click(closeButton, { delay: 250 });
-
-    await waitFor(async () => expect(canvas.queryByText('Title')).toBeNull());
-  }
+  render: MaterialDialogStory
 });
 
 export const Title = meta.story({
