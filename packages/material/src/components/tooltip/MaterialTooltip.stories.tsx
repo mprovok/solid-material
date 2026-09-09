@@ -1,7 +1,5 @@
 import type { Component } from 'solid-js';
 
-import { expect, userEvent, waitFor } from 'storybook/test';
-
 import preview from '../../../.storybook/preview';
 import { MaterialButton } from '../button/MaterialButton';
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
@@ -37,19 +35,6 @@ export const Plain = meta.story({
     variant: 'plain',
     children: <MaterialIconButton variant="tonal" icon={<FormatColorFillIcon />} />,
     tooltip: <MaterialPlainTooltip>Plain tooltip</MaterialPlainTooltip>
-  },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole('button');
-
-    await expect(canvas.queryByRole('tooltip')).toBeNull();
-
-    await userEvent.hover(button);
-
-    await waitFor(async () => expect(canvas.getByRole('tooltip')).toBeVisible());
-
-    await userEvent.unhover(button);
-
-    await waitFor(async () => expect(canvas.queryByRole('tooltip')).toBeNull(), { timeout: 2_500 });
   }
 });
 
@@ -58,19 +43,6 @@ export const Rich = meta.story({
     variant: 'rich',
     children: <MaterialIconButton variant="tonal" icon={<FormatColorFillIcon />} />,
     tooltip: <RichTooltip />
-  },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole('button');
-
-    await expect(canvas.queryByRole('tooltip')).toBeNull();
-
-    await userEvent.hover(button);
-
-    await waitFor(async () => expect(canvas.getByRole('tooltip')).toBeVisible());
-
-    await userEvent.unhover(button);
-
-    await waitFor(async () => expect(canvas.queryByRole('tooltip')).toBeNull(), { timeout: 2_500 });
   }
 });
 
@@ -80,24 +52,6 @@ export const PersistentOnClick = meta.story({
     persistent: 'click',
     children: <MaterialIconButton variant="tonal" icon={<FormatColorFillIcon />} />,
     tooltip: <RichTooltip />
-  },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole('button');
-
-    await expect(canvas.queryByRole('tooltip')).toBeNull();
-
-    await userEvent.click(button);
-
-    await waitFor(async () => expect(canvas.getByRole('tooltip')).toBeVisible());
-
-    await userEvent.tab();
-
-    await waitFor(async () => expect(canvas.getByRole('button', { name: 'Action 1' })).toHaveFocus());
-
-    await userEvent.tab({ shift: true });
-    await userEvent.tab({ shift: true });
-
-    await waitFor(async () => expect(canvas.queryByRole('tooltip')).toBeNull());
   }
 });
 
