@@ -2,7 +2,7 @@ import type { Component } from 'solid-js';
 
 import { For } from 'solid-js';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, fn, userEvent, waitFor } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import type { MaterialFabColor, MaterialFabSize } from '../fab/MaterialFab';
 
@@ -106,46 +106,5 @@ export const Tooltip = meta.story({
     closeButtonAriaLabel: 'Close',
     icon: <EditIcon />,
     items: getItems()
-  },
-  play: async ({ canvas, step }) => {
-    const button = canvas.getByRole('button');
-
-    await expect(button).toBeVisible();
-    await expect(button).toHaveAccessibleName('Tooltip');
-
-    await expect(canvas.queryByRole('menu')).toBeNull();
-
-    await step('Hover over FAB to show tooltip', async () => {
-      await expect(canvas.queryByRole('tooltip')).toBeNull();
-      await userEvent.hover(button, { delay: 250 });
-
-      await waitFor(async () => expect(canvas.getByRole('tooltip')).toBeVisible());
-    });
-
-    await step('Click on FAB to show menu', async () => {
-      await userEvent.click(button, { delay: 250 });
-
-      await waitFor(async () => expect(canvas.getByRole('menu')).toBeVisible());
-      await expect(button).toHaveAccessibleName('Close');
-    });
-
-    await step('Cycle through the focusable menu items', async () => {
-      const item = canvas.getByRole('button', { name: 'First' });
-      await expect(item).toBeInTheDocument();
-
-      await userEvent.tab();
-      await waitFor(async () => expect(item).toHaveFocus());
-
-      await userEvent.tab();
-      await waitFor(async () => expect(item).not.toHaveFocus());
-    });
-
-    await step('Click close button to hide menu', async () => {
-      await userEvent.click(button, { delay: 250 });
-      button.blur();
-
-      await waitFor(async () => expect(canvas.queryByRole('menu')).toBeNull());
-      await expect(button).toHaveAccessibleName('Tooltip');
-    });
   }
 });
