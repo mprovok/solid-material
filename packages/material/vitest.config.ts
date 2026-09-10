@@ -49,7 +49,7 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'components',
-          include: ['src/**/*.test.tsx'],
+          include: ['src/**/*.test.{ts,tsx}'],
           setupFiles: 'vitest.setup.ts'
         }
       }
