@@ -58,7 +58,7 @@ describe('MaterialSearchBar', () => {
   describe('Visual', () => {
     describe('Collapsed (unfocused)', () => {
       it('shows a non-clickable leading icon when no leading button is defined', async () => {
-        const { baseElement, queryByRole } = render(() => <RenderComponent showTrailingButtons />, {
+        const { baseElement } = render(() => <RenderComponent showTrailingButtons />, {
           wrapper: MaterialTheme
         });
         const screen = page.elementLocator(baseElement);
@@ -72,12 +72,12 @@ describe('MaterialSearchBar', () => {
         await expect.element(leadingButtonIcon).toBeVisible();
 
         // and the back button is hidden
-        const backButton = queryByRole('button', { name: 'Back' });
-        await expect.element(backButton).toBeNull();
+        const backButton = screen.getByRole('button', { name: 'Back' });
+        await expect.element(backButton).not.toBeInTheDocument();
       });
 
       it('shows leading button when a leading button is defined', async () => {
-        const { baseElement, queryByRole } = render(() => <RenderComponent showLeadingButton />, {
+        const { baseElement } = render(() => <RenderComponent showLeadingButton />, {
           wrapper: MaterialTheme
         });
         const screen = page.elementLocator(baseElement);
@@ -91,12 +91,12 @@ describe('MaterialSearchBar', () => {
         await expect.element(leadingButton).toBeVisible();
 
         // and the back button is hidden
-        const backButton = queryByRole('button', { name: 'Back' });
-        await expect.element(backButton).toBeNull();
+        const backButton = screen.getByRole('button', { name: 'Back' });
+        await expect.element(backButton).not.toBeInTheDocument();
       });
 
       it('shows trailing buttons', async () => {
-        const { baseElement, queryByRole } = render(() => <RenderComponent showTrailingButtons />, {
+        const { baseElement } = render(() => <RenderComponent showTrailingButtons />, {
           wrapper: MaterialTheme
         });
         const screen = page.elementLocator(baseElement);
@@ -110,12 +110,12 @@ describe('MaterialSearchBar', () => {
         await expect.element(trailingButton).toBeVisible();
 
         // and the clear button is hidden
-        const clearButton = queryByRole('button', { name: 'Clear input' });
-        await expect.element(clearButton).toBeNull();
+        const clearButton = screen.getByRole('button', { name: 'Clear input' });
+        await expect.element(clearButton).not.toBeInTheDocument();
       });
 
       it('shows no clear button if no trailing buttons exist', async () => {
-        const { baseElement, queryByRole } = render(() => <RenderComponent />, { wrapper: MaterialTheme });
+        const { baseElement } = render(() => <RenderComponent />, { wrapper: MaterialTheme });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
 
@@ -123,8 +123,8 @@ describe('MaterialSearchBar', () => {
         await expect.element(bar).not.toHaveAttribute('data-expanded');
 
         // Then the clear button is hidden
-        const clearButton = queryByRole('button', { name: 'Clear input' });
-        await expect.element(clearButton).toBeNull();
+        const clearButton = screen.getByRole('button', { name: 'Clear input' });
+        await expect.element(clearButton).not.toBeInTheDocument();
       });
 
       it('shows zero buttons if showClearButton is false', async () => {
@@ -158,7 +158,7 @@ describe('MaterialSearchBar', () => {
       });
 
       it('shows clear button', async () => {
-        const { baseElement, queryByRole } = render(() => <RenderComponent showTrailingButtons initialFocus />, {
+        const { baseElement } = render(() => <RenderComponent showTrailingButtons initialFocus />, {
           wrapper: MaterialTheme
         });
         const screen = page.elementLocator(baseElement);
@@ -172,15 +172,15 @@ describe('MaterialSearchBar', () => {
         await expect.element(clearButton).toBeVisible();
 
         // and the trailing icon button is hidden
-        const trailingButtonUnfocused = queryByRole('button', { name: 'Unfocused trailing button' });
-        await expect.element(trailingButtonUnfocused).toBeNull();
+        const trailingButtonUnfocused = screen.getByRole('button', { name: 'Unfocused trailing button' });
+        await expect.element(trailingButtonUnfocused).not.toBeInTheDocument();
 
-        const trailingButtonFocused = queryByRole('button', { name: 'Focused trailing button' });
-        await expect.element(trailingButtonFocused).toBeNull();
+        const trailingButtonFocused = screen.getByRole('button', { name: 'Focused trailing button' });
+        await expect.element(trailingButtonFocused).not.toBeInTheDocument();
       });
 
       it('shows trailing buttons if showClearButton is false', async () => {
-        const { baseElement, queryByRole } = render(
+        const { baseElement } = render(
           () => <RenderComponent showTrailingButtons initialFocus showClearButton={false} />,
           { wrapper: MaterialTheme }
         );
@@ -191,12 +191,12 @@ describe('MaterialSearchBar', () => {
         await expect.element(bar).toHaveAttribute('data-expanded');
 
         // Then the clear button is hidden
-        const clearButton = queryByRole('button', { name: 'Clear input' });
-        await expect.element(clearButton).toBeNull();
+        const clearButton = screen.getByRole('button', { name: 'Clear input' });
+        await expect.element(clearButton).not.toBeInTheDocument();
 
         // and the unfocused trailing icon button is hidden
-        const trailingButtonUnfocused = queryByRole('button', { name: 'Unfocused trailing button' });
-        await expect.element(trailingButtonUnfocused).toBeNull();
+        const trailingButtonUnfocused = screen.getByRole('button', { name: 'Unfocused trailing button' });
+        await expect.element(trailingButtonUnfocused).not.toBeInTheDocument();
 
         // and the focused trailing icon button is visible
         const trailingButtonFocused = screen.getByRole('button', { name: 'Focused trailing button' });
