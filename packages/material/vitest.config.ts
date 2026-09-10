@@ -19,6 +19,9 @@ export default defineConfig({
       // At least one instance is required
       instances: [{ browser: 'chromium' }, { browser: 'webkit' }]
     },
+    env: {
+      CI: process.env.CI ?? ''
+    },
     retry: 1,
     reporters: ['default', 'junit'],
     outputFile: 'coverage/tests.junit.xml',

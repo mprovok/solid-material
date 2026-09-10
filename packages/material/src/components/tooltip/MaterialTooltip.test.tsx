@@ -182,6 +182,9 @@ describe('MaterialTooltip', () => {
       // When moving focus to the button
       await userEvent.tab();
 
+      // (Needed in CI)
+      button.element().focus();
+
       // Then the tooltip is visible
       await expect.element(tooltip).toBeVisible();
 
