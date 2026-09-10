@@ -10,12 +10,14 @@ export interface MaterialButtonGroupProps {
   variant: MaterialButtonGroupVariant;
 }
 
+const MINIMUM_WIDTH_PX = 4;
+
 export const MaterialButtonGroup: FlowComponent<MaterialButtonGroupProps> = props => {
-  const [width, setWidth] = createSignal(4);
+  const [width, setWidth] = createSignal(MINIMUM_WIDTH_PX);
 
   const onPointerEnter = (event: PointerEvent) => {
     if (event.target instanceof HTMLElement) {
-      setWidth(Math.max(4, event.target.getBoundingClientRect().width));
+      setWidth(Math.max(MINIMUM_WIDTH_PX, event.target.getBoundingClientRect().width));
     }
   };
 
