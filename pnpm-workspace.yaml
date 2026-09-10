@@ -31,10 +31,10 @@ catalogs:
     '@tsdown/css': 0.22.5
     tsdown: 0.22.5
   vitest:
-    vitest: 4.1.10
-    '@vitest/browser-playwright': 4.1.10
-    '@vitest/coverage-istanbul': 4.1.10
-    '@vitest/coverage-v8': 4.1.10
+    vitest: 4.1.11
+    '@vitest/browser-playwright': 4.1.11
+    '@vitest/coverage-istanbul': 4.1.11
+    '@vitest/coverage-v8': 4.1.11
   vite:
     vite: 8.1.5
     'vite-plugin-solid': 2.11.12
