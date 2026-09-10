@@ -3,8 +3,7 @@ import type { FlowComponent } from 'solid-js';
 import { Variant } from '@material/material-color-utilities';
 import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
 import { usePrefersDark } from '@solid-primitives/media';
-import { createMutationObserver } from '@solid-primitives/mutation-observer';
-import { createEffect, createSignal, onCleanup } from 'solid-js';
+import { createEffect, onCleanup } from 'solid-js';
 
 import { getStyleSheetBaselineColors } from './material-theme-baseline';
 // Import Material Web Components
@@ -40,7 +39,8 @@ export enum ThemeColorMode {
 
 export interface MaterialThemeProps {
   /**
-   * A hex code to use as the theme color, overriding any `<meta name="theme-color">`
+   * A hex code to use as the theme color, overriding the default Material
+   * theme color ({@link DEFAULT_MATERIAL_THEME_COLOR})
    */
   color?: string;
   /**
@@ -74,55 +74,30 @@ type ThemeVersion = '2021' | '2025';
 type ThemeGenerator = (themeColor: string) => CSSStyleSheet;
 
 const baselineTheme: () => ThemeGenerator = () => getStyleSheetBaselineColors;
-const dynamicTheme: (variant?: ThemeVariant, version?: ThemeVersion) => ThemeGenerator =
-  (variant = 'tonal-spot', version = '2025') =>
-  (color: string) =>
+const dynamicTheme: (variant: ThemeVariant, version: ThemeVersion) => ThemeGenerator =
+  (variant, version) => (color: string) =>
     getStyleSheetDynamicColors(color, THEME_VARIANT_MAPPING[variant], version);
 
 /**
  * A component which adds CSS stylesheets for the design tokens of the colors
  *
  * All colors in Material Design are generated from a single theme color, which is
- * either the optional `color` prop or else the `content` attribute from the
- * `<meta name="theme-color">` element.
- *
- * If this element is desired to be used at one point during the lifetime of the app,
- * then the element must exist before this component is mounted, but the `content`
- * attribute is not required until needed.
+ * either the optional `color` prop or else the default Material theme color
+ * ({@link DEFAULT_MATERIAL_THEME_COLOR}).
  */
 export const MaterialTheme: FlowComponent<MaterialThemeProps> = props => {
-  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-  const initialThemeColor = metaThemeColor?.getAttribute('content') ?? DEFAULT_MATERIAL_THEME_COLOR;
-
-  const [themeColor, setThemeColor] = createSignal(initialThemeColor);
-
-  const onAttributeChange = (records: MutationRecord[]) => {
-    const contentRecord = records.find(record => record.attributeName === 'content');
-    const element = contentRecord?.target;
-
-    if (element instanceof HTMLMetaElement && isValidColor(element.content)) {
-      setThemeColor(element.content);
-    }
-  };
-
-  if (metaThemeColor !== null) {
-    createMutationObserver(() => metaThemeColor, { attributes: true }, onAttributeChange);
-  }
-
   // Update CSS for palette colors
   createEffect(() => {
-    const color = props.color ?? themeColor();
+    const color = props.color !== undefined && isValidColor(props.color) ? props.color : DEFAULT_MATERIAL_THEME_COLOR;
 
-    if (isValidColor(color)) {
-      const getStylesheet = props.theme !== undefined ? dynamicTheme(props.theme, '2025') : baselineTheme();
-      const styleSheet = getStylesheet(color);
-      document.adoptedStyleSheets.push(styleSheet);
+    const getStylesheet = props.theme !== undefined ? dynamicTheme(props.theme, '2025') : baselineTheme();
+    const styleSheet = getStylesheet(color);
+    document.adoptedStyleSheets.push(styleSheet);
 
-      onCleanup(() => {
-        const index = document.adoptedStyleSheets.indexOf(styleSheet);
-        document.adoptedStyleSheets.splice(index);
-      });
-    }
+    onCleanup(() => {
+      const index = document.adoptedStyleSheets.indexOf(styleSheet);
+      document.adoptedStyleSheets.splice(index);
+    });
   });
 
   const prefersDark = usePrefersDark();
