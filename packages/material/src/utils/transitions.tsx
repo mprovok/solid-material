@@ -14,6 +14,12 @@ import { useBeforeLeave } from '@solidjs/router';
  */
 export const enableViewTransitions = (): void => {
   useBeforeLeave((event: BeforeLeaveEventArgs) => {
+    // Do not prevent default navigation if browser does not support
+    // View Transition API
+    if (document.startViewTransition === undefined) {
+      return;
+    }
+
     event.preventDefault();
 
     // Use the 'transition' key from the navigation state to specify
