@@ -168,10 +168,14 @@ export const Calculator: VoidComponent = () => {
               component={isOrientationPortrait() ? ScientificButtonsPortrait : ScientificButtonsLandscape}
               toggleInverted={isInverted()}
               toggleDegrees={isDegrees()}
-              onClickInverted={() => setInverted(v => !v)}
+              onClickInverted={() => {
+                setInverted(v => !v);
+                vibrate();
+              }}
               onClickDegrees={() => {
                 setDegrees(v => !v);
                 setToggledDegrees(true);
+                vibrate();
               }}
             />
           </div>
