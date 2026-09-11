@@ -43,7 +43,7 @@ export const MaterialCard: FlowComponent<MaterialCardProps> = props => {
       attr:aria-label={props.ariaLabel}
       class={styles['card']}
       classList={{ [styles['clickable']!]: isClickable() }}
-      onClick={(event: PointerEvent) => props.onClick?.(event)}
+      onClick={(event: PointerEvent) => props.disabled !== true && props.onClick?.(event)}
       onKeyDown={onKeyDown}
     >
       <MaterialFocusRing attachTo={ref} />
