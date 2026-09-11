@@ -29,6 +29,15 @@
   intents:
     - salty-apes-heal
     - silly-parts-tan
+'@solidmaterial/calculator@1.3.0':
+  dir: apps/calculator
+  intents:
+    - fair-trees-bathe
+    - fruity-mirrors-rush
+    - good-months-buy
+    - humble-trams-ring
+    - plain-aliens-attend
+    - young-ants-decide
 '@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
@@ -90,6 +99,12 @@
   intents:
     - puny-eagles-care
     - smooth-things-buy
+'@solidmaterial/material@1.2.0':
+  dir: packages/material
+  intents:
+    - gold-cobras-wave
+    - loose-ducks-find
+    - tall-buses-wash
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:

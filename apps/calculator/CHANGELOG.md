@@ -1,5 +1,26 @@
 # @solidmaterial/calculator
 
+## 1.3.0
+
+### Minor Changes
+
+- Implement automatic font size adjustment of input
+
+### Patch Changes
+
+- Avoid moving digits upwards when user presses x^2 button
+
+- Fix JavaScript error in browser which do not support Navigator.vibrate()
+
+- Fix rendering of superscript in display
+
+- Remember "Inv" button state when changing orientation
+
+- Vibrate when pressing any of the toggle buttons
+
+- Updated dependencies:
+  - @solidmaterial/material@1.2.0
+
 ## 1.2.0
 
 ### Minor Changes
