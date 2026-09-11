@@ -82,7 +82,7 @@
 .input {
   /* Prevent the superscript (^2) from being wider than needed */
   math {
-    display: inline-block;
+    display: flex;
 
     msup {
       display: inline-block;
