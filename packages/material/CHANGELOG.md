@@ -1,5 +1,17 @@
 # @solidmaterial/material
 
+## 1.2.0
+
+### Minor Changes
+
+- MaterialTheme no longer uses meta theme-color
+
+### Patch Changes
+
+- Fix navigation in browsers not supporting the View Transition API
+
+- Add missing aria-value to drag handle of bottom sheet
+
 ## 1.1.1
 
 ### Patch Changes
