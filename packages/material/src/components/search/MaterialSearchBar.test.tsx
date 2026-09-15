@@ -1,4 +1,4 @@
-import type { VoidComponent } from 'solid-js';
+import type { FlowComponent, VoidComponent } from 'solid-js';
 
 import { render } from '@solidjs/testing-library';
 import { Match, Switch, createSignal } from 'solid-js';
@@ -11,6 +11,7 @@ import { MaterialIconButton } from '../icon-button';
 
 import type { MaterialSearchBarProps } from './MaterialSearchBar';
 
+import { MaterialSearchOpenContext, MaterialSearchShouldExpandContext } from './MaterialSearch';
 import { MaterialSearchBar } from './MaterialSearchBar';
 
 import StarIcon from '@solidmaterial/icons/400/outlined/star.svg';
@@ -21,13 +22,11 @@ interface RenderComponentProps extends Pick<MaterialSearchBarProps, 'initialFocu
 }
 
 const RenderComponent: VoidComponent<RenderComponentProps> = props => {
-  const [searchInput, setSearchInput] = createSignal('');
-
   return (
     <MaterialSearchBar
       placeholder="Placeholder"
-      input={searchInput}
-      setInput={setSearchInput}
+      input=""
+      shouldOpen={() => false}
       initialFocus={props.initialFocus}
       showClearButton={props.showClearButton}
       backButtonAriaLabel="Back"
@@ -55,12 +54,23 @@ const RenderComponent: VoidComponent<RenderComponentProps> = props => {
   );
 };
 
+const Wrapper: FlowComponent = props => {
+  const [isOpen, setOpen] = createSignal(false);
+  return (
+    <MaterialTheme>
+      <MaterialSearchShouldExpandContext value={() => false}>
+        <MaterialSearchOpenContext value={[isOpen, setOpen]}>{props.children}</MaterialSearchOpenContext>
+      </MaterialSearchShouldExpandContext>
+    </MaterialTheme>
+  );
+};
+
 describe('MaterialSearchBar', () => {
   describe('Visual', () => {
     describe('Collapsed (unfocused)', () => {
       it('shows a non-clickable leading icon when no leading button is defined', async () => {
         const { baseElement } = render(() => <RenderComponent showTrailingButtons />, {
-          wrapper: MaterialTheme
+          wrapper: Wrapper
         });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
@@ -79,7 +89,7 @@ describe('MaterialSearchBar', () => {
 
       it('shows leading button when a leading button is defined', async () => {
         const { baseElement } = render(() => <RenderComponent showLeadingButton />, {
-          wrapper: MaterialTheme
+          wrapper: Wrapper
         });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
@@ -98,7 +108,7 @@ describe('MaterialSearchBar', () => {
 
       it('shows trailing buttons', async () => {
         const { baseElement } = render(() => <RenderComponent showTrailingButtons />, {
-          wrapper: MaterialTheme
+          wrapper: Wrapper
         });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
@@ -116,7 +126,7 @@ describe('MaterialSearchBar', () => {
       });
 
       it('shows no clear button if no trailing buttons exist', async () => {
-        const { baseElement } = render(() => <RenderComponent />, { wrapper: MaterialTheme });
+        const { baseElement } = render(() => <RenderComponent />, { wrapper: Wrapper });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
 
@@ -129,7 +139,7 @@ describe('MaterialSearchBar', () => {
       });
 
       it('shows zero buttons if showClearButton is false', async () => {
-        const { baseElement } = render(() => <RenderComponent showClearButton={false} />, { wrapper: MaterialTheme });
+        const { baseElement } = render(() => <RenderComponent showClearButton={false} />, { wrapper: Wrapper });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
 
@@ -145,7 +155,7 @@ describe('MaterialSearchBar', () => {
     describe('Expanded (focused)', () => {
       it('shows back button', async () => {
         const { baseElement } = render(() => <RenderComponent showTrailingButtons initialFocus />, {
-          wrapper: MaterialTheme
+          wrapper: Wrapper
         });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
@@ -160,7 +170,7 @@ describe('MaterialSearchBar', () => {
 
       it('shows clear button', async () => {
         const { baseElement } = render(() => <RenderComponent showTrailingButtons initialFocus />, {
-          wrapper: MaterialTheme
+          wrapper: Wrapper
         });
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
@@ -183,7 +193,7 @@ describe('MaterialSearchBar', () => {
       it('shows trailing buttons if showClearButton is false', async () => {
         const { baseElement } = render(
           () => <RenderComponent showTrailingButtons initialFocus showClearButton={false} />,
-          { wrapper: MaterialTheme }
+          { wrapper: Wrapper }
         );
         const screen = page.elementLocator(baseElement);
         const bar = screen.getByElement('sm-search-bar');
@@ -208,7 +218,7 @@ describe('MaterialSearchBar', () => {
 
   describe('Interaction', () => {
     it('expands and gains focus when clicked', async () => {
-      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: MaterialTheme });
+      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: Wrapper });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
 
@@ -225,7 +235,7 @@ describe('MaterialSearchBar', () => {
     });
 
     it('clears input when clicking clear button', async () => {
-      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: MaterialTheme });
+      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: Wrapper });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
 
@@ -254,7 +264,7 @@ describe('MaterialSearchBar', () => {
     });
 
     it('collapses and clears input when clicking back button', async () => {
-      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: MaterialTheme });
+      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: Wrapper });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
 
@@ -283,7 +293,7 @@ describe('MaterialSearchBar', () => {
     });
 
     it('collapses when moving focus to outside search bar', async () => {
-      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: MaterialTheme });
+      const { baseElement } = render(() => <RenderComponent showTrailingButtons />, { wrapper: Wrapper });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
 
