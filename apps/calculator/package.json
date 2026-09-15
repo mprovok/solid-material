@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "@fontsource/google-sans-flex": "5.2.3",
-    "@solid-primitives/media": "4.0.0-next.2",
-    "@solid-primitives/storage": "5.0.0-next.4",
+    "@solid-primitives/media": "catalog:primitives",
+    "@solid-primitives/storage": "catalog:primitives",
     "@solidjs/meta": "catalog:solid",
     "@solidjs/router": "catalog:solid",
     "@solidjs/web": "catalog:solid",
