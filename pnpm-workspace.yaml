@@ -43,6 +43,19 @@ catalogs:
     '@solidjs/web': 2.0.0-rc.8
     '@solidjs/router': 2.0.0-next.23
     '@solidjs/meta': 1.0.0-next.2
+  primitives:
+    '@solid-primitives/active-element': 3.0.0-next.2
+    '@solid-primitives/focus': 1.0.0-next.4
+    '@solid-primitives/interaction': 1.0.0-next.4
+    '@solid-primitives/intersection-observer': 3.0.0-next.3
+    '@solid-primitives/media': 4.0.0-next.2
+    '@solid-primitives/mutation-observer': 3.0.0-next.2
+    '@solid-primitives/pointer': 1.0.0-next.2
+    '@solid-primitives/refs': 3.0.0-next.2
+    '@solid-primitives/resize-observer': 4.0.0-next.3
+    '@solid-primitives/scheduled': 2.0.0-next.2
+    '@solid-primitives/storage': 5.0.0-next.4
+    '@solid-primitives/transition-group': 2.0.0-next.2
   testing:
     '@solidjs/testing-library': 1.0.0-beta.3
     playwright: 1.59.1

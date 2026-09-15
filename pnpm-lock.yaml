@@ -204,6 +204,43 @@ settings:
   excludeLinksFromLockfile: false
 
 catalogs:
+  primitives:
+    '@solid-primitives/active-element':
+      specifier: 3.0.0-next.2
+      version: 3.0.0-next.2
+    '@solid-primitives/focus':
+      specifier: 1.0.0-next.4
+      version: 1.0.0-next.4
+    '@solid-primitives/interaction':
+      specifier: 1.0.0-next.4
+      version: 1.0.0-next.4
+    '@solid-primitives/intersection-observer':
+      specifier: 3.0.0-next.3
+      version: 3.0.0-next.3
+    '@solid-primitives/media':
+      specifier: 4.0.0-next.2
+      version: 4.0.0-next.2
+    '@solid-primitives/mutation-observer':
+      specifier: 3.0.0-next.2
+      version: 3.0.0-next.2
+    '@solid-primitives/pointer':
+      specifier: 1.0.0-next.2
+      version: 1.0.0-next.2
+    '@solid-primitives/refs':
+      specifier: 3.0.0-next.2
+      version: 3.0.0-next.2
+    '@solid-primitives/resize-observer':
+      specifier: 4.0.0-next.3
+      version: 4.0.0-next.3
+    '@solid-primitives/scheduled':
+      specifier: 2.0.0-next.2
+      version: 2.0.0-next.2
+    '@solid-primitives/storage':
+      specifier: 5.0.0-next.4
+      version: 5.0.0-next.4
+    '@solid-primitives/transition-group':
+      specifier: 2.0.0-next.2
+      version: 2.0.0-next.2
   solid:
     '@solidjs/meta':
       specifier: 1.0.0-next.2
@@ -303,10 +340,10 @@ importers:
         specifier: 5.2.3
         version: 5.2.3
       '@solid-primitives/media':
-        specifier: 4.0.0-next.2
+        specifier: catalog:primitives
         version: 4.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/storage':
-        specifier: 5.0.0-next.4
+        specifier: catalog:primitives
         version: 5.0.0-next.4(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solidjs/meta':
         specifier: catalog:solid
@@ -418,37 +455,37 @@ importers:
         specifier: 2.4.1
         version: 2.4.1
       '@solid-primitives/active-element':
-        specifier: 3.0.0-next.2
+        specifier: catalog:primitives
         version: 3.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/focus':
-        specifier: 1.0.0-next.4
+        specifier: catalog:primitives
         version: 1.0.0-next.4(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/interaction':
-        specifier: 1.0.0-next.4
+        specifier: catalog:primitives
         version: 1.0.0-next.4(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/intersection-observer':
-        specifier: 3.0.0-next.3
+        specifier: catalog:primitives
         version: 3.0.0-next.3(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/media':
-        specifier: 4.0.0-next.2
+        specifier: catalog:primitives
         version: 4.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/mutation-observer':
-        specifier: 3.0.0-next.2
+        specifier: catalog:primitives
         version: 3.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/pointer':
-        specifier: 1.0.0-next.2
+        specifier: catalog:primitives
         version: 1.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/refs':
-        specifier: 3.0.0-next.2
+        specifier: catalog:primitives
         version: 3.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/resize-observer':
-        specifier: 4.0.0-next.3
+        specifier: catalog:primitives
         version: 4.0.0-next.3(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/scheduled':
-        specifier: 2.0.0-next.2
+        specifier: catalog:primitives
         version: 2.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solid-primitives/transition-group':
-        specifier: 2.0.0-next.2
+        specifier: catalog:primitives
         version: 2.0.0-next.2(@solidjs/web@2.0.0-rc.8(solid-js@2.0.0-rc.8))(solid-js@2.0.0-rc.8)
       '@solidjs/router':
         specifier: catalog:solid
