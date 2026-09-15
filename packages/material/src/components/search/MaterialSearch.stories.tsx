@@ -47,18 +47,18 @@ const meta = preview.meta({
 const MaterialSearchRenderer: Component<Omit<MaterialSearchProps, 'open'>> = args => {
   const [searchInput, setSearchInput] = createSignal('');
 
-  const isSearchOpen = () => searchInput() === 'text';
-
-  const onClickSearchResultItem = () => {
-    setSearchInput('Item');
+  const onClickSearchResultItem = (text: string) => () => {
+    setSearchInput(text);
   };
 
+  const shouldOpen = (value: string) => value === 'text';
+
   return (
-    <MaterialSearch open={isSearchOpen()} {...args}>
+    <MaterialSearch {...args}>
       <MaterialSearchBar
         placeholder="Placeholder"
-        input={searchInput}
-        setInput={setSearchInput}
+        input={searchInput()}
+        shouldOpen={shouldOpen}
         initialFocus={false}
         showClearButton={true}
         trailingButtons={focus => (
@@ -81,7 +81,7 @@ const MaterialSearchRenderer: Component<Omit<MaterialSearchProps, 'open'>> = arg
                 <StarIcon />
               </MaterialIcon>
             }
-            onClick={onClickSearchResultItem}
+            onClick={onClickSearchResultItem('Item 1')}
           >
             Item 1
           </MaterialListItem>
@@ -91,7 +91,7 @@ const MaterialSearchRenderer: Component<Omit<MaterialSearchProps, 'open'>> = arg
                 <StarIcon />
               </MaterialIcon>
             }
-            onClick={onClickSearchResultItem}
+            onClick={onClickSearchResultItem('Item 2')}
           >
             Item 2
           </MaterialListItem>
@@ -101,7 +101,7 @@ const MaterialSearchRenderer: Component<Omit<MaterialSearchProps, 'open'>> = arg
                 <StarIcon />
               </MaterialIcon>
             }
-            onClick={onClickSearchResultItem}
+            onClick={onClickSearchResultItem('Item 3')}
           >
             Item 3
           </MaterialListItem>
@@ -111,7 +111,7 @@ const MaterialSearchRenderer: Component<Omit<MaterialSearchProps, 'open'>> = arg
                 <StarIcon />
               </MaterialIcon>
             }
-            onClick={onClickSearchResultItem}
+            onClick={onClickSearchResultItem('Item 4')}
           >
             Item 4
           </MaterialListItem>
