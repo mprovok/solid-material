@@ -25,22 +25,22 @@ interface RenderComponentProps extends Pick<MaterialSearchBarProps, 'initialFocu
 const RenderComponent: VoidComponent<RenderComponentProps> = props => {
   const [searchInput, setSearchInput] = createSignal(props.initialText ?? '');
 
-  const isSearchOpen = () => searchInput() === 'text';
-
   const onClickSearchResultItem = () => {
     setSearchInput('Item');
   };
 
+  const shouldOpen = (value: string) => value === 'text';
+
   return (
-    <MaterialSearch open={isSearchOpen()} layout="docked">
+    <MaterialSearch layout="docked">
       <MaterialSearchBar
         placeholder="Placeholder"
-        input={searchInput}
-        setInput={setSearchInput}
+        input={searchInput()}
         initialFocus={props.initialFocus}
         showClearButton={props.showClearButton}
         backButtonAriaLabel="Back"
         clearButtonAriaLabel="Clear input"
+        shouldOpen={shouldOpen}
       />
       <MaterialSearchResults>
         <MaterialList segmented={true}>
@@ -114,9 +114,8 @@ describe('MaterialSearch', () => {
       await expect.element(results).not.toBeVisible();
 
       // and search bar remains expanded
-      // Issue #3: Search bar remains expanded outside test environment
-      // await expect.element(bar).toHaveAttribute('data-expanded');
-      // await expect.element(input).toHaveFocus();
+      await expect.element(bar).toHaveAttribute('data-expanded');
+      await expect.element(input).toHaveFocus();
     });
 
     it('hides search results when clicking outside search bar', async () => {
@@ -157,6 +156,9 @@ describe('MaterialSearch', () => {
       // Given a visible input field containing the correct text
       const input = screen.getByRole('searchbox');
       await expect.element(input).toHaveValue('text');
+
+      // and the user clicks outside of the search bar or results
+      await userEvent.click(document.body);
 
       // and search bar is collapsed and results are not visible
       await expect.element(bar).not.toHaveAttribute('data-expanded');
