@@ -1,9 +1,9 @@
 import type { JSX } from '@solidjs/web';
-import type { Accessor, Setter, VoidComponent } from 'solid-js';
+import type { VoidComponent } from 'solid-js';
 
-import { createFocusSignal } from '@solid-primitives/focus';
+import { focus } from '@solid-primitives/active-element';
 import { interactOutside } from '@solid-primitives/interaction';
-import { Match, Show, Switch, createEffect, createSignal, onSettled, useContext } from 'solid-js';
+import { Match, Show, Switch, createEffect, createSignal, onSettled, untrack, useContext } from 'solid-js';
 
 import { Transition } from '../../utils/transitions';
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
@@ -11,7 +11,7 @@ import { MaterialIcon } from '../icon/MaterialIcon';
 import { MaterialRipple } from '../ripple/MaterialRipple';
 import { Span } from '../typography/Typography';
 
-import { MaterialSearchOpenContext } from './MaterialSearch';
+import { MaterialSearchOpenContext, MaterialSearchShouldExpandContext } from './MaterialSearch';
 
 import styles from './MaterialSearchBar.module.css';
 
@@ -20,8 +20,7 @@ import CloseIcon from '@solidmaterial/icons/400/outlined/close.svg';
 import SearchIcon from '@solidmaterial/icons/400/outlined/search.svg';
 
 export interface MaterialSearchBarProps {
-  input: Accessor<string>;
-  setInput: Setter<string>;
+  input: string;
   placeholder?: string;
   leadingButton?: JSX.Element;
   trailingButtons?: (focus: boolean) => JSX.Element;
@@ -29,17 +28,18 @@ export interface MaterialSearchBarProps {
   showClearButton?: boolean;
   backButtonAriaLabel?: string;
   clearButtonAriaLabel?: string;
-  onInput?: (event?: InputEvent) => void;
+  shouldOpen: (value: string) => boolean;
 }
 
 export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props => {
   const [refInput, setRefInput] = createSignal<HTMLInputElement>();
 
-  const isShowingResults = useContext(MaterialSearchOpenContext);
+  const shouldExpand = useContext(MaterialSearchShouldExpandContext);
+  const [isOpen, setOpen] = useContext(MaterialSearchOpenContext);
 
   const [isExpanded, setIsExpanded] = createSignal(props.initialFocus ?? false);
 
-  const isInputFocused = createFocusSignal(() => refInput()!);
+  const [input, setInput] = createSignal(() => props.input);
 
   onSettled(() => {
     if (isExpanded()) {
@@ -49,56 +49,99 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
 
   // Move to expanded state when input gains focus and move back to the
   // collapsed state when focus is moved to an element outside the search bar
+  //
+  // When the user clicks on a search result, it may update the
+  // input text in the search bar. In that case the input field
+  // should lose focus, but the search bar itself should stay
+  // in the 'focused' state
+  //
+  // The bar can be in one of four states:
+  //
+  // 1. The bar is collapsed and the input field has no focus
+  // 2. The user has clicked or moved focus to the input field, the bar expands
+  // 3. The user entered text for which search results should be opened
+  // 4. The user has clicked on a search result, the input text is changed and
+  //    focus is lost, but the bar remains expanded
+  //
+  // | State | Expanded | Focused | Search results |
+  // +-------+----------+---------+----------------+
+  // | 1     | No       | No      | No             |
+  // | 2     | Yes      | Yes     | No             |
+  // | 3     | Yes      | Yes     | Yes            |
+  // | 4     | Yes      | No      | No             |
+  //
+  // State transition graph:
+  //
+  // +-------------------- 4 <-----------------+
+  // |                     |                   |
+  // | clicked outside     | clicked bar       | clicked search result
+  // |                     |                   |
+  // |   clicked outside   |  should not open  |
+  // v <------------------ v <---------------- |
+  // 1 ------------------> 2 ----------------> 3
+  // ^  input gains focus       should open    |
+  // |                                         |
+  // +-----------------------------------------+
+  //               clicked backdrop
 
   createEffect(
-    () => [isExpanded(), refInput()] as const,
-    ([isExpanded, input]) => {
-      // If the search bar is collapsed, then it should never has focus
-      if (!isExpanded) {
-        input?.blur();
-      } else if (input instanceof HTMLInputElement) {
-        // Trigger re-showing the search results
-        props.setInput('');
-        props.setInput(input.value);
+    () => isExpanded(),
+    isExpanded => {
+      const input = untrack(() => refInput());
+      if (input instanceof HTMLInputElement) {
+        if (!isExpanded) {
+          // If the search bar is collapsed, then it should never has focus
+          input.blur();
+        } else {
+          // Trigger re-showing the search results
+          setOpen(props.shouldOpen(input.value));
+        }
       }
     }
   );
 
   createEffect(
-    () => isInputFocused(),
-    isInputFocused => {
-      // Expand if user moved focus to input field
-      if (isInputFocused) {
-        setIsExpanded(true);
+    () => shouldExpand(),
+    barShouldExpand => {
+      if (!barShouldExpand) {
+        setIsExpanded(false);
       }
+    }
+  );
+
+  createEffect(
+    () => input(),
+    value => {
+      setOpen(props.shouldOpen(value));
     }
   );
 
   const onInteractOutside = () => {
-    if (!isShowingResults()) {
+    if (!isOpen()) {
       setIsExpanded(false);
     }
   };
 
+  const onInputFocus = (focus: boolean) => {
+    // Expand if user moved focus to input field
+    if (focus) {
+      setIsExpanded(true);
+    }
+  };
+
   const onInput: JSX.InputEventHandler<HTMLInputElement, InputEvent> = event => {
-    props.setInput(event.target.value);
-    props.onInput?.(event);
+    setInput(event.target.value);
   };
 
   const onClickBack = () => {
-    props.setInput('');
+    setInput('');
     setIsExpanded(props.initialFocus ?? false);
   };
 
   const onClickClear = () => {
-    props.setInput('');
+    setInput('');
     refInput()?.focus();
   };
-
-  // When the user clicks on a search result, it may update the
-  // input text in the search bar. In that case the input field
-  // will automatically lose focus, but the search bar itself should stay
-  // in the 'focused' state
 
   return (
     <sm-search-bar ref={interactOutside({ onInteractOutside })} data-expanded={isExpanded()} class={styles['bar']}>
@@ -134,14 +177,14 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
       </Transition>
       <Span role="body" size="large" class={styles['input']}>
         <input
-          ref={setRefInput}
+          ref={[focus(onInputFocus), setRefInput]}
           role="searchbox"
           type="text"
           name="search"
           autocomplete="off"
           placeholder={props.placeholder}
           required
-          value={props.input()}
+          value={input()}
           onInput={onInput}
         />
       </Span>
