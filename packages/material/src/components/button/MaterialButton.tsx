@@ -72,6 +72,12 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
   const size = () => props.size ?? 'small';
   const label = children(() => props.children);
 
+  const onContextMenu = (event: Event) => {
+    if (props.href === undefined) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <sm-button
       ref={ref}
@@ -82,6 +88,7 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
       attr:data-position={props.iconPosition}
       class={styles['button']}
       onClick={(event: PointerEvent) => props.onClick?.(event)}
+      onContextMenu={onContextMenu}
     >
       <Dynamic
         component={props.href === undefined ? 'button' : 'a'}
