@@ -9,6 +9,9 @@
     display: grid;
     place-content: center;
 
+    /* Prevent Chrome from firing a pointercancel after a double-click */
+    user-select: none;
+
     &[data-orientation='horizontal'] {
       writing-mode: horizontal-tb;
       touch-action: pan-y pinch-zoom;

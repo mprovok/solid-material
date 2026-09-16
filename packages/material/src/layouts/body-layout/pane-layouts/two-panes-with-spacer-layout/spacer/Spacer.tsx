@@ -2,7 +2,7 @@ import type { VoidComponent } from 'solid-js';
 
 import { createFocusSignal } from '@solid-primitives/active-element';
 import { createPerPointerListeners } from '@solid-primitives/pointer';
-import { createEffect, createSignal } from 'solid-js';
+import { createEffect, createSignal, untrack } from 'solid-js';
 
 import type { DragHandleDirection, DragHandleMovement } from '../../../../drag-handle/DragHandle';
 import type { DragHandlePosition } from '../../../MaterialBodyLayout.types';
@@ -41,7 +41,6 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
     target: pointerRef,
     onDown(pointer, onMove, onUp) {
       if (pointer.pointerId === pointerId()) {
-        setHasMoved(false);
         setIsPointerActive(true);
 
         const startPosition = props.position;
@@ -69,21 +68,27 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
   });
 
   createEffect(() => {
-    // If the drag handle was activated by the pointer, then call onDrag
-    // so that animations for the width of the fixed pane can be disabled.
-    // This causes the width of the pane to adjust instantly and not lag behind.
-    props.onDrag(isPointerActive());
-  });
+    const active = isPointerActive();
+    untrack(() => {
+      // If the drag handle was activated by the pointer, then call onDrag
+      // so that animations for the width of the fixed pane can be disabled.
+      // This causes the width of the pane to adjust instantly and not lag behind.
+      props.onDrag(active);
 
-  createEffect(() => {
-    setIsActive(isPointerActive());
+      setIsActive(active);
+      setHasMoved(false);
+    });
   });
 
   const isFocused = createFocusSignal(() => pointerRef);
 
   createEffect(() => {
     if (!isFocused()) {
-      setIsActive(false);
+      untrack(() => {
+        if (!isPointerActive()) {
+          setIsActive(false);
+        }
+      });
     }
   });
 
