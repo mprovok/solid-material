@@ -18,7 +18,7 @@ import StartIcon from '@solidmaterial/icons/400/outlined/start.svg';
 
 const getStorybookBaseURL = () => {
   const isDev = import.meta.env.MODE === 'development';
-  return isDev ? `http://${globalThis.location.hostname}:6006` : `${globalThis.location.origin}/storybook`;
+  return isDev ? `http://${globalThis.location.hostname}:6006` : `${globalThis.location.origin}/storybook/`;
 };
 
 export const NavigationLayout: FlowComponent = props => {
