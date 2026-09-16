@@ -115,8 +115,14 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
     // If the user has activated the drag handle, move it to one of the
     // snap positions when the user presses the ArrowLeft or ArrowRight keys
     if (isActive()) {
-      const index = props.snapWidths.indexOf(props.position);
-      const value = props.snapWidths[index + direction];
+      // Insert the current position in the sorted array of snap positions
+      // before computing the previous/next value
+      const snapWidths = props.snapWidths.includes(props.position)
+        ? props.snapWidths
+        : [...props.snapWidths, props.position].toSorted((a, b) => a - b);
+
+      const index = snapWidths.indexOf(props.position);
+      const value = snapWidths[index + direction];
 
       if (value !== undefined) {
         props.onMove(value, 0);
