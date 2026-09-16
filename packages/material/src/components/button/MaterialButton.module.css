@@ -145,6 +145,11 @@
       }
     }
 
+    & > button {
+      /* Disable long-press on buttons on iOS */
+      -webkit-touch-callout: none;
+    }
+
     &[data-variant='outlined'] {
       .outline {
         border-radius: inherit;
