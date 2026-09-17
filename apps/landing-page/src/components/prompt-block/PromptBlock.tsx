@@ -3,7 +3,6 @@ import type { VoidComponent } from 'solid-js';
 import { MaterialCard } from '@solidmaterial/material/components/card';
 import { MaterialTabs } from '@solidmaterial/material/components/tab';
 import { Span } from '@solidmaterial/material/components/typography';
-import { Show, createSignal } from 'solid-js';
 
 import NPMIcon from '../../assets/NPM.svg';
 import PNPMIcon from '../../assets/PNPM.svg';
@@ -25,11 +24,6 @@ export interface PromptBlockProps {
 const KEYS = ['pnpm', 'yarn', 'npm'];
 
 export const PromptBlock: VoidComponent<PromptBlockProps> = props => {
-  const [isHovering, setHovering] = createSignal(false);
-
-  const onPointerEnter = () => setHovering(true);
-  const onPointerLeave = () => setHovering(false);
-
   const onChange = (index: number) => {
     const key = KEYS[index];
 
@@ -39,7 +33,7 @@ export const PromptBlock: VoidComponent<PromptBlockProps> = props => {
   };
 
   return (
-    <div class={styles['block']} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
+    <div class={styles['block']}>
       <MaterialCard variant="filled">
         <MaterialTabs
           variant="secondary"
@@ -55,9 +49,7 @@ export const PromptBlock: VoidComponent<PromptBlockProps> = props => {
                   <Span role="body" size="medium" class={styles['prompt']}>
                     {props.prompts.pnpm}
                   </Span>
-                  <Show when={isHovering()}>
-                    <CopyToClipBoardButton content={props.prompts.pnpm} />
-                  </Show>
+                  <CopyToClipBoardButton content={props.prompts.pnpm} />
                 </div>
               )
             },
@@ -69,9 +61,7 @@ export const PromptBlock: VoidComponent<PromptBlockProps> = props => {
                   <Span role="body" size="medium" class={styles['prompt']}>
                     {props.prompts.yarn}
                   </Span>
-                  <Show when={isHovering()}>
-                    <CopyToClipBoardButton content={props.prompts.yarn} />
-                  </Show>
+                  <CopyToClipBoardButton content={props.prompts.yarn} />
                 </div>
               )
             },
@@ -83,9 +73,7 @@ export const PromptBlock: VoidComponent<PromptBlockProps> = props => {
                   <Span role="body" size="medium" class={styles['prompt']}>
                     {props.prompts.npm}
                   </Span>
-                  <Show when={isHovering()}>
-                    <CopyToClipBoardButton content={props.prompts.npm} />
-                  </Show>
+                  <CopyToClipBoardButton content={props.prompts.npm} />
                 </div>
               )
             }

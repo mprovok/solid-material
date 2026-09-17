@@ -3,7 +3,6 @@ import type { VoidComponent } from 'solid-js';
 import { MaterialCard } from '@solidmaterial/material/components/card';
 import { MaterialTabs } from '@solidmaterial/material/components/tab';
 import { Span } from '@solidmaterial/material/components/typography';
-import { Show, createSignal } from 'solid-js';
 
 import { CopyToClipBoardButton } from '../copy-to-clipboard-button/CopyToClipboardButton';
 
@@ -19,11 +18,6 @@ export interface FilesBlockProps {
 }
 
 export const FilesBlock: VoidComponent<FilesBlockProps> = props => {
-  const [isHovering, setHovering] = createSignal(false);
-
-  const onPointerEnter = () => setHovering(true);
-  const onPointerLeave = () => setHovering(false);
-
   const tabs = () =>
     props.files.map(file => ({
       label: file.label,
@@ -32,15 +26,13 @@ export const FilesBlock: VoidComponent<FilesBlockProps> = props => {
           <Span role="body" size="medium" class={styles['code']}>
             <pre>{file.content}</pre>
           </Span>
-          <Show when={isHovering()}>
-            <CopyToClipBoardButton content={file.content} message={`Copied ${file.label} to clipboard`} />
-          </Show>
+          <CopyToClipBoardButton content={file.content} message={`Copied ${file.label} to clipboard`} />
         </div>
       )
     }));
 
   return (
-    <div class={styles['block']} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
+    <div class={styles['block']}>
       <MaterialCard variant="filled">
         <MaterialTabs variant="secondary" alignment="start" inlineIcons tabs={tabs()} />
       </MaterialCard>
