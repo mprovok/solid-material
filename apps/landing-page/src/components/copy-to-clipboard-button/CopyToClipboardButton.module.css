@@ -4,3 +4,9 @@
   top: 0;
   padding: var(--md-user-spacing-sm);
 }
+
+@media not (any-pointer: coarse) {
+  *:not(:hover) > .button {
+    display: none;
+  }
+}

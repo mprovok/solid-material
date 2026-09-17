@@ -13,18 +13,19 @@ export interface CopyToClipBoardButtonProps {
 }
 
 export const CopyToClipBoardButton: VoidComponent<CopyToClipBoardButtonProps> = props => {
-  const onClick = async () => {
-    await navigator.clipboard.writeText(props.content);
-
-    showSnack({
-      text: props.message ?? 'Copied text to clipboard',
-      dismissable: false
+  const onClick = () => {
+    // oxlint-disable-next-line promise/prefer-await-to-then promise/always-return
+    void navigator.clipboard?.writeText(props.content).then(() => {
+      showSnack({
+        text: props.message ?? 'Copied text to clipboard',
+        dismissable: false
+      });
     });
   };
 
   return (
     <div class={styles['button']}>
-      <MaterialIconButton variant="text" icon={<ContentCopyIcon />} title="Copy" onClick={void onClick} />
+      <MaterialIconButton variant="text" icon={<ContentCopyIcon />} title="Copy" onClick={onClick} />
     </div>
   );
 };
