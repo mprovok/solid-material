@@ -61,6 +61,12 @@
     /* Above any content and app bar */
     z-index: 2;
 
+    /* Avoid capturing clicks just below the toolbar and navigation bar */
+    pointer-events: none;
+    & > * {
+      pointer-events: auto;
+    }
+
     transition-property: translate, visibility;
     transition-behavior: allow-discrete;
 
