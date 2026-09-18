@@ -123,7 +123,6 @@
       transition-timing-function: var(--md-sys-motion-spring-effects-fast);
 
       & > span {
-        padding-inline-start: var(--md-comp-fab-gap);
         padding-inline-end: var(--md-comp-fab-padding);
       }
 
@@ -141,6 +140,10 @@
           opacity: 1;
         }
       }
+    }
+
+    &:has(md-icon) .label > span {
+      padding-inline-start: var(--md-comp-fab-gap);
     }
 
     /**
