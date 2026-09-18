@@ -13,6 +13,8 @@
     position-anchor: --md-navigation-layout-snackbar;
     bottom: anchor(top);
 
+    view-transition-name: md-nav-bar-snackbar;
+
     margin-inline: var(--md-user-spacing-md);
     margin-bottom: 0;
     width: -webkit-fill-available;
