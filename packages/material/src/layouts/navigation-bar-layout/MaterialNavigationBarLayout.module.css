@@ -34,7 +34,6 @@
       margin-top: var(--md-user-spacing-md);
       padding-inline: var(--md-user-spacing-md);
       padding-bottom: var(--md-user-spacing-md);
-      gap: var(--md-user-spacing-md);
 
       /**
        * Although the spec mentions a larger distance from the viewport's
@@ -61,8 +60,18 @@
 
     .fab {
       opacity: 1;
+      height: 0;
+
+      /* Animating the height causes the snackbar to be smoothly pushed upwards while the FAB appears */
+      interpolate-size: allow-keywords;
+
+      &:not(:empty) {
+        margin-top: var(--md-user-spacing-md);
+        height: fit-content;
+      }
 
       transition:
+        height var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast),
         scale var(--md-sys-motion-duration-spatial-fast) var(--md-sys-motion-spring-spatial-fast),
         opacity var(--md-sys-motion-duration-effects-default) var(--md-sys-motion-spring-effects-default),
         visibility var(--md-sys-motion-duration-effects-default) allow-discrete;
