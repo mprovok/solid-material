@@ -18,7 +18,7 @@ export const MaterialNavigationBarLayout: FlowComponent<MaterialNavigationLayout
 
   return (
     <sm-nav-bar-layout class={styles['container']}>
-      {props.children}
+      <div class={styles['content']}>{props.children}</div>
       <div class={styles['bar']} bool:data-show={showBar()}>
         <div class={styles['snackbar-fab']}>
           <div class={styles['snackbar']}>

@@ -6,6 +6,14 @@
     height: 100dvh;
   }
 
+  .content {
+    /**
+     * Raise the z-index of the content so that a toolbar rendered inside it
+     * appears above the navigation bar when it enters or exits the viewport
+     */
+    z-index: 1;
+  }
+
   .bar {
     width: 100%;
     position: relative;

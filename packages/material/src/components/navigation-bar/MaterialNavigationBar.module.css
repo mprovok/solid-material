@@ -11,6 +11,8 @@
     border-radius: var(--md-comp-nav-bar-container-shape);
 
     position: relative;
+    display: block;
+
     --md-elevation-level: var(--md-comp-nav-bar-container-elevation);
   }
 
