@@ -3,7 +3,7 @@ import type { Component, VoidComponent } from 'solid-js';
 
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
-import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialAppBar, MaterialAppBarBackButton } from '@solidmaterial/material/components/app-bar';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialDialog } from '@solidmaterial/material/components/dialog';
 import { MaterialIcon } from '@solidmaterial/material/components/icon';
@@ -99,7 +99,11 @@ const RouteSettings: Component = () => {
       </MaterialDialog>
       <MaterialBodyLayout variant="flexible-fixed">
         <MaterialPane>
-          <MaterialAppBar variant="small" title="Settings" leadingButtonAriaLabel="Go back" onNavigate={navigateBack} />
+          <MaterialAppBar
+            variant="small"
+            title="Settings"
+            leadingButton={<MaterialAppBarBackButton title="Go back" onClick={navigateBack} />}
+          />
           <main class={styles['main']}>
             <H2 role="title" size="small">
               Theme
