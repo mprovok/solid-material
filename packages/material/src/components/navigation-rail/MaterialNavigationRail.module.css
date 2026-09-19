@@ -38,10 +38,6 @@
 
       &[data-always-expanded] {
         &[data-show] {
-          .fixed-menu-button {
-            visibility: hidden;
-          }
-
           /**
            * If modal and always expanded, keep width fixed and instead
            * animate translate from -100% to 0%
@@ -76,21 +72,6 @@
 
     sm-icon-button {
       margin: 12px 8px;
-    }
-
-    .fixed-menu-button {
-      position: absolute;
-      top: 0;
-      left: 20px;
-
-      /**
-       * When the navigation rail is hidden on small screens, its pointer events
-       * are disabled above so that the user can click on elements which are found
-       * on the left side of the screen (and 'behind' the expanded rail).
-       *
-       * Except for the absolutely-positioned menu button, which remains visible.
-       */
-      pointer-events: all;
     }
   }
 

@@ -130,15 +130,6 @@ export const MaterialNavigationRail: VoidComponent<MaterialNavigationRailProps> 
           </div>
         </div>
       </div>
-      <Show when={isHiddenWhenCollapsed()}>
-        <div class={styles['fixed-menu-button']}>
-          <MaterialNavigationRailMenuButton
-            {...props.menuButton}
-            expanded={isExpanded()}
-            onClick={props.onClickMenuButton}
-          />
-        </div>
-      </Show>
     </sm-navigation-rail>
   );
 };

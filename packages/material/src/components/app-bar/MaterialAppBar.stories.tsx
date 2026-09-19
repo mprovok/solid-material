@@ -1,12 +1,13 @@
 import type { Component } from 'solid-js';
 
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
+import { MaterialNavigationRailLayoutMenuButton } from '../../layouts/navigation-rail-layout/MaterialNavigationRailLayoutMenuButton';
 import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
 import { MaterialAppBar } from './MaterialAppBar';
+import { MaterialAppBarBackButton } from './MaterialAppBarBackButton';
 
 import CalendarTodayFillIcon from '@solidmaterial/icons/400/outlined/calendar_today-fill.svg';
 import MapFillIcon from '@solidmaterial/icons/400/outlined/map-fill.svg';
@@ -66,8 +67,7 @@ export const Example = meta.story({
     variant: 'large',
     title: 'Title',
     subtitle: 'Subtitle',
-    leadingButtonAriaLabel: 'Go back',
-    onNavigate: fn(),
+    leadingButton: <MaterialAppBarBackButton ariaLabel="Go back" />,
     trailingButtons: <MaterialIconButton variant="text" ariaLabel="Search" icon={<MapFillIcon />} />
   }
 });
@@ -113,8 +113,7 @@ export const LeadingButtonBack = meta.story({
   args: {
     variant: 'small',
     title: 'Title',
-    leadingButtonAriaLabel: 'Go back',
-    onNavigate: fn()
+    leadingButton: <MaterialAppBarBackButton ariaLabel="Go back" />
   }
 });
 
@@ -122,9 +121,7 @@ export const LeadingButtonMenu = meta.story({
   args: {
     variant: 'small',
     title: 'Title',
-    leadingButtonType: 'menu',
-    leadingButtonAriaLabel: 'Open menu',
-    onNavigate: fn()
+    leadingButton: <MaterialNavigationRailLayoutMenuButton ariaLabel="Open menu" />
   }
 });
 
