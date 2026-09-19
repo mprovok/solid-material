@@ -5,7 +5,7 @@ import favIconUrl from '/assets/favicon.svg?url&no-inline';
 //
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
-import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialAppBar, MaterialAppBarBackButton } from '@solidmaterial/material/components/app-bar';
 import { H2, H3 } from '@solidmaterial/material/components/typography';
 import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
 
@@ -24,7 +24,11 @@ const RouteAbout: Component = () => {
       </MetaProvider>
       <MaterialBodyLayout variant="flexible-fixed">
         <MaterialPane>
-          <MaterialAppBar variant="small" title="About" leadingButtonAriaLabel="Go back" onNavigate={navigateBack} />
+          <MaterialAppBar
+            variant="small"
+            title="About"
+            leadingButton={<MaterialAppBarBackButton title="Go back" onClick={navigateBack} />}
+          />
           <main class={styles['main']}>
             <img src={favIconUrl} alt="logo" class={styles['logo']} />
             <H2 role="display" size="small">
