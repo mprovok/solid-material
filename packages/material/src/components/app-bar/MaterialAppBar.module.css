@@ -99,12 +99,12 @@
     padding-inline: var(--md-comp-app-bar-leading-space) var(--md-comp-app-bar-trailing-space);
 
     /* Align small text with text in appendix if there is no leading icon button */
-    &:not(:has(.back-button)) {
+    &:not(:has(.leading-button:not(:empty))) {
       grid-template-columns: auto min-content;
       padding-inline-start: var(--md-user-spacing-md);
     }
 
-    .back-button {
+    .leading-button {
       --sm-icon-button-icon-color: var(--md-comp-app-bar-leading-icon-color);
 
       &:dir(rtl) {
@@ -138,13 +138,17 @@
       gap: var(--md-comp-app-bar-icon-button-space);
     }
 
-    .back-button,
+    .leading-button,
     .trailing-buttons {
       display: grid;
       place-items: center;
       grid-auto-flow: column;
       grid-auto-columns: minmax(48px, auto);
       height: 48px;
+    }
+
+    .leading-button:empty {
+      display: none;
     }
   }
 

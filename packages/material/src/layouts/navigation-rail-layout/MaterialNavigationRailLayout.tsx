@@ -1,7 +1,7 @@
 import type { Accessor, Context, FlowComponent } from 'solid-js';
 
 import { createElementSize } from '@solid-primitives/resize-observer';
-import { createContext, createEffect, createSignal } from 'solid-js';
+import { createContext, createEffect, createMemo, createSignal } from 'solid-js';
 
 import type { MaterialNavigationLayoutProps } from '../navigation-layout/MaterialNavigationLayout.types';
 
@@ -15,12 +15,22 @@ import styles from './MaterialNavigationRailLayout.module.css';
 export const MaterialNavigationLayoutRailWidthContext: Context<Accessor<number> | undefined> =
   createContext<Accessor<number>>();
 
+export const MaterialNavigationRailMenuContext: Context<
+  [Accessor<boolean>, Accessor<boolean>, (event: PointerEvent) => void]
+> = createContext<[Accessor<boolean>, Accessor<boolean>, (event: PointerEvent) => void]>([
+  () => false,
+  () => false,
+  () => {
+    // Empty
+  }
+]);
+
 export const MaterialNavigationRailLayout: FlowComponent<MaterialNavigationLayoutProps> = props => {
   const numberOfItemsForRail = () => props.items.length + (props.secondary?.items.length ?? 0);
   const hasManyItemsForRail = () =>
     Breakpoints.isCompactHeight() && (props.fab ? numberOfItemsForRail() > 3 : numberOfItemsForRail() > 4);
 
-  const showRail = () => props.show !== false && !shouldShowBar(props.items.length, props.preferSpace);
+  const showRail = createMemo(() => props.show !== false && !shouldShowBar(props.items.length, props.preferSpace));
 
   const [target, setTarget] = createSignal<HTMLElement>();
   const elementSize = createElementSize(target);
@@ -39,6 +49,20 @@ export const MaterialNavigationRailLayout: FlowComponent<MaterialNavigationLayou
 
   const onClickMenuButton = () => setIsExpanded(expanded => !expanded);
 
+  const isModal = createMemo(
+    () =>
+      Breakpoints.isCompactWidth() ||
+      Breakpoints.isMediumWidth() ||
+      (Breakpoints.isExpandedWidth() && props.preferSpace === 'horizontal') ||
+      hasManyItemsForRail()
+  );
+
+  const isHideWhenCollapsed = createMemo(() => Breakpoints.isCompactWidth() || hasManyItemsForRail());
+
+  const isHiddenWhenCollapsed = createMemo(
+    () => props.menuButton !== undefined && showRail() && isModal() && isHideWhenCollapsed()
+  );
+
   return (
     <sm-nav-rail-layout class={styles['container']}>
       <div class={styles['rail']} bool:data-show={showRail()} ref={setTarget}>
@@ -49,20 +73,17 @@ export const MaterialNavigationRailLayout: FlowComponent<MaterialNavigationLayou
           ariaLabel={props.ariaLabel}
           fab={props.fab?.rail}
           menuButton={props.menuButton}
-          modal={
-            Breakpoints.isCompactWidth() ||
-            Breakpoints.isMediumWidth() ||
-            (Breakpoints.isExpandedWidth() && props.preferSpace === 'horizontal') ||
-            hasManyItemsForRail()
-          }
-          hideWhenCollapsed={Breakpoints.isCompactWidth() || hasManyItemsForRail()}
+          modal={isModal()}
+          hideWhenCollapsed={isHideWhenCollapsed()}
           center={Breakpoints.isMediumWidth() && !Breakpoints.isCompactHeight()}
           expanded={isExpanded()}
           onClickMenuButton={onClickMenuButton}
         />
       </div>
       <MaterialNavigationLayoutRailWidthContext.Provider value={navigationRailWidth}>
-        {props.children}
+        <MaterialNavigationRailMenuContext.Provider value={[isHiddenWhenCollapsed, isExpanded, onClickMenuButton]}>
+          {props.children}
+        </MaterialNavigationRailMenuContext.Provider>
       </MaterialNavigationLayoutRailWidthContext.Provider>
     </sm-nav-rail-layout>
   );

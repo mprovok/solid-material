@@ -1,33 +1,27 @@
 import type { JSX, VoidComponent } from 'solid-js';
 
 import { createViewportObserver } from '@solid-primitives/intersection-observer';
-import { Match, Show, Switch, createMemo, createSignal, onCleanup, onMount } from 'solid-js';
+import { Match, Show, Switch, createSignal, onCleanup, onMount } from 'solid-js';
 
-import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 import { H1, H2 } from '../typography/Typography';
 
 import styles from './MaterialAppBar.module.css';
 
-import ArrowBackIcon from '@solidmaterial/icons/400/outlined/arrow_back.svg';
-import ArrowBackIosNewIcon from '@solidmaterial/icons/400/outlined/arrow_back_ios_new.svg';
-import MenuIcon from '@solidmaterial/icons/400/outlined/menu.svg';
-
 export type MaterialAppBarVariant = 'small' | 'medium' | 'large';
-
-export type MaterialLeadingButtonType = 'back' | 'menu';
 
 export interface MaterialAppBarProps {
   variant: MaterialAppBarVariant;
   title: string;
   subtitle?: string;
   center?: boolean;
-  leadingButtonType?: MaterialLeadingButtonType;
-  leadingButtonAriaLabel?: string;
+  /**
+   * A leading button, placed in front of the title and subtitle
+   *
+   * Use this prop to render a {@link MaterialAppBarBackButton} or {@link MaterialNavigationRailLayoutMenuButton}.
+   */
+  leadingButton?: JSX.Element;
   trailingButtons?: JSX.Element;
-  onNavigate?: (event: PointerEvent) => void;
 }
-
-const isIOS = () => /iphone|ipad/iu.test(globalThis.navigator.userAgent);
 
 export const MaterialAppBar: VoidComponent<MaterialAppBarProps> = props => {
   const [intersectionRatio, setIntersectionRatio] = createSignal(1);
@@ -59,32 +53,12 @@ export const MaterialAppBar: VoidComponent<MaterialAppBarProps> = props => {
   const appBarTextOpacity = () => (hasAppendixContent() ? (0.4 - Math.min(0.4, intersectionRatio())) / 0.4 : 1);
   const appendixTextOpacity = () => (Math.max(0.5, intersectionRatio()) - 0.5) / 0.5;
 
-  const leadingButtonType = createMemo(() => props.leadingButtonType ?? 'back');
-
   return (
     <>
       <sm-app-bar class={styles['app-bar']} bool:data-scrolling={isScrolling()} bool:data-elevated={isElevated()}>
         <md-elevation></md-elevation>
-        <Show when={props.onNavigate !== undefined}>
-          <div class={styles['back-button']}>
-            <MaterialIconButton
-              variant="text"
-              icon={
-                <Switch>
-                  <Match when={leadingButtonType() === 'back'}>
-                    <Show when={isIOS()} fallback={<ArrowBackIcon />}>
-                      <ArrowBackIosNewIcon />
-                    </Show>
-                  </Match>
-                  <Match when={leadingButtonType() === 'menu'}>
-                    <MenuIcon />
-                  </Match>
-                </Switch>
-              }
-              ariaLabel={props.leadingButtonAriaLabel}
-              onClick={(event: PointerEvent) => props.onNavigate?.(event)}
-            />
-          </div>
+        <Show when={props.leadingButton !== undefined}>
+          <div class={styles['leading-button']}>{props.leadingButton}</div>
         </Show>
         <div
           class={styles['text']}

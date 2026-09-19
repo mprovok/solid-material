@@ -11,4 +11,6 @@ export { MaterialListDetailLayout } from './canonical-layouts/list-detail-layout
 export { MaterialNavigationBarLayout } from './navigation-bar-layout/MaterialNavigationBarLayout';
 export { MaterialNavigationLayout } from './navigation-layout/MaterialNavigationLayout';
 export { MaterialNavigationRailLayout } from './navigation-rail-layout/MaterialNavigationRailLayout';
+export { MaterialNavigationRailLayoutMenuButton } from './navigation-rail-layout/MaterialNavigationRailLayoutMenuButton';
+export type { MaterialNavigationRailLayoutMenuButtonProps } from './navigation-rail-layout/MaterialNavigationRailLayoutMenuButton';
 export { MaterialPane } from './pane/MaterialPane';
