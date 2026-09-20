@@ -1,5 +1,24 @@
 # @solidmaterial/landing-page
 
+## 1.2.0
+
+### Minor Changes
+
+- Add app bars with menu button to pages
+
+### Patch Changes
+
+- Avoid unstable text reflow in hero section when changing the orientation on mobile
+
+- Fix link to Storybook in navigation rail
+
+- Use new component for back button in app bar
+
+- Fix visibility of copy-to-clipboard button on mobile devices
+
+- Updated dependencies:
+  - @solidmaterial/material@1.3.0
+
 ## 1.1.2
 
 ### Patch Changes

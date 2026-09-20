@@ -1,5 +1,35 @@
 # @solidmaterial/material
 
+## 1.3.0
+
+### Minor Changes
+
+- Add separate components for leading buttons in app bar
+
+### Patch Changes
+
+- Fix the toolbar to appear fully above the navigation bar
+
+- Prevent canceling dragging spacer after double-click
+
+- Reduce gap between snackbar and navigation bar
+
+- Avoid capturing clicks just below the toolbar and navigation bar
+
+- Move spacer to correct snap width when using keyboard
+
+- Avoid layout shift when toolbar enters/exits the viewport
+
+- Fix computing width and position of spacer near edges of fixed-flexible layout
+
+- Ignore long-press on buttons
+
+- Remove extra padding on left side of FAB with no icon
+
+- Fix modal hidden navigation rail blinking when navigating to a page
+
+- Avoid blinking snackbar when navigating to another page
+
 ## 1.2.0
 
 ### Minor Changes

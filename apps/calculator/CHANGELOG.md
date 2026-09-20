@@ -1,5 +1,16 @@
 # @solidmaterial/calculator
 
+## 1.3.1
+
+### Patch Changes
+
+- Use new component for back button in app bar
+
+- Decrease duration of vibration when pressing buttons in calculator
+
+- Updated dependencies:
+  - @solidmaterial/material@1.3.0
+
 ## 1.3.0
 
 ### Minor Changes
