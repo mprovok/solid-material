@@ -4,7 +4,11 @@ import { MetaProvider, Title } from '@solidjs/meta';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { H2 } from '@solidmaterial/material/components/typography';
-import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
+import {
+  MaterialBodyLayout,
+  MaterialNavigationRailLayoutMenuButton,
+  MaterialPane
+} from '@solidmaterial/material/layouts';
 import { createSignal } from 'solid-js';
 
 /* Used as a social button to link to GitHub project (see https://brand.github.com/foundations/logo) */
@@ -39,6 +43,7 @@ const PageHome: Component = () => {
           <MaterialAppBar
             variant="small"
             title="Solid Material"
+            leadingButton={<MaterialNavigationRailLayoutMenuButton title="Open menu" titleSelected="Close menu" />}
             trailingButtons={
               <>
                 <MaterialIconButton

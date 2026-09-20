@@ -1,11 +1,20 @@
 .list-pane {
   --md-comp-pane-container-color: var(--md-sys-color-surface-container-low);
 
-  h1 {
-    margin-block-end: var(--md-user-spacing-md);
-  }
+  --md-comp-app-bar-container-color: transparent;
 
-  sm-list + h1 {
-    margin-block-start: var(--md-user-spacing-xl);
+  aside {
+    h1 {
+      margin-block-end: var(--md-user-spacing-md);
+    }
+
+    sm-list + h1 {
+      margin-block-start: var(--md-user-spacing-xl);
+    }
   }
+}
+
+/* Adjust app bar container color when it's not the only pane */
+sm-body-layout:not(:has(> :only-child)) .list-pane {
+  --md-comp-app-bar-on-scroll-container-color: var(--md-comp-pane-container-color);
 }
