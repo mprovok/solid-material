@@ -1,10 +1,13 @@
 import type { Component } from 'solid-js';
 
 import { MetaProvider, Title } from '@solidjs/meta';
-import { useNavigate } from '@solidjs/router';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { H2, H3, Span } from '@solidmaterial/material/components/typography';
-import { MaterialBodyLayout, MaterialPane } from '@solidmaterial/material/layouts';
+import {
+  MaterialBodyLayout,
+  MaterialNavigationRailLayoutMenuButton,
+  MaterialPane
+} from '@solidmaterial/material/layouts';
 import { Breakpoints } from '@solidmaterial/material/utils';
 import { createSignal } from 'solid-js';
 
@@ -22,9 +25,6 @@ import { PromptBlock } from '../components/prompt-block/PromptBlock';
 import styles from './get-started.module.css';
 
 const PageGetStarted: Component = () => {
-  const navigate = useNavigate();
-  const navigateBackToList = () => navigate('..', { state: { transition: 'top-level' } });
-
   const isMobile = () => Breakpoints.isCompactWidth();
 
   const [activeTab, setActiveTab] = createSignal<'pnpm' | 'yarn' | 'npm'>('pnpm');
@@ -39,8 +39,7 @@ const PageGetStarted: Component = () => {
           <MaterialAppBar
             variant={isMobile() ? 'small' : 'large'}
             title="Getting started"
-            leadingButtonAriaLabel="Go back to list"
-            onNavigate={navigateBackToList}
+            leadingButton={<MaterialNavigationRailLayoutMenuButton title="Open menu" titleSelected="Close menu" />}
           />
           <main class={styles['main']}>
             <Span role="body" size="large">
