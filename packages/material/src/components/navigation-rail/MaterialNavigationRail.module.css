@@ -25,6 +25,13 @@
   .container {
     position: relative;
 
+    /**
+     * Make the rail part of the view transition (although it has no actual
+     * view transition) so that the rail, when it is modal, does not get
+     * temporily painted below the panes (which do have an actual view transition)
+     */
+    view-transition-name: md-nav-rail;
+
     &[data-modal] {
       position: fixed;
       left: 0;
