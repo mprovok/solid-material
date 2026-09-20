@@ -12,6 +12,12 @@
   transition-duration: var(--md-sys-motion-duration-spatial-fast);
   transition-timing-function: var(--md-sys-motion-spring-spatial-fast);
 
+  /* Avoid unstable text reflow when changing the orientation on mobile */
+  @media (width < 600px) or (height < 480px) {
+    transition-duration: var(--md-sys-motion-duration-standard-spatial-fast);
+    transition-timing-function: var(--md-sys-motion-spring-standard-spatial-fast);
+  }
+
   padding: var(--md-user-spacing-4xl);
   gap: var(--md-user-spacing-2xl);
 
