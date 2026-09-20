@@ -1,3 +1,10 @@
 .list-pane {
   --md-comp-pane-container-color: var(--md-sys-color-surface-container-low);
+
+  --md-comp-app-bar-container-color: transparent;
+}
+
+/* Adjust app bar container color when it's not the only pane */
+sm-body-layout:not(:has(> :only-child)) .list-pane {
+  --md-comp-app-bar-on-scroll-container-color: var(--md-comp-pane-container-color);
 }

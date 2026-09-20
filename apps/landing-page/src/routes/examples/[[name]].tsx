@@ -3,7 +3,12 @@ import type { ParentComponent } from 'solid-js';
 
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useParams } from '@solidjs/router';
-import { MaterialListDetailLayout, MaterialPane } from '@solidmaterial/material/layouts';
+import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import {
+  MaterialListDetailLayout,
+  MaterialNavigationRailLayoutMenuButton,
+  MaterialPane
+} from '@solidmaterial/material/layouts';
 import { Show, createMemo } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
@@ -33,9 +38,16 @@ const PageExamples: ParentComponent = () => {
         }
       >
         <MaterialPane class={styles['list-pane']}>
-          <aside>
-            <ExampleList name={params.name} />
-          </aside>
+          <div>
+            <MaterialAppBar
+              variant="small"
+              title="Examples"
+              leadingButton={<MaterialNavigationRailLayoutMenuButton title="Open menu" titleSelected="Close menu" />}
+            />
+            <aside>
+              <ExampleList name={params.name} />
+            </aside>
+          </div>
         </MaterialPane>
         <MaterialPane>
           <Show

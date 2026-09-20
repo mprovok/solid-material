@@ -2,8 +2,13 @@ import type { Component } from 'solid-js';
 
 import { MetaProvider, Title } from '@solidjs/meta';
 import { useParams } from '@solidjs/router';
+import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import { H1 } from '@solidmaterial/material/components/typography';
-import { MaterialListDetailLayout, MaterialPane } from '@solidmaterial/material/layouts';
+import {
+  MaterialListDetailLayout,
+  MaterialNavigationRailLayoutMenuButton,
+  MaterialPane
+} from '@solidmaterial/material/layouts';
 import { Show, createMemo } from 'solid-js';
 
 import { EmptyState } from '../../components/empty-state/EmptyState';
@@ -43,32 +48,39 @@ const PageComponents: Component = () => {
       </MetaProvider>
       <MaterialListDetailLayout selected={params.name !== undefined}>
         <MaterialPane class={styles['list-pane']}>
-          <aside>
-            <H1 role="label" size="large">
-              Components
-            </H1>
-            <ComponentList items={COMPONENTS} name={params.name} />
-            <H1 role="label" size="large">
-              Buttons
-            </H1>
-            <ComponentList items={BUTTONS} name={params.name} />
-            <H1 role="label" size="large">
-              Controls
-            </H1>
-            <ComponentList items={CONTROLS} name={params.name} />
-            <H1 role="label" size="large">
-              Navigation
-            </H1>
-            <ComponentList items={NAVIGATION} name={params.name} />
-            <H1 role="label" size="large">
-              Layout
-            </H1>
-            <ComponentList items={LAYOUT} name={params.name} />
-            <H1 role="label" size="large">
-              Utilities
-            </H1>
-            <ComponentList items={UTILITIES} name={params.name} />
-          </aside>
+          <div>
+            <MaterialAppBar
+              variant="small"
+              title="Components"
+              leadingButton={<MaterialNavigationRailLayoutMenuButton title="Open menu" titleSelected="Close menu" />}
+            />
+            <aside>
+              <H1 role="label" size="large">
+                Components
+              </H1>
+              <ComponentList items={COMPONENTS} name={params.name} />
+              <H1 role="label" size="large">
+                Buttons
+              </H1>
+              <ComponentList items={BUTTONS} name={params.name} />
+              <H1 role="label" size="large">
+                Controls
+              </H1>
+              <ComponentList items={CONTROLS} name={params.name} />
+              <H1 role="label" size="large">
+                Navigation
+              </H1>
+              <ComponentList items={NAVIGATION} name={params.name} />
+              <H1 role="label" size="large">
+                Layout
+              </H1>
+              <ComponentList items={LAYOUT} name={params.name} />
+              <H1 role="label" size="large">
+                Utilities
+              </H1>
+              <ComponentList items={UTILITIES} name={params.name} />
+            </aside>
+          </div>
         </MaterialPane>
 
         <MaterialPane>
