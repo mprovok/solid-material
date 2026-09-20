@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { useNavigate } from '@solidjs/router';
-import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialAppBar, MaterialAppBarBackButton } from '@solidmaterial/material/components/app-bar';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialCheckbox } from '@solidmaterial/material/components/checkbox';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
@@ -68,8 +68,7 @@ export const TodoList: VoidComponent<ExampleProps> = props => {
       <MaterialAppBar
         variant={isMobile() ? 'small' : 'large'}
         title={props.data.label}
-        leadingButtonAriaLabel="Go back to list"
-        onNavigate={navigateBackToList}
+        leadingButton={<MaterialAppBarBackButton title="Go back to list" onClick={navigateBackToList} />}
       />
       <main class={styles['main']}>
         <form action="" method="dialog" onSubmit={onSubmit} class={styles['form']}>

@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { useNavigate } from '@solidjs/router';
-import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
+import { MaterialAppBar, MaterialAppBarBackButton } from '@solidmaterial/material/components/app-bar';
 import { MaterialIconButton } from '@solidmaterial/material/components/icon-button';
 import { Breakpoints } from '@solidmaterial/material/utils';
 import { createSignal } from 'solid-js';
@@ -31,7 +31,7 @@ export const Calculator: VoidComponent<ExampleProps> = props => {
       <MaterialAppBar
         variant={isMobile() ? 'small' : 'large'}
         title={props.data.label}
-        leadingButtonAriaLabel="Go back to list"
+        leadingButton={<MaterialAppBarBackButton title="Go back to list" onClick={navigateBackToList} />}
         trailingButtons={
           <MaterialIconButton
             variant="text"
@@ -41,7 +41,6 @@ export const Calculator: VoidComponent<ExampleProps> = props => {
             target="_blank"
           />
         }
-        onNavigate={navigateBackToList}
       />
       <main class={styles['main']}>
         <VibrateContext.Provider value={[isVibrate, setVibrate]}>
