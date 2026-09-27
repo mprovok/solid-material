@@ -22,11 +22,7 @@
     }
   }
 
-  :has(sm-spacer) *:has(> .pane) {
-    padding-block: var(--md-comp-pane-container-margin-block);
-
-    .pane {
-      border-radius: var(--md-comp-pane-container-shape);
-    }
+  sm-body-layout:is(:has(sm-spacer):not([data-rounded='false']), [data-rounded='true']) .pane {
+    border-radius: var(--md-comp-pane-container-shape);
   }
 }

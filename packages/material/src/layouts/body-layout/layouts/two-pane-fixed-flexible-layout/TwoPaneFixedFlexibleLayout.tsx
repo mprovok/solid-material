@@ -41,6 +41,7 @@ export const TwoPaneFixedFlexibleLayout: FlowComponent<TwoPaneLayoutProps> = pro
       width={fixedPaneWidth()}
       snapWidths={snapWidths()}
       preferredWidth={spacerVisuallyCentered()}
+      rounded={props.rounded}
       showDragHandle={showDragHandle()}
       dragHandleAriaLabel={props.dragHandleAriaLabel}
       dragHandleAriaValue={props.dragHandleAriaValue}

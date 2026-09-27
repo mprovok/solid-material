@@ -10,7 +10,7 @@
     view-transition-name: none;
 
     /* Apply the transition to just the detail pane (when 2 panes are visible) */
-    & > :last-child sm-pane > * {
+    & > :last-child > sm-pane > :first-child {
       view-transition-name: sm-detail-pane;
       height: 100%;
 

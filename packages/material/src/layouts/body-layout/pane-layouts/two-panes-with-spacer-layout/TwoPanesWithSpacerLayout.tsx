@@ -68,6 +68,7 @@ export const TwoPanesWithSpacerLayout: FlowComponent<TwoPanesWithSpacerLayoutPro
   return (
     <sm-body-layout
       bool:data-dragging={isDraggingHandle()}
+      attr:data-rounded={props.rounded}
       classList={{
         [styles['layout']!]: true,
         [props.class ?? '']: props.class !== undefined

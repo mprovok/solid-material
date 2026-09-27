@@ -20,6 +20,11 @@
     }
 
     view-transition-name: sm-body-layout;
+
+    /* Do not apply transition to nested layout */
+    .layout {
+      view-transition-name: none;
+    }
   }
 
   .spacer {
@@ -31,5 +36,9 @@
     flex-grow: 1;
     height: 100%;
     contain: inline-size style;
+  }
+
+  .layout:is(:has(.spacer):not([data-rounded='false']), [data-rounded='true']) > .pane {
+    padding-block: var(--md-comp-pane-container-margin-block);
   }
 }

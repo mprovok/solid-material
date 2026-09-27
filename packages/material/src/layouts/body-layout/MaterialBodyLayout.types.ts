@@ -6,6 +6,7 @@ export type DragHandlePosition = {
 };
 
 export interface MaterialBodyLayoutWithDragHandleProps {
+  rounded?: boolean;
   showDragHandle?: boolean;
   dragHandleAriaLabel?: string;
   dragHandleAriaValue?: (position: DragHandlePosition) => string;

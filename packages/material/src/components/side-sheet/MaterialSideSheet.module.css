@@ -188,7 +188,10 @@
     display: flex;
     flex-direction: row;
     gap: 12px;
-    padding-bottom: var(--md-user-spacing-md);
+
+    &:not(:empty) {
+      padding-bottom: var(--md-user-spacing-md);
+    }
 
     & > h1 {
       color: var(--md-sys-color-on-surface-variant);

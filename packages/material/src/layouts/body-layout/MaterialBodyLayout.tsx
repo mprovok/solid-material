@@ -13,8 +13,9 @@ import type { TwoPaneLayoutProps } from './pane-layouts/pane-layout.types';
 import { SplitPaneLayout } from './layouts/split-pane-layout/SplitPaneLayout';
 import { TwoPaneFixedFlexibleLayout } from './layouts/two-pane-fixed-flexible-layout/TwoPaneFixedFlexibleLayout';
 import { TwoPaneFlexibleFixedLayout } from './layouts/two-pane-flexible-fixed-layout/TwoPaneFlexibleFixedLayout';
+import { TwoFlexiblePanesLayout } from './pane-layouts/two-flexible-panes-layout/TwoFlexiblePanesLayout';
 
-export type MaterialBodyLayoutVariant = 'split' | 'flexible-fixed' | 'fixed-flexible';
+export type MaterialBodyLayoutVariant = 'split' | 'flexible-fixed' | 'fixed-flexible' | 'flexible-flexible';
 
 export interface MaterialBodyLayoutProps extends MaterialBodyLayoutWithDragHandleProps {
   variant: MaterialBodyLayoutVariant;
@@ -24,7 +25,8 @@ export interface MaterialBodyLayoutProps extends MaterialBodyLayoutWithDragHandl
 const LAYOUTS: Record<MaterialBodyLayoutVariant, FlowComponent<TwoPaneLayoutProps>> = {
   split: SplitPaneLayout,
   'flexible-fixed': TwoPaneFlexibleFixedLayout,
-  'fixed-flexible': TwoPaneFixedFlexibleLayout
+  'fixed-flexible': TwoPaneFixedFlexibleLayout,
+  'flexible-flexible': TwoFlexiblePanesLayout
 };
 
 export const MaterialBodyLayout: FlowComponent<MaterialBodyLayoutProps> = props => {
@@ -37,8 +39,8 @@ export const MaterialBodyLayout: FlowComponent<MaterialBodyLayoutProps> = props 
   const railWidth = () => navigationRailWidth?.() ?? 0;
 
   const margin = () => (Breakpoints.isCompactWidth() ? 16 : 24);
-  const marginLeft = () => (railWidth() === 0 && visiblePanes().length > 1 ? margin() : 0);
-  const marginRight = () => (railWidth() > 0 || visiblePanes().length > 1 ? margin() : 0);
+  const marginLeft = () => (railWidth() === 0 && visiblePanes().length > 1 && props.rounded !== false ? margin() : 0);
+  const marginRight = () => (visiblePanes().length > 1 && props.rounded !== false ? margin() : 0);
 
   const windowSize = createWindowSize();
   const maximumWidth = () => windowSize.width - marginLeft() - marginRight() - railWidth();
