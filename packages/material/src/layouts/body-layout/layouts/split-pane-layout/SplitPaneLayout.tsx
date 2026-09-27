@@ -49,6 +49,7 @@ export const SplitPaneLayout: FlowComponent<TwoPaneLayoutProps> = props => {
       width={fixedPaneWidth()}
       snapWidths={snapWidths()}
       preferredWidth={visuallyCentered()}
+      rounded={props.rounded}
       showDragHandle={showDragHandle()}
       dragHandleAriaLabel={props.dragHandleAriaLabel}
       dragHandleAriaValue={props.dragHandleAriaValue}

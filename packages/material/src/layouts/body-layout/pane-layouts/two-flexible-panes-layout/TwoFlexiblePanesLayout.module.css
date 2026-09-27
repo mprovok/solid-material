@@ -1,0 +1,25 @@
+@layer material.components {
+  .layout {
+    display: flex;
+    contain: layout size;
+    height: 100%;
+
+    view-transition-name: sm-body-layout;
+
+    /* Do not apply transition to nested layout */
+    .layout {
+      view-transition-name: none;
+    }
+  }
+
+  .pane {
+    flex-grow: 1;
+    height: 100%;
+    contain: style;
+    overflow-y: auto;
+  }
+
+  .layout:not([data-rounded='false']) > .pane {
+    padding-block: var(--md-comp-pane-container-margin-block);
+  }
+}

@@ -1,0 +1,61 @@
+@layer material.components {
+  :root {
+    --md-comp-layouts-supporting-pane-width: 360px;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: auto max-content;
+
+    --md-comp-side-sheet-width: var(--md-comp-layouts-supporting-pane-width);
+    transition-property: gap;
+
+    &:has(> :last-child > sm-pane > :is(dialog, aside)[data-open]:not(:modal)) {
+      gap: var(--md-user-spacing-lg);
+
+      /* Transition when entering the screen */
+      transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+    }
+
+    &:has(> :last-child > sm-pane > :is(dialog, aside):not([data-open])) {
+      gap: 0;
+
+      /* Transition when exiting the screen */
+      transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+      transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+    }
+
+    &:not(:has(> :last-child > sm-pane > dialog)) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto max-content;
+
+      & > *:not(:first-child) {
+        padding-block-start: unset;
+      }
+      & > *:not(:last-child) {
+        padding-block-end: unset;
+      }
+
+      & > :last-child > sm-pane {
+        transition-property: max-height;
+        interpolate-size: allow-keywords;
+
+        max-height: 0;
+        overflow-y: hidden;
+
+        /* Transition when exiting the screen */
+        transition-duration: var(--md-sys-motion-duration-emphasized-accelerate);
+        transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
+
+        &:has(> aside[data-open]) {
+          max-height: fit-content;
+
+          /* Transition when entering the screen */
+          transition-duration: var(--md-sys-motion-duration-emphasized-decelerate);
+          transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+        }
+      }
+    }
+  }
+}
