@@ -1,5 +1,7 @@
-import type { JSX, VoidComponent } from 'solid-js';
+import type { MaterialButtonProps } from '@solidmaterial/material/components/button';
+import type { FlowProps, JSX, VoidComponent } from 'solid-js';
 
+import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialIcon } from '@solidmaterial/material/components/icon';
 import { H1, Span } from '@solidmaterial/material/components/typography';
 import { Show } from 'solid-js';
@@ -10,6 +12,7 @@ export interface EmptyStateProps {
   label: string;
   supportingText?: string;
   icon?: JSX.Element;
+  action?: FlowProps<MaterialButtonProps>;
 }
 
 export const EmptyState: VoidComponent<EmptyStateProps> = props => {
@@ -26,6 +29,7 @@ export const EmptyState: VoidComponent<EmptyStateProps> = props => {
           {props.supportingText}
         </Span>
       </Show>
+      <Show when={props.action}>{action => <MaterialButton {...action()} />}</Show>
     </main>
   );
 };
