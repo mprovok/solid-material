@@ -4,4 +4,16 @@
   place-content: center;
   justify-items: center;
   text-align: center;
+
+  & > md-icon {
+    padding-bottom: var(--md-user-spacing-xs);
+  }
+
+  & > span {
+    padding-top: var(--md-user-spacing-xs);
+  }
+
+  & > sm-button {
+    padding-top: var(--md-user-spacing-lg);
+  }
 }
