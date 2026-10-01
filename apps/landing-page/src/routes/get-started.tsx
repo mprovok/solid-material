@@ -303,9 +303,15 @@ const PageGetStarted: Component = () => {
                     <code>fixed-flexible</code>
                   </p>
                 </li>
+                <li>
+                  <p>
+                    <code>flexible-flexible</code>
+                  </p>
+                </li>
               </ul>
               <p>
-                Use the boolean prop <code>showDragHandle</code> to allow the user to resize the panes.
+                Use the boolean prop <code>showDragHandle</code> to allow the user to resize the panes and the boolean
+                prop <code>rounded</code> to enable or disable rounded panes.
               </p>
               <H3 role="headline" size="small">
                 Canonical layouts
@@ -318,6 +324,30 @@ const PageGetStarted: Component = () => {
                     <code>&lt;MaterialBodyLayout&gt;</code> for a layout with two panes. Use the boolean prop{' '}
                     <code>selected</code> to display either the detail pane or the list pane on compact width screens.
                   </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>Supporting pane</strong>: use <code>&lt;MaterialSupportingPaneLayout&gt;</code>instead of{' '}
+                    <code>&lt;MaterialBodyLayout&gt;</code> for a layout with one flexible pane and one supporting pane.
+                    It should have one <code>&lt;MaterialPane&gt;</code> and a one{' '}
+                    <code>&lt;MaterialSupportingPane&gt;</code>
+                    as its children. The supporting pane requires the property <code>variant</code> with one of the
+                    following values:
+                  </p>
+                  <ul>
+                    <li>
+                      <p>
+                        <code>standard</code>: display the supporting pane below the main pane on compact or medium
+                        width screens, or on the trailing edge on larger screens.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <code>modal</code>: display the supporting pane in a modal bottom sheet on compact or medium
+                        width screens, or in a modal side sheet on larger screens.
+                      </p>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </Span>
