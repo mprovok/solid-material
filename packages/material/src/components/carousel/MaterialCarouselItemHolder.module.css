@@ -36,6 +36,12 @@
     initial-value: 0px;
   }
 
+  @property --translate {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 0px;
+  }
+
   @keyframes multi-browse-expand-medium-item {
     from {
       --max-width: var(--md-comp-carousel-size-small);
@@ -102,7 +108,27 @@
     }
   }
 
-  @keyframes hero-expand-last-item {
+  @keyframes centered-hero-expand-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-small);
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  @keyframes centered-hero-expand-item-translate {
+    from {
+      --translate: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small)));
+    }
+
+    to {
+      --translate: 0;
+    }
+  }
+
+  @keyframes centered-hero-expand-last-item {
     from {
       --max-width: 0;
     }
@@ -115,10 +141,12 @@
   @keyframes centered-hero-collapse-item {
     from {
       --max-width: var(--md-comp-carousel-size-large);
+      --translate: 0;
     }
 
     to {
       --max-width: calc(var(--md-comp-carousel-size-small));
+      --translate: calc(var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small));
     }
   }
 
@@ -305,32 +333,77 @@
       --md-comp-carousel-count-large: 1;
     }
 
-    margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-small), var(--max-width))));
-
     @supports (animation-timeline: view()) {
       animation:
-        hero-expand-item linear both,
+        centered-hero-expand-item linear both,
+        centered-hero-expand-item-translate linear both,
         centered-hero-collapse-item linear forwards;
       animation-timeline: view(x);
       animation-range-start:
-        var(--md-comp-carousel-size-small),
-        exit calc(-1 * (var(--md-comp-carousel-size-small) + var(--md-comp-carousel-container-gap)));
-      animation-range-end:
-        calc(
-          var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
-            var(--md-comp-carousel-size-small)
-        ),
+        entry var(--md-comp-carousel-size-small),
+        cover
+          calc(
+            -1 *
+              (
+                var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small) +
+                  var(--md-comp-carousel-container-gap)
+              )
+          ),
         exit 0%;
+      animation-range-end:
+        cover
+          calc(
+            var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+              var(--md-comp-carousel-size-small)
+          ),
+        entry var(--md-comp-carousel-size-small),
+        exit calc(var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small));
+
+      &:first-child {
+        --container-width: calc(100cqi - var(--md-comp-carousel-size-small) - var(--md-comp-carousel-container-gap));
+
+        animation:
+          centered-hero-expand-item linear both,
+          centered-hero-collapse-item linear forwards;
+        animation-timeline: view(x);
+        animation-range-start:
+          entry var(--md-comp-carousel-size-small),
+          exit 0%;
+        animation-range-end:
+          cover
+            calc(
+              var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+                var(--md-comp-carousel-size-small)
+            ),
+          exit calc(var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small));
+      }
 
       &:last-child {
         --container-width: calc(100cqi - var(--md-comp-carousel-size-small) - var(--md-comp-carousel-container-gap));
 
-        animation: hero-expand-last-item linear both;
+        animation:
+          centered-hero-expand-item linear both,
+          centered-hero-expand-item-translate linear both;
         animation-timeline: view(x);
-        animation-range-start: normal;
-        animation-range-end: var(--md-comp-carousel-size-large);
-        margin-inline-end: 0;
+        animation-range-start:
+          entry var(--md-comp-carousel-size-small),
+          cover
+            calc(
+              -1 *
+                (
+                  var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small) + 2 *
+                    var(--md-comp-carousel-container-gap)
+                )
+            );
+        animation-range-end:
+          var(--md-comp-carousel-size-large),
+          entry var(--md-comp-carousel-size-small);
       }
+
+      sm-carousel-item {
+        translate: var(--translate);
+      }
+      scroll-margin-inline-start: calc(var(--md-comp-carousel-container-gap) + var(--md-comp-carousel-size-small));
     }
   }
 
