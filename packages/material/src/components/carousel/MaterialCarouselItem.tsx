@@ -21,6 +21,10 @@ export const MaterialCarouselItem: FlowComponent<MaterialCarouselItemProps> = pr
   // (especially needed in Firefox, WebKit browsers can handle this in CSS)
   const onDragStart = (event: Event) => event.preventDefault();
 
+  const onContextMenu = (event: PointerEvent) => {
+    event.preventDefault();
+  };
+
   return (
     <MaterialCarouselItemHolder>
       <sm-carousel-item
@@ -32,6 +36,7 @@ export const MaterialCarouselItem: FlowComponent<MaterialCarouselItemProps> = pr
         bool:data-disabled={props.disabled}
         class={styles['item']}
         onClick={(event: PointerEvent) => props.onClick(event)}
+        onContextMenu={onContextMenu}
       >
         <MaterialFocusRing attachTo={ref} />
         <MaterialRipple attachTo={ref} disabled={props.disabled} />
