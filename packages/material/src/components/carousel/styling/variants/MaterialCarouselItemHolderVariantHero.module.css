@@ -1,0 +1,59 @@
+@layer material.components {
+  @keyframes hero-expand-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-small);
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  sm-carousel[data-variant='hero'] .container {
+    --container-width: calc(100cqi - var(--md-comp-carousel-size-small) - var(--md-comp-carousel-container-gap));
+
+    @container (width < 600px) {
+      --md-comp-carousel-count-large: 1;
+    }
+
+    margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-small), var(--max-width))));
+
+    @supports (animation-timeline: view()) {
+      animation:
+        hero-expand-item linear both,
+        collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        var(--md-comp-carousel-size-small),
+        exit 0%;
+      animation-range-end:
+        calc(
+          var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+            var(--md-comp-carousel-size-small)
+        ),
+        exit 100%;
+
+      /**
+       * Make sure the second last item ends at the leading edge of the scroll container
+       * so that it doesn't continue outside the container. This causes the last two items
+       * to have shapes that are the reverse (small + large) of the first two (large + small)
+       */
+      &:nth-last-child(2) {
+        animation-range-end:
+          calc(
+            var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap) +
+              var(--md-comp-carousel-size-small)
+          ),
+          exit calc(100% - var(--md-comp-carousel-size-small));
+      }
+
+      &:last-child {
+        animation: hero-expand-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: var(--md-comp-carousel-size-small);
+        animation-range-end: var(--md-comp-carousel-size-large);
+        margin-inline-end: 0;
+      }
+    }
+  }
+}

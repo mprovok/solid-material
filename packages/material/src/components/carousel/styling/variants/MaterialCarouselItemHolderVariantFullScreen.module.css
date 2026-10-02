@@ -1,0 +1,8 @@
+@layer material.components {
+  sm-carousel[data-variant='full-screen'] .container {
+    --md-comp-carousel-count-large: 1;
+    --container-width: 100cqi;
+
+    min-height: 100dvh;
+  }
+}
