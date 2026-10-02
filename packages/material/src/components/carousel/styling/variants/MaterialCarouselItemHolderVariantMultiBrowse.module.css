@@ -1,0 +1,64 @@
+@layer material.components {
+  @keyframes multi-browse-expand-medium-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-small);
+      margin-inline-end: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-small)));
+    }
+    to {
+      --max-width: var(--md-comp-carousel-size-medium);
+      margin-inline-end: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-medium)));
+    }
+  }
+
+  @keyframes multi-browse-expand-large-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-medium);
+      margin-inline-end: calc(-1 * (var(--md-comp-carousel-size-large) - var(--md-comp-carousel-size-medium)));
+    }
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+      margin-inline-end: 0;
+    }
+  }
+
+  @keyframes multi-browse-expand-last-item {
+    from {
+      --max-width: 0;
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  sm-carousel[data-variant='multi-browse'] .container {
+    --container-width: 100cqi;
+
+    /* Animated by @keyframes needed for WebKit */
+    /* margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-small), var(--max-width)))); */
+
+    @supports (animation-timeline: view()) {
+      animation:
+        multi-browse-expand-medium-item linear both,
+        multi-browse-expand-large-item linear forwards,
+        collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        var(--md-comp-carousel-size-small),
+        var(--md-comp-carousel-size-large),
+        exit 0%;
+      animation-range-end:
+        var(--md-comp-carousel-size-large),
+        calc(2 * var(--md-comp-carousel-size-large) + var(--md-comp-carousel-container-gap)),
+        exit 100%;
+
+      &:last-child {
+        animation: multi-browse-expand-last-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: normal;
+        animation-range-end: calc(1 * var(--md-comp-carousel-size-large));
+        margin-inline-end: 0;
+      }
+    }
+  }
+}

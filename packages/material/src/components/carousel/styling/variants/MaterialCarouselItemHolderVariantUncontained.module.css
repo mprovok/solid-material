@@ -1,0 +1,38 @@
+@layer material.components {
+  @keyframes uncontained-expand-item {
+    from {
+      --max-width: var(--md-comp-carousel-size-medium);
+    }
+
+    to {
+      --max-width: var(--md-comp-carousel-size-large);
+    }
+  }
+
+  sm-carousel[data-variant='uncontained'] .container {
+    --container-width: calc(100cqi - var(--md-comp-carousel-size-small));
+
+    margin-inline-end: calc(-1 * (var(--min-width) - max(var(--md-comp-carousel-size-medium), var(--max-width))));
+
+    @supports (animation-timeline: view()) {
+      animation:
+        uncontained-expand-item linear both,
+        collapse-item linear forwards;
+      animation-timeline: view(x);
+      animation-range-start:
+        entry 0%,
+        exit 0%;
+      animation-range-end:
+        var(--md-comp-carousel-size-large),
+        exit 100%;
+
+      &:last-child {
+        animation: uncontained-expand-item linear both;
+        animation-timeline: view(x);
+        animation-range-start: entry 0%;
+        animation-range-end: var(--md-comp-carousel-size-large);
+        margin-inline-end: 0;
+      }
+    }
+  }
+}
