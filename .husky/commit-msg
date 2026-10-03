@@ -1,1 +1,1 @@
-pnpm exec commitlint --edit $1
+git stripspace --strip-comments < "$1" | node scripts/lint-git-commit-msg.mts

@@ -18,18 +18,20 @@
     "format": "pnpm oxfmt",
     "format:check": "pnpm oxfmt --check",
     "install:chromium": "pnpm --filter=@solidmaterial/material exec playwright install chromium --with-deps",
-    "install:webkit": "pnpm --filter=@solidmaterial/material exec playwright install webkit --with-deps"
+    "install:webkit": "pnpm --filter=@solidmaterial/material exec playwright install webkit --with-deps",
+    "scripts:test": "vitest run --coverage --project scripts"
   },
   "devDependencies": {
-    "@commitlint/cli": "21.2.1",
-    "@commitlint/config-conventional": "21.2.0",
     "@tsconfig/strictest": "2.0.8",
+    "@types/node": "24.13.2",
+    "@vitest/coverage-istanbul": "catalog:vitest",
     "husky": "9.1.7",
     "oxfmt": "0.56.0",
     "oxlint": "1.71.0",
     "oxlint-tsgolint": "0.23.0",
     "turbo": "2.10.11",
-    "typescript": "6.0.2"
+    "typescript": "6.0.2",
+    "vitest": "catalog:vitest"
   },
   "devEngines": {
     "packageManager": {
