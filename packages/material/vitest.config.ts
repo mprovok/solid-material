@@ -4,7 +4,9 @@ import { playwright } from '@vitest/browser-playwright';
 // oxlint-disable-next-line import/no-nodejs-modules
 import path from 'node:path';
 import solidPlugin from 'vite-plugin-solid';
-import { defineConfig } from 'vitest/config';
+import { defaultExclude, defineConfig } from 'vitest/config';
+
+const VISUAL_TESTS_PATTERN = 'src/**/*.vrt.test.{ts,tsx}';
 
 // oxlint-disable-next-line import/no-default-export
 export default defineConfig({
@@ -17,7 +19,16 @@ export default defineConfig({
       headless: true,
 
       // At least one instance is required
-      instances: [{ browser: 'chromium' }, { browser: 'webkit' }]
+      instances: [
+        { browser: 'chromium' },
+        {
+          browser: 'webkit',
+          viewport: {
+            width: 1024,
+            height: 768
+          }
+        }
+      ]
     },
     env: {
       CI: process.env.CI ?? ''
@@ -48,8 +59,27 @@ export default defineConfig({
       {
         extends: true,
         test: {
+          name: 'visual',
+          include: [VISUAL_TESTS_PATTERN],
+          setupFiles: 'vitest.setup.ts',
+          retry: 0,
+          browser: {
+            expect: {
+              toMatchScreenshot: {
+                comparatorOptions: {
+                  allowedMismatchedPixelRatio: 0.05
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        extends: true,
+        test: {
           name: 'components',
           include: ['src/**/*.test.{ts,tsx}'],
+          exclude: [VISUAL_TESTS_PATTERN, ...defaultExclude],
           setupFiles: 'vitest.setup.ts'
         }
       }
