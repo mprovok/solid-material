@@ -12,11 +12,14 @@ describe('MaterialPlainTooltip', () => {
       const { baseElement } = render(() => <MaterialPlainTooltip>Plain tooltip</MaterialPlainTooltip>, {
         wrapper: MaterialTheme
       });
+      await document.fonts.ready;
       const screen = page.elementLocator(baseElement);
 
-      const tooltip = screen.getByRole('tooltip');
+      const tooltip = screen.getByRole('tooltip', { name: 'Plain tooltip' });
 
       await expect.element(tooltip).toBeVisible();
+
+      await expect.element(tooltip).toMatchScreenshot();
     });
   });
 });
