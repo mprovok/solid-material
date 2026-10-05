@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { MemoryRouter, Route } from '@solidjs/router';
+import { Route } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -14,9 +14,7 @@ import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 const Wrapper: FlowComponent = props => {
   return (
     <MaterialTheme>
-      <MemoryRouter>
-        <Route path="/" component={() => props.children} />
-      </MemoryRouter>
+      <Route path="/" component={() => props.children} />
     </MaterialTheme>
   );
 };
@@ -51,7 +49,7 @@ describe('MaterialNavigationBar', () => {
             ]}
           />
         ),
-        { wrapper: Wrapper }
+        { wrapper: Wrapper, location: '/' }
       );
 
       const screen = page.elementLocator(baseElement);
