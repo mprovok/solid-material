@@ -1,0 +1,15 @@
+import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
+import { defineConfig } from 'vite';
+import solidPlugin from 'vite-plugin-solid';
+
+// oxlint-disable-next-line import/no-default-export
+export default defineConfig({
+  plugins: [solidPlugin(), solidSvg()],
+  server: {
+    port: 4000
+  },
+  resolve: {
+    conditions: ['browser'],
+    extensions: ['.tsx', '.ts', '.js', '.json']
+  }
+});

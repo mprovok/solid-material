@@ -1,0 +1,22 @@
+.main {
+  --logo-size: 4rem;
+  --text-size: 2rem;
+
+  padding: var(--md-user-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-user-spacing-md);
+
+  sm-card:first-of-type {
+    h2 {
+      margin-bottom: var(--md-user-spacing-sm);
+      font-weight: 600;
+    }
+
+    .buttons-in-card {
+      display: flex;
+      flex-direction: row;
+      gap: var(--md-user-spacing-sm);
+    }
+  }
+}
