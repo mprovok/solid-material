@@ -1,0 +1,31 @@
+:root {
+  --logo-color: var(--md-sys-color-on-primary);
+  --logo-background-color: var(--md-sys-color-primary);
+
+  --logo-size: 32rem;
+  --text-size: 18rem;
+}
+
+.logo {
+  width: var(--logo-size);
+  height: var(--logo-size);
+  background-color: var(--logo-background-color);
+  border-radius: 50%;
+  mask-image: url(@solidmaterial/icons/400/outlined/total_dissolved_solids.svg), linear-gradient(#000, #000);
+  mask-size: 100% 100%;
+  mask-composite: exclude;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  h1 {
+    font-size: var(--text-size);
+    line-height: var(--text-size);
+    font-weight: 500;
+    color: var(--logo-background-color);
+  }
+}

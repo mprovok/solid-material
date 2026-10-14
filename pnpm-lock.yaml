@@ -345,6 +345,34 @@ importers:
         specifier: catalog:vitest
         version: 4.1.11(@types/node@24.13.2)(@vitest/browser-playwright@4.1.11)(@vitest/coverage-istanbul@4.1.11)(vite@8.1.5(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))
 
+  apps/hero:
+    dependencies:
+      '@fontsource/google-sans-flex':
+        specifier: 5.2.3
+        version: 5.2.3
+      '@solidjs/router':
+        specifier: catalog:solid
+        version: 0.16.1(solid-js@1.9.14)
+      '@solidmaterial/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
+      '@solidmaterial/material':
+        specifier: workspace:*
+        version: link:../../packages/material
+      solid-js:
+        specifier: catalog:solid
+        version: 1.9.14
+    devDependencies:
+      '@solidmaterial/vite-plugin-solid-svg':
+        specifier: workspace:*
+        version: link:../../packages/vite-plugin-solid-svg
+      vite:
+        specifier: catalog:vite
+        version: 8.1.5(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1)
+      vite-plugin-solid:
+        specifier: catalog:vite
+        version: 2.11.12(@testing-library/jest-dom@6.9.1)(solid-js@1.9.14)(supports-color@7.2.0)(vite@8.1.5(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))
+
   apps/landing-page:
     dependencies:
       '@fontsource/google-sans-flex':

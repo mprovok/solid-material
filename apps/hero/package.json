@@ -1,0 +1,32 @@
+{
+  "name": "@solidmaterial/hero",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Example app using Solid Material for hero section of README.md",
+  "bugs": "https://github.com/mprovok/solid-material/issues",
+  "license": "Apache-2.0",
+  "author": "Mark Provo Kluit",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mprovok/solid-material.git",
+    "directory": "apps/calculator"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "lint": "oxlint --report-unused-disable-directives",
+    "lint:fix": "oxlint --fix --report-unused-disable-directives"
+  },
+  "dependencies": {
+    "@fontsource/google-sans-flex": "5.2.3",
+    "@solidjs/router": "catalog:solid",
+    "@solidmaterial/icons": "workspace:*",
+    "@solidmaterial/material": "workspace:*",
+    "solid-js": "catalog:solid"
+  },
+  "devDependencies": {
+    "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
+    "vite": "catalog:vite",
+    "vite-plugin-solid": "catalog:vite"
+  }
+}
