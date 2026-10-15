@@ -26,9 +26,9 @@
     "@types/node": "24.13.2",
     "@vitest/coverage-istanbul": "catalog:vitest",
     "husky": "9.1.7",
-    "oxfmt": "0.56.0",
-    "oxlint": "1.71.0",
-    "oxlint-tsgolint": "0.23.0",
+    "oxfmt": "0.72.0",
+    "oxlint": "1.87.0",
+    "oxlint-tsgolint": "7.0.2003",
     "turbo": "2.10.11",
     "typescript": "6.0.2",
     "vitest": "catalog:vitest"

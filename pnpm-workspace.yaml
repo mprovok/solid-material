@@ -39,8 +39,8 @@ catalogs:
     vite: 8.1.5
     'vite-plugin-solid': 2.11.12
   solid:
-    solid-js: 1.9.14
-    '@solidjs/router': 0.16.1
+    solid-js: 1.9.17
+    '@solidjs/router': 1.0.0
     '@solidjs/meta': 0.29.4
 
 versioning:
