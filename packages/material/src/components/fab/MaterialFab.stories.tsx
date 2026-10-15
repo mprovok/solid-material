@@ -23,7 +23,7 @@ const meta = preview.meta({
         disable: true
       }
     }
-  } as Partial<typeof MaterialFab>,
+  },
   args: { onClick: fn() }
 });
 

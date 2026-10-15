@@ -50,7 +50,7 @@ export const SectionComponents: VoidComponent = () => {
       <Show when={!isMobile()}>
         <div class={styles['decorative-blocks']} aria-hidden="true">
           <For each={Array.from({ length: 9 })}>
-            {_ => (
+            {_item => (
               <MaterialCard variant="filled" size="extra-large">
                 <MaterialCardBody> </MaterialCardBody>
               </MaterialCard>

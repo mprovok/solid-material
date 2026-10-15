@@ -40,7 +40,7 @@ export const Multiple = meta.story({
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', 'flex-wrap': 'wrap' }}>
       <For each={Array.from({ length: 5 })}>
-        {_ => (
+        {_item => (
           <MaterialSkeleton show={true}>
             <Rectangle />
           </MaterialSkeleton>
