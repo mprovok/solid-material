@@ -9,10 +9,6 @@
       {
         "groupName": "icons",
         "elementNamePattern": ["@solidmaterial/icons/**"]
-      },
-      {
-        "groupName": "style",
-        "selector": "style"
       }
     ],
     "groups": [
