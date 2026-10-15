@@ -118,7 +118,7 @@ export const backspace = (tokens: Token[]): Token[] => tokens.slice(0, -1);
  */
 export const balanceParentheses = (tokens: Token[]): Token[] => {
   const amount = Math.max(0, getBalance(tokens));
-  const parentheses: Token[] = Array.from({ length: amount }).map(_ => ({ type: 'PARENTHESIS_CLOSE' }));
+  const parentheses: Token[] = Array.from({ length: amount }).map(_item => ({ type: 'PARENTHESIS_CLOSE' }));
 
   return [...tokens, ...parentheses];
 };

@@ -62,7 +62,7 @@ const meta = preview.meta({
       },
       if: { arg: 'type', eq: 'number' }
     }
-  } as Partial<typeof MaterialTextField>,
+  },
   args: { onChange: fn(), onInput: fn() }
 });
 

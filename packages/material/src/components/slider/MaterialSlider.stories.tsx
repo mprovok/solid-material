@@ -12,7 +12,7 @@ const meta = preview.meta({
       type: 'boolean',
       if: { arg: 'step' }
     }
-  } as Partial<typeof MaterialSlider>,
+  },
   args: { onChange: fn() }
 });
 

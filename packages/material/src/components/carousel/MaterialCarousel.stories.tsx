@@ -54,7 +54,7 @@ const CarouselItems: VoidComponent<CarouselItemsProps> = args => {
   const [localProps, itemArgs] = splitProps(args, ['length']);
   return (
     <For each={Array.from({ length: localProps.length })}>
-      {_ => (
+      {_item => (
         <MaterialCarouselItem {...itemArgs}>
           <img
             src="https://mdn.github.io/shared-assets/images/examples/balloons.jpg"

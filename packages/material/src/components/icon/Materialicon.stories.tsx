@@ -15,7 +15,7 @@ const meta = preview.meta({
         disable: true
       }
     }
-  } as Partial<typeof MaterialIcon>,
+  },
   args: {
     children: <MenuIcon />
   }
