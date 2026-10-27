@@ -22,10 +22,10 @@ allowBuilds:
 
 catalogs:
   storybook:
-    storybook: 10.4.6
-    '@storybook/addon-a11y': 10.4.6
-    '@storybook/addon-docs': 10.4.6
-    '@storybook/addon-vitest': 10.4.6
+    storybook: 10.6.3
+    '@storybook/addon-a11y': 10.6.3
+    '@storybook/addon-docs': 10.6.3
+    '@storybook/addon-vitest': 10.6.3
     storybook-solidjs-vite: 10.6.0
   tsdown:
     '@tsdown/css': 0.22.5
@@ -36,7 +36,7 @@ catalogs:
     '@vitest/coverage-istanbul': 4.1.11
     '@vitest/coverage-v8': 4.1.11
   vite:
-    vite: 8.1.5
+    vite: 8.1.6
     'vite-plugin-solid': 2.11.12
   solid:
     solid-js: 1.9.17
