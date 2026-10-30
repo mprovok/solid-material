@@ -60,10 +60,22 @@ pnpm --filter @solidmaterial/material exec vitest run --project visual --browser
 
 - **Formatter is oxfmt**: single quotes, no trailing comma, `arrowParens: avoid`, width 120, import sorting configured in `.oxfmtrc.json` (`@solidmaterial/icons/**` imports sort last). Don't hand-format; run `pnpm format`.
 - oxlint is strict (correctness/restriction = error) and type-aware. Notable: `max-lines` 1000, `max-params` 4, kebab-case or PascalCase filenames, no duplicate imports (separate type imports allowed). Disables must be justified — `--report-unused-disable-directives` is on.
-- **Commit messages** are enforced by `scripts/lint-git-commit-msg.mts`: conventional format `<type>[(<scope>)][!]: <desc>`, subject <= 72 chars, body lines <= 79. Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`). Description starts lowercase, no trailing period, blank line before body.
+- **Commit messages** are enforced by `scripts/lint-git-commit-msg.mts`: conventional format `<type>[(<scope>)][!]: <desc>`, subject <= 72 chars, body lines <= 79. Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`). Description starts lowercase, no trailing period, blank line before body. Agent-authored commits add an
+  `Assisted-by:` trailer as the last paragraph: ask the user which name to
+  credit, suggesting the model you run as (e.g. `Assisted-by: GLM 5.3 Flash`),
+  and fall back to the model name if they defer.
 
 ## Dependency & release rules
 
+- **Committing:** before committing, decide whether release intents are
+  needed. Record them first via the changeset flow (in OpenCode, the
+  `changeset` subagent, which follows the `changeset-intent` skill; the
+  `/commit` command chains this with the commit itself) when the diff touches
+  files that end up in a production build of a published package:
+  `packages/material/src/**` except `*.test.*`/`*.stories.*` (the build config
+  excludes them), component CSS modules, package manifests, `packages/icons`
+  SVGs, and `vite-plugin-solid-svg` source. A changed private app also needs
+  intents. Tests, stories, docs, CI, and agent config do not.
 - Version numbers are exact (no `^`), managed via `catalog:` in `pnpm-workspace.yaml`. Keep shared deps (solid, vite, vitest, storybook, tsdown) in the catalog rather than pinning per package. `strictPeerDependencies` is on; `minimumReleaseAge` blocks brand-new releases.
 - Releases: record intent with `pnpm change` (interactive; writes a new file in `.changeset/`). It emits package names with double quotes, which fail `format:check` — convert them to single quotes before committing: `pnpm format .changeset/<file>.md` targets only the new file (a full `pnpm format` also works but reformats everything in reach). Publishing happens in `publish.yml` on `vX.Y.Z` tags from `main` via `pnpm stage publish -r`; `ledger.yaml` records which intents shipped in which version. Private apps get version bumps through the same flow.
 
