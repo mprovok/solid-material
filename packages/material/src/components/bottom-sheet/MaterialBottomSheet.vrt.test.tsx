@@ -1,3 +1,5 @@
+import type { VoidComponent } from 'solid-js';
+
 import { render } from '@solidjs/testing-library';
 import { createSignal, onMount } from 'solid-js';
 import { describe, expect, it } from 'vitest';
@@ -12,32 +14,34 @@ import { MaterialBottomSheet } from './MaterialBottomSheet';
 
 import styles from './MaterialBottomSheet.stories.module.css';
 
-const renderComponent = async (props: Omit<MaterialBottomSheetProps, 'open'>) => {
+const RenderComponent: VoidComponent<Omit<MaterialBottomSheetProps, 'open'>> = props => {
   const [isOpen, setOpen] = createSignal(false);
-
-  onMount(() => {
-    setTimeout(() => {
-      setOpen(true);
-    }, 1_000);
-  });
 
   const onClose = () => setOpen(false);
 
-  const { baseElement } = render(
-    () => (
-      <div class={styles['bottom-sheet']}>
-        <MaterialBottomSheet {...props} open={isOpen()} onClose={onClose}>
-          <MaterialCard variant="filled" size="large">
-            <MaterialCardBody>Bottom sheet 1</MaterialCardBody>
-          </MaterialCard>
-          <MaterialCard variant="filled" size="large">
-            <MaterialCardBody>Bottom sheet 2</MaterialCardBody>
-          </MaterialCard>
-        </MaterialBottomSheet>
-      </div>
-    ),
-    { wrapper: MaterialTheme }
+  onMount(() => {
+    // Wait for the visibility observer to deliver its initial state (two
+    // frames), otherwise the component closes the sheet again right after
+    // opening
+    requestAnimationFrame(() => requestAnimationFrame(() => setOpen(true)));
+  });
+
+  return (
+    <div class={styles['bottom-sheet']}>
+      <MaterialBottomSheet {...props} open={isOpen()} onClose={onClose}>
+        <MaterialCard variant="filled" size="large">
+          <MaterialCardBody>Bottom sheet 1</MaterialCardBody>
+        </MaterialCard>
+        <MaterialCard variant="filled" size="large">
+          <MaterialCardBody>Bottom sheet 2</MaterialCardBody>
+        </MaterialCard>
+      </MaterialBottomSheet>
+    </div>
   );
+};
+
+const renderComponent = async (props: Omit<MaterialBottomSheetProps, 'open'>) => {
+  const { baseElement } = render(() => <RenderComponent {...props} />, { wrapper: MaterialTheme });
   await document.fonts.ready;
   return page.elementLocator(baseElement);
 };

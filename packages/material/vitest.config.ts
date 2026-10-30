@@ -17,18 +17,13 @@ export default defineConfig({
       provider: playwright(),
       enabled: true,
       headless: true,
+      viewport: {
+        width: 1024,
+        height: 768
+      },
 
       // At least one instance is required
-      instances: [
-        { browser: 'chromium' },
-        {
-          browser: 'webkit',
-          viewport: {
-            width: 1024,
-            height: 768
-          }
-        }
-      ]
+      instances: [{ browser: 'chromium' }, { browser: 'webkit' }]
     },
     env: {
       CI: process.env.CI ?? ''

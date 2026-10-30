@@ -51,6 +51,11 @@ const renderComponent = async (props: Omit<MaterialNavigationBarProps, 'items'>)
     { wrapper: Wrapper, location: '/' }
   );
   await document.fonts.ready;
+
+  // Move the pointer to the top-left corner so that hover state from a
+  // previous test does not leak into this test's screenshots
+  await userEvent.hover(document.body, { position: { x: 0, y: 0 } });
+
   return page.elementLocator(baseElement);
 };
 

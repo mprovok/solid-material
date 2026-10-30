@@ -31,6 +31,11 @@ const renderComponent = async (props: Omit<MaterialNavigationItemProps, 'icon' |
     }
   );
   await document.fonts.ready;
+
+  // Move the pointer to the top-left corner so that hover state from a
+  // previous test does not leak into this test's screenshots
+  await userEvent.hover(document.body, { position: { x: 0, y: 0 } });
+
   return page.elementLocator(baseElement);
 };
 
@@ -140,8 +145,6 @@ describe('MaterialNavigationItem', () => {
         const item = screen.getByRole('menuitem', { name: 'Inactive' });
         await expect.element(item).toBeVisible();
 
-        // oxlint-disable-next-line no-warning-comments
-        // TODO Screenshot shows pointer is hovering over item for expanded = false
         await expect.element(item).toMatchScreenshot();
       });
     });

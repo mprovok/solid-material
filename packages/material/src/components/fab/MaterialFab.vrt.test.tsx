@@ -17,6 +17,11 @@ import EditFillIcon from '@solidmaterial/icons/400/outlined/edit-fill.svg';
 const renderComponent = async (props: ParentProps<MaterialFabProps>) => {
   const { baseElement } = render(() => <MaterialFab {...props} icon={<EditFillIcon />} />, { wrapper: MaterialTheme });
   await document.fonts.ready;
+
+  // Move the pointer to the top-left corner so that hover state from a
+  // previous test does not leak into this test's screenshots
+  await userEvent.hover(document.body, { position: { x: 0, y: 0 } });
+
   return page.elementLocator(baseElement);
 };
 
