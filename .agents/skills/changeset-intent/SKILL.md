@@ -1,6 +1,6 @@
 ---
 name: Changeset Intent
-description: Record a release intent in .changeset/ for pending changes - non-interactive pnpm change, bump-level grouping, and the single-quote pnpm format fix
+description: Record a release intent in .changeset/ before committing changes that affect a production build - trigger rule in AGENTS.md, non-interactive pnpm change, bump-level grouping, and the single-quote pnpm format fix
 ---
 
 # Recording a changeset intent
@@ -9,7 +9,9 @@ Each release is recorded as an intent file in `.changeset/` (changesets format,
 consumed by the publish workflow; `ledger.yaml` tracks which intents shipped).
 Create intents by running `pnpm change` with `--bump`, `--summary`, and the
 package names - never the bare interactive form, and never by hand - then fix
-its output format.
+its output format. Whether the pending changes require an intent at all is
+decided by the committing trigger rule in the root `AGENTS.md`; consult it
+before recording anything.
 
 ## Bump levels
 
