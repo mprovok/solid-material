@@ -31,6 +31,7 @@ catalogs:
     '@tsdown/css': 0.22.5
     tsdown: 0.22.5
   vitest:
+    playwright: 1.64.1
     vitest: 4.1.11
     '@vitest/browser-playwright': 4.1.11
     '@vitest/coverage-istanbul': 4.1.11

@@ -101,7 +101,7 @@
     "@types/node": "24.13.2",
     "@vitest/browser-playwright": "catalog:vitest",
     "@vitest/coverage-istanbul": "catalog:vitest",
-    "playwright": "1.59.1",
+    "playwright": "catalog:vitest",
     "storybook": "catalog:storybook",
     "storybook-solidjs-vite": "catalog:storybook",
     "tsdown": "catalog:tsdown",
