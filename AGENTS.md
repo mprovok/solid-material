@@ -20,7 +20,7 @@ pnpm install:webkit     # one-time: tests default to WebKit; run install:chromiu
 pnpm dev                # landing-page dev server
 pnpm storybook          # Storybook (port 6006, packages/material)
 pnpm lint               # oxlint (type-aware) across packages
-pnpm lint:fix           # per package, e.g. pnpm --filter @solidmaterial/material lint:fix
+pnpm --filter @solidmaterial/material lint:fix   # oxlint --fix (per package; there is no root lint:fix script)
 pnpm format             # oxfmt (NOT prettier); format:check runs in CI and pre-commit
 pnpm test               # browser tests must not run in parallel
 pnpm site:build         # full site: build + storybook build + copies storybook & calculator into landing-page/dist
@@ -37,13 +37,22 @@ All component/app tests run in real browsers via vitest browser mode + Playwrigh
   - `components` — `src/**/*.test.{ts,tsx}`
   - `visual` — screenshot tests matching `*.vrt.test.{ts,tsx}`, 5% pixel mismatch tolerance, retries disabled
   - `storybook` — runs the Storybook stories (spawns its own Storybook dev server)
-- Run one file/project:
+- Run one file/project (pass `--browser webkit`, otherwise vitest tries every
+  instance and chromium fails with the webkit-only install):
 
 ```bash
-pnpm --filter @solidmaterial/material exec vitest run --project components src/components/button/
-pnpm --filter @solidmaterial/material exec vitest run --project visual src/components/button/MaterialButton.vrt.test.tsx
+pnpm --filter @solidmaterial/material exec vitest run --project components --browser webkit src/components/button/
+pnpm --filter @solidmaterial/material exec vitest run --project visual --browser webkit src/components/button/MaterialButton.vrt.test.tsx
 ```
 
+- Visual regression tests (`.vrt.test.tsx`) compare against committed baselines
+  in `__screenshots__/` next to each test file (e.g.
+  `.../MaterialButton.vrt.test.tsx/<name>-webkit-darwin.png` — namespaced per
+  browser and platform). Missing baselines are hard failures, and CI runs the
+  visual project on macOS (WebKit), so baselines must be generated there: run
+  the `visual` project with `-u` on macOS and commit the updated PNGs. Baselines
+  generated on another OS will never match in CI. Failure diffs land in
+  `.vitest-attachments/` (gitignored).
 - Tests use a custom locator `getByElement(tag)` (see `packages/material/vitest.setup.ts`); testing-library cleanup is automatic.
 - Coverage is istanbul; uploads go to Codecov, which excludes `packages/icons/icons`.
 
