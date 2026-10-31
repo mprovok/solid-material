@@ -7,6 +7,7 @@ import type { DragHandleMovement } from '../../layouts/drag-handle/DragHandle';
 
 import { DragHandle } from '../../layouts/drag-handle/DragHandle';
 import { mod } from '../../utils/a11y';
+import { createDebouncedMemo } from '../../utils/utils';
 
 import styles from './MaterialBottomSheet.module.css';
 
@@ -28,6 +29,8 @@ const POPOVER_TYPE: Record<MaterialBottomSheetVariant, JSX.HTMLAttributes<HTMLDi
   modal: undefined
 };
 
+const VISIBILITY_DEBOUNCE_MS = 2 * (1e3 / 60);
+
 export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = props => {
   // oxlint-disable-next-line no-unassigned-vars
   let ref!: HTMLDialogElement;
@@ -37,7 +40,11 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
 
   // Use the IntersectionObserver API to detect the user has swiped the sheet out of view
   const useVisibilityObserver = createVisibilityObserver();
-  const isVisible = useVisibilityObserver(() => refSheet);
+  const isIntersecting = useVisibilityObserver(() => refSheet);
+
+  // Debounce the visibility signal to ignore momentary dip of the sheet out of the viewport
+  // while the opening scroll animation passes a scroll snap point (happens with Chromium in CI)
+  const isVisible = createDebouncedMemo(() => isIntersecting(), VISIBILITY_DEBOUNCE_MS);
 
   const [currentIndex, setCurrentIndex] = createSignal(0);
 
@@ -87,7 +94,12 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
     switch (props.variant) {
       case 'modal': {
         if (props.open) {
-          ref.showModal();
+          // The dialog is only closed after the sheet has scrolled out of
+          // view, so toggling props.open quickly can re-run this effect
+          // while the dialog is still open
+          if (!ref.open) {
+            ref.showModal();
+          }
           showBottomSheet();
         } else {
           hideBottomSheet();
