@@ -20,10 +20,11 @@ interface RenderComponentProps {
   supportFullHeight?: boolean;
   dragHandle?: boolean;
   availableIndices?: number[];
+  open?: boolean;
 }
 
 const RenderComponent: VoidComponent<RenderComponentProps> = props => {
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = createSignal(false);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = createSignal(props.open ?? false);
 
   const onCloseBottomSheet = () => setIsBottomSheetOpen(false);
   const onToggleBottomSheet = () => setIsBottomSheetOpen(value => !value);
@@ -103,6 +104,24 @@ describe('MaterialBottomSheet', () => {
 
         // Then the sheet is no longer visible and in the viewport
         await expect.element(sheet).not.toBeInViewport();
+      });
+
+      it('can be initially open', async () => {
+        const { baseElement } = render(() => <RenderComponent variant={variant} open={true} />, {
+          wrapper: MaterialTheme
+        });
+        const screen = page.elementLocator(baseElement);
+
+        const sheet = screen.getByRole('complementary');
+        await expect.element(sheet).toBeVisible();
+        await expect.element(sheet).toBeInViewport();
+
+        // The dialog must stay shown: without the visibility latch it would be
+        // closed again directly on mount, merely staying rendered for the
+        // duration of its closing transition. The selector covers both variants,
+        // since showModal() sets [open] and showPopover() matches :popover-open
+        const dialog = sheet.element().closest('dialog');
+        await expect.poll(() => dialog?.matches(':popover-open, [open]')).toBe(true);
       });
     });
 

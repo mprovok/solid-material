@@ -47,6 +47,7 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
   const isVisible = createDebouncedMemo(() => isIntersecting(), VISIBILITY_DEBOUNCE_MS);
 
   const [currentIndex, setCurrentIndex] = createSignal(0);
+  const [hasBeenVisible, setHasBeenVisible] = createSignal(false);
 
   const supportFullHeight = () => props.supportFullHeight === true;
 
@@ -120,7 +121,12 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
   });
 
   createEffect(() => {
-    if (!isVisible()) {
+    // Only close the sheet if it has been visible at least once, otherwise a
+    // sheet that is opened on mount would be closed immediately, because the
+    // visibility signal is false before the observer reports for the first time
+    if (isVisible()) {
+      setHasBeenVisible(true);
+    } else if (hasBeenVisible()) {
       if (props.variant === 'modal') {
         ref.close();
       } else {
