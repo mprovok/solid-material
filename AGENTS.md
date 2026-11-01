@@ -30,15 +30,15 @@ CI (`ci.yml`) uses turbo `--affected` for build/lint/test — scope changes acco
 
 ## Testing
 
-All component/app tests run in real browsers via vitest browser mode + Playwright, not jsdom/happy-dom.
+All component/app tests run in real browsers via Vitest Browser Mode + Playwright, not jsdom/happy-dom.
 
 - Default (`pnpm test`) runs **WebKit** (material's `test` = `test:webkit`). Chromium is opt-in: `pnpm --filter @solidmaterial/material test:chromium`.
 - `packages/material` has three vitest projects:
   - `components` — `src/**/*.test.{ts,tsx}`
   - `visual` — screenshot tests matching `*.vrt.test.{ts,tsx}`, 5% pixel mismatch tolerance, retries disabled
   - `storybook` — runs the Storybook stories (spawns its own Storybook dev server)
-- Run one file/project (pass `--browser webkit`, otherwise vitest tries every
-  instance and chromium fails with the webkit-only install):
+- Before running tests, ask the user which browser should be used to run tests (WebKit or Chromium) if you do not know which one the user prefers
+- Run one file/project and pass `--browser` with the value `webkit` or `chromium`:
 
 ```bash
 pnpm --filter @solidmaterial/material exec vitest run --project components --browser webkit src/components/button/
@@ -59,7 +59,7 @@ pnpm --filter @solidmaterial/material exec vitest run --project visual --browser
 ## Conventions
 
 - **Formatter is oxfmt**: single quotes, no trailing comma, `arrowParens: avoid`, width 120, import sorting configured in `.oxfmtrc.json` (`@solidmaterial/icons/**` imports sort last). Don't hand-format; run `pnpm format`.
-- oxlint is strict (correctness/restriction = error) and type-aware. Notable: `max-lines` 1000, `max-params` 4, kebab-case or PascalCase filenames, no duplicate imports (separate type imports allowed). Disables must be justified — `--report-unused-disable-directives` is on.
+- oxlint is strict (correctness/restriction = error) and type-aware (There is no need to run `tsc --noEmit`). Notable: `max-lines` 1000, `max-params` 4, kebab-case or PascalCase filenames, no duplicate imports (separate type imports allowed). Disables must be justified — `--report-unused-disable-directives` is on.
 - **Commit messages** are enforced by `scripts/lint-git-commit-msg.mts`: conventional format `<type>[(<scope>)][!]: <desc>`, subject <= 72 chars, body lines <= 79. Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`). Description starts lowercase, no trailing period, blank line before body. Agent-authored commits add an
   `Assisted-by:` trailer as the last paragraph: ask the user which name to
   credit, suggesting the model you run as (e.g. `Assisted-by: GLM 5.3 Flash`),
