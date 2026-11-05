@@ -1,0 +1,104 @@
+name: Update Visual Regression Screenshots
+# From https://vitest.dev/guide/browser/visual-regression-testing#the-update-workflow
+
+on:
+  workflow_dispatch: # manual trigger only
+
+env:
+  AUTHOR_NAME: 'github-actions[bot]'
+  AUTHOR_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+  COMMIT_MESSAGE: |
+    test: update visual regression screenshots
+
+    Co-authored-by: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
+jobs:
+  update-screenshots:
+    runs-on: macos-latest # apt update for browser download hangs on ubuntu
+
+    # safety first: don't run on main
+    if: github.ref_name != github.event.repository.default_branch
+
+    # one at a time per branch
+    concurrency:
+      group: visual-regression-screenshots@${{ github.ref_name }}
+      cancel-in-progress: true
+
+    permissions:
+      contents: write # needs to push changes
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          filter: 'blob:none'
+          fetch-depth: 20
+      - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
+        with:
+          cache: true
+      - run: pnpm run install:webkit
+      - run: pnpm run test:update
+        name: Update Visual Regression Testing screenshots
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "$AUTHOR_NAME"
+          git config --global user.email "$AUTHOR_EMAIL"
+
+      # check what changed
+      - name: Check for changes
+        id: check_changes
+        run: |
+          CHANGED_FILES=$(git status --porcelain | awk '{print $2}')
+          if [ "${CHANGED_FILES:+x}" ]; then
+            echo "changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected"
+
+            # save the list for the summary
+            echo "changed_files<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$CHANGED_FILES" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "changed_count=$(echo "$CHANGED_FILES" | wc -l)" >> "$GITHUB_OUTPUT"
+          else
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected"
+          fi
+
+      # commit if there are changes
+      - name: Commit changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git add -A
+          git commit -m "$COMMIT_MESSAGE"
+
+      - name: Push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: git push origin "$BRANCH"
+
+      # pretty summary for humans
+      - name: Summary
+        env:
+          BRANCH: ${{ github.ref_name }}
+          CHANGES: ${{ steps.check_changes.outputs.changes }}
+          CHANGED_COUNT: ${{ steps.check_changes.outputs.changed_count }}
+          CHANGED_FILES: ${{ steps.check_changes.outputs.changed_files }}
+        run: |
+          if [[ "$CHANGES" == "true" ]]; then
+            echo "### 📸 Visual Regression Screenshots Updated" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Successfully updated **$CHANGED_COUNT** screenshot(s) on \`$BRANCH\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "#### Changed Files:" >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "$CHANGED_FILES" >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ The updated screenshots have been committed and pushed. Your visual regression baseline is now up to date!" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### ℹ️ No Screenshot Updates Required" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "The visual regression test command ran successfully but no screenshots needed updating." >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "All screenshots are already up to date! 🎉" >> "$GITHUB_STEP_SUMMARY"
+          fi
