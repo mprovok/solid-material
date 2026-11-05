@@ -14,6 +14,7 @@
     "preview": "turbo preview --filter=@solidmaterial/landing-page --ui tui",
     "storybook": "turbo storybook --filter=@solidmaterial/material",
     "test": "turbo test --concurrency 1",
+    "test:update": "turbo test:update --concurrency 1",
     "lint": "turbo lint",
     "format": "pnpm oxfmt",
     "format:check": "pnpm oxfmt --check",

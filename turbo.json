@@ -13,6 +13,9 @@
     "test": {
       "dependsOn": ["^test"]
     },
+    "test:update": {
+      "cache": false
+    },
     "dev": {
       "persistent": true,
       "interactive": true,
