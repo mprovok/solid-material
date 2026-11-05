@@ -68,6 +68,7 @@
     "build": "tsdown",
     "test:chromium": "vitest run --browser chromium",
     "test:webkit": "vitest run --coverage --browser webkit",
+    "test:update": "vitest run --browser webkit --project visual --update",
     "test": "pnpm run test:webkit",
     "lint": "oxlint --report-unused-disable-directives",
     "lint:fix": "oxlint --fix --report-unused-disable-directives",

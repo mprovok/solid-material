@@ -1,0 +1,38 @@
+name: Update Visual Regression Screenshots
+
+on:
+  workflow_dispatch: # manual trigger only
+
+jobs:
+  update-screenshots:
+    runs-on: ubuntu-slim
+
+    # one at a time per branch
+    concurrency:
+      group: visual-regression-screenshots@${{ github.ref_name }}
+      cancel-in-progress: true
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          filter: 'blob:none'
+          fetch-depth: 20
+
+      - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
+        with:
+          cache: true
+
+      - run: pnpm run install:webkit
+      - run: pnpm run test:update
+
+      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          branch: fix/update-snapshots
+          commit-message: 'test: update visual regression screenshots'
+          title: 'test: update visual regression screenshots'
+          body: 'Automated visual regression screenshot updates.'
