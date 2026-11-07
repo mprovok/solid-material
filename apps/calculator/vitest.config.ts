@@ -14,7 +14,7 @@ export default defineConfig({
       enabled: true,
       headless: true,
       // At least one instance is required
-      instances: [{ browser: 'webkit' }]
+      instances: [{ browser: 'chromium' }]
     },
     reporters: ['default', 'junit'],
     outputFile: 'coverage/tests.junit.xml',

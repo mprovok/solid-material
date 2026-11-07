@@ -66,10 +66,10 @@
   },
   "scripts": {
     "build": "tsdown",
-    "test:chromium": "vitest run --browser chromium",
+    "test:chromium": "vitest run --coverage --browser chromium",
     "test:webkit": "vitest run --coverage --browser webkit",
-    "test:update": "vitest run --browser webkit --project visual --update",
-    "test": "pnpm run test:webkit",
+    "test:update": "vitest run --browser chromium --project visual --update",
+    "test": "pnpm run test:chromium",
     "lint": "oxlint --report-unused-disable-directives",
     "lint:fix": "oxlint --fix --report-unused-disable-directives",
     "storybook": "storybook dev --port 6006 --no-version-updates --no-open --disable-telemetry",
