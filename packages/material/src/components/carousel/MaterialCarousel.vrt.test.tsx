@@ -1,4 +1,6 @@
+import type { PageScreenshotOptions } from 'playwright';
 import type { VoidComponent } from 'solid-js';
+import type { Locator } from 'vitest/browser';
 
 import { render } from '@solidjs/testing-library';
 import { For } from 'solid-js';
@@ -18,6 +20,35 @@ import { MaterialCarouselItem } from './MaterialCarouselItem';
 // clip-path transitions have settled
 const SETTLE_TRANSITIONS_MS = 800;
 
+// Playwright's screenshot default (`animations: 'disabled'`) cancels the
+// scroll-driven `animation-timeline: view(x)` animations that size the
+// carousel's items — allow them so items render at their progressive widths.
+// vitest forwards `screenshotOptions` to Playwright's `locator.screenshot()`
+// but types it as an empty object, so keep a playwright-typed options object;
+// and its promisified `expect.element` assertion only exposes the matcher's
+// `(name?, options?)` overload — `undefined` as the name keeps the
+// auto-generated, test-name-based screenshot name
+const matchScreenshot = async (element: Locator) => {
+  const screenshotOptions: PageScreenshotOptions = { animations: 'allow' };
+  return expect.element(element).toMatchScreenshot(undefined, { screenshotOptions });
+};
+
+// Waits for the mandatory scroll snap to settle after a programmatic scroll:
+// `scrollLeft` must stop changing between successive polls
+const waitForScrollSnapSettle = async (carousel: Element) => {
+  let previousScrollLeft = -1;
+  await vi.waitFor(
+    () => {
+      const { scrollLeft } = carousel;
+      // The scroll has settled once `scrollLeft` stops changing between polls
+      const hasSettled = scrollLeft === previousScrollLeft;
+      previousScrollLeft = scrollLeft;
+      expect(hasSettled).toBe(true);
+    },
+    { timeout: 2000 }
+  );
+};
+
 // Deterministic, network-free stand-in for the remote image used in the stories
 const CarouselItemGraphic = () => (
   <svg viewBox="0 0 100 100">
@@ -31,14 +62,16 @@ interface CarouselFixtureProps {
   carousel: MaterialCarouselProps;
   itemCount?: number;
   disabledItemIndices?: number[];
+  width?: string;
 }
 
 const CarouselFixture: VoidComponent<CarouselFixtureProps> = props => {
   const itemCount = () => props.itemCount ?? 6;
+  const width = () => props.width ?? '600px';
   const isDisabled = (index: number) => props.disabledItemIndices?.includes(index) ?? false;
 
   return (
-    <main style={{ width: '600px', padding: '1rem' }}>
+    <main style={{ width: width(), padding: '1rem' }}>
       <MaterialCarousel {...props.carousel} ariaLabel="Carousel">
         <For each={Array.from({ length: itemCount() })}>
           {(_item, index) => (
@@ -103,19 +136,66 @@ describe('MaterialCarousel', () => {
         const carousel = screen.getByRole('list', { name: 'Carousel' });
         await expect.element(carousel).toBeVisible();
 
-        await expect.element(dialog).toMatchScreenshot();
+        await matchScreenshot(dialog);
       } else {
         // Given the carousel is visible
         const carousel = screen.getByRole('list', { name: 'Carousel' });
         await expect.element(carousel).toBeVisible();
 
-        await expect.element(screen.getByElement('main')).toMatchScreenshot();
+        await matchScreenshot(screen.getByElement('main'));
       }
     });
 
-    // Header
+    // Centered-hero scrolled to the second item — the second item renders
+    // large and centered while its neighbors stay small
+    it('renders a centered-hero carousel scrolled to the second item', async () => {
+      const screen = await renderCarousel({ carousel: { variant: 'centered-hero' } });
+
+      // Given the carousel is visible
+      const carousel = screen.getByRole('list', { name: 'Carousel' });
+      await expect.element(carousel).toBeVisible();
+
+      // When the second item is scrolled into view and the mandatory snap
+      // settles — the item holder div carries the variant's
+      // scroll-margin-inline-start
+      const carouselElement = carousel.element();
+      carouselElement.children[1]!.scrollIntoView({ behavior: 'instant', inline: 'start', block: 'nearest' });
+      await waitForScrollSnapSettle(carouselElement);
+
+      // Then the carousel has scrolled
+      expect(carouselElement.scrollLeft).toBeGreaterThan(0);
+
+      await matchScreenshot(screen.getByElement('main'));
+    });
+
+    // Centered-hero scrolled to the end — the last item renders large while
+    // the leading items stay small
+    it('renders a centered-hero carousel scrolled to the end', async () => {
+      const screen = await renderCarousel({ carousel: { variant: 'centered-hero' } });
+
+      // Given the carousel is visible
+      const carousel = screen.getByRole('list', { name: 'Carousel' });
+      await expect.element(carousel).toBeVisible();
+
+      // When the carousel is scrolled to the end and the mandatory snap settles
+      const carouselElement = carousel.element();
+      carouselElement.scrollTo({ left: carouselElement.scrollWidth, behavior: 'instant' });
+      await waitForScrollSnapSettle(carouselElement);
+
+      // Then the carousel has scrolled
+      expect(carouselElement.scrollLeft).toBeGreaterThan(0);
+
+      await matchScreenshot(screen.getByElement('main'));
+    });
+
+    // Header — captured at a compact width where exactly one large, one
+    // medium and one small item are visible
     it('renders a carousel with a header', async () => {
-      const screen = await renderCarousel({ carousel: { variant: 'multi-browse', header: 'Header' }, itemCount: 3 });
+      const screen = await renderCarousel({
+        carousel: { variant: 'multi-browse', header: 'Header' },
+        itemCount: 3,
+        width: '375px'
+      });
 
       // Given the carousel and its header are visible
       const carousel = screen.getByRole('list', { name: 'Carousel' });
@@ -123,14 +203,15 @@ describe('MaterialCarousel', () => {
 
       await expect.element(screen.getByText('Header')).toBeVisible();
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
     });
 
     // Header with a show-all icon button
     it('renders a carousel with a header and a show-all icon button', async () => {
       const screen = await renderCarousel({
         carousel: { variant: 'multi-browse', header: 'Header', showAllHeaderTitle: 'Show all', onShowAll: vi.fn() },
-        itemCount: 3
+        itemCount: 3,
+        width: '375px'
       });
 
       // Given the carousel, its header and the show-all icon button are visible
@@ -139,14 +220,15 @@ describe('MaterialCarousel', () => {
 
       await expect.element(screen.getByRole('button', { name: 'Show all' })).toBeVisible();
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
     });
 
     // Show-all text button below the carousel
     it('renders a carousel with a show all button', async () => {
       const screen = await renderCarousel({
         carousel: { variant: 'multi-browse', showAllButtonLabel: 'Show all', onShowAll: vi.fn() },
-        itemCount: 3
+        itemCount: 3,
+        width: '375px'
       });
 
       // Given the carousel and the show-all button are visible
@@ -155,7 +237,7 @@ describe('MaterialCarousel', () => {
 
       await expect.element(screen.getByRole('button', { name: 'Show all' })).toBeVisible();
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
     });
 
     // Custom height
@@ -166,7 +248,7 @@ describe('MaterialCarousel', () => {
       const carousel = screen.getByRole('list', { name: 'Carousel' });
       await expect.element(carousel).toBeVisible();
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
     });
 
     // Custom item max width
@@ -177,7 +259,19 @@ describe('MaterialCarousel', () => {
       const carousel = screen.getByRole('list', { name: 'Carousel' });
       await expect.element(carousel).toBeVisible();
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
+    });
+
+    // Compact width — exactly one large, one medium and one small item are
+    // visible, mirroring the stories' iphoneSE3 viewport
+    it('renders a multi-browse carousel with large, medium and small items at a compact width', async () => {
+      const screen = await renderCarousel({ carousel: { variant: 'multi-browse' }, width: '375px' });
+
+      // Given the carousel is visible
+      const carousel = screen.getByRole('list', { name: 'Carousel' });
+      await expect.element(carousel).toBeVisible();
+
+      await matchScreenshot(screen.getByElement('main'));
     });
 
     // Disabled item
@@ -185,7 +279,8 @@ describe('MaterialCarousel', () => {
       const screen = await renderCarousel({
         carousel: { variant: 'multi-browse' },
         itemCount: 3,
-        disabledItemIndices: [0]
+        disabledItemIndices: [0],
+        width: '375px'
       });
 
       // Given the carousel is visible and the first item is disabled
@@ -195,13 +290,13 @@ describe('MaterialCarousel', () => {
       const disabledItem = screen.getByRole('listitem', { name: 'Item 1' });
       await expect.element(disabledItem).toHaveAttribute('data-disabled');
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
     });
 
     // Focused first item — the focus ring and elevation are shown when the
     // first item receives keyboard focus
     it('renders a carousel with a focused first item', async () => {
-      const screen = await renderCarousel({ carousel: { variant: 'multi-browse' }, itemCount: 3 });
+      const screen = await renderCarousel({ carousel: { variant: 'multi-browse' }, itemCount: 3, width: '375px' });
 
       // Given the carousel and its first item are visible
       const carousel = screen.getByRole('list', { name: 'Carousel' });
@@ -224,7 +319,7 @@ describe('MaterialCarousel', () => {
         { timeout: 2000 }
       );
 
-      await expect.element(screen.getByElement('main')).toMatchScreenshot();
+      await matchScreenshot(screen.getByElement('main'));
     });
   });
 });
