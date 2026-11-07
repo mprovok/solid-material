@@ -18,7 +18,7 @@
     "lint": "turbo lint",
     "format": "pnpm oxfmt",
     "format:check": "pnpm oxfmt --check",
-    "install:chromium": "pnpm --filter=@solidmaterial/material exec playwright install chromium --with-deps",
+    "install:chromium": "pnpm --filter=@solidmaterial/material exec playwright install chromium --with-deps --only-shell",
     "install:webkit": "pnpm --filter=@solidmaterial/material exec playwright install webkit --with-deps",
     "scripts:test": "vitest run --coverage --project scripts"
   },
