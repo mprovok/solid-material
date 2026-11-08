@@ -24,7 +24,7 @@ export const FilesBlock: VoidComponent<FilesBlockProps> = props => {
       panel: () => (
         <div class={styles['panel']}>
           <Span role="body" size="medium" class={styles['code']}>
-            <pre>{file.content}</pre>
+            {file.content}
           </Span>
           <CopyToClipBoardButton content={file.content} message={`Copied ${file.label} to clipboard`} />
         </div>

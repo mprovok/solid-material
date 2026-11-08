@@ -16,6 +16,7 @@
   padding: var(--md-user-spacing-md);
   display: inline-block;
   font-family: monospace;
+  white-space: pre-wrap;
 
   overflow-x: auto;
   max-width: 100%;

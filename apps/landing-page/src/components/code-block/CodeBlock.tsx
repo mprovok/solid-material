@@ -16,7 +16,7 @@ export const CodeBlock: Component<CodeBlockProps> = props => {
     <div class={styles['block']}>
       <MaterialCard variant="filled">
         <Span role="body" size="medium" class={styles['code']}>
-          <pre>{props.children}</pre>
+          {props.children}
         </Span>
         <CopyToClipBoardButton content={props.children} />
       </MaterialCard>
