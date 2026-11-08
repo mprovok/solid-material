@@ -32,15 +32,15 @@ catalogs:
     tsdown: 0.22.5
   vitest:
     playwright: 1.64.1
-    vitest: 4.1.11
-    '@vitest/browser-playwright': 4.1.11
-    '@vitest/coverage-istanbul': 4.1.11
-    '@vitest/coverage-v8': 4.1.11
+    vitest: 4.1.12
+    '@vitest/browser-playwright': 4.1.12
+    '@vitest/coverage-istanbul': 4.1.12
+    '@vitest/coverage-v8': 4.1.12
   vite:
     vite: 8.1.6
     'vite-plugin-solid': 2.11.12
   solid:
-    solid-js: 1.9.17
+    solid-js: 1.9.18
     '@solidjs/router': 1.0.0
     '@solidjs/meta': 0.29.4
 
