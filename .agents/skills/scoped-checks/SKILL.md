@@ -16,9 +16,6 @@ pnpm lint            # turbo lint across packages
 pnpm format:check    # oxfmt --check on everything
 ```
 
-In CI, build/lint/test run with turbo `--affected` — scope accordingly.
-`pnpm format:check` is NOT affected-filtered; it always runs on everything.
-
 ## Scoped to one package
 
 Both lint spellings work (the first goes through turbo, the second runs the
@@ -46,10 +43,6 @@ issues per package:
 pnpm --filter @solidmaterial/material lint:fix
 ```
 
-Target `pnpm format` at specific paths (e.g. `pnpm format .changeset/<file>.md`)
-— a bare `pnpm format` reformats everything in reach.
-
-## Stale dependencies
-
-Scripts are blocked on stale dependencies (`verifyDepsBeforeRun=error`). Do
-not run `pnpm install`; report that it is needed instead.
+Target `pnpm format` at specific paths (e.g.
+`pnpm format packages/material/src`) — a bare `pnpm format` reformats
+everything in reach.

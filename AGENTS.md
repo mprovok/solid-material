@@ -1,14 +1,25 @@
 # AGENTS.md
 
-pnpm + Turborepo monorepo for **Solid Material** — Material 3 Expressive components for SolidJS. Node >= 22, pnpm 11 (enforced via `engineStrict`).
+pnpm + Turborepo monorepo for **Solid Material** — Material 3 Expressive components for SolidJS.
+Node >= 22, pnpm 11 (enforced via `engineStrict`).
 
 ## Layout
 
-- `packages/material` — the published component library (`@solidmaterial/material`). Components in `src/components/*/`, plus `layouts/`, `styling/`, `utils/`.
-- `packages/icons` — Material Symbols SVGs, published as raw `.svg` files. Regenerate with `pnpm --filter @solidmaterial/icons download:svg` (only weight 400 is published).
-- `packages/vite-plugin-solid-svg` — Vite plugin to import those SVGs as Solid components.
-- `apps/landing-page`, `apps/calculator` — private demo apps; the landing page hosts docs/Storybook. `apps/hero` is only for the README screenshot (no tests, no build).
-- `scripts/` — repo-level scripts, including the custom commit-message linter (has its own tests: `pnpm scripts:test`).
+```
+.
+├── apps/
+│   ├── calculator/             # private demo app
+│   ├── hero/                   # README screenshot only (no tests, no build)
+│   └── landing-page/           # private demo app; hosts docs/Storybook
+├── packages/
+│   ├── icons/                  # Material Symbols SVGs, published as raw .svg files
+│   │                           #   (weight 400 only; regenerate: pnpm --filter @solidmaterial/icons download:svg)
+│   ├── material/               # @solidmaterial/material — the published component library
+│   │                           #   (src/components/*/ plus layouts/, styling/, utils/)
+│   └── vite-plugin-solid-svg/  # Vite plugin to import those SVGs as Solid components
+└── scripts/                    # repo-level scripts, incl. the commit-message linter
+                                #   (has its own tests: pnpm scripts:test)
+```
 
 **In-repo, `@solidmaterial/material` is consumed directly from `src/`** (package `exports` point at source; `publishConfig` swaps in `dist/` only when publishing). You do NOT need to build packages before running apps, tests, or Storybook.
 
@@ -16,54 +27,58 @@ pnpm + Turborepo monorepo for **Solid Material** — Material 3 Expressive compo
 
 ```bash
 pnpm install            # required after pulling; verifyDepsBeforeRun=error blocks scripts on stale deps
-pnpm install:webkit     # one-time: tests default to WebKit; run install:chromium if you use test:chromium
-pnpm dev                # landing-page dev server
-pnpm storybook          # Storybook (port 6006, packages/material)
+pnpm install:chromium   # one-time: install the Chromium test browser
+pnpm install:webkit     # one-time: install the WebKit test browser
+pnpm dev                # landing-page dev server on port 4000 (persistent, never a background build step)
+pnpm storybook          # Storybook for packages/material on port 6006 (persistent, never a background build step)
+pnpm preview            # landing-page production build on port 4000 (persistent, never a background build step)
 pnpm lint               # oxlint (type-aware) across packages
 pnpm --filter @solidmaterial/material lint:fix   # oxlint --fix (per package; there is no root lint:fix script)
 pnpm format             # oxfmt (NOT prettier); format:check runs in CI and pre-commit
-pnpm test               # browser tests must not run in parallel
+pnpm test               # all browser tests via turbo (serialized)
+pnpm test:update        # regenerate VRT baselines (Chromium on Linux, matching CI)
 pnpm site:build         # full site: build + storybook build + copies storybook & calculator into landing-page/dist
 ```
 
-CI (`ci.yml`) uses turbo `--affected` for build/lint/test — scope changes accordingly. `pnpm format:check` is NOT affected-filtered; it always runs on everything.
+CI (`ci.yml`) uses turbo `--affected` for build/lint/test — scope changes accordingly.
+`pnpm format:check` is NOT affected-filtered; it always runs on everything.
 
 ## Testing
 
 All component/app tests run in real browsers via Vitest Browser Mode + Playwright, not jsdom/happy-dom.
+Every test run is a combination of:
 
-- Default (`pnpm test`) runs **WebKit** (material's `test` = `test:webkit`). Chromium is opt-in: `pnpm --filter @solidmaterial/material test:chromium`.
-- `packages/material` has three vitest projects:
-  - `components` — `src/**/*.test.{ts,tsx}`
-  - `visual` — screenshot tests matching `*.vrt.test.{ts,tsx}`, 5% pixel mismatch tolerance, retries disabled
-  - `storybook` — runs the Storybook stories (spawns its own Storybook dev server)
-- Before running tests, ask the user which browser should be used to run tests (WebKit or Chromium) if you do not know which one the user prefers
-- Run one file/project and pass `--browser` with the value `webkit` or `chromium`:
+- **Browser**: `chromium` or `webkit`; install the binary (`pnpm install:chromium` / `pnpm install:webkit`).
+- **Project** (in `packages/material`):
+  - `components` (interaction and a11y tests)
+  - `visual` (screenshot-based visual regression tests)
+  - `storybook` (Storybook stories)
+- **Scope**: the whole repo, one package, one folder, or a single file.
 
-```bash
-pnpm --filter @solidmaterial/material exec vitest run --project components --browser webkit src/components/button/
-pnpm --filter @solidmaterial/material exec vitest run --project visual --browser webkit src/components/button/MaterialButton.vrt.test.tsx
-```
+Before running tests, ask the user which browser to use if you do not know which one they prefer;
+a subagent cannot ask, so pass the choice down. Never run browser test projects in parallel.
 
-- Visual regression tests (`.vrt.test.tsx`) compare against committed baselines
-  in `__screenshots__/` next to each test file (e.g.
-  `.../MaterialButton.vrt.test.tsx/<name>-webkit-darwin.png` — namespaced per
-  browser and platform). Missing baselines are hard failures, and CI runs the
-  visual project on macOS (WebKit), so baselines must be generated there: run
-  the `visual` project with `-u` on macOS and commit the updated PNGs. Baselines
-  generated on another OS will never match in CI. Failure diffs land in
-  `.vitest-attachments/` (gitignored).
-- Tests use a custom locator `getByElement(tag)` (see `packages/material/vitest.setup.ts`); testing-library cleanup is automatic.
-- Coverage is istanbul; uploads go to Codecov, which excludes `packages/icons/icons`.
+Consult the `run-tests` skill before running any tests: it defines the exact commands
+(browser selection, scoped runs) and VRT baseline handling.
+Writing test files: see the `write-tests` skill.
 
 ## Conventions
 
-- **Formatter is oxfmt**: single quotes, no trailing comma, `arrowParens: avoid`, width 120, import sorting configured in `.oxfmtrc.json` (`@solidmaterial/icons/**` imports sort last). Don't hand-format; run `pnpm format`.
-- oxlint is strict (correctness/restriction = error) and type-aware (There is no need to run `tsc --noEmit`). Notable: `max-lines` 1000, `max-params` 4, kebab-case or PascalCase filenames, no duplicate imports (separate type imports allowed). Disables must be justified — `--report-unused-disable-directives` is on.
-- **Commit messages** are enforced by `scripts/lint-git-commit-msg.mts`: conventional format `<type>[(<scope>)][!]: <desc>`, subject <= 72 chars, body lines <= 79. Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`). Description starts lowercase, no trailing period, blank line before body. Agent-authored commits add an
-  `Assisted-by:` trailer as the last paragraph: ask the user which name to
-  credit, suggesting the model you run as (e.g. `Assisted-by: GLM 5.3 Flash`),
-  and fall back to the model name if they defer.
+- **Formatter is oxfmt**: Don't hand-format; run `pnpm format`.
+  - Single quotes, no trailing comma, `arrowParens: avoid`, width 120
+  - Import sorting configured in `.oxfmtrc.json` (`@solidmaterial/icons/**` imports sort last)
+- **Linter is oxlint**: strict (correctness/restriction = error) and type-aware (There is no need to run `tsc --noEmit`).
+  - Notable: `max-lines` 1000, `max-params` 4
+  - PascalCase filenames for components, kebab-case for everything else
+  - No duplicate imports (separate type imports allowed)
+  - Disables must be justified (`--report-unused-disable-directives` is on)
+- **Commit messages** are enforced by `scripts/lint-git-commit-msg.mts`:
+  - Conventional format `<type>[(<scope>)][!]: <desc>`, subject <= 72 chars, body lines <= 79
+  - Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+  - **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`)
+  - Description starts lowercase, no trailing period, blank line before body.
+  - Agent-authored commits add an `Assisted-by:` trailer as the last paragraph:
+    Ask the user which name to credit, suggesting the model you run as, and fall back to the model name if they defer
 
 ## Dependency & release rules
 
@@ -76,11 +91,15 @@ pnpm --filter @solidmaterial/material exec vitest run --project visual --browser
   excludes them), component CSS modules, package manifests, `packages/icons`
   SVGs, and `vite-plugin-solid-svg` source. A changed private app also needs
   intents. Tests, stories, docs, CI, and agent config do not.
-- Version numbers are exact (no `^`), managed via `catalog:` in `pnpm-workspace.yaml`. Keep shared deps (solid, vite, vitest, storybook, tsdown) in the catalog rather than pinning per package. `strictPeerDependencies` is on; `minimumReleaseAge` blocks brand-new releases.
-- Releases: record intent with `pnpm change` (interactive; writes a new file in `.changeset/`). It emits package names with double quotes, which fail `format:check` — convert them to single quotes before committing: `pnpm format .changeset/<file>.md` targets only the new file (a full `pnpm format` also works but reformats everything in reach). Publishing happens in `publish.yml` on `vX.Y.Z` tags from `main` via `pnpm stage publish -r`; `ledger.yaml` records which intents shipped in which version. Private apps get version bumps through the same flow.
+- Version numbers are exact (no `^`), managed via `catalog:` in `pnpm-workspace.yaml`.
+  Keep shared deps (solid, vite, vitest, storybook, tsdown) in the catalog rather than pinning per package.
+  `strictPeerDependencies` is on; `minimumReleaseAge` blocks brand-new releases.
+- Releases: intents are recorded in `.changeset/` via the `changeset-intent` skill
+  (in OpenCode: the `changeset` subagent; `/commit` chains it), including the targeted `pnpm format` fix it requires.
+  Publishing happens in `publish.yml` on `vX.Y.Z` tags from `main` via `pnpm stage publish -r`;
+  `ledger.yaml` records which intents shipped in which version. Private apps get version bumps through the same flow.
 
 ## Other gotchas
 
 - The library deliberately uses modern CSS (scroll-driven animations, anchor positioning) with baseline-2025 targets (Chrome 131+, Safari 26.2). Don't add polyfills or fallbacks for older browsers.
 - Some components are thin bindings around `@material/web` web components (ripple, focus ring, form controls) — check whether a component wraps a web component before changing its DOM/API assumptions.
-- `turbo.json` marks `dev`, `storybook`, and `preview` as persistent/interactive — run them from the root (`pnpm dev`, `pnpm storybook`) rather than as background build steps.

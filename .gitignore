@@ -8,6 +8,12 @@ storybook-static/
 
 .vitest-attachments/
 
+# Locally generated VRT baselines (canonical: -chromium-linux.png only).
+# Add a pattern when a new browser/platform baseline set is introduced.
+**/__screenshots__/**/*-webkit-*.png
+**/__screenshots__/**/*-darwin.png
+**/__screenshots__/**/*-win32.png
+
 .turbo
 
 # Editor directories and files

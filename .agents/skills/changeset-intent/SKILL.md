@@ -63,5 +63,3 @@ changed.
 - Never run a bare `pnpm format` - it reformats everything in reach. Always
   target the specific new `.changeset/<file>.md`.
 - Never delete or modify an existing changeset file.
-- Scripts are blocked on stale dependencies (`verifyDepsBeforeRun=error`). Do
-  not run `pnpm install`; report that it is needed instead.
