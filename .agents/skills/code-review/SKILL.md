@@ -22,9 +22,6 @@ commands - whole repo, or scoped to the affected packages) and include their
 failures in the findings. `pnpm format:check` is not affected-filtered, so only
 report failures on files touched by the changes under review.
 
-Scripts are blocked on stale dependencies (`verifyDepsBeforeRun=error`). Do
-not run `pnpm install`; report that it is needed instead.
-
 ## Read the full context
 
 Diffs alone are not enough. Read the entire changed and new files to understand code patterns.
@@ -37,14 +34,8 @@ Code that looks wrong in isolation may be correct given the surrounding logic, a
   behavior changes.
 - **Structure**: fits existing patterns and established abstractions; no
   excessive nesting where early returns would do.
-- **Conventions** (root AGENTS.md is authoritative):
-  - Dependency versions exact (no `^`); shared deps in the `catalog:`.
-  - No polyfills or fallbacks for older browsers - the baseline-2025 target
-    deliberately uses modern CSS (scroll-driven animations, anchor
-    positioning).
-  - Some components are thin bindings around `@material/web` web components
-    (ripple, focus ring, form controls) - flag DOM/API changes that assume
-    otherwise.
+- **Conventions**: check the changes against root `AGENTS.md`
+  ("Conventions" and "Other gotchas").
 - **Accessibility**: verify ARIA attributes and keyboard interaction for any
   component whose markup or behavior changed.
 

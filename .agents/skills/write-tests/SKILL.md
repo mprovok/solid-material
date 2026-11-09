@@ -163,8 +163,8 @@ describe('MaterialButton', () => {
   ```
 - Baselines are committed PNGs under `__screenshots__/` next to the test file,
   namespaced per browser and platform. Missing baselines are hard failures and
-  must never be hand-edited — regenerate them by running the visual project
-  with `-u` on the platform CI uses (see AGENTS.md).
+  must never be hand-edited — regenerate them with `pnpm test:update` (see the
+  run-tests skill).
 - The visual project retries zero times and allows a 5% pixel mismatch — both
   configured centrally in `vitest.config.ts`; never per test.
 - No Storybook imports (`@storybook/*`, `.storybook/preview`, storybook `fn()`),

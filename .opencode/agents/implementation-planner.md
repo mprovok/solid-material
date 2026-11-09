@@ -37,7 +37,8 @@ Workflow:
 
 1. Load the spec-format skill for the template, drafting rules, and naming conventions
 2. Read the relevant code and docs to ground the plan in the actual implementation
-3. Write one markdown file per plan: docs/plans/<kebab-case-topic>.md
+3. Write one markdown file per plan under docs/plans/ (naming per the
+   spec-format skill)
 
 Rules:
 

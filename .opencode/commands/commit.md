@@ -17,13 +17,8 @@ what is committed and what the trigger check below evaluates)
    the `changeset-intent` skill. Skip this step when the rule says no intent
    is needed or matching intents already exist in `.changeset/`. If the user
    explicitly defers the changeset, commit without one and say so.
-2. **Trailer.** Ask the user which name to credit in the `Assisted-by:`
-   trailer, suggesting the model you run as; fall back to the model name if
-   they defer.
+2. **Trailer.** Add the `Assisted-by:` trailer per root `AGENTS.md` ("Conventions").
 3. **Commit.** Stage the target changes and write a conventional commit
-   message that passes `scripts/lint-git-commit-msg.mts` (feed the finished
-   message to the script on stdin to verify it before committing). The rules
-   are in `AGENTS.md` ("Conventions"): subject <= 72 chars, body lines
-   <= 79, lowercase description start, valid scope, blank line before body,
-   and the `Assisted-by:` trailer as the last paragraph. Never bypass hooks
-   with `--no-verify`.
+   message that passes `scripts/lint-git-commit-msg.mts` — feed the finished
+   message to the script on stdin to verify it before committing. The rules
+   are in `AGENTS.md` ("Conventions"). Never bypass hooks with `--no-verify`.
