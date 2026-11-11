@@ -82,7 +82,8 @@ Writing test files: see the `write-tests` skill.
 
 ## Dependency & release rules
 
-- **Committing:** before committing, decide whether release intents are
+- Never automatically stage changes using git, unless asked by the user.
+- **Committing**: before committing, decide whether release intents are
   needed. Record them first via the changeset flow (in OpenCode, the
   `changeset` subagent, which follows the `changeset-intent` skill; the
   `/commit` command chains this with the commit itself) when the diff touches
@@ -94,12 +95,12 @@ Writing test files: see the `write-tests` skill.
 - Version numbers are exact (no `^`), managed via `catalog:` in `pnpm-workspace.yaml`.
   Keep shared deps (solid, vite, vitest, storybook, tsdown) in the catalog rather than pinning per package.
   `strictPeerDependencies` is on; `minimumReleaseAge` blocks brand-new releases.
-- Releases: intents are recorded in `.changeset/` via the `changeset-intent` skill
+- **Releases**: intents are recorded in `.changeset/` via the `changeset-intent` skill
   (in OpenCode: the `changeset` subagent; `/commit` chains it), including the targeted `pnpm format` fix it requires.
   Publishing happens in `publish.yml` on `vX.Y.Z` tags from `main` via `pnpm stage publish -r`;
   `ledger.yaml` records which intents shipped in which version. Private apps get version bumps through the same flow.
 
 ## Other gotchas
 
-- The library deliberately uses modern CSS (scroll-driven animations, anchor positioning) with baseline-2025 targets (Chrome 131+, Safari 26.2). Don't add polyfills or fallbacks for older browsers.
+- The library deliberately uses modern CSS (scroll-driven animations, anchor positioning) with baseline-2025 targets (Chrome 131, Safari 26.2). Don't add polyfills or fallbacks for older browsers.
 - Some components are thin bindings around `@material/web` web components (ripple, focus ring, form controls) — check whether a component wraps a web component before changing its DOM/API assumptions.
