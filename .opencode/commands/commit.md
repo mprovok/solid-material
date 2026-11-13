@@ -5,7 +5,8 @@ agent: build
 
 Commit the pending changes described below, following the repo rules.
 
-Target: $ARGUMENTS (empty means all pending changes; a pathspec limits both
+Target: $ARGUMENTS (empty means all staged changes, or, if there are no
+staged changes, all unstaged changes; a pathspec limits both
 what is committed and what the trigger check below evaluates)
 
 !`git status --short`
@@ -17,8 +18,8 @@ what is committed and what the trigger check below evaluates)
    the `changeset-intent` skill. Skip this step when the rule says no intent
    is needed or matching intents already exist in `.changeset/`. If the user
    explicitly defers the changeset, commit without one and say so.
-2. **Trailer.** Add the `Assisted-by:` trailer per root `AGENTS.md` ("Conventions").
-3. **Commit.** Stage the target changes and write a conventional commit
+2. **Trailer.** Ask whether to add the `Assisted-by:` trailer (see "Conventions" in `AGENTS.md`).
+3. **Commit.** Stage the target changes only if needed and write a conventional commit
    message that passes `scripts/lint-git-commit-msg.mts` — feed the finished
    message to the script on stdin to verify it before committing. The rules
    are in `AGENTS.md` ("Conventions"). Never bypass hooks with `--no-verify`.

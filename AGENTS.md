@@ -77,8 +77,7 @@ Writing test files: see the `write-tests` skill.
   - Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
   - **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`)
   - Description starts lowercase, no trailing period, blank line before body.
-  - Agent-authored commits add an `Assisted-by:` trailer as the last paragraph:
-    Ask the user which name to credit, suggesting the model you run as, and fall back to the model name if they defer
+  - For agent-authored commits, ask whether to add an `Assisted-by:` trailer (ask which name to credit, suggest the model you run as)
 
 ## Dependency & release rules
 
