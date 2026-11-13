@@ -166,7 +166,7 @@ describe('MaterialBottomSheet', () => {
       // await userEvent.click(dialog);
 
       // Then the sheet is no longer visible and in the viewport
-      await expect.element(sheet).not.toBeInViewport();
+      await expect.element(sheet).not.toBeInTheDocument();
     });
 
     it('shows more content after clicking drag handle', async () => {
