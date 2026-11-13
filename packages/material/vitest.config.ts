@@ -22,8 +22,17 @@ export default defineConfig({
         height: 768
       },
 
-      // At least one instance is required
-      instances: [{ browser: 'chromium' }, { browser: 'webkit' }]
+      // Disable subpixel font antialiasing in Chromium so screenshot baselines
+      // don't depend on per-distro fontconfig subpixel settings
+      instances: [
+        {
+          browser: 'chromium',
+          provider: playwright({
+            launchOptions: { args: ['--disable-lcd-text'] }
+          })
+        },
+        { browser: 'webkit' }
+      ]
     },
     env: {
       CI: process.env.CI ?? ''
