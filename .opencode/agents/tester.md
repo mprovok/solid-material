@@ -12,7 +12,7 @@ permissions:
     resource: 'pnpm --filter * exec vitest *'
     effect: allow
   - action: shell
-    resource: 'pnpm test*'
+    resource: 'pnpm --filter * test*'
     effect: allow
 ---
 
