@@ -8,7 +8,7 @@ import { MaterialPlainTooltip } from './MaterialPlainTooltip';
 
 describe('MaterialPlainTooltip', () => {
   describe('Visual', () => {
-    it('shows a rich tooltip', async () => {
+    it('shows a plain tooltip', async () => {
       const { baseElement } = render(() => <MaterialPlainTooltip>Plain tooltip</MaterialPlainTooltip>, {
         wrapper: MaterialTheme
       });
