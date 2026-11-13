@@ -29,7 +29,7 @@ const POPOVER_TYPE: Record<MaterialBottomSheetVariant, JSX.HTMLAttributes<HTMLDi
   modal: undefined
 };
 
-const VISIBILITY_DEBOUNCE_MS = 2 * (1e3 / 60);
+const VISIBILITY_DEBOUNCE_MS = 3 * (1e3 / 60);
 
 export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = props => {
   // oxlint-disable-next-line no-unassigned-vars
@@ -86,9 +86,7 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
   };
 
   const hideBottomSheet = () => {
-    if (isVisible()) {
-      ref.scroll({ top: 0, behavior: 'auto' });
-    }
+    ref.scroll({ top: 0, behavior: 'auto' });
   };
 
   createEffect(() => {
