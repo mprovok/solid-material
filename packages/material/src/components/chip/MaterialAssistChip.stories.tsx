@@ -25,7 +25,7 @@ export const Example = meta.story({
   args: {
     variant: 'assist',
     children: 'Assist chip',
-    ariaLabel: 'ARIA label'
+    ariaLabel: 'Assist chip with a custom ARIA label'
   }
 });
 

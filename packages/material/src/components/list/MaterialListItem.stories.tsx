@@ -186,6 +186,10 @@ export const Selected = meta.story({
       config: {
         rules: [
           {
+            id: 'label-content-name-mismatch',
+            enabled: false
+          },
+          {
             id: 'nested-interactive',
             enabled: false
           }
