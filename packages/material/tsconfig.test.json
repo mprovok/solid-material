@@ -4,6 +4,6 @@
     "types": ["@solidmaterial/vite-plugin-solid-svg/types", "vite/client"]
   },
   "include": ["src/**/*.test.tsx"],
-  "files": ["vitest.setup.d.ts"],
+  "files": ["vitest.setup.d.ts", "vitest.axe.ts"],
   "references": [{ "path": "./tsconfig.build.json" }]
 }
