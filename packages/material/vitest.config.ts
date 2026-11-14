@@ -84,7 +84,7 @@ export default defineConfig({
           name: 'components',
           include: ['src/**/*.test.{ts,tsx}'],
           exclude: [VISUAL_TESTS_PATTERN, ...defaultExclude],
-          setupFiles: 'vitest.setup.ts'
+          setupFiles: ['vitest.setup.ts', 'vitest.axe.ts']
         }
       }
     ]
