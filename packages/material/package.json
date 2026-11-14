@@ -102,6 +102,7 @@
     "@types/node": "24.13.2",
     "@vitest/browser-playwright": "catalog:vitest",
     "@vitest/coverage-istanbul": "catalog:vitest",
+    "axe-core": "catalog:vitest",
     "playwright": "catalog:vitest",
     "storybook": "catalog:storybook",
     "storybook-solidjs-vite": "catalog:storybook",

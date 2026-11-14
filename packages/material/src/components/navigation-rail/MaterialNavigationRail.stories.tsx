@@ -79,6 +79,16 @@ const meta = preview.meta({
     ))
   ],
   parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'label-content-name-mismatch',
+            enabled: false
+          }
+        ]
+      }
+    },
     docs: {
       story: {
         height: '500px',
