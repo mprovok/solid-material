@@ -17,6 +17,10 @@ Shared setup lives in `packages/material/vitest.setup.ts`:
   chainable: `labelButton.getByElement('md-icon')`.
 - `afterEach(cleanup())` is already registered — never import or call `cleanup`
   inside a test file.
+- `vitest.axe.ts` registers the `axe()` runner and the `toHaveNoViolations`
+  matcher — only for the `components` project (`setupFiles` in
+  `vitest.config.ts`). It exists in `*.test.tsx` files; it does not exist in
+  `*.vrt.test.tsx` or Storybook tests.
 
 Shared conventions:
 
@@ -30,8 +34,9 @@ Shared conventions:
   payloads.
 - Narrate with `// Given … // When … // Then …` comments.
 - Top-level `describe('<MaterialComponent>')`; the established nested blocks
-  are `describe('Visual')` and `describe('Interaction')`. Add other blocks
-  such as `Accessibility` or `Edge cases` only when a file warrants them.
+  are `describe('Visual')` and `describe('Interaction')`, and component test
+  files also get `describe('Accessibility')` (see the axe scan section). Add
+  other blocks such as `Edge cases` only when a file warrants them.
   `it` titles are lowercase and behavioral: `'can be clicked'`,
   `'renders a disabled button'`.
 - Parameterize with typed tables (`it.each` / `describe.each`) instead of
@@ -169,13 +174,17 @@ describe('MaterialButton', () => {
   configured centrally in `vitest.config.ts`; never per test.
 - No Storybook imports (`@storybook/*`, `.storybook/preview`, storybook `fn()`),
   no multi-variant canvases, no interaction tests in these files.
+- No axe usage in these files — the visual project does not load
+  `vitest.axe.ts`, so `toHaveNoViolations` fails at runtime even though it
+  type-checks.
 
 ## Component tests (interaction + a11y)
 
 File: `src/components/<dir>/<Component>.test.tsx`. Purpose: interaction
-behavior and accessibility. There is **no axe dependency** in this repo — a11y
-is validated structurally through role-based queries and ARIA attribute
-assertions. A failed `getByRole` query **is** the a11y regression signal.
+behavior and accessibility. A11y has two layers: structural assertions (role
+queries, ARIA attributes) document _how_ the component is wired and give
+precise failure messages; the `axe()` helper sweeps the rendered tree for
+violations neither of us thought to assert.
 
 Structural (non-screenshot) `describe('Visual')` blocks — presence and
 visibility checks — also belong in these files.
@@ -257,8 +266,53 @@ describe('MaterialCheckbox', () => {
   form event payloads.
 - Keyboard operability (Enter/Space activation, tab order) counts as a11y
   coverage — include it.
-- Do not invent an axe/violations dependency; this repo validates a11y
-  structurally.
+- Add an axe scan (see below) — it and the structural assertions cover
+  different failure modes.
+
+### Axe scan
+
+Every component test file includes a `describe('Accessibility')` block with at
+least one axe scan of the default rendered state. Structural assertions and
+the axe sweep cover different failure modes: axe tells you _that_ something is
+wrong, the structural tests document _what_ the wiring is.
+
+```tsx
+import { axe } from '../../vitest.axe';
+
+describe('Accessibility', () => {
+  it('has no axe violations', async () => {
+    const { container } = render(() => <MaterialCheckbox checked={false} ariaLabel="Label" name="name" />);
+
+    await expect(await axe(container)).toHaveNoViolations();
+  });
+});
+```
+
+Rules:
+
+- API shape: `await expect(await axe(element)).toHaveNoViolations();` — pass
+  already-resolved results (the matcher throws a hint if given anything else).
+- Scope is `container` — the div `render()` creates. `baseElement` is
+  `document.body`, so a body scan trips document-level rules (`html-has-lang`,
+  `page-title`) identically in every test. A single inner element
+  (`axe(button.element())`) misses context rules (duplicate ids, contrast) —
+  it is a targeted tool, not the default.
+- The default configuration already disables `region`, `empty-heading`, and
+  `button-name`, mirroring the accepted baseline in `.storybook/preview.tsx`.
+  Never re-disable those per test.
+- When a rule fires for a known-accepted reason, disable it per call with a
+  justifying comment:
+  ```tsx
+  // The badge's aria-label intentionally differs from its visible text
+  const results = await axe(container, {
+    rules: { 'label-content-name-mismatch': { enabled: false } }
+  });
+  ```
+- axe-core pierces open shadow roots, so wrapped `md-*`/`sm-*` internals are
+  audited too. Violations originating inside `@material/web` internals are
+  handled with per-call overrides (justified), not by skipping the scan.
+- Add extra scans for states that render meaningfully different DOM
+  (disabled, selected, link mode) only where warranted.
 
 ### Shadow DOM
 
