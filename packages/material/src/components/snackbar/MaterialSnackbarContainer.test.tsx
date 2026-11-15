@@ -1,19 +1,27 @@
 import { render } from '@solidjs/testing-library';
 import { createStore } from 'solid-js/store';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
 import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
+import { MaterialButton } from '../button/MaterialButton';
 
 import type { MaterialSnack } from './MaterialSnackbarContext';
 
 import { MaterialSnackbarContainer } from './MaterialSnackbarContainer';
-import { MaterialSnackbarContext } from './MaterialSnackbarContext';
+import { MaterialSnackbarContext, showSnack } from './MaterialSnackbarContext';
 
 import styles from './MaterialSnackbarContainer.stories.module.css';
 
 // Written by GLM 5.3 Flash
+
+afterEach(() => {
+  // Clear the module-level default store so state does not leak between tests:
+  // the context's default value holds the module-level [get, set] tuple
+  const [, setState] = MaterialSnackbarContext.defaultValue;
+  setState(() => []);
+});
 
 interface RenderContainerOptions {
   alignment?: 'start' | 'center';
@@ -150,6 +158,82 @@ describe('MaterialSnackbarContainer', () => {
         async () => {
           await expect.element(status).toBeVisible();
           await expect.element(status).toHaveTextContent('Second snack');
+        },
+        { timeout: 3000 }
+      );
+    });
+
+    it('shows a snack via showSnack and dismisses it through its action', async () => {
+      const onAction = vi.fn();
+
+      // oxlint-disable-next-line no-unassigned-vars
+      let storyRef!: HTMLDivElement;
+
+      // This test deliberately uses the module-level default store (no Provider)
+      // to mirror the Example story's play function, which calls showSnack from a
+      // click handler outside any Provider
+      const { baseElement } = render(
+        () => (
+          <div ref={storyRef} class={styles['story']}>
+            <div style={{ padding: '1rem' }}>
+              <MaterialButton
+                variant="tonal"
+                onClick={() => {
+                  showSnack({
+                    text: 'Supporting text',
+                    dismissable: true,
+                    duration: 'indefinite',
+                    action: { label: 'Action', onClick: onAction }
+                  });
+                }}
+              >
+                Dismissable with action
+              </MaterialButton>
+            </div>
+            <div class={styles['container']}>
+              <MaterialSnackbarContainer alignment="start" />
+            </div>
+          </div>
+        ),
+        { wrapper: MaterialTheme }
+      );
+
+      await document.fonts.ready;
+
+      const screen = page.elementLocator(baseElement);
+      const story = page.elementLocator(storyRef);
+
+      // Given the trigger button is visible
+      const trigger = story.getByRole('button', { name: 'Dismissable with action' });
+      await expect.element(trigger).toBeVisible();
+
+      // When the trigger button calls showSnack
+      await userEvent.click(trigger);
+
+      // Then the snack enters the screen as a popover
+      const status = screen.getByRole('status');
+      await vi.waitFor(
+        async () => {
+          await expect.element(status).toBeVisible();
+          await expect.element(status).toHaveTextContent('Supporting text');
+        },
+        { timeout: 3000 }
+      );
+
+      // When the snack's action button is clicked (an exact name match: the
+      // trigger 'Dismissable with action' would also match a non-exact query)
+      const action = story.getByRole('button', { name: 'Action', exact: true });
+      await expect.element(action).toBeVisible();
+      await userEvent.click(action);
+
+      // Then the action's onClick is called once
+      expect(onAction).toHaveBeenCalledOnce();
+
+      // and the snack leaves the screen via its exit transition
+      // (or the fallback timeout when no transition end event is emitted)
+      await vi.waitFor(
+        async () => {
+          await expect.element(screen.getByRole('status')).not.toBeInTheDocument();
         },
         { timeout: 3000 }
       );

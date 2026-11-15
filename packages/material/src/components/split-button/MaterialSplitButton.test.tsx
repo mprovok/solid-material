@@ -148,5 +148,61 @@ describe('MaterialSplitButtonMenu', () => {
 
       expect(onToggle).toHaveBeenCalledExactlyOnceWith(true);
     });
+
+    it('activates the first menu item with Enter when the menu opens', async () => {
+      const onFirstItemClick = vi.fn();
+
+      const { baseElement } = render(() => (
+        <MaterialSplitButtonMenu
+          variant="filled"
+          size="medium"
+          icon={<EditIcon />}
+          menuButtonAriaLabel="items"
+          menuAriaLabel="Split button menu"
+          onClick={vi.fn()}
+          menuItems={[
+            { label: 'First', onClick: onFirstItemClick },
+            { label: 'Second', onClick: vi.fn() },
+            { label: 'Third', onClick: vi.fn() }
+          ]}
+        >
+          Label
+        </MaterialSplitButtonMenu>
+      ));
+      const screen = page.elementLocator(baseElement);
+
+      // Given the closed menu is hidden
+      // md-menu / md-menu-item expose their roles via element internals, so
+      // role queries cannot resolve them and the host elements and their
+      // texts are asserted instead (see MaterialMenu.test.tsx)
+      const menu = screen.getByElement('md-menu[aria-label]');
+      await expect.element(menu).toHaveAttribute('aria-hidden', 'true');
+
+      const switchButton = screen.getByRole('switch', { name: 'items' });
+      await expect.element(switchButton).toBeVisible();
+
+      // When the menu is opened via the arrow switch
+      await userEvent.click(switchButton);
+
+      // Then the menu is no longer hidden
+      await vi.waitFor(async () => {
+        await expect.element(menu).not.toHaveAttribute('aria-hidden', 'true');
+      });
+      await expect.element(menu).toBeVisible();
+
+      // and the first menu item receives focus
+      const firstItem = screen.getByText('First');
+      await expect.element(firstItem).toBeVisible();
+      await vi.waitFor(async () => {
+        await expect.element(firstItem).toHaveFocus();
+      });
+
+      // When Enter is pressed
+      expect(onFirstItemClick).not.toHaveBeenCalled();
+      await userEvent.keyboard('{Enter}');
+
+      // Then the first menu item's onClick is called
+      await vi.waitFor(() => expect(onFirstItemClick).toHaveBeenCalledOnce());
+    });
   });
 });

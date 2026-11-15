@@ -2,7 +2,7 @@ import type { VoidComponent } from 'solid-js';
 
 import { For, splitProps } from 'solid-js';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, fn, userEvent, waitFor } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 import { MaterialButton } from '../button';
@@ -127,21 +127,6 @@ export const ShowAllButton = meta.story({
     showAllButtonLabel: 'Show all',
     children: <CarouselItems length={3} ariaLabel="Balloons near ground" onClick={fn()} />,
     onShowAll: fn()
-  },
-  play: async ({ canvas }) => {
-    await userEvent.tab();
-
-    const items = canvas.getAllByRole('listitem');
-
-    await waitFor(async () => expect(items[0]).toHaveFocus());
-
-    await userEvent.keyboard('{ArrowDown}', { delay: 250 });
-
-    const button = canvas.getByRole('button', { name: 'Show all' });
-
-    await waitFor(async () => expect(button).toHaveFocus());
-
-    button.blur();
   }
 });
 
@@ -183,20 +168,6 @@ export const ClickableItem = meta.story({
         />
       </MaterialCarouselItem>
     )
-  },
-  play: async ({ canvas }) => {
-    await userEvent.tab();
-
-    const item = canvas.getByRole('listitem');
-    await waitFor(async () => expect(item).toHaveFocus());
-
-    await expect(onClickItem).not.toHaveBeenCalled();
-
-    await userEvent.keyboard('{Enter}', { delay: 250 });
-    await waitFor(async () => expect(onClickItem).toHaveBeenCalledTimes(1));
-
-    await userEvent.click(item);
-    await waitFor(async () => expect(onClickItem).toHaveBeenCalledTimes(2));
   }
 });
 
@@ -213,60 +184,5 @@ export const Keyboard = meta.story({
   args: {
     variant: 'multi-browse',
     children: <CarouselItems length={10} ariaLabel="Balloons near ground" onClick={fn()} />
-  },
-  play: async ({ canvas, step }) => {
-    await userEvent.tab();
-
-    const buttonAbove = canvas.getByRole('button', { name: 'Focusable (above)' });
-    await waitFor(async () => expect(buttonAbove).toHaveFocus());
-
-    const items = canvas.getAllByRole('listitem');
-
-    await step('Move focus to carousel', async () => {
-      await userEvent.tab();
-      await waitFor(async () => expect(items[0]).toHaveFocus());
-    });
-
-    await step('Move focus to items in carousel', async () => {
-      await userEvent.keyboard('{End}', { delay: 250 });
-      await waitFor(async () => expect(items.at(-1)).toHaveFocus());
-
-      await userEvent.keyboard('{Home}', { delay: 250 });
-      await waitFor(async () => expect(items[0]).toHaveFocus());
-
-      await userEvent.tab();
-      await waitFor(async () => expect(items[1]).toHaveFocus());
-
-      await userEvent.keyboard('{ArrowRight}', { delay: 250 });
-      await waitFor(async () => expect(items[2]).toHaveFocus());
-
-      await userEvent.keyboard('{ArrowLeft}', { delay: 250 });
-      await waitFor(async () => expect(items[1]).toHaveFocus());
-    });
-
-    await step('Move focus to element below carousel', async () => {
-      await userEvent.keyboard('{ArrowDown}', { delay: 250 });
-
-      const buttonBelow = canvas.getByRole('button', { name: 'Focusable (below)' });
-      await waitFor(async () => expect(buttonBelow).toHaveFocus());
-    });
-
-    await step('Move focus to carousel', async () => {
-      await userEvent.tab({ shift: true });
-      await waitFor(async () => expect(items.at(-1)).toHaveFocus());
-
-      await userEvent.keyboard('{Home}', { delay: 250 });
-      await waitFor(async () => expect(items[0]).toHaveFocus());
-
-      await userEvent.keyboard('{ArrowRight}', { delay: 250 });
-      await waitFor(async () => expect(items[1]).toHaveFocus());
-    });
-
-    await step('Move focus to element above carousel', async () => {
-      await userEvent.keyboard('{ArrowUp}', { delay: 250 });
-      await waitFor(async () => expect(buttonAbove).toHaveFocus());
-    });
-
-    buttonAbove.blur();
   }
 });

@@ -1,6 +1,5 @@
 import { MemoryRouter, Route } from '@solidjs/router';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, userEvent, waitFor } from 'storybook/test';
 
 import type { MaterialNavigationItemType } from '../navigation-item/MaterialNavigationItem';
 
@@ -117,53 +116,6 @@ export const Collapsed = meta.story({
   },
   globals: {
     viewport: { value: 'iphoneSE3', isRotated: true }
-  },
-  play: async ({ canvas, step }) => {
-    const item1 = canvas.getByRole('menuitem', { name: '[Photos] 2000 new photos' });
-    const item2 = canvas.getByRole('menuitem', { name: 'Videos' });
-    const item3 = canvas.getByRole('menuitem', { name: 'Music' });
-
-    await expect(item1).toBeInTheDocument();
-    await expect(item2).toBeInTheDocument();
-    await expect(item3).toBeInTheDocument();
-
-    await step('Cycle focus through menu item using keyboard', async () => {
-      await userEvent.tab();
-      await waitFor(async () => expect(item1).toHaveFocus());
-
-      await userEvent.tab();
-      await waitFor(async () => expect(item2).toHaveFocus());
-
-      await userEvent.tab();
-      await waitFor(async () => expect(item3).toHaveFocus());
-
-      await userEvent.keyboard('{ArrowDown}');
-      await waitFor(async () => expect(item1).toHaveFocus());
-
-      await userEvent.keyboard('{ArrowUp}');
-      await waitFor(async () => expect(item3).toHaveFocus());
-
-      await userEvent.keyboard('{Home}');
-      await waitFor(async () => expect(item1).toHaveFocus());
-
-      await userEvent.keyboard('{End}');
-      await waitFor(async () => expect(item3).toHaveFocus());
-    });
-
-    await step('Active menu item', async () => {
-      await expect(item3).not.toHaveAttribute('aria-current', 'page');
-
-      await userEvent.keyboard('{Enter}', { delay: 250 });
-
-      await expect(item3).toHaveAttribute('aria-current', 'page');
-
-      await expect(item1).not.toHaveAttribute('aria-current', 'page');
-
-      await userEvent.click(item1);
-      item1.blur();
-
-      await expect(item1).toHaveAttribute('aria-current', 'page');
-    });
   }
 });
 

@@ -1,4 +1,7 @@
+import type { VoidComponent } from 'solid-js';
+
 import { render } from '@solidjs/testing-library';
+import { createSignal, createUniqueId } from 'solid-js';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
@@ -14,8 +17,102 @@ import { MaterialRadio } from './MaterialRadio';
 // oxlint-disable-next-line typescript/no-unsafe-type-assertion
 const isChecked = (element: HTMLElement | SVGElement): boolean => (element as HTMLInputElement).checked;
 
+interface RadioButtonWithLabelProps {
+  index: number;
+  checkedValue: string | undefined;
+  onChange: (name: string | undefined, value: string | undefined) => void;
+}
+
+const RadioButtonWithLabel: VoidComponent<RadioButtonWithLabelProps> = props => {
+  const id = createUniqueId();
+
+  const isSelected = () => props.checkedValue === `value-${props.index}`;
+
+  return (
+    <div style={{ display: 'flex', 'align-items': 'center' }}>
+      <MaterialRadio
+        name="radio-buttons"
+        value={`value-${props.index}`}
+        id={id}
+        checked={isSelected()}
+        onChange={props.onChange}
+      />
+      <label for={id}>{`Radio ${props.index} is ${isSelected() ? 'checked' : 'not checked'}`}</label>
+    </div>
+  );
+};
+
+const MaterialRadioGroup: VoidComponent = () => {
+  const [checkedValue, setCheckedValue] = createSignal<string | undefined>();
+
+  const onChange = (_name: string | undefined, value: string | undefined) => {
+    setCheckedValue(value);
+  };
+
+  return (
+    <div role="radiogroup" style={{ display: 'flex', 'flex-direction': 'column' }}>
+      <RadioButtonWithLabel index={0} checkedValue={checkedValue()} onChange={onChange} />
+      <RadioButtonWithLabel index={1} checkedValue={checkedValue()} onChange={onChange} />
+      <RadioButtonWithLabel index={2} checkedValue={checkedValue()} onChange={onChange} />
+    </div>
+  );
+};
+
 describe('MaterialRadio', () => {
   describe('Interaction', () => {
+    it('moves the checked state within a labelled group when a radio is clicked', async () => {
+      const { baseElement } = render(() => <MaterialRadioGroup />, { wrapper: MaterialTheme });
+      const screen = page.elementLocator(baseElement);
+
+      // Given the three unchecked radios are visible and labelled by their group
+      // state (md-radio cannot be resolved through label queries either — like
+      // its role, the label wiring lives in element internals — so the radios
+      // are located by element and order while their labels, which carry the
+      // state-dependent text, are asserted by their flipping text)
+      const radio0 = screen.getByElement('md-radio').nth(0);
+      const radio1 = screen.getByElement('md-radio').nth(1);
+      const radio2 = screen.getByElement('md-radio').nth(2);
+      await expect.element(radio0).toBeVisible();
+      await expect.element(radio1).toBeVisible();
+      await expect.element(radio2).toBeVisible();
+
+      await expect.element(screen.getByText('Radio 0 is not checked', { exact: true })).toBeVisible();
+      await expect.element(screen.getByText('Radio 1 is not checked', { exact: true })).toBeVisible();
+      await expect.element(screen.getByText('Radio 2 is not checked', { exact: true })).toBeVisible();
+
+      // and none of them carries the checked attribute
+      await expect.element(radio0).not.toHaveAttribute('checked');
+      await expect.element(radio1).not.toHaveAttribute('checked');
+      await expect.element(radio2).not.toHaveAttribute('checked');
+
+      // When the first radio is clicked
+      await userEvent.click(radio0);
+
+      // Then the first radio's label flips to "checked" while the others stay
+      await expect.element(screen.getByText('Radio 0 is checked', { exact: true })).toBeVisible();
+      await expect.element(screen.getByText('Radio 1 is not checked', { exact: true })).toBeVisible();
+      await expect.element(screen.getByText('Radio 2 is not checked', { exact: true })).toBeVisible();
+
+      // and only the first radio carries the checked attribute
+      await expect.element(radio0).toHaveAttribute('checked');
+      await expect.element(radio1).not.toHaveAttribute('checked');
+      await expect.element(radio2).not.toHaveAttribute('checked');
+
+      // When the second radio is clicked
+      await userEvent.click(radio1);
+
+      // Then the checked state moves to the second radio, its label flips to
+      // "checked" and the first radio's flips back
+      await expect.element(screen.getByText('Radio 0 is not checked', { exact: true })).toBeVisible();
+      await expect.element(screen.getByText('Radio 1 is checked', { exact: true })).toBeVisible();
+      await expect.element(screen.getByText('Radio 2 is not checked', { exact: true })).toBeVisible();
+
+      // and only the second radio carries the checked attribute
+      await expect.element(radio0).not.toHaveAttribute('checked');
+      await expect.element(radio1).toHaveAttribute('checked');
+      await expect.element(radio2).not.toHaveAttribute('checked');
+    });
+
     it('fires onChange with name and value when clicked', async () => {
       const onChange = vi.fn();
       const { baseElement } = render(

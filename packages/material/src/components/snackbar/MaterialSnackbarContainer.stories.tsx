@@ -1,5 +1,4 @@
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, userEvent, waitFor } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 import { MaterialButton } from '../button/MaterialButton';
@@ -91,18 +90,5 @@ export const Example = meta.story({
         </MaterialButton>
       </div>
     );
-  },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole('button', { name: 'Dismissable with action' });
-
-    await userEvent.click(button);
-
-    await waitFor(async () => expect(canvas.getByRole('status')).toBeVisible());
-
-    const actionButton = canvas.getByRole('button', { name: 'Action' });
-
-    await userEvent.click(actionButton);
-
-    await waitFor(async () => expect(canvas.queryByRole('status')).toBeNull());
   }
 });

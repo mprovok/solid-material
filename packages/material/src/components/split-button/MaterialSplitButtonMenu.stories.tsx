@@ -1,4 +1,4 @@
-import { expect, fn, userEvent, waitFor } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 
@@ -36,31 +36,6 @@ export const Example = meta.story({
     menuButtonAriaLabel: 'items',
     menuAriaLabel: 'Split button menu',
     children: 'Label'
-  },
-  play: async ({ canvas, step }) => {
-    const button = canvas.getByRole('switch', { name: 'items' });
-
-    await step('Show menu', async () => {
-      const menu = canvas.getByLabelText('Split button menu');
-      await waitFor(async () => expect(menu).toHaveAttribute('aria-hidden', 'true'));
-
-      await userEvent.click(button);
-
-      await waitFor(async () => expect(menu).not.toHaveAttribute('aria-hidden', 'true'));
-      await expect(menu).toBeVisible();
-    });
-
-    const item = canvas.getByText('First');
-    await waitFor(async () => expect(item).toBeVisible());
-
-    await step('Navigate through items using keyboard', async () => {
-      await waitFor(async () => expect(item).toHaveFocus());
-
-      const onClickItem = Example.composed.args.menuItems[0]?.onClick;
-      await expect(onClickItem).not.toHaveBeenCalled();
-      await userEvent.keyboard('{Enter}', { delay: 250 });
-      await waitFor(async () => expect(onClickItem).toHaveBeenCalled());
-    });
   }
 });
 

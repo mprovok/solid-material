@@ -128,6 +128,70 @@ describe('MaterialCarousel', () => {
       expect(itemClickSpies[0]).toHaveBeenCalledOnce();
     });
 
+    it('moves focus through the carousel with Tab and Shift+Tab', async () => {
+      const { screen } = await renderCarousel();
+
+      // Given a fresh page where focus starts on the body
+      const items = screen.getByRole('listitem');
+      const buttonAbove = screen.getByRole('button', { name: 'Focusable (above)' });
+      const buttonBelow = screen.getByRole('button', { name: 'Focusable (below)' });
+
+      // When pressing tab, then the button above the carousel has focus
+      await userEvent.tab();
+      await expect.element(buttonAbove).toHaveFocus();
+
+      // When pressing tab again, then the first item of the carousel has focus
+      await userEvent.tab();
+      await expect.element(items.nth(0)).toHaveFocus();
+
+      // When pressing tab once more, then the second item has focus
+      await userEvent.tab();
+      await expect.element(items.nth(1)).toHaveFocus();
+
+      // When pressing arrow down, then the button below the carousel has focus
+      await userEvent.keyboard('{ArrowDown}');
+      await expect.element(buttonBelow).toHaveFocus();
+
+      // When shift-tabbing back into the carousel, then the last item has focus
+      await userEvent.tab({ shift: true });
+      await expect.element(items.last()).toHaveFocus();
+
+      // When pressing home, then the first item has focus
+      await userEvent.keyboard('{Home}');
+      await expect.element(items.nth(0)).toHaveFocus();
+
+      // When pressing arrow up, then the button above the carousel has focus again
+      await userEvent.keyboard('{ArrowUp}');
+      await expect.element(buttonAbove).toHaveFocus();
+    });
+
+    it('fires onClick when the item is clicked', async () => {
+      const onClick = vi.fn();
+      const { baseElement } = render(
+        () => (
+          <MaterialCarousel variant="multi-browse" ariaLabel="Carousel">
+            <MaterialCarouselItem ariaLabel="Balloons near ground" onClick={onClick}>
+              <CarouselItemGraphic />
+            </MaterialCarouselItem>
+          </MaterialCarousel>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+      await document.fonts.ready;
+
+      // Given a carousel with a single clickable item
+      const item = screen.getByRole('listitem');
+      await expect.element(item).toBeVisible();
+      expect(onClick).not.toHaveBeenCalled();
+
+      // When the item is clicked
+      await userEvent.click(item);
+
+      // Then the item's onClick spy is called once
+      expect(onClick).toHaveBeenCalledOnce();
+    });
+
     it('keeps focus on the carousel when no item is enabled', async () => {
       const { baseElement } = render(
         () => (
@@ -336,6 +400,22 @@ describe('MaterialCarousel', () => {
 
       // Then onShowAll is called once
       expect(onShowAll).toHaveBeenCalledOnce();
+    });
+
+    it('moves focus to the show all button with ArrowDown', async () => {
+      const onShowAll = vi.fn();
+      const { screen } = await renderCarousel({ variant: 'multi-browse', showAllButtonLabel: 'Show all', onShowAll });
+
+      // Given the first item of the carousel has focus
+      const items = screen.getByRole('listitem');
+      items.nth(0).element().focus();
+      await expect.element(items.nth(0)).toHaveFocus();
+
+      // When pressing arrow down
+      await userEvent.keyboard('{ArrowDown}');
+
+      // Then the show all button below the carousel has focus
+      await expect.element(screen.getByRole('button', { name: 'Show all' })).toHaveFocus();
     });
   });
 
