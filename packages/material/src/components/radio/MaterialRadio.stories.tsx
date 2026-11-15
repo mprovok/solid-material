@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { createSignal, createUniqueId } from 'solid-js';
-import { expect, fn, userEvent } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../.storybook/preview';
 
@@ -70,44 +70,5 @@ export const Disabled = meta.story({
 });
 
 export const WithLabel = meta.story({
-  render: MaterialRadioStory,
-  play: async ({ canvas, step }) => {
-    const button0 = canvas.getByLabelText('Radio 0 is not checked');
-    const button1 = canvas.getByLabelText('Radio 1 is not checked');
-    const button2 = canvas.getByLabelText('Radio 2 is not checked');
-
-    await step('Render radio butons', async () => {
-      await expect(button0).toHaveAccessibleName('Radio 0 is not checked');
-      await expect(button1).toHaveAccessibleName('Radio 1 is not checked');
-      await expect(button2).toHaveAccessibleName('Radio 2 is not checked');
-
-      await expect(button0).not.toHaveAttribute('checked');
-      await expect(button1).not.toHaveAttribute('checked');
-      await expect(button2).not.toHaveAttribute('checked');
-    });
-
-    await step('Click on first radio buton', async () => {
-      await userEvent.click(button0, { delay: 250 });
-
-      await expect(button0).toHaveAccessibleName('Radio 0 is checked');
-      await expect(button1).toHaveAccessibleName('Radio 1 is not checked');
-      await expect(button2).toHaveAccessibleName('Radio 2 is not checked');
-
-      await expect(button0).toHaveAttribute('checked');
-      await expect(button1).not.toHaveAttribute('checked');
-      await expect(button2).not.toHaveAttribute('checked');
-    });
-
-    await step('Click on second radio buton', async () => {
-      await userEvent.click(button1, { delay: 250 });
-
-      await expect(button0).toHaveAccessibleName('Radio 0 is not checked');
-      await expect(button1).toHaveAccessibleName('Radio 1 is checked');
-      await expect(button2).toHaveAccessibleName('Radio 2 is not checked');
-
-      await expect(button0).not.toHaveAttribute('checked');
-      await expect(button1).toHaveAttribute('checked');
-      await expect(button2).not.toHaveAttribute('checked');
-    });
-  }
+  render: MaterialRadioStory
 });

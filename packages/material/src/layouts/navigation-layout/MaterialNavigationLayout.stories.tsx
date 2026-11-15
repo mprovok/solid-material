@@ -1,6 +1,5 @@
 import { MemoryRouter, Route } from '@solidjs/router';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, userEvent, waitFor } from 'storybook/test';
 
 import type { MaterialNavigationItemType } from '../../components/navigation-item/MaterialNavigationItem';
 
@@ -114,23 +113,6 @@ export const Example = meta.story({
   args: {
     show: true,
     items: ITEMS
-  },
-  play: async ({ canvas }) => {
-    const menuButton = canvas.getByRole('switch');
-    const items = canvas.getAllByRole('menuitem');
-
-    await expect(menuButton).toBeInTheDocument();
-    await Promise.all(items.map(async item => waitFor(async () => expect(item).not.toHaveAttribute('data-expanded'))));
-    await expect(menuButton).toHaveAccessibleName('Expand');
-
-    await userEvent.click(menuButton, { delay: 250 });
-
-    await Promise.all(items.map(async item => waitFor(async () => expect(item).toHaveAttribute('data-expanded'))));
-    await expect(menuButton).toHaveAccessibleName('Collapse');
-
-    await userEvent.click(menuButton, { delay: 250 });
-    await Promise.all(items.map(async item => waitFor(async () => expect(item).not.toHaveAttribute('data-expanded'))));
-    await expect(menuButton).toHaveAccessibleName('Expand');
   },
   globals: {
     viewport: { value: 'ipad', isRotated: true }

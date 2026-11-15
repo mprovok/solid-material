@@ -3,7 +3,7 @@ import type { FlowComponent, VoidComponent } from 'solid-js';
 import { Route } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
 import type { MaterialNavigationItemType } from '../navigation-item/MaterialNavigationItem';
@@ -145,6 +145,44 @@ describe('MaterialNavigationRail', () => {
 
       // Then the item is activated (navigated to) instead of focused past
       await expect.element(items.nth(0)).toHaveAttribute('aria-current', 'page');
+    });
+
+    it('marks the navigated item as current with the keyboard and the pointer', async () => {
+      const screen = await renderRail({ show: true, ariaLabel: 'Navigation rail' });
+
+      // Given the rail's items are visible and none of them is the current page
+      const menubar = screen.getByRole('menubar');
+      await expect.element(menubar).toBeVisible();
+
+      // The badged item's accessible name is composed by its badge instead of
+      // its visible label
+      const photos = screen.getByRole('menuitem', { name: '[Photos] 2000 new photos' });
+      const music = screen.getByRole('menuitem', { name: 'Music' });
+      await expect.element(photos).toBeVisible();
+      await expect.element(music).toBeVisible();
+      await expect.element(photos).not.toHaveAttribute('aria-current', 'page');
+      await expect.element(music).not.toHaveAttribute('aria-current', 'page');
+
+      // When the Music item is focused and Enter pressed
+      music.element().focus();
+      await expect.element(music).toHaveFocus();
+      await userEvent.keyboard('{Enter}');
+
+      // Then Music becomes the current page and Photos is not (the navigation
+      // animates, so the attribute may lag behind the keypress)
+      await vi.waitFor(async () => {
+        await expect.element(music).toHaveAttribute('aria-current', 'page');
+        await expect.element(photos).not.toHaveAttribute('aria-current', 'page');
+      });
+
+      // When the Photos item is clicked
+      await userEvent.click(photos);
+
+      // Then aria-current moves from Music to Photos
+      await vi.waitFor(async () => {
+        await expect.element(photos).toHaveAttribute('aria-current', 'page');
+        await expect.element(music).not.toHaveAttribute('aria-current', 'page');
+      });
     });
 
     it('keeps its appearance while hidden', async () => {

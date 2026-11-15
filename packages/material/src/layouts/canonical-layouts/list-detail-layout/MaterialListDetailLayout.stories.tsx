@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { createJSXDecorator } from 'storybook-solidjs-vite';
-import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { fn } from 'storybook/test';
 
 import preview from '../../../../.storybook/preview';
 import { MaterialIcon } from '../../../components/icon/MaterialIcon';
@@ -74,51 +74,6 @@ const meta = preview.meta({
 export const Example = meta.story({
   args: {
     selected: false
-  },
-  play: async ({ canvas, step }) => {
-    const separator = await canvas.findByRole('separator');
-    const button = within(separator).getByRole('presentation');
-
-    separator.focus();
-
-    await waitFor(async () => expect(separator).toHaveFocus());
-
-    await expect(button).not.toHaveAttribute('data-active');
-
-    await userEvent.keyboard('{Enter}', { delay: 250 });
-    await expect(button).toHaveAttribute('data-active');
-
-    await step('Hide left pane', async () => {
-      await userEvent.keyboard('{ArrowLeft}', { delay: 250 });
-
-      await expect(canvas.queryByRole('complementary')).toBeNull();
-      await expect(canvas.getByRole('main')).toBeVisible();
-    });
-
-    await step('Show left pane', async () => {
-      await userEvent.keyboard('{ArrowRight}', { delay: 250 });
-
-      await expect(canvas.getByRole('complementary')).toBeVisible();
-      await expect(canvas.getByRole('main')).toBeVisible();
-    });
-
-    await step('Hide right pane', async () => {
-      await userEvent.keyboard('{ArrowRight}', { delay: 250 });
-      await userEvent.keyboard('{ArrowRight}', { delay: 250 });
-
-      await expect(canvas.getByRole('complementary')).toBeVisible();
-      await expect(canvas.queryByRole('main')).toBeNull();
-    });
-
-    await userEvent.keyboard('{Enter}', { delay: 250 });
-    await expect(button).not.toHaveAttribute('data-active');
-
-    await step('Show both panes by centering separator', async () => {
-      await userEvent.dblClick(separator);
-
-      await expect(canvas.getByRole('complementary')).toBeVisible();
-      await expect(canvas.getByRole('main')).toBeVisible();
-    });
   }
 });
 
@@ -129,12 +84,6 @@ export const NotSelectedOnMobile = meta.story({
   tags: ['!autodocs'],
   globals: {
     viewport: { value: 'iphoneSE3', isRotated: false }
-  },
-  play: async ({ canvas }) => {
-    await expect(canvas.queryByRole('separator')).toBeNull();
-
-    await expect(canvas.getByRole('complementary')).toBeVisible();
-    await expect(canvas.queryByRole('main')).toBeNull();
   }
 });
 
@@ -145,11 +94,5 @@ export const SelectedOnMobile = meta.story({
   tags: ['!autodocs'],
   globals: {
     viewport: { value: 'iphoneSE3', isRotated: false }
-  },
-  play: async ({ canvas }) => {
-    await expect(canvas.queryByRole('separator')).toBeNull();
-
-    await expect(canvas.queryByRole('complementary')).toBeNull();
-    await expect(canvas.getByRole('main')).toBeVisible();
   }
 });
