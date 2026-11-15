@@ -5,6 +5,7 @@ import { createSignal } from 'solid-js';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialIcon } from '../icon/MaterialIcon';
 import { MaterialList } from '../list/MaterialList';
@@ -20,6 +21,7 @@ import StarIcon from '@solidmaterial/icons/400/outlined/star.svg';
 
 interface RenderComponentProps extends Pick<MaterialSearchBarProps, 'initialFocus' | 'showClearButton'> {
   initialText?: string;
+  ariaLabel?: string;
 }
 
 const RenderComponent: VoidComponent<RenderComponentProps> = props => {
@@ -32,7 +34,7 @@ const RenderComponent: VoidComponent<RenderComponentProps> = props => {
   };
 
   return (
-    <MaterialSearch open={isSearchOpen()} layout="docked">
+    <MaterialSearch open={isSearchOpen()} layout="docked" ariaLabel={props.ariaLabel}>
       <MaterialSearchBar
         placeholder="Placeholder"
         input={searchInput}
@@ -210,6 +212,41 @@ describe('MaterialSearch', () => {
       // Then search bar collapses and remains unfocused
       await expect.element(bar).not.toHaveAttribute('data-expanded');
       await expect.element(input).not.toHaveFocus();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe violations when the open search landmark is labelled', async () => {
+      const { baseElement, container } = render(
+        () => <RenderComponent ariaLabel="Search" initialFocus initialText="text" />,
+        {
+          wrapper: MaterialTheme
+        }
+      );
+      const screen = page.elementLocator(baseElement);
+      const results = screen.getByElement('sm-search-results');
+
+      // Given the search is open with visible results
+      await expect.element(results).toBeVisible();
+
+      // Then the search landmark is exposed with the given accessible name
+      // (the role engine cannot resolve the `search` landmark role inside the
+      // popover dialog, mirroring the documented `md-menu`/`md-tabs`
+      // ElementInternals caveats in sibling tests, so the element is queried
+      // by tag instead)
+      const landmark = screen.getByElement('search');
+      await expect.element(landmark).toBeVisible();
+      await expect.element(landmark).toHaveAttribute('aria-label', 'Search');
+      await expect.element(landmark).toHaveAttribute('data-open');
+
+      // and the landmark contains the searchbox input
+      const input = landmark.getByRole('searchbox');
+      await expect.element(input).toBeVisible();
+      await expect.element(input).toHaveAttribute('name', 'search');
+      await expect.element(input).toHaveValue('text');
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

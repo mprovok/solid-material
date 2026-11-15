@@ -5,6 +5,7 @@ import { For } from 'solid-js';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialButton } from '../button/MaterialButton';
 
@@ -335,6 +336,94 @@ describe('MaterialCarousel', () => {
 
       // Then onShowAll is called once
       expect(onShowAll).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe('Accessibility', () => {
+    // Renders three items with the VRT's network-free SVG graphic and returns
+    // the scoped screen locator plus the container div for the axe scan
+    const renderAxeCarousel = async (
+      options: { carousel?: Omit<MaterialCarouselProps, 'ariaLabel' | 'variant'>; disabledFirstItem?: boolean } = {}
+    ) => {
+      const { carousel, disabledFirstItem = false } = options;
+      const { baseElement, container } = render(
+        () => (
+          <MaterialCarousel variant="multi-browse" ariaLabel="Carousel" {...(carousel ?? {})}>
+            <For each={Array.from({ length: 3 })}>
+              {(_item, index) => (
+                <MaterialCarouselItem
+                  ariaLabel={`Item ${index() + 1}`}
+                  disabled={disabledFirstItem && index() === 0}
+                  onClick={vi.fn()}
+                >
+                  <CarouselItemGraphic />
+                </MaterialCarouselItem>
+              )}
+            </For>
+          </MaterialCarousel>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      await document.fonts.ready;
+
+      return { screen: page.elementLocator(baseElement), container };
+    };
+
+    it('has no axe violations with its list and items', async () => {
+      const { screen, container } = await renderAxeCarousel();
+
+      // Given the carousel is a labelled list
+      const carousel = screen.getByRole('list', { name: 'Carousel' });
+      await expect.element(carousel).toBeVisible();
+
+      // and every item is a labelled, keyboard-focusable listitem
+      const items = screen.getByRole('listitem');
+      expect(items.elements()).toHaveLength(3);
+      await expect.element(items.nth(0)).toHaveAttribute('aria-label', 'Item 1');
+      await expect.element(items.nth(1)).toHaveAttribute('aria-label', 'Item 2');
+      await expect.element(items.nth(2)).toHaveAttribute('aria-label', 'Item 3');
+      await expect.element(items.nth(0)).toHaveAttribute('tabindex', '0');
+      await expect.element(items.nth(1)).toHaveAttribute('tabindex', '0');
+      await expect.element(items.nth(2)).toHaveAttribute('tabindex', '0');
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no axe violations with a header and a show all button', async () => {
+      const onShowAll = vi.fn();
+      const { screen, container } = await renderAxeCarousel({
+        carousel: { header: 'Header', showAllButtonAriaLabel: 'Show all', onShowAll }
+      });
+
+      // Given the header is a visible heading
+      const heading = screen.getByRole('heading', { name: 'Header' });
+      await expect.element(heading).toBeVisible();
+
+      // and the show all icon button is visible with its accessible name
+      const button = screen.getByRole('button', { name: 'Show all' });
+      await expect.element(button).toBeVisible();
+      expect(onShowAll).not.toHaveBeenCalled();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no axe violations with a disabled item', async () => {
+      const { screen, container } = await renderAxeCarousel({ disabledFirstItem: true });
+
+      // Given the first item is disabled and removed from the tab order
+      const disabledItem = screen.getByRole('listitem', { name: 'Item 1' });
+      await expect.element(disabledItem).toHaveAttribute('data-disabled');
+      await expect.element(disabledItem).toHaveAttribute('tabindex', '-1');
+
+      // and the remaining items stay enabled and focusable
+      const enabledItem = screen.getByRole('listitem', { name: 'Item 2' });
+      await expect.element(enabledItem).not.toHaveAttribute('data-disabled');
+      await expect.element(enabledItem).toHaveAttribute('tabindex', '0');
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

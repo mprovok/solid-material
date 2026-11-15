@@ -5,6 +5,7 @@ import { createSignal } from 'solid-js';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialButton } from '../button/MaterialButton';
 import { MaterialCard, MaterialCardBody } from '../card/MaterialCard';
@@ -19,6 +20,7 @@ interface RenderComponentProps {
   variant: MaterialBottomSheetVariant;
   supportFullHeight?: boolean;
   dragHandle?: boolean;
+  dragHandleAriaLabel?: string;
   availableIndices?: number[];
   open?: boolean;
 }
@@ -39,6 +41,7 @@ const RenderComponent: VoidComponent<RenderComponentProps> = props => {
         open={isBottomSheetOpen()}
         onClose={onCloseBottomSheet}
         dragHandle={props.dragHandle}
+        dragHandleAriaLabel={props.dragHandleAriaLabel}
         availableIndices={props.availableIndices}
         supportFullHeight={props.supportFullHeight}
       >
@@ -326,5 +329,38 @@ describe('MaterialBottomSheet', () => {
       // Then the sheet is visible and fully covers the viewport
       await expect.element(sheet).toBeInViewport({ ratio: 1 });
     });
+  });
+
+  describe('Accessibility', () => {
+    it.each(['standard', 'modal'] satisfies MaterialBottomSheetVariant[])(
+      'has no axe violations when an open $0 sheet with a drag handle is scanned',
+      async variant => {
+        const { baseElement, container } = render(
+          () => <RenderComponent variant={variant} open={true} dragHandle={true} dragHandleAriaLabel="Drag handle" />,
+          { wrapper: MaterialTheme }
+        );
+        const screen = page.elementLocator(baseElement);
+
+        // Given the sheet is open and visible
+        const sheet = screen.getByRole('complementary');
+        await expect.element(sheet).toBeVisible();
+        await expect.element(sheet).toBeInViewport();
+
+        // and its content sections are in the viewport
+        const content = screen.getByText('Bottom sheet 1');
+        await expect.element(content).toBeInViewport();
+
+        // and the drag handle exposes its label, horizontal orientation and percentage value
+        const handle = screen.getByRole('separator', { name: 'Drag handle' });
+        await expect.element(handle).toBeVisible();
+        await expect.element(handle).toBeInViewport();
+        await expect.element(handle).toHaveAttribute('aria-orientation', 'horizontal');
+        // Without availableIndices the initial position is the only one, i.e. 100%
+        await expect.element(handle).toHaveAttribute('aria-valuenow', '100');
+
+        // Then the rendered tree has no axe violations
+        await expect(await axe(container)).toHaveNoViolations();
+      }
+    );
   });
 });
