@@ -5,6 +5,7 @@ import { Match, Switch, createSignal } from 'solid-js';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialIconButton } from '../icon-button';
 
@@ -307,6 +308,58 @@ describe('MaterialSearchBar', () => {
       // and text in input field remains, but loses focus
       await expect.element(input).toHaveValue('some text');
       await expect.element(input).not.toHaveFocus();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe violations when collapsed', async () => {
+      const { baseElement, container } = render(() => <RenderComponent showTrailingButtons />, {
+        wrapper: MaterialTheme
+      });
+      const screen = page.elementLocator(baseElement);
+      const bar = screen.getByElement('sm-search-bar');
+
+      // Given the search bar is collapsed (not focused)
+      await expect.element(bar).not.toHaveAttribute('data-expanded');
+
+      // Then the searchbox input is visible with its placeholder as the accessible name
+      const input = screen.getByRole('searchbox');
+      await expect.element(input).toBeVisible();
+      await expect.element(input).toHaveAccessibleName('Placeholder');
+
+      // and the back and clear buttons are hidden
+      const backButton = screen.getByRole('button', { name: 'Back' });
+      await expect.element(backButton).not.toBeInTheDocument();
+      const clearButton = screen.getByRole('button', { name: 'Clear input' });
+      await expect.element(clearButton).not.toBeInTheDocument();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no axe violations when expanded', async () => {
+      const { baseElement, container } = render(() => <RenderComponent showTrailingButtons initialFocus />, {
+        wrapper: MaterialTheme
+      });
+      const screen = page.elementLocator(baseElement);
+      const bar = screen.getByElement('sm-search-bar');
+
+      // Given the search bar is expanded (focused)
+      await expect.element(bar).toHaveAttribute('data-expanded');
+
+      // Then the back and clear buttons expose their accessible names
+      const backButton = screen.getByRole('button', { name: 'Back' });
+      await expect.element(backButton).toBeVisible();
+      const clearButton = screen.getByRole('button', { name: 'Clear input' });
+      await expect.element(clearButton).toBeVisible();
+
+      // and the searchbox input keeps its accessible name
+      const input = screen.getByRole('searchbox');
+      await expect.element(input).toBeVisible();
+      await expect.element(input).toHaveAccessibleName('Placeholder');
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

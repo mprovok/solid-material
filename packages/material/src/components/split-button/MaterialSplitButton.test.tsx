@@ -2,7 +2,10 @@ import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
+
 import { MaterialSplitButton } from './MaterialSplitButton';
+import { MaterialSplitButtonMenu } from './MaterialSplitButtonMenu';
 
 import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
@@ -46,6 +49,76 @@ describe('MaterialSplitButtonMenu', () => {
 
       const iconButton = screen.getByRole('switch');
       await expect.element(iconButton).toHaveAttribute('aria-expanded');
+    });
+
+    it.each([false, true])('exposes the menu open state on the arrow switch when open = $0', async open => {
+      const { baseElement, container } = render(() => (
+        <MaterialSplitButton
+          open={open}
+          variant="filled"
+          size="medium"
+          menuButtonAriaLabel="items"
+          onClick={vi.fn()}
+          onToggle={vi.fn()}
+        >
+          Label
+        </MaterialSplitButton>
+      ));
+      const screen = page.elementLocator(baseElement);
+
+      // Given the arrow button is wired as a switch with its expanded state exposed
+      const switchButton = screen.getByRole('switch', { name: 'items' });
+      await expect.element(switchButton).toBeVisible();
+      await expect.element(switchButton).toHaveAttribute('aria-checked', String(open));
+      await expect.element(switchButton).toHaveAttribute('aria-expanded', String(open));
+
+      // and the label button is a plain button
+      const labelButton = screen.getByRole('button', { name: 'Label' });
+      await expect.element(labelButton).toBeVisible();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no axe violations when the menu is open', async () => {
+      const onMenuItemClick = vi.fn();
+      const { baseElement, container } = render(() => (
+        <MaterialSplitButtonMenu
+          variant="filled"
+          size="medium"
+          icon={<EditIcon />}
+          menuButtonAriaLabel="items"
+          menuAriaLabel="Item actions"
+          onClick={vi.fn()}
+          menuItems={[
+            { label: 'Cut', onClick: onMenuItemClick },
+            { label: 'Copy', onClick: onMenuItemClick }
+          ]}
+        >
+          Label
+        </MaterialSplitButtonMenu>
+      ));
+      const screen = page.elementLocator(baseElement);
+
+      // Given the arrow switch is visible
+      const switchButton = screen.getByRole('switch', { name: 'items' });
+      await expect.element(switchButton).toBeVisible();
+
+      // When the menu is opened via the arrow switch
+      await userEvent.click(switchButton);
+
+      // Then the menu is visible with named items
+      // md-menu / md-menu-item expose their roles via element internals, so
+      // role queries cannot resolve them and the host elements and their
+      // texts are asserted instead (see MaterialMenu.test.tsx)
+      const menu = screen.getByElement('md-menu[aria-label]');
+      await expect.element(menu).toBeVisible();
+      await expect.element(menu).toHaveAttribute('aria-label', 'Item actions');
+      await expect.element(screen.getByText('Cut')).toBeVisible();
+      await expect.element(screen.getByText('Copy')).toBeVisible();
+
+      // and the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 

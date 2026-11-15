@@ -1,7 +1,8 @@
 import { render } from '@solidjs/testing-library';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialButton } from '../button/MaterialButton';
 
@@ -223,6 +224,94 @@ describe('MaterialTooltip', () => {
 
       // Then the tooltip is no longer visible
       await expect.element(tooltip).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('wires aria-controls and has no axe violations when a plain tooltip opens on focus', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialTooltip variant="plain" tooltip={<MaterialPlainTooltip>Plain tooltip</MaterialPlainTooltip>}>
+            <MaterialButton variant="tonal">Button</MaterialButton>
+          </MaterialTooltip>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      const button = screen.getByRole('button', { name: 'Button' });
+      const tooltip = screen.getByRole('tooltip', { name: 'Plain tooltip' });
+
+      // Given the button is visible
+      await expect.element(button).toBeVisible();
+
+      // When focus moves to the button and the open debounce has elapsed
+      await userEvent.tab();
+
+      // (Needed in CI)
+      button.element().focus();
+
+      // Then the tooltip is visible and carries the tooltip role with its text
+      await vi.waitFor(async () => {
+        await expect.element(tooltip).toBeVisible();
+      });
+      await expect.element(tooltip).toHaveAttribute('role', 'tooltip');
+      await expect.element(tooltip).toHaveTextContent('Plain tooltip');
+
+      // and the anchor references the tooltip through aria-controls
+      // (the id is set on the sm-tooltip popover host, not on the inner
+      // role="tooltip" element resolved by the role query)
+      const anchor = button.element().closest('[aria-controls]');
+      const tooltipId = anchor?.getAttribute('aria-controls');
+      expect(tooltipId).toBeTruthy();
+      expect(tooltipId).toBe(screen.getByElement('sm-tooltip').element().id);
+
+      // Then the rendered tree with the open tooltip has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('wires aria-controls and has no axe violations for a rich tooltip open on mount', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialTooltip
+            variant="rich"
+            persistent="mount"
+            tooltip={
+              <MaterialRichTooltip title="Title" actions={<MaterialButton variant="tonal">Action</MaterialButton>}>
+                Rich tooltip
+              </MaterialRichTooltip>
+            }
+          >
+            <MaterialButton variant="tonal">Button</MaterialButton>
+          </MaterialTooltip>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      const button = screen.getByRole('button', { name: 'Button' });
+      const tooltip = screen.getByRole('tooltip');
+
+      // Given the tooltip is open immediately on mount
+      await expect.element(tooltip).toBeVisible();
+
+      // with its title, body, and actions rendered
+      const title = screen.getByRole('heading', { name: 'Title' });
+      const action = screen.getByRole('button', { name: 'Action' });
+      await expect.element(title).toBeVisible();
+      await expect.element(action).toBeVisible();
+      await expect.element(tooltip).toHaveTextContent('Rich tooltip');
+
+      // and the anchor references the tooltip through aria-controls
+      // (the id is set on the sm-tooltip popover host, not on the inner
+      // role="tooltip" element resolved by the role query)
+      const anchor = button.element().closest('[aria-controls]');
+      const tooltipId = anchor?.getAttribute('aria-controls');
+      expect(tooltipId).toBeTruthy();
+      expect(tooltipId).toBe(screen.getByElement('sm-tooltip').element().id);
+
+      // Then the rendered tree with the open tooltip has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

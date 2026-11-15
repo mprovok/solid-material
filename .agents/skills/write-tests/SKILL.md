@@ -277,7 +277,7 @@ the axe sweep cover different failure modes: axe tells you _that_ something is
 wrong, the structural tests document _what_ the wiring is.
 
 ```tsx
-import { axe } from '../../vitest.axe';
+import { axe } from '../../../vitest.axe';
 
 describe('Accessibility', () => {
   it('has no axe violations', async () => {

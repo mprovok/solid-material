@@ -4,6 +4,7 @@ import { render, waitFor } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialButton } from '../button/MaterialButton';
 
@@ -13,6 +14,7 @@ import BookmarkIcon from '@solidmaterial/icons/400/outlined/bookmark.svg';
 
 interface RenderComponentProps {
   open: boolean;
+  alert?: boolean;
   actions?: JSX.Element[];
   onClose?: (event: Event) => void;
 }
@@ -25,6 +27,7 @@ const RenderComponent: VoidComponent<RenderComponentProps> = props => {
       ariaLabel='Dialog shown after clicking on button "Open"'
       closeButton
       closebuttonAriaLabel="Close"
+      alert={props.alert}
       actions={props.actions}
       open={props.open}
       onClose={props.onClose}
@@ -93,6 +96,50 @@ describe('MaterialDialog', () => {
 
       // Then the onClose callback is called
       await waitFor(() => expect(onClose).toHaveBeenCalledOnce());
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe violations in the open dialog with a named close button and actions', async () => {
+      const { baseElement, container } = render(
+        () => <RenderComponent open={true} actions={[<MaterialButton variant="text">Action</MaterialButton>]} />,
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      // Given the open dialog is visible
+      const dialog = screen.getByRole('dialog');
+      await expect.element(dialog).toBeVisible();
+
+      // and its close button exposes the accessible name from closebuttonAriaLabel
+      // (button-name is disabled in the global axe config, so the name is asserted structurally here)
+      const closeButton = screen.getByRole('button', { name: 'Close' });
+      await expect.element(closeButton).toBeVisible();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no axe violations in the open alert dialog', async () => {
+      const { baseElement, container } = render(() => <RenderComponent open={true} alert={true} />, {
+        wrapper: MaterialTheme
+      });
+      const screen = page.elementLocator(baseElement);
+
+      // Given the alert dialog is exposed with the alertdialog role
+      const dialog = screen.getByRole('alertdialog');
+      await expect.element(dialog).toBeVisible();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('does not expose a dialog role when closed', () => {
+      const { queryByRole } = render(() => <RenderComponent open={false} />, { wrapper: MaterialTheme });
+
+      // Then neither the dialog nor the alertdialog role is in the document
+      expect(queryByRole('dialog')).toBeNull();
+      expect(queryByRole('alertdialog')).toBeNull();
     });
   });
 });

@@ -2,6 +2,7 @@ import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 
 import { MaterialList } from './MaterialList';
@@ -109,6 +110,89 @@ describe('MaterialList', () => {
       // When pressing Home, then move focus to first item
       await userEvent.keyboard('{Home}');
       await expect.element(items.nth(0)).toHaveFocus();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('exposes a plain list with listitem roles and has no axe violations', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialList ariaLabel="Plain list">
+            <MaterialListItem>First</MaterialListItem>
+            <MaterialListItem>Second</MaterialListItem>
+            <MaterialListItem>Third</MaterialListItem>
+          </MaterialList>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      // Given the list is visible with its list role
+      const list = screen.getByRole('list', { name: 'Plain list' });
+      await expect.element(list).toBeVisible();
+      await expect.element(list).not.toHaveAttribute('aria-multiselectable');
+
+      // and each item is a named listitem
+      await expect.element(screen.getByRole('listitem', { name: 'First' })).toBeInTheDocument();
+      await expect.element(screen.getByRole('listitem', { name: 'Second' })).toBeInTheDocument();
+      await expect.element(screen.getByRole('listitem', { name: 'Third' })).toBeInTheDocument();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('exposes a single-select listbox with option roles and has no axe violations', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialList selectable="single" ariaLabel="Single-select list">
+            <MaterialListItem>First</MaterialListItem>
+            <MaterialListItem selected={true}>Second</MaterialListItem>
+          </MaterialList>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      // Given the listbox is visible with its listbox role
+      const listbox = screen.getByRole('listbox', { name: 'Single-select list' });
+      await expect.element(listbox).toBeVisible();
+
+      // and it is not marked multiselectable
+      await expect.element(listbox).not.toHaveAttribute('aria-multiselectable');
+
+      // and each option is a named option, the selected one exposing its state
+      await expect.element(screen.getByRole('option', { name: 'First' })).toBeInTheDocument();
+      await expect.element(screen.getByRole('option', { name: 'Second' })).toHaveAttribute('aria-selected', 'true');
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('exposes a multi-select listbox with aria-multiselectable and has no axe violations', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialList selectable="multi" ariaLabel="Multi-select list">
+            <MaterialListItem selected={true}>First</MaterialListItem>
+            <MaterialListItem selected={true}>Second</MaterialListItem>
+          </MaterialList>
+        ),
+        { wrapper: MaterialTheme }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      // Given the listbox is visible with its listbox role
+      const listbox = screen.getByRole('listbox', { name: 'Multi-select list' });
+      await expect.element(listbox).toBeVisible();
+
+      // and marked multiselectable
+      await expect.element(listbox).toHaveAttribute('aria-multiselectable', 'true');
+
+      // and each option is a named option exposing its selected state
+      await expect.element(screen.getByRole('option', { name: 'First' })).toHaveAttribute('aria-selected', 'true');
+      await expect.element(screen.getByRole('option', { name: 'Second' })).toHaveAttribute('aria-selected', 'true');
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

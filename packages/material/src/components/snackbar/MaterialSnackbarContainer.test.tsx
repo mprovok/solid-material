@@ -3,6 +3,7 @@ import { createStore } from 'solid-js/store';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 
 import type { MaterialSnack } from './MaterialSnackbarContext';
@@ -32,7 +33,7 @@ const renderContainer = async ({ alignment, closeTitle, snack }: RenderContainer
   const [state, setState] = createStore<MaterialSnack[]>([]);
   setState(0, snack);
 
-  const { baseElement } = render(
+  const { baseElement, container } = render(
     () => (
       <MaterialSnackbarContext.Provider value={[state, setState]}>
         <div ref={storyRef} class={styles['story']}>
@@ -58,7 +59,7 @@ const renderContainer = async ({ alignment, closeTitle, snack }: RenderContainer
     { timeout: 3000 }
   );
 
-  return { screen, story: page.elementLocator(storyRef), state, setState };
+  return { container, screen, story: page.elementLocator(storyRef), state, setState };
 };
 
 const FIRST_SNACK: MaterialSnack = {
@@ -152,6 +153,45 @@ describe('MaterialSnackbarContainer', () => {
         },
         { timeout: 3000 }
       );
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('exposes the snack as a polite live region labelled by its text', async () => {
+      const { container, screen, story } = await renderContainer({ snack: { ...FIRST_SNACK } });
+
+      // Given the plain snack is visible as a status live region
+      const status = screen.getByRole('status');
+      await expect.element(status).toBeVisible();
+      await expect.element(status).toHaveAttribute('aria-live', 'polite');
+      await expect.element(status).toHaveAttribute('aria-atomic', 'true');
+
+      // and its aria-labelledby points at the snack's text span inside it
+      const labelledBy = status.element().getAttribute('aria-labelledby');
+      expect(labelledBy).toBeTruthy();
+      const text = story.getByText('First snack');
+      expect(text.element().id).toBe(labelledBy);
+      expect(status.element().contains(text.element())).toBe(true);
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('labels the action and close buttons of a snack', async () => {
+      const onAction = vi.fn();
+      const { container, story } = await renderContainer({
+        closeTitle: 'Close',
+        snack: { ...FIRST_SNACK, action: { label: 'Undo', onClick: onAction }, dismissable: true }
+      });
+
+      // Given the snack is visible with both its action button and close button exposed by name
+      const action = story.getByRole('button', { name: 'Undo' });
+      await expect.element(action).toBeVisible();
+      const close = story.getByRole('button', { name: 'Close' });
+      await expect.element(close).toBeVisible();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });

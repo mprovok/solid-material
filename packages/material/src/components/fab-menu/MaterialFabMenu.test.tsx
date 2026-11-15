@@ -2,6 +2,7 @@ import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
+import { axe } from '../../../vitest.axe';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 
 import { MaterialFabMenu } from './MaterialFabMenu';
@@ -174,6 +175,87 @@ describe('MaterialFabMenu', () => {
 
       // Then focus is moved back to the close button
       await expect.element(button).toHaveFocus();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe violations when the menu is closed', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialFabMenu
+            ariaLabel="Open menu"
+            closeButtonAriaLabel="Close menu"
+            icon={<EditIcon />}
+            items={getTwoItems()}
+          />
+        ),
+        {
+          wrapper: MaterialTheme
+        }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      // Given the FAB is visible and named for opening
+      const fab = screen.getByRole('button', { name: 'Open menu' });
+      await expect.element(fab).toBeVisible();
+
+      // and the menu is hidden
+      await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('exposes a labelled menu with menuitem buttons and switches the FAB aria state when open', async () => {
+      const { baseElement, container } = render(
+        () => (
+          <MaterialFabMenu
+            ariaLabel="Open menu"
+            closeButtonAriaLabel="Close menu"
+            icon={<EditIcon />}
+            items={[
+              {
+                label: 'First',
+                onClick: vi.fn()
+              },
+              {
+                label: 'Second',
+                ariaLabel: 'Second item',
+                onClick: vi.fn()
+              }
+            ]}
+          />
+        ),
+        {
+          wrapper: MaterialTheme
+        }
+      );
+      const screen = page.elementLocator(baseElement);
+
+      // Given the FAB is visible, named for opening, and not expanded
+      const fab = screen.getByRole('button', { name: 'Open menu' });
+      await expect.element(fab).toBeVisible();
+      await expect.element(fab).toHaveAttribute('aria-expanded', 'false');
+
+      // When clicking on the FAB
+      await userEvent.click(fab);
+
+      // Then the menu is visible
+      const menu = screen.getByRole('menu');
+      await expect.element(menu).toBeVisible();
+
+      // and the FAB is named for closing and marked expanded
+      await expect.element(screen.getByRole('button', { name: 'Close menu' })).toBeVisible();
+      await expect.element(screen.getByRole('button', { name: 'Close menu' })).toHaveAttribute('aria-expanded', 'true');
+
+      // and each item is wired as a menuitem with a named button
+      const menuItems = screen.getByRole('menuitem');
+      expect(menuItems.elements()).toHaveLength(2);
+      await expect.element(menuItems.nth(0).getByRole('button', { name: 'First' })).toBeVisible();
+      await expect.element(menuItems.nth(1).getByRole('button', { name: 'Second item' })).toBeVisible();
+
+      // Then the rendered tree has no axe violations
+      await expect(await axe(container)).toHaveNoViolations();
     });
   });
 });
