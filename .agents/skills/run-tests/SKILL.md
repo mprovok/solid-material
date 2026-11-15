@@ -1,6 +1,6 @@
 ---
 name: Run Tests
-description: Run this repo's browser tests - browser install and selection (test:chromium / test:webkit), the three vitest projects, scoped run commands, and VRT baseline regeneration
+description: Run this repo's browser tests - browser install and selection (test:chromium / test:webkit), the two vitest projects, scoped run commands, and VRT baseline regeneration
 ---
 
 # Running tests
@@ -33,8 +33,6 @@ pnpm install:webkit     # WebKit - only needed when running the WebKit instance
 - `visual` - screenshot tests matching `*.vrt.test.{ts,tsx}`; retries are
   disabled and a 5% pixel mismatch is allowed, both configured centrally in
   `vitest.config.ts` - never per test
-- `storybook` - runs the Storybook stories (spawns its own Storybook dev
-  server)
 
 ## Scoped runs
 
@@ -50,10 +48,8 @@ pnpm --filter @solidmaterial/material test:webkit src/components/button/Material
 pnpm --filter @solidmaterial/calculator test src/calculator/
 ```
 
-Scoped targets match `components` and `visual` but not stories — add
-`--project storybook` to include them (e.g.
-`test:chromium --project storybook src/components/button/`). For vitest flags
-the scripts don't cover, fall back to
+Scoped targets match `components` and `visual` but never stories (stories are
+not vitest tests). For vitest flags the scripts don't cover, fall back to
 `pnpm --filter @solidmaterial/material exec vitest run …`.
 
 Pick the smallest scope that covers the changed files: a single file first,

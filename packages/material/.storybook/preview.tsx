@@ -1,6 +1,5 @@
 import addonA11y from '@storybook/addon-a11y';
 import addonDocs from '@storybook/addon-docs';
-import addonVitest from '@storybook/addon-vitest';
 import { createJSXDecorator, definePreview } from 'storybook-solidjs-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
@@ -8,7 +7,7 @@ import { MaterialTheme } from '../src/styling/material-theme/MaterialTheme';
 
 // oxlint-disable-next-line import/no-default-export
 export default definePreview({
-  addons: [addonDocs(), addonVitest(), addonA11y()],
+  addons: [addonDocs(), addonA11y()],
   decorators: [
     createJSXDecorator(Story => (
       <MaterialTheme>

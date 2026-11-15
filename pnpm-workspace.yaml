@@ -25,7 +25,6 @@ catalogs:
     storybook: 10.6.3
     '@storybook/addon-a11y': 10.6.3
     '@storybook/addon-docs': 10.6.3
-    '@storybook/addon-vitest': 10.6.3
     storybook-solidjs-vite: 10.6.0
   tsdown:
     '@tsdown/css': 0.23.5
