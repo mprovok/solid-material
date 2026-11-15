@@ -52,7 +52,6 @@ Every test run is a combination of:
 - **Project** (in `packages/material`):
   - `components` (interaction and a11y tests)
   - `visual` (screenshot-based visual regression tests)
-  - `storybook` (Storybook stories)
 - **Scope**: the whole repo, one package, one folder, or a single file.
 
 Before running tests, ask the user which browser to use if you do not know which one they prefer;

@@ -97,7 +97,6 @@
     "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
-    "@storybook/addon-vitest": "catalog:storybook",
     "@tsdown/css": "catalog:tsdown",
     "@types/node": "24.13.2",
     "@vitest/browser-playwright": "catalog:vitest",

@@ -221,9 +221,6 @@ catalogs:
     '@storybook/addon-docs':
       specifier: 10.6.3
       version: 10.6.3
-    '@storybook/addon-vitest':
-      specifier: 10.6.3
-      version: 10.6.3
     storybook:
       specifier: 10.6.3
       version: 10.6.3
@@ -487,9 +484,6 @@ importers:
       '@storybook/addon-docs':
         specifier: catalog:storybook
         version: 10.6.3(@types/react@19.2.15)(storybook@10.6.3(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
-      '@storybook/addon-vitest':
-        specifier: catalog:storybook
-        version: 10.6.3(@vitest/browser-playwright@4.1.12)(@vitest/browser@4.1.12(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))(vitest@4.1.12))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@10.6.3(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(vitest@4.1.12)
       '@tsdown/css':
         specifier: catalog:tsdown
         version: 0.23.5(jiti@2.6.1)(postcss@8.5.32)(tsdown@0.23.5)
@@ -1587,21 +1581,6 @@ packages:
       storybook: ^10.6.3
     peerDependenciesMeta:
       '@types/react':
-        optional: true
-
-  '@storybook/addon-vitest@10.6.3':
-    resolution: {integrity: sha512-ANz0SHAi9OTtrZt+YmcQvP7tcUZrTSm8Gq/nI7p9ZRyHAUOTdGoCex2cPyLc3mEqZTCBnaYXR6ZhURlpGsh9dQ==}
-    peerDependencies:
-      '@vitest/browser': ^4.0.0 || ^5.0.0
-      '@vitest/browser-playwright': ^4.0.0 || ^5.0.0
-      storybook: ^10.6.3
-      vitest: ^4.0.0 || ^5.0.0
-    peerDependenciesMeta:
-      '@vitest/browser':
-        optional: true
-      '@vitest/browser-playwright':
-        optional: true
-      vitest:
         optional: true
 
   '@storybook/builder-vite@10.4.4':
@@ -3487,19 +3466,6 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react-dom'
 
-  '@storybook/addon-vitest@10.6.3(@vitest/browser-playwright@4.1.12)(@vitest/browser@4.1.12(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))(vitest@4.1.12))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@10.6.3(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(vitest@4.1.12)':
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@storybook/icons': 2.0.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      storybook: 10.6.3(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-    optionalDependencies:
-      '@vitest/browser': 4.1.12(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))(vitest@4.1.12)
-      '@vitest/browser-playwright': 4.1.12(playwright@1.64.1)(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))(vitest@4.1.12)
-      vitest: 4.1.12(@types/node@24.13.2)(@vitest/browser-playwright@4.1.12)(@vitest/coverage-istanbul@4.1.12)(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))
-    transitivePeerDependencies:
-      - react
-      - react-dom
-
   '@storybook/builder-vite@10.4.4(esbuild@0.28.1)(storybook@10.6.3(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))':
     dependencies:
       '@storybook/csf-plugin': 10.4.4(esbuild@0.28.1)(storybook@10.6.3(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))
@@ -4611,7 +4577,6 @@ time:
   '@solidjs/testing-library@0.8.10': '2024-09-25T13:24:08.486Z'
   '@storybook/addon-a11y@10.6.3': '2026-10-20T09:47:45.075Z'
   '@storybook/addon-docs@10.6.3': '2026-10-20T11:11:50.466Z'
-  '@storybook/addon-vitest@10.6.3': '2026-10-20T09:47:44.490Z'
   '@tsconfig/strictest@2.0.8': '2025-11-13T04:19:37.439Z'
   '@tsdown/css@0.23.5': '2026-11-03T16:16:57.494Z'
   '@types/node@24.13.2': '2026-06-10T22:15:29.361Z'

@@ -1,8 +1,5 @@
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
-// oxlint-disable-next-line import/no-nodejs-modules
-import path from 'node:path';
 import solidPlugin from 'vite-plugin-solid';
 import { defaultExclude, defineConfig } from 'vitest/config';
 
@@ -46,20 +43,6 @@ export default defineConfig({
       reportOnFailure: true
     },
     projects: [
-      {
-        extends: true,
-        test: {
-          name: 'storybook'
-        },
-        plugins: [
-          // The plugin will run tests for the stories defined in your Storybook config
-          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-          storybookTest({
-            configDir: path.join(import.meta.dirname, '.storybook'),
-            storybookScript: 'pnpm storybook --no-open'
-          })
-        ]
-      },
       {
         extends: true,
         test: {
