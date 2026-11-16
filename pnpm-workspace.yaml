@@ -22,10 +22,10 @@ allowBuilds:
 
 catalogs:
   storybook:
-    storybook: 10.6.3
-    '@storybook/addon-a11y': 10.6.3
-    '@storybook/addon-docs': 10.6.3
-    storybook-solidjs-vite: 10.7.2
+    storybook: 10.6.7
+    '@storybook/addon-a11y': 10.6.7
+    '@storybook/addon-docs': 10.6.7
+    storybook-solidjs-vite: 10.7.4
   tsdown:
     '@tsdown/css': 0.23.5
     tsdown: 0.23.5
@@ -38,27 +38,27 @@ catalogs:
     '@vitest/coverage-v8': 4.1.12
   vite:
     vite: 8.3.8
-    '@solidjs/vite-plugin': 3.0.0-next.41
+    '@solidjs/vite-plugin': 3.0.0
   solid:
-    solid-js: 2.0.0-rc.8
-    '@solidjs/web': 2.0.0-rc.8
-    '@solidjs/router': 2.0.0-next.23
-    '@solidjs/meta': 1.0.0-next.2
+    solid-js: 2.0.0
+    '@solidjs/web': 2.0.0
+    '@solidjs/router': 2.0.0
+    '@solidjs/meta': 2.0.0
   primitives:
-    '@solid-primitives/active-element': 3.0.0-next.2
-    '@solid-primitives/focus': 1.0.0-next.4
-    '@solid-primitives/interaction': 1.0.0-next.4
-    '@solid-primitives/intersection-observer': 3.0.0-next.3
-    '@solid-primitives/media': 4.0.0-next.2
-    '@solid-primitives/mutation-observer': 3.0.0-next.2
-    '@solid-primitives/pointer': 1.0.0-next.2
-    '@solid-primitives/refs': 3.0.0-next.2
-    '@solid-primitives/resize-observer': 4.0.0-next.3
-    '@solid-primitives/scheduled': 2.0.0-next.2
-    '@solid-primitives/storage': 5.0.0-next.4
-    '@solid-primitives/transition-group': 2.0.0-next.2
+    '@solid-primitives/active-element': 3.0.0
+    '@solid-primitives/focus': 1.0.0
+    '@solid-primitives/interaction': 1.0.0
+    '@solid-primitives/intersection-observer': 3.0.0
+    '@solid-primitives/media': 4.0.0
+    '@solid-primitives/mutation-observer': 3.0.0
+    '@solid-primitives/pointer': 1.0.0
+    '@solid-primitives/refs': 3.0.0
+    '@solid-primitives/resize-observer': 4.0.0
+    '@solid-primitives/scheduled': 2.0.0
+    '@solid-primitives/storage': 5.0.0
+    '@solid-primitives/transition-group': 2.0.0
   testing:
-    '@solidjs/testing-library': 1.0.0-beta.3
+    '@solidjs/testing-library': 1.0.0-rc.2
 
 versioning:
   changelog:
