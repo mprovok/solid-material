@@ -1,7 +1,7 @@
 import type { JSX } from '@solidjs/web';
 import type { FlowComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Show, createUniqueId, useContext } from 'solid-js';
 
 import { MaterialFocusRing } from '../focus-ring/MaterialFocusRing';
@@ -64,6 +64,8 @@ export const MaterialListItem: FlowComponent<MaterialListItemProps> = props => {
 
   const id = createUniqueId();
 
+  const Content = dynamic(() => ELEMENTS[getType()]);
+
   return (
     <sm-list-element
       data-selected={isSelectable && props.selected}
@@ -77,8 +79,7 @@ export const MaterialListItem: FlowComponent<MaterialListItemProps> = props => {
       aria-selected={isSelectable ? Boolean(props.selected).toString() : undefined}
       class={styles['item']}
     >
-      <Dynamic
-        component={ELEMENTS[getType()]}
+      <Content
         disabled={props.disabled}
         tabindex={isInteractive() ? 0 : -1}
         type={getType() === 'button' ? 'button' : undefined}
@@ -124,7 +125,7 @@ export const MaterialListItem: FlowComponent<MaterialListItemProps> = props => {
         <Show when={props.end}>
           <div slot="end">{props.end}</div>
         </Show>
-      </Dynamic>
+      </Content>
     </sm-list-element>
   );
 };

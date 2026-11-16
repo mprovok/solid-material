@@ -3,7 +3,7 @@ import '@material/web/tabs/secondary-tab.js';
 import type { JSX } from '@solidjs/web';
 import type { ParentComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Show, children } from 'solid-js';
 
 import { MaterialIcon } from '../icon/MaterialIcon';
@@ -68,5 +68,7 @@ const tabs: Record<MaterialTabVariant, ParentComponent<MaterialTabProps>> = {
 };
 
 export const MaterialTab: ParentComponent<MaterialTabProps> = props => {
-  return <Dynamic component={tabs[props.variant]} {...props} />;
+  const Tab = dynamic(() => tabs[props.variant]);
+
+  return <Tab {...props} />;
 };

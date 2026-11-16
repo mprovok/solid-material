@@ -1,7 +1,7 @@
 import type { JSX } from '@solidjs/web';
 import type { ParentComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Show, children } from 'solid-js';
 
 import type { TypographyRole, TypographySize } from '../typography/Typography';
@@ -81,6 +81,8 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
     }
   };
 
+  const ButtonOrAnchor = dynamic(() => (props.href === undefined ? 'button' : 'a'));
+
   return (
     <sm-button
       ref={ref}
@@ -93,8 +95,7 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
       onClick={(event: PointerEvent) => props.onClick?.(event)}
       onContextMenu={onContextMenu}
     >
-      <Dynamic
-        component={props.href === undefined ? 'button' : 'a'}
+      <ButtonOrAnchor
         ref={refButton}
         disabled={props.disabled}
         type={props.type ?? 'button'}
@@ -125,7 +126,7 @@ export const MaterialButton: ParentComponent<MaterialButtonProps> = props => {
         <Show when={props.variant === 'outlined'}>
           <div class={styles['outline']} />
         </Show>
-      </Dynamic>
+      </ButtonOrAnchor>
     </sm-button>
   );
 };

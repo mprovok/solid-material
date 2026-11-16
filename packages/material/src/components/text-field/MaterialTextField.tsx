@@ -6,7 +6,7 @@ import type { JSX } from '@solidjs/web';
 import type { ParentComponent } from 'solid-js';
 
 import { TextField } from '@material/web/textfield/internal/text-field';
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Show } from 'solid-js';
 
 import { MaterialIcon } from '../icon/MaterialIcon';
@@ -84,9 +84,10 @@ export const MaterialTextField: ParentComponent<MaterialTextFieldProps> = props 
     props.onInput?.(name, event);
   };
 
+  const Field = dynamic(() => textFields[props.variant]);
+
   return (
-    <Dynamic
-      component={textFields[props.variant]}
+    <Field
       type={props.type}
       label={props.label}
       placeholder={props.placeholder}
@@ -124,6 +125,6 @@ export const MaterialTextField: ParentComponent<MaterialTextFieldProps> = props 
       <Show when={props.icon}>
         <MaterialIcon slot={props.iconPosition === 'end' ? 'trailing-icon' : 'leading-icon'}>{props.icon}</MaterialIcon>
       </Show>
-    </Dynamic>
+    </Field>
   );
 };

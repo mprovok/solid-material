@@ -2,7 +2,7 @@ import '@material/web/progress/circular-progress.js';
 import '@material/web/progress/linear-progress.js';
 import type { ParentComponent, VoidComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Show, children, omit, onSettled } from 'solid-js';
 
 import styles from './MaterialProgress.module.css';
@@ -81,6 +81,8 @@ export const MaterialProgress: ParentComponent<MaterialProgressProps> = props =>
   const isCircular = () => props.variant === 'circular';
   const iconButton = children(() => isCircular() && props.children);
 
+  const Progress = dynamic(() => progress[props.variant]);
+
   return (
     <div
       class={[
@@ -90,7 +92,7 @@ export const MaterialProgress: ParentComponent<MaterialProgressProps> = props =>
         }
       ]}
     >
-      <Dynamic component={progress[props.variant]} {...otherProps} />
+      <Progress {...otherProps} />
       <Show when={isCircular()}>{iconButton()}</Show>
     </div>
   );
