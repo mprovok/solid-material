@@ -106,7 +106,7 @@ describe('MaterialButton', () => {
       // NOTE: structural assertions only, no axe scan: the component currently leaks
       // `aria-checked` onto the anchor when `toggle` is set, and `aria-checked` is not an
       // allowed attribute for the link role, so axe reports `aria-allowed-attr`. That is a
-      // component-level issue (`attr:aria-checked` should be gated to the switch case) that
+      // component-level issue (`aria-checked` should be gated to the switch case) that
       // is flagged for a separate fix; the link-mode axe scan lives in the `href`-only test above.
       const { baseElement } = render(() => (
         <MaterialButton variant="filled" href="/" toggle={false}>

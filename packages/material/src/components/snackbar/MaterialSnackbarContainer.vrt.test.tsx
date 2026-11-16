@@ -1,6 +1,5 @@
 import { render } from '@solidjs/testing-library';
-import { createStore } from 'solid-js/store';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
@@ -9,11 +8,18 @@ import type { MaterialSnackbarContainerAlignment } from './MaterialSnackbarConta
 import type { MaterialSnack } from './MaterialSnackbarContext';
 
 import { MaterialSnackbarContainer } from './MaterialSnackbarContainer';
-import { MaterialSnackbarContext } from './MaterialSnackbarContext';
+import { snackStore } from './MaterialSnackbarContext';
 
 import styles from './MaterialSnackbarContainer.stories.module.css';
 
 // Written by GLM 5.3 Flash
+
+afterEach(() => {
+  // Clear the module-level snack store so a leftover snack cannot leak into
+  // the screenshots of later tests
+  const [, setState] = snackStore;
+  setState(() => []);
+});
 
 const emptyFn = () => {
   // Empty
@@ -32,27 +38,25 @@ interface RenderSnackProps {
 
 // Mirrors the layout from MaterialSnackbarContainer.stories.tsx: the story box
 // positions the popover, and the container div declares the anchor names the
-// modal's position-anchor needs. The snack is enqueued directly in a
-// test-local store: the context's module-level default store would leak state
-// between tests, and showSnack's only logic is the same setState call
+// modal's position-anchor needs. The snack is enqueued directly in the
+// module-level snack store, which the afterEach hook resets so state cannot
+// leak between tests
 const renderComponent = async (props: RenderSnackProps) => {
   const renderedAt = performance.now();
 
   // oxlint-disable-next-line no-unassigned-vars
   let storyRef!: HTMLDivElement;
 
-  const [state, setState] = createStore<MaterialSnack[]>([]);
-  setState(0, props.snack);
+  const [, setSnacks] = snackStore;
+  setSnacks(() => [props.snack]);
 
   const { baseElement } = render(
     () => (
-      <MaterialSnackbarContext.Provider value={[state, setState]}>
-        <div ref={storyRef} class={styles['story']}>
-          <div class={styles['container']}>
-            <MaterialSnackbarContainer alignment={props.alignment} closeTitle="Close" />
-          </div>
+      <div ref={storyRef} class={styles['story']}>
+        <div class={styles['container']}>
+          <MaterialSnackbarContainer alignment={props.alignment} closeTitle="Close" />
         </div>
-      </MaterialSnackbarContext.Provider>
+      </div>
     ),
     { wrapper: MaterialTheme }
   );

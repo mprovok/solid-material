@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -15,9 +15,14 @@ import EditFillIcon from '@solidmaterial/icons/400/outlined/edit-fill.svg';
 import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
 const Wrapper: FlowComponent = props => {
+  const MemoryRouter = createRouter({
+    routes: [{ path: '/active', component: () => props.children }],
+    history: memoryHistory('/active')
+  });
+
   return (
     <MaterialTheme>
-      <Route path="/active" component={() => props.children} />
+      <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>
     </MaterialTheme>
   );
 };
@@ -25,10 +30,7 @@ const Wrapper: FlowComponent = props => {
 const renderComponent = async (props: Omit<MaterialNavigationItemProps, 'icon' | 'activeIcon'>) => {
   const { baseElement } = render(
     () => <MaterialNavigationItem {...props} icon={EditIcon} activeIcon={EditFillIcon} />,
-    {
-      wrapper: Wrapper,
-      location: '/active'
-    }
+    { wrapper: Wrapper }
   );
   await document.fonts.ready;
 
@@ -46,7 +48,9 @@ describe('MaterialNavigationItem', () => {
         const description = `renders an ${active ? 'active' : 'inactive'} item`;
 
         const label = active ? 'Active' : 'Inactive';
-        const href = active ? '/' : '/inactive';
+        // Router 2 gives the root path exact-only active behavior, so an
+        // active item must link to the current location itself
+        const href = active ? '/active' : '/inactive';
 
         // Basic configuration of item
         it(description, async () => {

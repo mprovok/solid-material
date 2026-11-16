@@ -1,4 +1,5 @@
-import type { JSX, VoidComponent } from 'solid-js';
+import type { JSX } from '@solidjs/web';
+import type { VoidComponent } from 'solid-js';
 
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
@@ -104,7 +105,9 @@ describe('MaterialList', () => {
         await expect
           .element(screen.getByRole('option', { name: 'Selected item' }))
           .toHaveAttribute('aria-selected', 'true');
-        await expect.element(screen.getByRole('option', { name: 'First item' })).not.toHaveAttribute('aria-selected');
+        await expect
+          .element(screen.getByRole('option', { name: 'First item' }))
+          .toHaveAttribute('aria-selected', 'false');
 
         // and multi-select lists allow multiple selections
         if (selectable === 'multi') {

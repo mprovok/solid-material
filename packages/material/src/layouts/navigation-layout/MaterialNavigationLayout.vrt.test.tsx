@@ -1,20 +1,15 @@
-import type { FlowComponent } from 'solid-js';
-import type { SetStoreFunction } from 'solid-js/store';
-
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
-import { createStore } from 'solid-js/store';
-import { Dynamic } from 'solid-js/web';
-import { describe, expect, it, vi } from 'vitest';
+import { dynamic } from '@solidjs/web';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
 import type { MaterialIconSvg } from '../../components/icon/MaterialIcon';
 import type { MaterialNavigationItemType } from '../../components/navigation-item/MaterialNavigationItem';
 import type { MaterialNavigationRailFab } from '../../components/navigation-rail/MaterialNavigationRailFabButton';
-import type { MaterialSnack } from '../../components/snackbar/MaterialSnackbarContext';
 
 import { MaterialFab } from '../../components/fab/MaterialFab';
-import { MaterialSnackbarContext } from '../../components/snackbar/MaterialSnackbarContext';
+import { showSnack, snackStore } from '../../components/snackbar/MaterialSnackbarContext';
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialPane } from '../pane/MaterialPane';
 
@@ -32,6 +27,13 @@ import VideocamFillIcon from '@solidmaterial/icons/400/outlined/videocam-fill.sv
 import VideocamIcon from '@solidmaterial/icons/400/outlined/videocam.svg';
 
 // Written by GLM 5.3 Flash
+
+afterEach(() => {
+  // Clear the module-level snack store so a leftover snack cannot leak into
+  // the screenshots of later tests
+  const [, setState] = snackStore;
+  setState(() => []);
+});
 
 // How long to wait after rendering or interacting until the rail width and
 // item gap springs and the snackbar enter transition have settled
@@ -71,17 +73,6 @@ const getItems = (): MaterialNavigationItemType[] => [
   }
 ];
 
-const Wrapper: FlowComponent = props => (
-  <MaterialTheme>
-    <Route path="*" component={() => props.children} />
-  </MaterialTheme>
-);
-
-interface SnackbarStore {
-  get: MaterialSnack[];
-  set: SetStoreFunction<MaterialSnack[]>;
-}
-
 interface BarFabFixture {
   icon: MaterialIconSvg;
   label: string;
@@ -95,9 +86,6 @@ interface RenderLayoutProps extends Omit<MaterialNavigationLayoutProps, 'items' 
   // inside the render accessor
   railFab?: MaterialNavigationRailFab;
   barFab?: BarFabFixture;
-  // Wraps the layout in a fresh snackbar context store so the module-level
-  // default store cannot leak state between tests
-  snackbarStore?: SnackbarStore;
 }
 
 // Prepares a freshly rendered layout for its screenshot: waits for the fonts,
@@ -156,7 +144,6 @@ const renderComponent = async ({
   menuButton = { title: 'Expand', titleSelected: 'Collapse' },
   railFab,
   barFab,
-  snackbarStore,
   ...props
 }: RenderLayoutProps) => {
   await page.viewport(viewport.width, viewport.height);
@@ -165,23 +152,26 @@ const renderComponent = async ({
 
   const { baseElement } = render(
     () => {
+      // dynamic() is hoisted out of the JSX and created once per render
+      const FabIcon = barFab !== undefined ? dynamic(() => barFab.icon) : undefined;
+
       const fab =
         railFab === undefined && barFab === undefined
           ? undefined
           : {
               ...(railFab !== undefined ? { rail: railFab } : {}),
               bar:
-                barFab !== undefined ? (
-                  <MaterialFab icon={<Dynamic component={barFab.icon} />} onClick={barFab.onClick}>
+                barFab !== undefined && FabIcon !== undefined ? (
+                  <MaterialFab icon={<FabIcon />} onClick={barFab.onClick}>
                     {barFab.label}
                   </MaterialFab>
                 ) : undefined
             };
 
-      // The layout must be rendered as a component so that it executes
-      // inside the snackbar context provider: a pre-constructed element
-      // would run the tree before the provider exists, and the snackbar
-      // container would read the module-level default store
+      // The layout must be rendered as a component so that it executes inside
+      // the router: a pre-constructed element would run the tree before the
+      // router context exists. The catch-all route renders the layout for any
+      // memory-history location
       const Layout = () => (
         <MaterialNavigationLayout {...props} items={getItems()} fab={fab} menuButton={menuButton}>
           <MaterialPane>
@@ -190,15 +180,14 @@ const renderComponent = async ({
         </MaterialNavigationLayout>
       );
 
-      return snackbarStore !== undefined ? (
-        <MaterialSnackbarContext.Provider value={[snackbarStore.get, snackbarStore.set]}>
-          <Layout />
-        </MaterialSnackbarContext.Provider>
-      ) : (
-        <Layout />
-      );
+      const MemoryRouter = createRouter({
+        routes: [{ path: '*', component: Layout }],
+        history: memoryHistory(location)
+      });
+
+      return <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>;
     },
-    { wrapper: Wrapper, location }
+    { wrapper: MaterialTheme }
   );
 
   return settleRender(baseElement, renderedAt, viewport);
@@ -396,22 +385,19 @@ describe('MaterialNavigationLayout', () => {
     });
 
     // The snackbar is a popover anchored above the fab; it is enqueued
-    // through a fresh context store so the module-level store cannot leak
-    // state between tests, and it is the last test in this file as an extra
-    // guard against store leaks
+    // through showSnack into the module-level snack store, which the
+    // afterEach hook resets so state cannot leak between tests. It remains
+    // the last test in this file as an extra guard against store leaks
     it('renders a snackbar above the fab', async () => {
-      const [get, set] = createStore<MaterialSnack[]>([]);
-
       const screen = await renderComponent({
         show: true,
         ariaLabel: 'Navigation layout',
         snackbarCloseTitle: 'Close',
         viewport: COMPACT_VIEWPORT,
-        snackbarStore: { get, set },
         barFab: {
           icon: ToastIcon,
           label: 'Show snackbar',
-          onClick: () => set(get.length, { text: 'Supporting text', dismissable: true, duration: 'indefinite' })
+          onClick: () => showSnack({ text: 'Supporting text', dismissable: true, duration: 'indefinite' })
         }
       });
 

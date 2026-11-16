@@ -324,7 +324,7 @@ describe('MaterialSearchBar', () => {
   describe('Accessibility', () => {
     it('has no axe violations when collapsed', async () => {
       const { baseElement, container } = render(() => <RenderComponent showTrailingButtons />, {
-        wrapper: MaterialTheme
+        wrapper: Wrapper
       });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');
@@ -349,7 +349,7 @@ describe('MaterialSearchBar', () => {
 
     it('has no axe violations when expanded', async () => {
       const { baseElement, container } = render(() => <RenderComponent showTrailingButtons initialFocus />, {
-        wrapper: MaterialTheme
+        wrapper: Wrapper
       });
       const screen = page.elementLocator(baseElement);
       const bar = screen.getByElement('sm-search-bar');

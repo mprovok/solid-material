@@ -1,4 +1,4 @@
-import type { VoidComponent } from 'solid-js';
+import type { FlowComponent, VoidComponent } from 'solid-js';
 
 import { render } from '@solidjs/testing-library';
 import { Match, Switch, createSignal } from 'solid-js';
@@ -10,11 +10,23 @@ import { MaterialIconButton } from '../icon-button/MaterialIconButton';
 
 import type { MaterialSearchBarProps } from './MaterialSearchBar';
 
+import { MaterialSearchOpenContext, MaterialSearchShouldExpandContext } from './MaterialSearch';
 import { MaterialSearchBar } from './MaterialSearchBar';
 
 import StarIcon from '@solidmaterial/icons/400/outlined/star.svg';
 
 // Written by GLM 5.3 Flash
+
+const Wrapper: FlowComponent = props => {
+  const [isOpen, setOpen] = createSignal(false);
+  return (
+    <MaterialTheme>
+      <MaterialSearchShouldExpandContext value={() => false}>
+        <MaterialSearchOpenContext value={[isOpen, setOpen]}>{props.children}</MaterialSearchOpenContext>
+      </MaterialSearchShouldExpandContext>
+    </MaterialTheme>
+  );
+};
 
 // How long to wait after rendering until the leading/trailing button fade-in
 // transitions and the focus debounce have settled
@@ -32,14 +44,12 @@ interface RenderComponentProps extends Pick<MaterialSearchBarProps, 'initialFocu
 // determines the rendered bar width. The caret is hidden because the expanded
 // bar has a focused input whose caret would otherwise flicker between runs.
 const RenderComponent: VoidComponent<RenderComponentProps> = props => {
-  const [searchInput, setSearchInput] = createSignal(props.initialText ?? '');
-
   return (
     <main style={{ width: '600px', padding: '1rem', 'caret-color': 'transparent' }}>
       <MaterialSearchBar
         placeholder="Placeholder"
-        input={searchInput}
-        setInput={setSearchInput}
+        input={props.initialText ?? ''}
+        shouldOpen={() => false}
         initialFocus={props.initialFocus}
         showClearButton={props.showClearButton}
         backButtonAriaLabel="Back"
@@ -94,7 +104,7 @@ const settleRender = async (baseElement: HTMLElement, renderedAt: number) => {
 const renderComponent = async (props: RenderComponentProps = {}) => {
   const renderedAt = performance.now();
 
-  const { baseElement } = render(() => <RenderComponent {...props} />, { wrapper: MaterialTheme });
+  const { baseElement } = render(() => <RenderComponent {...props} />, { wrapper: Wrapper });
 
   return settleRender(baseElement, renderedAt);
 };

@@ -1,6 +1,6 @@
 import type { FlowComponent, VoidComponent } from 'solid-js';
 
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import { describe, expect, it, vi } from 'vitest';
@@ -51,13 +51,25 @@ const getItems = (): MaterialNavigationItemType[] => [
   }
 ];
 
-const Wrapper: FlowComponent = props => {
-  return (
-    <MaterialTheme>
-      <Route path="*" component={() => props.children} />
-    </MaterialTheme>
-  );
-};
+// The `location` render option is ignored by @solidjs/testing-library, so each
+// render wraps its fixture in a fresh memory-history router instead. The
+// fixture must be rendered as a component so that it executes inside the
+// router: a pre-constructed element would run the tree before the router
+// context exists. The catch-all route renders the fixture for any location
+const makeWrapper =
+  (location: string): FlowComponent =>
+  props => {
+    const MemoryRouter = createRouter({
+      routes: [{ path: '*', component: () => props.children }],
+      history: memoryHistory(location)
+    });
+
+    return (
+      <MaterialTheme>
+        <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>
+      </MaterialTheme>
+    );
+  };
 
 // A rail whose visibility (and appearance) is controlled by a signal, so the
 // hide-while-hidden appearance behavior can be observed. Only show and the
@@ -83,16 +95,14 @@ const renderRail = async ({
   await page.viewport(1024, 768);
 
   const { baseElement } = render(() => <MaterialNavigationRail {...props} items={getItems()} />, {
-    wrapper: Wrapper,
-    location
+    wrapper: makeWrapper(location)
   });
 
   await document.fonts.ready;
 
   const screen = page.elementLocator(baseElement);
 
-  // The location option wraps the fixture in a lazy component: wait until the
-  // rail is mounted before the tests query it
+  // Wait until the rail is mounted before the tests query it
   await expect.element(screen.getByElement('sm-navigation-rail')).toBeInTheDocument();
 
   return screen;
@@ -189,8 +199,7 @@ describe('MaterialNavigationRail', () => {
       const [getVisible, setVisible] = createSignal(true);
 
       const { baseElement } = render(() => <HiddenRailFixture visible={getVisible()} />, {
-        wrapper: Wrapper,
-        location: '/'
+        wrapper: makeWrapper('/')
       });
       const screen = page.elementLocator(baseElement);
 
@@ -274,16 +283,14 @@ describe('MaterialNavigationRail', () => {
       await page.viewport(1024, 768);
 
       const { baseElement, container } = render(() => <MaterialNavigationRail {...props} items={getItems()} />, {
-        wrapper: Wrapper,
-        location: '/'
+        wrapper: makeWrapper('/')
       });
 
       await document.fonts.ready;
 
       const screen = page.elementLocator(baseElement);
 
-      // The location option wraps the fixture in a lazy component: wait until
-      // the rail is mounted before the tests query it
+      // Wait until the rail is mounted before the tests query it
       await expect.element(screen.getByElement('sm-navigation-rail')).toBeInTheDocument();
 
       return { screen, container };

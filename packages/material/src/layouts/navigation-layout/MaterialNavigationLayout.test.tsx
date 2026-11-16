@@ -1,6 +1,4 @@
-import type { FlowComponent } from 'solid-js';
-
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -48,12 +46,6 @@ const getItems = (): MaterialNavigationItemType[] => [
   }
 ];
 
-const Wrapper: FlowComponent = props => (
-  <MaterialTheme>
-    <Route path="*" component={() => props.children} />
-  </MaterialTheme>
-);
-
 // Renders the stories' fixture. The viewport is set explicitly before
 // rendering because it persists across tests within this file: the rail
 // layout picks its expanded state on first render
@@ -61,24 +53,36 @@ const renderComponent = async ({ location = '/' }: { location?: string } = {}) =
   await page.viewport(1024, 768);
 
   const { baseElement } = render(
-    () => (
-      <MaterialNavigationLayout
-        show={true}
-        items={getItems()}
-        menuButton={{ title: 'Expand', titleSelected: 'Collapse' }}
-      >
-        <MaterialPane />
-      </MaterialNavigationLayout>
-    ),
-    { wrapper: Wrapper, location }
+    () => {
+      // The layout must be rendered as a component so that it executes inside
+      // the router: a pre-constructed element would run the tree before the
+      // router context exists. The catch-all route renders the layout for any
+      // memory-history location
+      const Layout = () => (
+        <MaterialNavigationLayout
+          show={true}
+          items={getItems()}
+          menuButton={{ title: 'Expand', titleSelected: 'Collapse' }}
+        >
+          <MaterialPane />
+        </MaterialNavigationLayout>
+      );
+
+      const MemoryRouter = createRouter({
+        routes: [{ path: '*', component: Layout }],
+        history: memoryHistory(location)
+      });
+
+      return <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>;
+    },
+    { wrapper: MaterialTheme }
   );
 
   await document.fonts.ready;
 
   const screen = page.elementLocator(baseElement);
 
-  // The location option wraps the fixture in a lazy component: wait until the
-  // rail is mounted before the tests query it
+  // Wait until the rail is mounted before the tests query it
   await expect.element(screen.getByElement('sm-navigation-rail')).toBeInTheDocument();
 
   return screen;
