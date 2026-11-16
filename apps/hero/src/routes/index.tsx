@@ -11,7 +11,7 @@ import {
   MaterialNavigationRailLayoutMenuButton,
   MaterialPane
 } from '@solidmaterial/material/layouts';
-import { onMount } from 'solid-js';
+import { onSettled } from 'solid-js';
 
 import { ExampleConnectedButtonGroup } from '../components/examples/ExampleConnectedButtonGroup';
 import { ExampleList } from '../components/examples/ExampleList';
@@ -28,7 +28,7 @@ const PageHome: Component = () => {
     // Empty
   };
 
-  onMount(() => {
+  onSettled(() => {
     showSnack({
       text: 'Snackbar',
       dismissable: true,

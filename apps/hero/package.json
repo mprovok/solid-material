@@ -20,6 +20,7 @@
   "dependencies": {
     "@fontsource/google-sans-flex": "5.2.3",
     "@solidjs/router": "catalog:solid",
+    "@solidjs/web": "catalog:solid",
     "@solidmaterial/icons": "workspace:*",
     "@solidmaterial/material": "workspace:*",
     "solid-js": "catalog:solid"
