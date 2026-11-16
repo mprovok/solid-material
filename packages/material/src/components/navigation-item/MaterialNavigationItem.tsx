@@ -1,6 +1,6 @@
 import type { VoidComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 
 import type { MaterialIconSvg } from '../icon/MaterialIcon';
 
@@ -44,6 +44,9 @@ export const MaterialNavigationItem: VoidComponent<MaterialNavigationItemProps> 
 
   const ariaLabel = () => props.ariaLabel ?? props.label;
 
+  const ActiveIcon = dynamic(() => props.activeIcon);
+  const InactiveIcon = dynamic(() => props.icon);
+
   return (
     <a
       ref={refAnchor}
@@ -65,8 +68,8 @@ export const MaterialNavigationItem: VoidComponent<MaterialNavigationItemProps> 
         <div class={styles['icon']}>
           <MaterialBadge value={props.badge?.value} ariaLabel={props.badge?.ariaLabel}>
             <MaterialIcon size="medium">
-              <Dynamic component={props.activeIcon} class={styles['active']} />
-              <Dynamic component={props.icon} class={styles['inactive']} />
+              <ActiveIcon class={styles['active']} />
+              <InactiveIcon class={styles['inactive']} />
             </MaterialIcon>
           </MaterialBadge>
         </div>

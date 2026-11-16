@@ -1,7 +1,7 @@
 import type { FlowComponent } from 'solid-js';
 
 import { createWindowSize } from '@solid-primitives/resize-observer';
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { children, createMemo, omit, useContext } from 'solid-js';
 
 import { Breakpoints } from '../../utils/breakpoints';
@@ -44,14 +44,11 @@ export const MaterialBodyLayout: FlowComponent<MaterialBodyLayoutProps> = props 
   const windowSize = createWindowSize();
   const maximumWidth = () => windowSize.width - marginLeft() - marginRight() - railWidth();
 
+  const Layout = dynamic(() => LAYOUTS[props.variant]);
+
   return (
-    <Dynamic
-      component={LAYOUTS[props.variant]}
-      {...otherProps}
-      maximumWidth={maximumWidth()}
-      margin={[marginLeft(), marginRight()]}
-    >
+    <Layout {...otherProps} maximumWidth={maximumWidth()} margin={[marginLeft(), marginRight()]}>
       {visiblePanes()}
-    </Dynamic>
+    </Layout>
   );
 };

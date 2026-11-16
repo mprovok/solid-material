@@ -5,7 +5,7 @@ import type { VoidComponent } from 'solid-js';
 import { FilledSelect } from '@material/web/select/internal/filled-select';
 import { OutlinedSelect } from '@material/web/select/internal/outlined-select';
 import { createMediaQuery } from '@solid-primitives/media';
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { For } from 'solid-js';
 
 import { MaterialSelectOption } from './MaterialSelectOption';
@@ -55,9 +55,10 @@ export const MaterialSelect: VoidComponent<MaterialSelectProps> = props => {
     }
   };
 
+  const Select = dynamic(() => selects[props.variant]);
+
   return (
-    <Dynamic
-      component={selects[props.variant]}
+    <Select
       id={props.id}
       name={props.name}
       label={props.label}
@@ -79,6 +80,6 @@ export const MaterialSelect: VoidComponent<MaterialSelectProps> = props => {
           </MaterialSelectOption>
         )}
       </For>
-    </Dynamic>
+    </Select>
   );
 };

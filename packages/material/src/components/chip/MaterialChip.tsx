@@ -5,7 +5,7 @@ import '@material/web/chips/suggestion-chip.js';
 import type { JSX } from '@solidjs/web';
 import type { FlowComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Match, Show, Switch, createSignal } from 'solid-js';
 
 import { MaterialIcon } from '../icon/MaterialIcon';
@@ -206,5 +206,7 @@ const chips: Record<MaterialChipVariant, FlowComponent<MaterialChipProps>> = {
 };
 
 export const MaterialChip: FlowComponent<MaterialChipProps> = props => {
-  return <Dynamic component={chips[props.variant]} {...props} />;
+  const Chip = dynamic(() => chips[props.variant]);
+
+  return <Chip {...props} />;
 };
