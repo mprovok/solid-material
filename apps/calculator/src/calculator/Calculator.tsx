@@ -2,7 +2,7 @@ import type { JSX } from '@solidjs/web';
 import type { VoidComponent } from 'solid-js';
 
 import { createMediaQuery } from '@solid-primitives/media';
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { Span } from '@solidmaterial/material/components/typography';
 import { Match, Show, Switch, createEffect, createSignal, useContext } from 'solid-js';
 
@@ -150,6 +150,11 @@ export const Calculator: VoidComponent = () => {
 
   const isOrientationPortrait = createMediaQuery('(orientation: portrait)');
 
+  const ScientificButtons = dynamic(() =>
+    isOrientationPortrait() ? ScientificButtonsPortrait : ScientificButtonsLandscape
+  );
+  const MainButtons = dynamic(() => (isOrientationPortrait() ? MainButtonsPortrait : MainButtonsLandscape));
+
   return (
     <CalculatorExecuteActionContext value={processButton}>
       <div class={styles['container']}>
@@ -173,8 +178,7 @@ export const Calculator: VoidComponent = () => {
             aria-hidden={!isExpanded() ? 'true' : 'false'}
             inert={!isExpanded()}
           >
-            <Dynamic
-              component={isOrientationPortrait() ? ScientificButtonsPortrait : ScientificButtonsLandscape}
+            <ScientificButtons
               toggleInverted={isInverted()}
               toggleDegrees={isDegrees()}
               onClickInverted={() => {
@@ -189,12 +193,7 @@ export const Calculator: VoidComponent = () => {
             />
           </div>
           <div class={styles['main-buttons']}>
-            <Dynamic
-              component={isOrientationPortrait() ? MainButtonsPortrait : MainButtonsLandscape}
-              pressAC={pressAC}
-              pressBackspace={pressBackspace}
-              pressEquals={pressEquals}
-            />
+            <MainButtons pressAC={pressAC} pressBackspace={pressBackspace} pressEquals={pressEquals} />
           </div>
         </div>
       </div>

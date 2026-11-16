@@ -4,7 +4,7 @@ import type { VoidComponent } from 'solid-js';
 
 import { Title } from '@solidjs/meta';
 import { useNavigate } from '@solidjs/router';
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { MaterialAppBar, MaterialAppBarBackButton } from '@solidmaterial/material/components/app-bar';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialDialog } from '@solidmaterial/material/components/dialog';
@@ -72,6 +72,8 @@ const RouteSettings: RouteComponent<typeof Router.paths.settings> = () => {
   const onClickTheme = () => setOpenDialog(true);
   const onCloseTheme = () => setOpenDialog(false);
 
+  const ThemeIcon = dynamic(() => THEME_ICON[themeColorMode()]);
+
   return (
     <>
       <Title>Settings</Title>
@@ -113,7 +115,7 @@ const RouteSettings: RouteComponent<typeof Router.paths.settings> = () => {
               <MaterialListItem
                 start={
                   <MaterialIcon>
-                    <Dynamic component={THEME_ICON[themeColorMode()]} />
+                    <ThemeIcon />
                   </MaterialIcon>
                 }
                 supportingText={THEME_LABEL[themeColorMode()]}
