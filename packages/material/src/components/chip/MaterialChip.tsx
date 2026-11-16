@@ -92,7 +92,7 @@ const MaterialAssistChip: FlowComponent<MaterialAssistChipProps> = props => {
       elevated={props.elevated}
       href={props.href}
       target={props.target}
-      on:update-focus={(event: Event) => props.onUpdateFocus?.(event)}
+      onUpdateFocus={(event: Event) => props.onUpdateFocus?.(event)}
       onClick={(event: PointerEvent) => props.onClick?.(event)}
     >
       {props.children}
@@ -129,7 +129,7 @@ const MaterialFilterChip: FlowComponent<MaterialFilterChipProps> = props => {
       has-selected-icon={hasSelectedIcon()}
       elevated={props.elevated}
       removable={props.onRemove !== undefined}
-      on:remove={(event: Event) => props.onRemove?.(event)}
+      onRemove={(event: Event) => props.onRemove?.(event)}
       onClick={onClick}
     >
       {props.children}
@@ -162,7 +162,7 @@ const MaterialInputChip: FlowComponent<MaterialInputChipProps> = props => {
       remove-only={props.removeOnly}
       href={props.href}
       target={props.target}
-      on:remove={(event: Event) => props.onRemove?.(event)}
+      onRemove={(event: Event) => props.onRemove?.(event)}
       onClick={(event: PointerEvent) => props.removeOnly !== true && props.onClick?.(event)}
     >
       {props.children}

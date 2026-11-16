@@ -74,7 +74,7 @@ export const MaterialListItem: FlowComponent<MaterialListItemProps> = props => {
       inert={props.disabled}
       aria-label={props.ariaLabel}
       aria-labelledby={props.ariaLabel === undefined && props.children !== undefined ? id : undefined}
-      aria-selected={isSelectable ? props.selected : undefined}
+      aria-selected={isSelectable ? Boolean(props.selected).toString() : undefined}
       class={styles['item']}
     >
       <Dynamic
