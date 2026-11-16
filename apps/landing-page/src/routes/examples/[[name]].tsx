@@ -2,7 +2,7 @@ import type { RouteComponent } from '@solidjs/router';
 import type { DragHandlePosition } from '@solidmaterial/material/layouts';
 
 import { Title } from '@solidjs/meta';
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { MaterialAppBar } from '@solidmaterial/material/components/app-bar';
 import {
   MaterialListDetailLayout,
@@ -67,7 +67,11 @@ const PageExamples: RouteComponent<typeof Router.paths.examples> = props => {
                 />
               }
             >
-              {example => <Dynamic component={example().component} data={example()} />}
+              {example => {
+                const Example = dynamic(() => example().component);
+
+                return <Example data={example()} />;
+              }}
             </Show>
           </Show>
         </MaterialPane>
