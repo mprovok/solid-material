@@ -1,18 +1,18 @@
 import type { VoidComponent } from 'solid-js';
 
 import { render } from '@solidjs/testing-library';
-import { For, useContext } from 'solid-js';
+import { For } from 'solid-js';
 import { afterEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
 import { MaterialTheme } from '../../styling/material-theme/MaterialTheme';
 import { MaterialButton } from '../button/MaterialButton';
 
-import { MaterialSnackbarContext, showSnack } from './MaterialSnackbarContext';
+import { showSnack, snackStore } from './MaterialSnackbarContext';
 
 // Written by GLM 5.3 Flash
 
-// This file targets the module-level default store: no Provider is used
+// This file targets the module-level snackStore
 
 const SnackTrigger: VoidComponent<{ label: string; text: string }> = props => (
   <MaterialButton
@@ -24,7 +24,7 @@ const SnackTrigger: VoidComponent<{ label: string; text: string }> = props => (
 );
 
 const SnackList: VoidComponent = () => {
-  const [snacks] = useContext(MaterialSnackbarContext);
+  const [snacks] = snackStore;
 
   return (
     <div>
@@ -34,13 +34,12 @@ const SnackList: VoidComponent = () => {
 };
 
 afterEach(() => {
-  // Clear the module-level default store so state does not leak between tests:
-  // the context's default value holds the module-level [get, set] tuple
-  const [, setState] = MaterialSnackbarContext.defaultValue;
+  // Clear the module-level snack store so state does not leak between tests
+  const [, setState] = snackStore;
   setState(() => []);
 });
 
-describe('MaterialSnackbarContext', () => {
+describe('snackStore', () => {
   describe('showSnack', () => {
     it('appends a snack to the default store when called', async () => {
       const { baseElement } = render(

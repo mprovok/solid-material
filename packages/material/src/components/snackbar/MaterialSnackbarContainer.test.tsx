@@ -1,5 +1,4 @@
 import { render } from '@solidjs/testing-library';
-import { createStore } from 'solid-js/store';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
@@ -10,16 +9,15 @@ import { MaterialButton } from '../button/MaterialButton';
 import type { MaterialSnack } from './MaterialSnackbarContext';
 
 import { MaterialSnackbarContainer } from './MaterialSnackbarContainer';
-import { MaterialSnackbarContext, showSnack } from './MaterialSnackbarContext';
+import { showSnack, snackStore } from './MaterialSnackbarContext';
 
 import styles from './MaterialSnackbarContainer.stories.module.css';
 
 // Written by GLM 5.3 Flash
 
 afterEach(() => {
-  // Clear the module-level default store so state does not leak between tests:
-  // the context's default value holds the module-level [get, set] tuple
-  const [, setState] = MaterialSnackbarContext.defaultValue;
+  // Clear the module-level snack store so state does not leak between tests
+  const [, setState] = snackStore;
   setState(() => []);
 });
 
@@ -31,25 +29,23 @@ interface RenderContainerOptions {
 
 // Mirrors the layout from MaterialSnackbarContainer.vrt.test.tsx: the story box
 // positions the popover, and the container div declares the anchor names the
-// modal's position-anchor needs. The snack is enqueued directly in a
-// test-local store: the context's module-level default store would leak state
-// between tests
+// modal's position-anchor needs. The snack is enqueued directly in the
+// module-level snack store, which the afterEach hook resets so state cannot
+// leak between tests
 const renderContainer = async ({ alignment, closeTitle, snack }: RenderContainerOptions) => {
   // oxlint-disable-next-line no-unassigned-vars
   let storyRef!: HTMLDivElement;
 
-  const [state, setState] = createStore<MaterialSnack[]>([]);
-  setState(0, snack);
+  const [, setSnacks] = snackStore;
+  setSnacks(() => [snack]);
 
   const { baseElement, container } = render(
     () => (
-      <MaterialSnackbarContext.Provider value={[state, setState]}>
-        <div ref={storyRef} class={styles['story']}>
-          <div class={styles['container']}>
-            <MaterialSnackbarContainer alignment={alignment} closeTitle={closeTitle} />
-          </div>
+      <div ref={storyRef} class={styles['story']}>
+        <div class={styles['container']}>
+          <MaterialSnackbarContainer alignment={alignment} closeTitle={closeTitle} />
         </div>
-      </MaterialSnackbarContext.Provider>
+      </div>
     ),
     { wrapper: MaterialTheme }
   );
@@ -67,7 +63,7 @@ const renderContainer = async ({ alignment, closeTitle, snack }: RenderContainer
     { timeout: 3000 }
   );
 
-  return { container, screen, story: page.elementLocator(storyRef), state, setState };
+  return { container, screen, story: page.elementLocator(storyRef), state: snackStore[0] };
 };
 
 const FIRST_SNACK: MaterialSnack = {
@@ -134,7 +130,7 @@ describe('MaterialSnackbarContainer', () => {
     });
 
     it('shows a new snack after the previous one exits', async () => {
-      const { screen, story, state, setState } = await renderContainer({
+      const { screen, story, state } = await renderContainer({
         closeTitle: 'Close',
         snack: { ...FIRST_SNACK, dismissable: true }
       });
@@ -150,7 +146,7 @@ describe('MaterialSnackbarContainer', () => {
       expect(state.length).toBe(0);
 
       // When a new snack is enqueued after the previous one exited
-      setState(0, { text: 'Second snack', dismissable: false, duration: 'indefinite' });
+      showSnack({ text: 'Second snack', dismissable: false, duration: 'indefinite' });
 
       // Then the new snack enters the screen with its own text
       const status = screen.getByRole('status');
@@ -169,9 +165,9 @@ describe('MaterialSnackbarContainer', () => {
       // oxlint-disable-next-line no-unassigned-vars
       let storyRef!: HTMLDivElement;
 
-      // This test deliberately uses the module-level default store (no Provider)
-      // to mirror the Example story's play function, which calls showSnack from a
-      // click handler outside any Provider
+      // This test uses the module-level snack store through showSnack to mirror
+      // the Example story's play function, which calls showSnack from a click
+      // handler
       const { baseElement } = render(
         () => (
           <div ref={storyRef} class={styles['story']}>

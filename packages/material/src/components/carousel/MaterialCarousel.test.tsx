@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { render } from '@solidjs/testing-library';
-import { For } from 'solid-js';
+import { For, flush } from 'solid-js';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
@@ -60,6 +60,13 @@ const renderCarousel = async (carousel?: Omit<MaterialCarouselProps, 'ariaLabel'
   );
 
   await document.fonts.ready;
+
+  // Park the real pointer on the body corner, away from the carousel: after
+  // userEvent.click in another test the stationary mouse rests over the
+  // fixture, and the boundary/pointer events Chromium re-synthesizes for it
+  // would arm or drive the component's pointer listeners alongside the
+  // synthetic events dispatched by the drag tests
+  await userEvent.hover(document.body, { position: { x: 0, y: 0 } });
 
   return { screen: page.elementLocator(baseElement), itemClickSpies };
 };
@@ -244,6 +251,10 @@ describe('MaterialCarousel', () => {
       carousel
         .element()
         .dispatchEvent(new PointerEvent('pointerenter', { pointerId: 1, pointerType: 'mouse', bubbles: true }));
+      // Solid 2 stages signal writes until the next reactive flush: the enter
+      // handler's pointerId write is only visible to the down handler's guard
+      // after a flush, so flush between the synthetic dispatches
+      flush();
       carousel.element().dispatchEvent(
         new PointerEvent('pointerdown', {
           pointerId: 1,
@@ -254,6 +265,12 @@ describe('MaterialCarousel', () => {
           cancelable: true
         })
       );
+
+      // The drag's move/up listeners are attached in render effects
+      // (createPerPointerListeners -> createEventListener), which run on the
+      // next reactive flush — flush so the moves reach attached listeners
+      flush();
+
       carousel.element().dispatchEvent(
         new PointerEvent('pointermove', {
           pointerId: 1,
@@ -289,6 +306,7 @@ describe('MaterialCarousel', () => {
           bubbles: true
         })
       );
+      flush();
 
       // Then the dragging marker is removed
       await expect.element(carousel).not.toHaveAttribute('data-dragging');
@@ -306,9 +324,14 @@ describe('MaterialCarousel', () => {
       carousel
         .element()
         .dispatchEvent(new PointerEvent('pointerenter', { pointerId: 1, pointerType: 'mouse', bubbles: true }));
+      // Solid 2 stages signal writes until the next reactive flush: flush so
+      // the enter's pointerId write settles before the leave clears it, and
+      // the leave's clear settles before the down handler reads it
+      flush();
       carousel
         .element()
         .dispatchEvent(new PointerEvent('pointerleave', { pointerId: 1, pointerType: 'mouse', bubbles: true }));
+      flush();
 
       // and a pointer down and move of the same pointer id follows
       carousel.element().dispatchEvent(

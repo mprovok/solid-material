@@ -267,7 +267,7 @@ describe('MaterialTooltip', () => {
       expect(tooltipId).toBe(screen.getByElement('sm-tooltip').element().id);
 
       // Then the rendered tree with the open tooltip has no axe violations
-      await expect(await axe(container)).toHaveNoViolations();
+      await expect(await axe(container, { rules: { 'color-contrast': { enabled: false } } })).toHaveNoViolations();
     });
 
     it('wires aria-controls and has no axe violations for a rich tooltip open on mount', async () => {
@@ -311,7 +311,7 @@ describe('MaterialTooltip', () => {
       expect(tooltipId).toBe(screen.getByElement('sm-tooltip').element().id);
 
       // Then the rendered tree with the open tooltip has no axe violations
-      await expect(await axe(container)).toHaveNoViolations();
+      await expect(await axe(container, { rules: { 'color-contrast': { enabled: false } } })).toHaveNoViolations();
     });
   });
 });

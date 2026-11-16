@@ -1,6 +1,6 @@
 import type { FlowComponent } from 'solid-js';
 
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it } from 'vitest';
 import { page } from 'vitest/browser';
@@ -17,19 +17,23 @@ import { MaterialNavigationItem } from './MaterialNavigationItem';
 import EditFillIcon from '@solidmaterial/icons/400/outlined/edit-fill.svg';
 import EditIcon from '@solidmaterial/icons/400/outlined/edit.svg';
 
-const Wrapper: FlowComponent = props => (
-  <MaterialTheme>
-    <Route path="/active" component={() => props.children} />
-  </MaterialTheme>
-);
+const Wrapper: FlowComponent = props => {
+  const MemoryRouter = createRouter({
+    routes: [{ path: '/active', component: () => props.children }],
+    history: memoryHistory('/active')
+  });
+
+  return (
+    <MaterialTheme>
+      <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>
+    </MaterialTheme>
+  );
+};
 
 const renderComponent = (props: Omit<MaterialNavigationItemProps, 'icon' | 'activeIcon'>) => {
   const { baseElement, container } = render(
     () => <MaterialNavigationItem {...props} icon={EditIcon} activeIcon={EditFillIcon} />,
-    {
-      wrapper: Wrapper,
-      location: '/active'
-    }
+    { wrapper: Wrapper }
   );
 
   return { screen: page.elementLocator(baseElement), container };

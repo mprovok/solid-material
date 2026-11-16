@@ -1,6 +1,6 @@
-import type { FlowComponent, VoidComponent } from 'solid-js';
+import type { VoidComponent } from 'solid-js';
 
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -78,14 +78,6 @@ const getFab = () => ({
 // spring transitions have settled
 const SETTLE_TRANSITIONS_MS = 800;
 
-const Wrapper: FlowComponent = props => {
-  return (
-    <MaterialTheme>
-      <Route path="*" component={() => props.children} />
-    </MaterialTheme>
-  );
-};
-
 const RailFixture: VoidComponent<Omit<MaterialNavigationRailProps, 'items'>> = props => (
   <MaterialNavigationRail {...props} items={getItems()} />
 );
@@ -118,7 +110,21 @@ const renderComponent = async ({
 }: Omit<MaterialNavigationRailProps, 'items'> & { location?: string }) => {
   const renderedAt = performance.now();
 
-  const { baseElement } = render(() => <RailFixture {...props} />, { wrapper: Wrapper, location });
+  const { baseElement } = render(
+    () => {
+      // The rail must be rendered as a component so that it executes inside the
+      // router: a pre-constructed element would run the tree before the router
+      // context exists. The catch-all route renders the rail for any
+      // memory-history location
+      const MemoryRouter = createRouter({
+        routes: [{ path: '*', component: () => <RailFixture {...props} /> }],
+        history: memoryHistory(location)
+      });
+
+      return <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>;
+    },
+    { wrapper: MaterialTheme }
+  );
 
   return settleRender(baseElement, renderedAt);
 };

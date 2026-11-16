@@ -55,7 +55,7 @@ describe('MaterialNavigationBar', () => {
             ]}
           />
         ),
-        { wrapper: Wrapper, location: '/' }
+        { wrapper: Wrapper }
       );
 
       const screen = page.elementLocator(baseElement);
@@ -129,7 +129,7 @@ describe('MaterialNavigationBar', () => {
             ]}
           />
         ),
-        { wrapper: Wrapper, location: '/' }
+        { wrapper: Wrapper }
       );
       const screen = page.elementLocator(baseElement);
 

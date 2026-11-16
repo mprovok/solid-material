@@ -1,7 +1,7 @@
 import type { VoidComponent } from 'solid-js';
 
 import { render } from '@solidjs/testing-library';
-import { createSignal, onMount } from 'solid-js';
+import { createSignal, onSettled } from 'solid-js';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
@@ -19,7 +19,7 @@ const RenderComponent: VoidComponent<Omit<MaterialBottomSheetProps, 'open'>> = p
 
   const onClose = () => setOpen(false);
 
-  onMount(() => {
+  onSettled(() => {
     // Wait for the visibility observer to deliver its initial state (two
     // frames), otherwise the component closes the sheet again right after
     // opening

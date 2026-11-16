@@ -1,6 +1,6 @@
-import type { FlowComponent, VoidComponent } from 'solid-js';
+import type { VoidComponent } from 'solid-js';
 
-import { Route } from '@solidjs/router';
+import { createRouter, memoryHistory } from '@solidjs/router';
 import { render } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
@@ -82,14 +82,6 @@ const getManyItems = (): MaterialNavigationItemType[] => [
   }
 ];
 
-const Wrapper: FlowComponent = props => {
-  return (
-    <MaterialTheme>
-      <Route path="*" component={() => props.children} />
-    </MaterialTheme>
-  );
-};
-
 interface LayoutFixtureProps extends Omit<MaterialNavigationLayoutProps, 'children'> {
   menuButtonAriaLabel?: string;
 }
@@ -112,14 +104,27 @@ const renderLayout = async ({
 }: LayoutFixtureProps & { location?: string; viewport?: { width: number; height: number } }) => {
   await page.viewport(viewport.width, viewport.height);
 
-  const { baseElement } = render(() => <LayoutFixture {...props} />, { wrapper: Wrapper, location });
+  const { baseElement } = render(
+    () => {
+      // The layout must be rendered as a component so that it executes inside
+      // the router: a pre-constructed element would run the tree before the
+      // router context exists. The catch-all route renders the layout for any
+      // memory-history location
+      const MemoryRouter = createRouter({
+        routes: [{ path: '*', component: () => <LayoutFixture {...props} /> }],
+        history: memoryHistory(location)
+      });
+
+      return <MemoryRouter>{routeProps => <>{routeProps.children}</>}</MemoryRouter>;
+    },
+    { wrapper: MaterialTheme }
+  );
 
   await document.fonts.ready;
 
   const screen = page.elementLocator(baseElement);
 
-  // The location option wraps the fixture in a lazy component: wait until the
-  // layout is mounted before the tests query it
+  // Wait until the layout is mounted before the tests query it
   await expect.element(screen.getByElement('sm-nav-rail-layout')).toBeInTheDocument();
 
   return screen;
