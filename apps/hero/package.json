@@ -25,8 +25,8 @@
     "solid-js": "catalog:solid"
   },
   "devDependencies": {
+    "@solidjs/vite-plugin": "catalog:vite",
     "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
-    "vite": "catalog:vite",
-    "vite-plugin-solid": "catalog:vite"
+    "vite": "catalog:vite"
   }
 }
