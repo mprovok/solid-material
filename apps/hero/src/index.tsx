@@ -2,14 +2,13 @@ import '@fontsource/google-sans-flex/latin-400.css';
 import '@fontsource/google-sans-flex/latin-500.css';
 import type { ParentComponent } from 'solid-js';
 
-import { Route, Router } from '@solidjs/router';
+import { render } from '@solidjs/web';
 import { MaterialTheme } from '@solidmaterial/material/styling';
-import { render } from 'solid-js/web';
 
 import './index.css';
 
 import { NavigationLayout } from './NavigationLayout';
-import RouteHome from './routes';
+import { Router } from './router';
 
 const RootLayout: ParentComponent = props => {
   return (
@@ -21,11 +20,4 @@ const RootLayout: ParentComponent = props => {
 
 const root = document.querySelector('#root');
 
-render(
-  () => (
-    <Router root={RootLayout}>
-      <Route path="/" component={RouteHome} />
-    </Router>
-  ),
-  root!
-);
+render(() => <Router>{props => <RootLayout {...props} />}</Router>, root!);
