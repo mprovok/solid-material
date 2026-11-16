@@ -1,7 +1,7 @@
 import type { MaterialIconSvg } from '@solidmaterial/material/components/icon';
 import type { VoidComponent } from 'solid-js';
 
-import { Dynamic } from '@solidjs/web';
+import { dynamic } from '@solidjs/web';
 import { MaterialIcon } from '@solidmaterial/material/components/icon';
 import { MaterialList, MaterialListItem } from '@solidmaterial/material/components/list';
 import { For } from 'solid-js';
@@ -25,21 +25,25 @@ export const List: VoidComponent<ListProps> = props => {
   return (
     <MaterialList segmented={true} selectable="single" ariaLabel={props.ariaLabel}>
       <For each={props.items}>
-        {item => (
-          <MaterialListItem
-            selected={props.name === item.name}
-            start={
-              <MaterialIcon>
-                <Dynamic component={item.icon} />
-              </MaterialIcon>
-            }
-            overlineText={item.overlineText}
-            supportingText={item.supportingText}
-            onClick={() => props.onClick(item.name)}
-          >
-            {item.label}
-          </MaterialListItem>
-        )}
+        {item => {
+          const Icon = dynamic(() => item.icon);
+
+          return (
+            <MaterialListItem
+              selected={props.name === item.name}
+              start={
+                <MaterialIcon>
+                  <Icon />
+                </MaterialIcon>
+              }
+              overlineText={item.overlineText}
+              supportingText={item.supportingText}
+              onClick={() => props.onClick(item.name)}
+            >
+              {item.label}
+            </MaterialListItem>
+          );
+        }}
       </For>
     </MaterialList>
   );
