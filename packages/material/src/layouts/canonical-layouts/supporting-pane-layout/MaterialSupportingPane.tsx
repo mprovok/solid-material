@@ -27,7 +27,7 @@ export const MaterialSupportingPane: FlowComponent<MaterialSupportingPaneProps> 
     <MaterialPane>
       <Switch>
         <Match when={isMobile()}>
-          <Show when={props.variant === 'modal'} fallback={<aside bool:data-open={isOpen()}>{props.children}</aside>}>
+          <Show when={props.variant === 'modal'} fallback={<aside data-open={isOpen()}>{props.children}</aside>}>
             <MaterialBottomSheet
               variant="modal"
               dragHandle={props.dragHandle}

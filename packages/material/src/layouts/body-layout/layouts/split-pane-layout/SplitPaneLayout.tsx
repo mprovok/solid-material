@@ -1,7 +1,7 @@
 import type { FlowComponent } from 'solid-js';
 
 import { createWindowSize } from '@solid-primitives/resize-observer';
-import { children, createEffect, createMemo, createSignal } from 'solid-js';
+import { children, createEffect, createMemo, createSignal, untrack } from 'solid-js';
 
 import type { TwoPaneLayoutProps } from '../../pane-layouts/pane-layout.types';
 
@@ -18,16 +18,16 @@ export const SplitPaneLayout: FlowComponent<TwoPaneLayoutProps> = props => {
   const snapWidths = () => [smallSnapWidth(), visuallyCentered()];
 
   // Do not make the initial width reactive to the width of the window
-  const initialWidth = visuallyCentered();
+  const initialWidth = untrack(() => visuallyCentered());
 
   const [width, setWidth] = createSignal(initialWidth);
 
   createEffect<number>(
     () => windowSize.width,
-    (windowSizeWidth, prevWindowWidth = windowSize.width) => {
+    (windowSizeWidth, prevWindowWidth = windowSizeWidth) => {
       if (windowSizeWidth !== prevWindowWidth) {
-        const oldPercentage = width() / (prevWindowWidth - SPACER_WIDTH);
-        setWidth(oldPercentage * (windowSize.width - SPACER_WIDTH));
+        const oldPercentage = untrack(() => width()) / (prevWindowWidth - SPACER_WIDTH);
+        setWidth(oldPercentage * (windowSizeWidth - SPACER_WIDTH));
       }
     }
   );

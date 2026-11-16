@@ -125,17 +125,20 @@ export const MaterialBottomSheet: FlowComponent<MaterialBottomSheetProps> = prop
   createEffect(
     () => isVisible(),
     visible => {
-    // Only close the sheet if it has been visible at least once, otherwise a
-    // sheet that is opened on mount would be closed immediately, because the
-    // visibility signal is false before the observer reports for the first time
-    const variant = untrack(() => props.variant);
-    if (visible) {
-      setHasBeenVisible(true);
-    } else if (hasBeenVisible()) {
-      if (variant === 'modal') {
-        ref.close();
-      } else {
-        ref.hidePopover();
+      const variant = untrack(() => props.variant);
+      const usedToBeVisible = untrack(() => hasBeenVisible());
+
+      // Only close the sheet if it has been visible at least once, otherwise a
+      // sheet that is opened on mount would be closed immediately, because the
+      // visibility signal is false before the observer reports for the first time
+      if (visible) {
+        setHasBeenVisible(true);
+      } else if (usedToBeVisible) {
+        if (variant === 'modal') {
+          ref.close();
+        } else {
+          ref.hidePopover();
+        }
       }
     }
   );

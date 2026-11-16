@@ -16,11 +16,8 @@ export const TwoFlexiblePanesLayout: FlowComponent<TwoFlexiblePanesLayoutProps> 
 
   return (
     <sm-body-layout
-      attr:data-rounded={props.rounded}
-      classList={{
-        [styles['layout']!]: true,
-        [props.class ?? '']: props.class !== undefined
-      }}
+      data-rounded={props.rounded}
+      class={[styles['layout'], props.class]}
       style={{
         'padding-inline-start': `${props.margin[0]}px`,
         'padding-inline-end': `${props.margin[1]}px`

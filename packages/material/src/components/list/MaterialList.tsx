@@ -20,8 +20,6 @@ export const MaterialList: ParentComponent<MaterialListProps> = props => {
   // oxlint-disable-next-line no-unassigned-vars
   let refList!: HTMLElement;
 
-  const isMultiselectable = () => (props.selectable === 'multi' ? true : undefined);
-
   const isEnabledItem = (target: EventTarget): target is HTMLButtonElement => {
     if (!(target instanceof HTMLElement)) {
       return false;
@@ -58,7 +56,7 @@ export const MaterialList: ParentComponent<MaterialListProps> = props => {
       class={styles['list']}
       role={props.selectable ? 'listbox' : 'list'}
       aria-label={props.ariaLabel}
-      aria-multiselectable={isMultiselectable()}
+      aria-multiselectable={props.selectable === 'multi' ? 'true' : undefined}
       data-segmented={props.segmented}
       onKeyDown={onKeyDown}
     >
