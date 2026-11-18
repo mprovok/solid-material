@@ -45,7 +45,6 @@ catalogs:
     '@solidjs/router': ^2.0.0
     '@solidjs/meta': ^2.0.0
   primitives:
-    '@solid-primitives/active-element': ^3.0.0
     '@solid-primitives/focus': ^1.0.0
     '@solid-primitives/interaction': ^1.0.0
     '@solid-primitives/intersection-observer': ^3.0.0
