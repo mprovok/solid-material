@@ -106,8 +106,12 @@ Writing test files: see the `write-tests` skill.
   excludes them), component CSS modules, package manifests, `packages/icons`
   SVGs, and `vite-plugin-solid-svg` source. A changed private app also needs
   intents. Tests, stories, docs, CI, and agent config do not.
-- Version numbers are exact (no `^`), managed via `catalog:` in `pnpm-workspace.yaml`.
-  Keep shared deps (solid, vite, vitest, storybook, tsdown) in the catalog rather than pinning per package.
+- Version numbers are managed via `catalog:` in `pnpm-workspace.yaml`.
+  Runtime dependencies of publishable packages use caret ranges (`^`) so
+  consumers get a compatible range; devDependencies and dev-only catalogs
+  (storybook, tsdown, vitest, vite, testing) are exact. Keep shared deps
+  (solid, vite, vitest, storybook, tsdown) in the catalog rather than
+  pinning per package.
   `strictPeerDependencies` is on; `minimumReleaseAge` blocks brand-new releases.
 - **Releases** are cut by a maintainer; agents don't initiate the flow — their job ends at
   recording intents (per **Committing** above). `pnpm version -r` consumes the

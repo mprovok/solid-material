@@ -77,9 +77,9 @@
     "storybook:preview": "vite preview --host --port 4000 --outDir storybook-static"
   },
   "dependencies": {
-    "@fontsource-variable/roboto-flex": "5.2.8",
-    "@material/material-color-utilities": "0.4.0",
-    "@material/web": "2.4.1",
+    "@fontsource-variable/roboto-flex": "^5.2.8",
+    "@material/material-color-utilities": "^0.4.0",
+    "@material/web": "^2.4.1",
     "@solid-primitives/active-element": "catalog:primitives",
     "@solid-primitives/focus": "catalog:primitives",
     "@solid-primitives/interaction": "catalog:primitives",
@@ -91,14 +91,13 @@
     "@solid-primitives/resize-observer": "catalog:primitives",
     "@solid-primitives/scheduled": "catalog:primitives",
     "@solid-primitives/transition-group": "catalog:primitives",
-    "@solidjs/router": "catalog:solid",
-    "@solidjs/web": "catalog:solid",
-    "@solidmaterial/icons": "workspace:*",
-    "solid-js": "catalog:solid"
+    "@solidmaterial/icons": "workspace:*"
   },
   "devDependencies": {
+    "@solidjs/router": "catalog:solid",
     "@solidjs/testing-library": "catalog:testing",
     "@solidjs/vite-plugin": "catalog:vite",
+    "@solidjs/web": "catalog:solid",
     "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
@@ -115,7 +114,9 @@
     "vitest": "catalog:vitest"
   },
   "peerDependencies": {
-    "@solidmaterial/vite-plugin-solid-svg": "workspace:*",
+    "@solidjs/router": "^2.0.0",
+    "@solidjs/web": "^2.0.0",
+    "@solidmaterial/vite-plugin-solid-svg": "workspace:^",
     "solid-js": "^2.0.0"
   }
 }
