@@ -1,6 +1,6 @@
 {
   "name": "@solidmaterial/hero",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Example app using Solid Material for hero section of README.md",
   "bugs": "https://github.com/mprovok/solid-material/issues",

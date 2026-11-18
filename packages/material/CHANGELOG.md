@@ -1,5 +1,42 @@
 # @solidmaterial/material
 
+## 1.4.0
+
+### Minor Changes
+
+- Add supporting-pane canonical layout
+
+### Patch Changes
+
+- Fix bottom sheet closing immediately after opening on Chromium
+
+- Remove the Storybook vitest testing integration
+
+- Stabilize bottom sheet visibility handling
+
+- Update vitest and solid-js because of CVE's
+
+- Update oxlint/oxfmt and solid-js because of CVE's in dependencies
+
+- Fix bottom sheet closing immediately when initially opened
+
+- Prevent selecting button labels on iOS
+
+- Bump playwright devDependency to 1.64.1 to unblock Node.js 26 installs
+
+- Add axe-core dev dependency for component accessibility tests
+
+- Decrease duration of forward/backward transition
+
+- Ignore long-press on carousel items
+
+- Update vite and storybook because of CVE's
+
+- Decrease scroll speed centered hero carousel
+
+- Updated dependencies:
+  - @solidmaterial/vite-plugin-solid-svg@1.0.2
+
 ## 1.3.0
 
 ### Minor Changes

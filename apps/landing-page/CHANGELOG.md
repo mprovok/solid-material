@@ -1,5 +1,26 @@
 # @solidmaterial/landing-page
 
+## 1.3.0
+
+### Minor Changes
+
+- Add action button to EmptyState component
+
+### Patch Changes
+
+- Update vitest and solid-js because of CVE's
+
+- Update oxlint/oxfmt and solid-js because of CVE's in dependencies
+
+- Fix font size of code and file blocks on Getting Started page on iOS
+
+- Bump playwright devDependency to 1.64.1 to unblock Node.js 26 installs
+
+- Update vite and storybook because of CVE's
+
+- Updated dependencies:
+  - @solidmaterial/material@1.4.0
+
 ## 1.2.0
 
 ### Minor Changes
