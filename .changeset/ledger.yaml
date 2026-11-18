@@ -43,6 +43,21 @@
   intents:
     - forty-kiwis-jump
     - frank-dancers-warn
+'@solidmaterial/calculator@1.3.2':
+  dir: apps/calculator
+  intents:
+    - fancy-memes-rule
+    - flat-parrots-dance
+    - fruity-experts-laugh
+    - old-teams-agree
+    - stale-roses-grow
+'@solidmaterial/hero@1.1.0':
+  dir: apps/hero
+  intents:
+    - flat-parrots-dance
+    - fruity-experts-laugh
+    - full-papayas-press
+    - stale-roses-grow
 '@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
@@ -85,6 +100,15 @@
     - ninety-rats-visit
     - seven-pans-speak
     - spotty-signs-stand
+'@solidmaterial/landing-page@1.3.0':
+  dir: apps/landing-page
+  intents:
+    - calm-pillows-mix
+    - flat-parrots-dance
+    - fruity-experts-laugh
+    - old-kings-watch
+    - old-teams-agree
+    - stale-roses-grow
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
@@ -133,6 +157,23 @@
     - three-breads-smell
     - tricky-keys-act
     - vast-pigs-sniff
+'@solidmaterial/material@1.4.0':
+  dir: packages/material
+  intents:
+    - brown-bags-hang
+    - brown-dogs-jump
+    - cute-kids-tap
+    - dirty-icons-flow
+    - flat-parrots-dance
+    - fruity-experts-laugh
+    - honest-rabbits-tickle
+    - major-days-marry
+    - old-teams-agree
+    - pretty-breads-clean
+    - quick-hairs-pump
+    - silly-flies-sort
+    - stale-roses-grow
+    - wacky-towns-eat
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:
@@ -141,3 +182,9 @@
   dir: packages/vite-plugin-solid-svg
   intents:
     - happy-geese-rush
+'@solidmaterial/vite-plugin-solid-svg@1.0.2':
+  dir: packages/vite-plugin-solid-svg
+  intents:
+    - flat-parrots-dance
+    - fruity-experts-laugh
+    - stale-roses-grow

@@ -1,5 +1,22 @@
 # @solidmaterial/calculator
 
+## 1.3.2
+
+### Patch Changes
+
+- Fix clipping of input/output text
+
+- Update vitest and solid-js because of CVE's
+
+- Update oxlint/oxfmt and solid-js because of CVE's in dependencies
+
+- Bump playwright devDependency to 1.64.1 to unblock Node.js 26 installs
+
+- Update vite and storybook because of CVE's
+
+- Updated dependencies:
+  - @solidmaterial/material@1.4.0
+
 ## 1.3.1
 
 ### Patch Changes
