@@ -40,23 +40,23 @@ catalogs:
     vite: 8.3.8
     '@solidjs/vite-plugin': 3.0.0
   solid:
-    solid-js: 2.0.0
-    '@solidjs/web': 2.0.0
-    '@solidjs/router': 2.0.0
-    '@solidjs/meta': 2.0.0
+    solid-js: ^2.0.0
+    '@solidjs/web': ^2.0.0
+    '@solidjs/router': ^2.0.0
+    '@solidjs/meta': ^2.0.0
   primitives:
-    '@solid-primitives/active-element': 3.0.0
-    '@solid-primitives/focus': 1.0.0
-    '@solid-primitives/interaction': 1.0.0
-    '@solid-primitives/intersection-observer': 3.0.0
-    '@solid-primitives/media': 4.0.0
-    '@solid-primitives/mutation-observer': 3.0.0
-    '@solid-primitives/pointer': 1.0.0
-    '@solid-primitives/refs': 3.0.0
-    '@solid-primitives/resize-observer': 4.0.0
-    '@solid-primitives/scheduled': 2.0.0
-    '@solid-primitives/storage': 5.0.0
-    '@solid-primitives/transition-group': 2.0.0
+    '@solid-primitives/active-element': ^3.0.0
+    '@solid-primitives/focus': ^1.0.0
+    '@solid-primitives/interaction': ^1.0.0
+    '@solid-primitives/intersection-observer': ^3.0.0
+    '@solid-primitives/media': ^4.0.0
+    '@solid-primitives/mutation-observer': ^3.0.0
+    '@solid-primitives/pointer': ^1.0.0
+    '@solid-primitives/refs': ^3.0.0
+    '@solid-primitives/resize-observer': ^4.0.0
+    '@solid-primitives/scheduled': ^2.0.0
+    '@solid-primitives/storage': ^5.0.0
+    '@solid-primitives/transition-group': ^2.0.0
   testing:
     '@solidjs/testing-library': 1.0.0-rc.2
 

@@ -206,53 +206,53 @@ settings:
 catalogs:
   primitives:
     '@solid-primitives/active-element':
-      specifier: 3.0.0
+      specifier: ^3.0.0
       version: 3.0.0
     '@solid-primitives/focus':
-      specifier: 1.0.0
+      specifier: ^1.0.0
       version: 1.0.0
     '@solid-primitives/interaction':
-      specifier: 1.0.0
+      specifier: ^1.0.0
       version: 1.0.0
     '@solid-primitives/intersection-observer':
-      specifier: 3.0.0
+      specifier: ^3.0.0
       version: 3.0.0
     '@solid-primitives/media':
-      specifier: 4.0.0
+      specifier: ^4.0.0
       version: 4.0.0
     '@solid-primitives/mutation-observer':
-      specifier: 3.0.0
+      specifier: ^3.0.0
       version: 3.0.0
     '@solid-primitives/pointer':
-      specifier: 1.0.0
+      specifier: ^1.0.0
       version: 1.0.0
     '@solid-primitives/refs':
-      specifier: 3.0.0
+      specifier: ^3.0.0
       version: 3.0.0
     '@solid-primitives/resize-observer':
-      specifier: 4.0.0
+      specifier: ^4.0.0
       version: 4.0.0
     '@solid-primitives/scheduled':
-      specifier: 2.0.0
+      specifier: ^2.0.0
       version: 2.0.0
     '@solid-primitives/storage':
-      specifier: 5.0.0
+      specifier: ^5.0.0
       version: 5.0.0
     '@solid-primitives/transition-group':
-      specifier: 2.0.0
+      specifier: ^2.0.0
       version: 2.0.0
   solid:
     '@solidjs/meta':
-      specifier: 2.0.0
+      specifier: ^2.0.0
       version: 2.0.0
     '@solidjs/router':
-      specifier: 2.0.0
+      specifier: ^2.0.0
       version: 2.0.0
     '@solidjs/web':
-      specifier: 2.0.0
+      specifier: ^2.0.0
       version: 2.0.0
     solid-js:
-      specifier: 2.0.0
+      specifier: ^2.0.0
       version: 2.0.0
   storybook:
     '@storybook/addon-a11y':
@@ -480,13 +480,13 @@ importers:
   packages/material:
     dependencies:
       '@fontsource-variable/roboto-flex':
-        specifier: 5.2.8
+        specifier: ^5.2.8
         version: 5.2.8
       '@material/material-color-utilities':
-        specifier: 0.4.0
+        specifier: ^0.4.0
         version: 0.4.0
       '@material/web':
-        specifier: 2.4.1
+        specifier: ^2.4.1
         version: 2.4.1
       '@solid-primitives/active-element':
         specifier: catalog:primitives
@@ -521,25 +521,25 @@ importers:
       '@solid-primitives/transition-group':
         specifier: catalog:primitives
         version: 2.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
-      '@solidjs/router':
-        specifier: catalog:solid
-        version: 2.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
-      '@solidjs/web':
-        specifier: catalog:solid
-        version: 2.0.0(solid-js@2.0.0)
       '@solidmaterial/icons':
         specifier: workspace:*
         version: link:../icons
       solid-js:
-        specifier: catalog:solid
+        specifier: ^2.0.0
         version: 2.0.0
     devDependencies:
+      '@solidjs/router':
+        specifier: catalog:solid
+        version: 2.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
       '@solidjs/testing-library':
         specifier: catalog:testing
         version: 1.0.0-rc.2(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
       '@solidjs/vite-plugin':
         specifier: catalog:vite
         version: 3.0.0(@babel/core@7.29.7(supports-color@7.2.0))(@solidjs/web@2.0.0(solid-js@2.0.0))(@testing-library/jest-dom@6.9.1)(solid-js@2.0.0)(vite@8.3.8(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.6.1))
+      '@solidjs/web':
+        specifier: catalog:solid
+        version: 2.0.0(solid-js@2.0.0)
       '@solidmaterial/vite-plugin-solid-svg':
         specifier: workspace:*
         version: link:../vite-plugin-solid-svg
