@@ -1,7 +1,6 @@
 import type { JSX } from '@solidjs/web';
 import type { VoidComponent } from 'solid-js';
 
-import { focus } from '@solid-primitives/active-element';
 import { interactOutside } from '@solid-primitives/interaction';
 import { Match, Show, Switch, createEffect, createSignal, onSettled, untrack, useContext } from 'solid-js';
 
@@ -122,13 +121,6 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
     }
   };
 
-  const onInputFocus = (focus: boolean) => {
-    // Expand if user moved focus to input field
-    if (focus) {
-      setIsExpanded(true);
-    }
-  };
-
   const onInput: JSX.InputEventHandler<HTMLInputElement, InputEvent> = event => {
     setInput(event.target.value);
   };
@@ -177,7 +169,7 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
       </Transition>
       <Span role="body" size="large" class={styles['input']}>
         <input
-          ref={[focus(onInputFocus), setRefInput]}
+          ref={setRefInput}
           role="searchbox"
           type="text"
           name="search"
@@ -186,6 +178,7 @@ export const MaterialSearchBar: VoidComponent<MaterialSearchBarProps> = props =>
           required
           value={input()}
           onInput={onInput}
+          onFocus={() => setIsExpanded(true)}
         />
       </Span>
       <Transition>

@@ -205,9 +205,6 @@ settings:
 
 catalogs:
   primitives:
-    '@solid-primitives/active-element':
-      specifier: ^3.0.0
-      version: 3.0.0
     '@solid-primitives/focus':
       specifier: ^1.0.0
       version: 1.0.0
@@ -488,9 +485,6 @@ importers:
       '@material/web':
         specifier: ^2.4.1
         version: 2.4.1
-      '@solid-primitives/active-element':
-        specifier: catalog:primitives
-        version: 3.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
       '@solid-primitives/focus':
         specifier: catalog:primitives
         version: 1.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
@@ -1543,12 +1537,6 @@ packages:
 
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
-
-  '@solid-primitives/active-element@3.0.0':
-    resolution: {integrity: sha512-Jg08GbYNgVQrQ6KWAsQj8GYeYImBtYzdsEBv8Q7srdUE9zGg9Xsh2ndPQLie0gEVzq74ysztHf6AGJqoWnTIlA==}
-    peerDependencies:
-      '@solidjs/web': ^2.0.0
-      solid-js: ^2.0.0
 
   '@solid-primitives/event-listener@3.0.0':
     resolution: {integrity: sha512-dRluvmXarq/aVYl01UPgljuyU8ROYO0aYKQNJRmmAO1KzS2nmwMVCRUqmx3uayKu88vFEKSTqqr5dxIxI7A+bA==}
@@ -3532,13 +3520,6 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@solid-primitives/active-element@3.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)':
-    dependencies:
-      '@solid-primitives/event-listener': 3.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
-      '@solid-primitives/utils': 7.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
-      '@solidjs/web': 2.0.0(solid-js@2.0.0)
-      solid-js: 2.0.0
-
   '@solid-primitives/event-listener@3.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)':
     dependencies:
       '@solid-primitives/utils': 7.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
@@ -4815,7 +4796,6 @@ time:
   '@fontsource/google-sans-flex@5.2.3': '2026-04-05T02:07:03.914Z'
   '@material/material-color-utilities@0.4.0': '2026-01-21T18:35:58.484Z'
   '@material/web@2.4.1': '2025-10-27T16:18:45.720Z'
-  '@solid-primitives/active-element@3.0.0': '2026-11-17T17:12:25.777Z'
   '@solid-primitives/focus@1.0.0': '2026-11-17T17:12:43.293Z'
   '@solid-primitives/interaction@1.0.0': '2026-11-17T17:13:40.592Z'
   '@solid-primitives/intersection-observer@3.0.0': '2026-11-17T17:13:09.198Z'

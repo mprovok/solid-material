@@ -80,7 +80,6 @@
     "@fontsource-variable/roboto-flex": "^5.2.8",
     "@material/material-color-utilities": "^0.4.0",
     "@material/web": "^2.4.1",
-    "@solid-primitives/active-element": "catalog:primitives",
     "@solid-primitives/focus": "catalog:primitives",
     "@solid-primitives/interaction": "catalog:primitives",
     "@solid-primitives/intersection-observer": "catalog:primitives",

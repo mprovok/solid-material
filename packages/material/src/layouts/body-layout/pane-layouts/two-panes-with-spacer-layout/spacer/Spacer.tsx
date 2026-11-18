@@ -1,6 +1,5 @@
 import type { VoidComponent } from 'solid-js';
 
-import { focus } from '@solid-primitives/active-element';
 import { createPerPointerListeners } from '@solid-primitives/pointer';
 import { createEffect, createSignal, untrack } from 'solid-js';
 
@@ -78,10 +77,13 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
     }
   );
 
-  const onFocus = (focus: boolean) => {
+  // The focusable element inside the spacer is the drag handle. When it
+  // loses focus, the drag handle is deactivated unless the pointer is
+  // still holding it (the pointer path manages its own activation).
+  const onFocusOutDragHandle = () => {
     const pointerActive = untrack(() => isPointerActive());
 
-    if (!focus && !pointerActive) {
+    if (!pointerActive) {
       setIsActive(false);
     }
   };
@@ -136,16 +138,14 @@ export const Spacer: VoidComponent<SpacerProps> = props => {
 
   return (
     <sm-spacer
-      ref={[
-        focus(onFocus),
-        (el: HTMLDivElement) => {
-          pointerRef = el;
-        }
-      ]}
+      ref={(el: HTMLDivElement) => {
+        pointerRef = el;
+      }}
       class={styles['spacer']}
       data-active={isActive()}
       data-orientation={props.orientation}
       onContextMenu={onContextMenu}
+      onFocusOut={onFocusOutDragHandle}
     >
       <DragHandle
         active={isActive()}
