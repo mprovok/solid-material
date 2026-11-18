@@ -76,7 +76,23 @@ Writing test files: see the `write-tests` skill.
   - Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
   - **Scope must be a directory name under `apps/` or `packages/`** (e.g. `material`, `icons`, `landing-page`, `vite-plugin-solid-svg`)
   - Description starts lowercase, no trailing period, blank line before body.
+  - The body should be brief and explain why the commit is necessary (if the why
+    isn't evident from the change or conversation, ask the user for the
+    motivation), otherwise skip the body.
   - For agent-authored commits, ask whether to add an `Assisted-by:` trailer (ask which name to credit, suggest the model you run as)
+- **Code comments**: the code SHOULD carry the meaning; comments are the exception.
+  - You MAY comment edge cases whose meaning is not clear from the naming or the
+    surrounding code and context — names SHOULD be expressive enough to carry the
+    meaning on their own. If logic is spread across files or functions and you
+    NEED a comment to tie it together, treat that as a sign to reshape the
+    change; a simpler structure MAY not need the comment at all.
+  - Keep comments brief and plainly worded: no jargon, no overexplaining. A
+    comment with a wall of edge cases and examples is a hint to rethink the code.
+  - You MUST NOT use comments to defend the new code against what it replaced.
+  - Don't strip existing comments in passing; removing them is a deliberate,
+    separate change.
+  - Exempt: tests narrate with Given/When/Then per the `write-tests` skill, and
+    oxlint-disable comments must stay justified.
 
 ## Dependency & release rules
 
@@ -93,10 +109,13 @@ Writing test files: see the `write-tests` skill.
 - Version numbers are exact (no `^`), managed via `catalog:` in `pnpm-workspace.yaml`.
   Keep shared deps (solid, vite, vitest, storybook, tsdown) in the catalog rather than pinning per package.
   `strictPeerDependencies` is on; `minimumReleaseAge` blocks brand-new releases.
-- **Releases**: intents are recorded in `.changeset/` via the `changeset-intent` skill
-  (in OpenCode: the `changeset` subagent; `/commit` chains it), including the targeted `pnpm format` fix it requires.
-  Publishing happens in `publish.yml` on `vX.Y.Z` tags from `main` via `pnpm stage publish -r`;
-  `ledger.yaml` records which intents shipped in which version. Private apps get version bumps through the same flow.
+- **Releases** are cut by a maintainer; agents don't initiate the flow — their job ends at
+  recording intents (per **Committing** above). `pnpm version -r` consumes the
+  `.changeset/*.md` intent files and writes `ledger.yaml`, the `CHANGELOG.md`s, and
+  package versions — never hand-edit those. Publishing happens in `publish.yml` on `vX.Y.Z`
+  tags from `main` via `pnpm stage publish -r`, which only stages packages on npm; a
+  release ships after a maintainer approves it in the npm UI. The ledger records which
+  intents shipped in which version; private apps get version bumps through the same flow.
 
 ## Other gotchas
 
