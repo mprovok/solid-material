@@ -21,9 +21,9 @@
 
 # Solid Material
 
-> Material 3 Expressive components built for SolidJS
+> Material 3 Expressive components built for Solid 2.0
 
-Solid Material is a component library implementing [Material 3 Expressive][url-m3] using [SolidJS][url-solid].
+Solid Material is a component library implementing [Material 3 Expressive][url-m3] using [Solid 2.0][url-solid].
 It provides components closely following the guidelines of Material 3 Expressive.
 
 <div align="center">
@@ -48,24 +48,24 @@ It provides components closely following the guidelines of Material 3 Expressive
 
 ## 🚀 Quick Start
 
-Add the components and icons to your SolidJS project:
+Add the components and icons to your Solid 2.0 project:
 
 ```bash
 pnpm add @solidmaterial/material @solidmaterial/icons
 ```
 
-Add the Vite plugin to be able to import SVG files as SolidJS components:
+Add the Vite plugin to be able to import SVG files as Solid components:
 
 ```bash
-pnpm add -D @solidmaterial/vite-plugin-solid-svg
+pnpm add -D @solidjs/vite-plugin @solidmaterial/vite-plugin-solid-svg
 ```
 
 vite.config.ts:
 
 ```ts
+import solidPlugin from '@solidjs/vite-plugin';
 import solidSvg from '@solidmaterial/vite-plugin-solid-svg';
 import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
 
 export default defineConfig({
   plugins: [solidPlugin(), solidSvg()]
@@ -75,11 +75,11 @@ export default defineConfig({
 src/index.tsx:
 
 ```tsx
+import { render } from '@solidjs/web';
 import { MaterialButton } from '@solidmaterial/material/components/button';
 import { MaterialCard, MaterialCardBody } from '@solidmaterial/material/components/card';
 import { H1 } from '@solidmaterial/material/components/typography';
 import { MaterialTheme } from '@solidmaterial/material/styling';
-import { render } from 'solid-js/web';
 
 import TotalDissolvedSolidsIcon from '@solidmaterial/icons/400/outlined/total_dissolved_solids.svg';
 
@@ -125,7 +125,7 @@ To view all the components you can use, visit the [Storybook][url-storybook] sit
 | --------------------------------------------------- | --------------------------------------------------------------------------------- |
 | [@solidmaterial/material][url-sm-material]          | Core and layout components for M3 Expressive, design tokens, and view transitions |
 | [@solidmaterial/icons][url-sm-icons]                | Icons from Material Symbols as SVG files                                          |
-| [@solidmaterial/vite-plugin-solid-svg][url-sm-vite] | Vite plugin to import SVG files as SolidJS components                             |
+| [@solidmaterial/vite-plugin-solid-svg][url-sm-vite] | Vite plugin to import SVG files as Solid components                               |
 
 ## 🛠️ Development
 
@@ -140,7 +140,7 @@ pnpm lint # Run oxlint on all packages
 pnpm format:check # Check formatting using oxfmt
 pnpm format # Format all files using oxfmt
 
-pnpm install:webkit # Install the WebKit browser needed to run the tests
+pnpm install:chromium # Install the Chromium browser needed to run the tests
 pnpm test # Run the tests of all packages
 ```
 
@@ -154,14 +154,14 @@ See the [README.md][url-sm-material] file for the exact list.
 
 The [Material Symbols][url-google-mdi] in [@solidmaterial/icons][url-sm-icons] were made by Google.
 
-Many of the SolidJS components make use of the primitives from [Solid Primitives][url-solid-primitives].
+Many of the Solid components make use of the primitives from [Solid Primitives][url-solid-primitives].
 Much thanks to their contributors.
 
 ## 🤖 AI?
 
-The components (TypeScript and CSS) in [@solidmaterial/material][url-sm-material] were handcrafted,
-but files which don't end up in its production build (like the calculator demo app) may
-or may not have been partially assisted by small LLMs.
+The components (TypeScript and CSS) in [@solidmaterial/material][url-sm-material] were handcrafted
+(minus a bugfix or two), but files which don't end up in its production build (like the calculator
+demo app and the components tests) have been assisted by small LLMs.
 
 ## 📜 License
 
