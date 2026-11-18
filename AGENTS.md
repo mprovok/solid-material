@@ -105,7 +105,10 @@ Writing test files: see the `write-tests` skill.
   `packages/material/src/**` except `*.test.*`/`*.stories.*` (the build config
   excludes them), component CSS modules, package manifests, `packages/icons`
   SVGs, and `vite-plugin-solid-svg` source. A changed private app also needs
-  intents. Tests, stories, docs, CI, and agent config do not.
+  intents. Tests, stories, docs, CI, and agent config do not. Commit the
+  recorded `.changeset/*.md` files together with the change they describe —
+  `pnpm version -r` consumes them from main, so an uncommitted intent can
+  never ship.
 - Version numbers are managed via `catalog:` in `pnpm-workspace.yaml`.
   Runtime dependencies of publishable packages use caret ranges (`^`) so
   consumers get a compatible range; devDependencies and dev-only catalogs
