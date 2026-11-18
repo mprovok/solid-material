@@ -63,3 +63,6 @@ changed.
 - Never run a bare `pnpm format` - it reformats everything in reach. Always
   target the specific new `.changeset/<file>.md`.
 - Never delete or modify an existing changeset file.
+- Intents are committed together with the change they describe (committing
+  rule in the root `AGENTS.md`). Recording them is this skill's job; the
+  caller's commit stages the new `.changeset/*.md` file(s).

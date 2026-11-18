@@ -17,9 +17,12 @@ what is committed and what the trigger check below evaluates)
    record release intents first with the changeset subagent, which follows
    the `changeset-intent` skill. Skip this step when the rule says no intent
    is needed or matching intents already exist in `.changeset/`. If the user
-   explicitly defers the changeset, commit without one and say so.
+   explicitly defers the changeset, commit without one and say so. The
+   recorded `.changeset/*.md` files are committed together with the change,
+   even when the target pathspec excludes them.
 2. **Trailer.** Ask whether to add the `Assisted-by:` trailer (see "Conventions" in `AGENTS.md`).
-3. **Commit.** Stage the target changes only if needed and write a conventional commit
+3. **Commit.** Stage the target changes plus any `.changeset/*.md` files created
+   in step 1, only staging if needed, and write a conventional commit
    message that passes `scripts/lint-git-commit-msg.mts` — feed the finished
    message to the script on stdin to verify it before committing. The rules
    are in `AGENTS.md` ("Conventions"). Never bypass hooks with `--no-verify`.
