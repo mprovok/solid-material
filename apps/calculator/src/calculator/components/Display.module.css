@@ -72,6 +72,7 @@
   flex-direction: row-reverse;
   text-align: end;
   text-wrap: nowrap;
+  margin-bottom: var(--md-user-spacing-lg);
 
   & > span {
     text-box-trim: trim-end;
