@@ -1,13 +1,12 @@
 import type { VoidComponent } from 'solid-js';
 
-import { MaterialCard } from '@solidmaterial/material/components/card';
+import { MaterialCard, MaterialCardBody } from '@solidmaterial/material/components/card';
 import { MaterialSelect } from '@solidmaterial/material/components/select';
-import { H2, H3, Span } from '@solidmaterial/material/components/typography';
+import { H2, Span } from '@solidmaterial/material/components/typography';
 import { ColorRoles, DEFAULT_MATERIAL_THEME_COLOR, isThemeVariant } from '@solidmaterial/material/styling';
 import { useContext } from 'solid-js';
 
 import { Info } from '../../../../components/info/Info';
-import { UnorderedList } from '../../../../components/unordered-list/UnorderedList';
 import { ColorContext, ThemeVariantContext } from '../../../../contexts';
 import { ColorButton } from '../../components/ColorButton';
 
@@ -29,21 +28,17 @@ export const SectionColorSchemes: VoidComponent = () => {
   };
 
   return (
-    <section>
-      <div>
-        <H2 role="display" size="small">
-          Color schemes
-        </H2>
-        <Span role="body" size="large">
-          <UnorderedList>
-            <li>
-              <H3 role="title" size="large">
-                Baseline and dynamic color schemes
-              </H3>
+    <MaterialCard variant="elevated" size="extra-large">
+      <MaterialCardBody>
+        <section>
+          <div>
+            <H2 role="display" size="small">
+              Color schemes
+            </H2>
+            <Span role="body" size="large">
               <p>
                 Use the <code>MaterialTheme</code> component for the baseline or a dynamic theme in which all colors are
-                generated from a single source color, which is either the optional <code>color</code> prop or else the{' '}
-                <code>content</code> attribute from the <code>&#60;meta name="theme-color"&#62;</code> element.
+                generated from a single source color.
               </p>
               <p>You can change the source color and theme variant used on this page right here:</p>
               <div class={styles['theme-controls']}>
@@ -75,20 +70,13 @@ export const SectionColorSchemes: VoidComponent = () => {
               <p>
                 <Info>You can reset the color in the settings toolbar in the top-right corner</Info>
               </p>
-            </li>
-            <li>
-              <H3 role="title" size="large">
-                Static palette color tokens for 11 colors
-              </H3>
-            </li>
-          </UnorderedList>
-        </Span>
-      </div>
-      <MaterialCard variant="filled" size="extra-large">
-        <div class={styles['color-roles']}>
-          <ColorRoles />
-        </div>
-      </MaterialCard>
-    </section>
+            </Span>
+          </div>
+          <div class={styles['color-roles']}>
+            <ColorRoles />
+          </div>
+        </section>
+      </MaterialCardBody>
+    </MaterialCard>
   );
 };

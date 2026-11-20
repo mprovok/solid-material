@@ -1,6 +1,0 @@
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--md-user-spacing-xl);
-  margin-top: var(--md-user-spacing-md);
-}
