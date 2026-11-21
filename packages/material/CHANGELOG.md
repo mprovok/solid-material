@@ -1,5 +1,26 @@
 # @solidmaterial/material
 
+## 2.0.0
+
+### Major Changes
+
+- Port to Solid 2
+
+### Patch Changes
+
+- Migrate deprecated Dynamic usages to the dynamic factory
+
+- Replace focus ref factory with onFocus/onFocusOut event props to stay compatible with Solid 2.0 ref cleanup rules
+
+- Relax dependency pins and fix peer dependency ranges for solid 2 and vite 8
+
+- Fix Solid 2 event and attribute handling in chip, list, layout, and bottom sheet components
+
+- Update solid, solid primitives, testing library, and storybook dependencies and switch hero to @solidjs/vite-plugin
+
+- Updated dependencies:
+  - @solidmaterial/vite-plugin-solid-svg@2.0.0
+
 ## 1.4.0
 
 ### Minor Changes

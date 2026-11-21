@@ -1,5 +1,24 @@
 # @solidmaterial/landing-page
 
+## 2.0.0
+
+### Major Changes
+
+- Port to Solid 2
+
+### Minor Changes
+
+- Replace content on landing page with a grid of features
+
+### Patch Changes
+
+- Update solid, solid primitives, testing library, and storybook dependencies and switch hero to @solidjs/vite-plugin
+
+- Migrate deprecated Dynamic usages to the dynamic factory
+
+- Updated dependencies:
+  - @solidmaterial/material@2.0.0
+
 ## 1.3.0
 
 ### Minor Changes

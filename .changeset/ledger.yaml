@@ -51,6 +51,12 @@
     - fruity-experts-laugh
     - old-teams-agree
     - stale-roses-grow
+'@solidmaterial/calculator@2.0.0':
+  dir: apps/calculator
+  intents:
+    - cyan-drinks-sink
+    - eleven-camels-beam
+    - tangy-plants-crash
 '@solidmaterial/hero@1.1.0':
   dir: apps/hero
   intents:
@@ -58,6 +64,12 @@
     - fruity-experts-laugh
     - full-papayas-press
     - stale-roses-grow
+'@solidmaterial/hero@2.0.0':
+  dir: apps/hero
+  intents:
+    - eleven-camels-beam
+    - tangy-plants-crash
+    - tasty-lilies-own
 '@solidmaterial/icons@1.0.0':
   dir: packages/icons
   intents:
@@ -109,6 +121,13 @@
     - old-kings-watch
     - old-teams-agree
     - stale-roses-grow
+'@solidmaterial/landing-page@2.0.0':
+  dir: apps/landing-page
+  intents:
+    - eleven-camels-beam
+    - ready-queens-know
+    - tangy-plants-crash
+    - violet-rules-throw
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
@@ -174,6 +193,15 @@
     - silly-flies-sort
     - stale-roses-grow
     - wacky-towns-eat
+'@solidmaterial/material@2.0.0':
+  dir: packages/material
+  intents:
+    - dry-beers-lose
+    - eleven-camels-beam
+    - loud-grapes-pick
+    - purple-lilies-sell
+    - sharp-bugs-rush
+    - tangy-plants-crash
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:
@@ -188,3 +216,9 @@
     - flat-parrots-dance
     - fruity-experts-laugh
     - stale-roses-grow
+'@solidmaterial/vite-plugin-solid-svg@2.0.0':
+  dir: packages/vite-plugin-solid-svg
+  intents:
+    - eleven-camels-beam
+    - purple-lilies-sell
+    - tangy-plants-crash

@@ -1,5 +1,20 @@
 # @solidmaterial/calculator
 
+## 2.0.0
+
+### Major Changes
+
+- Port to Solid 2
+
+### Patch Changes
+
+- Migrate deprecated Dynamic usages to the dynamic factory
+
+- Update solid, solid primitives, testing library, and storybook dependencies and switch hero to @solidjs/vite-plugin
+
+- Updated dependencies:
+  - @solidmaterial/material@2.0.0
+
 ## 1.3.2
 
 ### Patch Changes
