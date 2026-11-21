@@ -1,5 +1,17 @@
 # @solidmaterial/vite-plugin-solid-svg
 
+## 2.0.0
+
+### Major Changes
+
+- Port to Solid 2
+
+### Patch Changes
+
+- Relax dependency pins and fix peer dependency ranges for solid 2 and vite 8
+
+- Update solid, solid primitives, testing library, and storybook dependencies and switch hero to @solidjs/vite-plugin
+
 ## 1.0.2
 
 ### Patch Changes

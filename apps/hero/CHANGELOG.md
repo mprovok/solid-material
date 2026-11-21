@@ -1,5 +1,20 @@
 # @solidmaterial/hero
 
+## 2.0.0
+
+### Major Changes
+
+- Port to Solid 2
+
+### Patch Changes
+
+- Update solid, solid primitives, testing library, and storybook dependencies and switch hero to @solidjs/vite-plugin
+
+- Port hero app to Solid 2 (add @solidjs/web, createRouter entry, replace removed Solid 1 APIs)
+
+- Updated dependencies:
+  - @solidmaterial/material@2.0.0
+
 ## 1.1.0
 
 ### Minor Changes
