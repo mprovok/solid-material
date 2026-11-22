@@ -17,7 +17,7 @@ import styles from './about.module.css';
 
 const RouteAbout: RouteComponent<typeof Router.paths.about> = () => {
   const navigate = useNavigate();
-  const navigateBack = () => navigate('/settings', { state: { transition: 'backward' } });
+  const navigateBack = () => navigate('/calculator/settings', { state: { transition: 'backward' } });
 
   return (
     <>
