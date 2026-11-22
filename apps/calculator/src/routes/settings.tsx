@@ -60,8 +60,8 @@ const RadioButtonTheme: VoidComponent<RadioButtonThemeProps> = props => {
 
 const RouteSettings: RouteComponent<typeof Router.paths.settings> = () => {
   const navigate = useNavigate();
-  const navigateBack = () => navigate('/', { state: { transition: 'backward' } });
-  const navigateToAbout = () => navigate('/about', { state: { transition: 'forward' } });
+  const navigateBack = () => navigate('/calculator', { state: { transition: 'backward' } });
+  const navigateToAbout = () => navigate('/calculator/about', { state: { transition: 'forward' } });
 
   const [themeColorMode, setThemeColorMode] = useContext(ThemeColorModeContext);
   const [isBlackTheme, setBlackTheme] = useContext(ThemeBlackContext);

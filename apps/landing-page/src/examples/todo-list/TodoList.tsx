@@ -24,7 +24,7 @@ type Todo = { id: number; text: string; completed: boolean };
 
 export const TodoList: VoidComponent<ExampleProps> = props => {
   const navigate = useNavigate();
-  const navigateBackToList = () => navigate('..', { state: { transition: 'backward' } });
+  const navigateBackToList = () => navigate('/examples', { state: { transition: 'backward' } });
 
   const isMobile = () => Breakpoints.isCompactWidth() || Breakpoints.isCompactHeight();
 

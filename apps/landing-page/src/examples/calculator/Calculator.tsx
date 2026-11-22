@@ -19,7 +19,7 @@ import OpenInNewIcon from '@solidmaterial/icons/400/outlined/open_in_new.svg';
 
 export const Calculator: VoidComponent<ExampleProps> = props => {
   const navigate = useNavigate();
-  const navigateBackToList = () => navigate('..', { state: { transition: 'backward' } });
+  const navigateBackToList = () => navigate('/examples', { state: { transition: 'backward' } });
 
   const [isVibrate, setVibrate] = createSignal(true);
   const [isExpanded, setExpanded] = createSignal(false);
