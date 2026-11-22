@@ -8,8 +8,8 @@ declare module '@solidjs/web' {
       'sm-app-bar': HTMLDivAttributes<HTMLDivElement>;
       'sm-badge': HTMLDivAttributes<HTMLDivElement>;
       'sm-bottom-sheet': HTMLDivAttributes<HTMLDivElement>;
-      'sm-button': HTMLDivnAttributes<HTMLDivElement>;
-      'sm-button-group': HTMLDivnAttributes<HTMLDivElement>;
+      'sm-button': HTMLDivAttributes<HTMLDivElement>;
+      'sm-button-group': HTMLDivAttributes<HTMLDivElement>;
       'sm-card': HTMLDivAttributes<HTMLDivElement>;
       'sm-carousel': HTMLDivAttributes<HTMLDivElement>;
       'sm-carousel-item': HTMLDivAttributes<HTMLDivElement>;
