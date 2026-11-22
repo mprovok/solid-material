@@ -7,7 +7,7 @@
     "husky": "husky",
     "build": "turbo build",
     "build:storybook": "turbo storybook:build --filter=@solidmaterial/material",
-    "site:build": "pnpm run build && pnpm run build:storybook && pnpm run site:copy-storybook && pnpm run site:copy-calculator",
+    "site:build": "pnpm run build -F './apps/**' && pnpm run build:storybook && pnpm run site:copy-storybook && pnpm run site:copy-calculator",
     "site:copy-storybook": "cp -r packages/material/storybook-static apps/landing-page/dist/storybook",
     "site:copy-calculator": "cp -r apps/calculator/dist apps/landing-page/dist/calculator",
     "dev": "turbo dev --filter=@solidmaterial/landing-page --ui tui",
