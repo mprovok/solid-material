@@ -1,5 +1,14 @@
 # @solidmaterial/calculator
 
+## 2.0.1
+
+### Patch Changes
+
+- Fix navigation paths: calculator back navigation uses the /calculator base path and landing-page example back navigation goes to /examples
+
+- Updated dependencies:
+  - @solidmaterial/material@2.1.0
+
 ## 2.0.0
 
 ### Major Changes
