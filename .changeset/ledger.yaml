@@ -57,6 +57,10 @@
     - cyan-drinks-sink
     - eleven-camels-beam
     - tangy-plants-crash
+'@solidmaterial/calculator@2.0.1':
+  dir: apps/calculator
+  intents:
+    - nice-aliens-knock
 '@solidmaterial/hero@1.1.0':
   dir: apps/hero
   intents:
@@ -128,6 +132,10 @@
     - ready-queens-know
     - tangy-plants-crash
     - violet-rules-throw
+'@solidmaterial/landing-page@2.0.1':
+  dir: apps/landing-page
+  intents:
+    - nice-aliens-knock
 '@solidmaterial/material@1.0.0':
   dir: packages/material
   intents:
@@ -202,6 +210,12 @@
     - purple-lilies-sell
     - sharp-bugs-rush
     - tangy-plants-crash
+'@solidmaterial/material@2.1.0':
+  dir: packages/material
+  intents:
+    - cuddly-files-warn
+    - khaki-peaches-accept
+    - some-eels-shout
 '@solidmaterial/vite-plugin-solid-svg@1.0.0':
   dir: packages/vite-plugin-solid-svg
   intents:

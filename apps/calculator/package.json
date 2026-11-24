@@ -1,6 +1,6 @@
 {
   "name": "@solidmaterial/calculator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "description": "A calculator web app using Solid Material",
   "homepage": "https://solid-material.sites.deploybase.eu/calculator",

@@ -1,5 +1,17 @@
 # @solidmaterial/material
 
+## 2.1.0
+
+### Minor Changes
+
+- Publish Solid JSX source under the solid condition and compiled DOM JS under default so SSR, SSG, and non-Solid consumers work
+
+### Patch Changes
+
+- Fix a typo in the JSX intrinsic element declarations that made sm-button and sm-button-group reference the non-existent HTMLDivnAttributes type instead of HTMLDivAttributes
+
+- The list-detail layout detail pane now inherits the background color of its parent element so background color changes transition smoothly
+
 ## 2.0.0
 
 ### Major Changes
