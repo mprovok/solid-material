@@ -239,6 +239,9 @@ catalogs:
       specifier: ^2.0.0
       version: 2.0.0
   solid:
+    '@solidjs/compiler':
+      specifier: ^2.0.0
+      version: 2.0.0
     '@solidjs/meta':
       specifier: ^2.0.0
       version: 2.0.0
@@ -522,6 +525,9 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
     devDependencies:
+      '@solidjs/compiler':
+        specifier: catalog:solid
+        version: 2.0.0
       '@solidjs/router':
         specifier: catalog:solid
         version: 2.0.0(@solidjs/web@2.0.0(solid-js@2.0.0))(solid-js@2.0.0)
@@ -4807,6 +4813,7 @@ time:
   '@solid-primitives/scheduled@2.0.0': '2026-11-17T17:13:14.966Z'
   '@solid-primitives/storage@5.0.0': '2026-11-17T17:14:48.030Z'
   '@solid-primitives/transition-group@2.0.0': '2026-11-17T17:13:47.032Z'
+  '@solidjs/compiler@2.0.0': '2026-11-17T05:19:56.965Z'
   '@solidjs/meta@2.0.0': '2026-11-17T08:21:40.155Z'
   '@solidjs/router@2.0.0': '2026-11-17T07:10:35.186Z'
   '@solidjs/testing-library@1.0.0-rc.2': '2026-10-21T19:25:26.115Z'

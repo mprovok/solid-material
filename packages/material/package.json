@@ -48,20 +48,25 @@
     "exports": {
       "./components/*": {
         "types": "./dist/components/*/index.d.ts",
+        "solid": "./dist/components/*/index.jsx",
         "default": "./dist/components/*/index.js"
       },
       "./layouts": {
         "types": "./dist/layouts/index.d.ts",
+        "solid": "./dist/layouts/index.jsx",
         "default": "./dist/layouts/index.js"
       },
       "./styling": {
         "types": "./dist/styling/index.d.ts",
+        "solid": "./dist/styling/index.jsx",
         "default": "./dist/styling/index.js"
       },
       "./utils": {
         "types": "./dist/utils/index.d.ts",
+        "solid": "./dist/utils/index.jsx",
         "default": "./dist/utils/index.js"
-      }
+      },
+      "./package.json": "./package.json"
     }
   },
   "scripts": {
@@ -93,6 +98,7 @@
     "@solidmaterial/icons": "workspace:*"
   },
   "devDependencies": {
+    "@solidjs/compiler": "catalog:solid",
     "@solidjs/router": "catalog:solid",
     "@solidjs/testing-library": "catalog:testing",
     "@solidjs/vite-plugin": "catalog:vite",

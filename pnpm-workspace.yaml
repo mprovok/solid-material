@@ -44,6 +44,7 @@ catalogs:
     '@solidjs/web': ^2.0.0
     '@solidjs/router': ^2.0.0
     '@solidjs/meta': ^2.0.0
+    '@solidjs/compiler': ^2.0.0
   primitives:
     '@solid-primitives/focus': ^1.0.0
     '@solid-primitives/interaction': ^1.0.0
